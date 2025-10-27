@@ -17,10 +17,20 @@ export default function InsuranceSection() {
           {providers?.map((provider, index) => (
             <div
               key={provider.id}
-              className="aspect-square rounded-xl border border-border bg-card p-6 flex items-center justify-center hover-elevate transition-transform duration-200 hover:scale-[1.02]"
+              className="aspect-square rounded-xl border border-border bg-card p-6 flex flex-col items-center justify-center hover-elevate transition-transform duration-200 hover:scale-[1.02]"
               data-testid={`insurance-${index}`}
             >
-              <p className="text-sm md:text-base font-medium text-center text-card-foreground">
+              <img 
+                src={provider.logo} 
+                alt={provider.name}
+                className="max-w-full max-h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                  if (fallback) fallback.style.display = 'block';
+                }}
+              />
+              <p className="text-sm md:text-base font-medium text-center text-card-foreground hidden">
                 {provider.name}
               </p>
             </div>

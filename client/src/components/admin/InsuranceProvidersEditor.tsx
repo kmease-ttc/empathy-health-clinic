@@ -25,6 +25,7 @@ export default function InsuranceProvidersEditor() {
     resolver: zodResolver(insertInsuranceProviderSchema),
     defaultValues: {
       name: "",
+      logo: "",
       order: providers?.length ? providers.length + 1 : 1,
     },
   });
@@ -126,6 +127,20 @@ export default function InsuranceProvidersEditor() {
                       <FormLabel>Provider Name</FormLabel>
                       <FormControl>
                         <Input {...field} data-testid="input-provider-name" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="logo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Logo Path</FormLabel>
+                      <FormControl>
+                        <Input {...field} placeholder="/attached_assets/insurance/logo.png" data-testid="input-provider-logo" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

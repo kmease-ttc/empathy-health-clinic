@@ -92,6 +92,7 @@ export type Testimonial = typeof testimonials.$inferSelect;
 export const insuranceProviders = pgTable("insurance_providers", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
+  logo: text("logo").notNull(),
   order: integer("order").notNull(),
 });
 

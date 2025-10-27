@@ -191,14 +191,14 @@ export class MemStorage implements IStorage {
 
     // Initialize default insurance providers
     const defaultInsurance: InsertInsuranceProvider[] = [
-      { name: "Blue Cross Blue Shield", order: 1 },
-      { name: "Aetna", order: 2 },
-      { name: "Optum", order: 3 },
-      { name: "Cigna", order: 4 },
-      { name: "AdventHealth", order: 5 },
-      { name: "UMR", order: 6 },
-      { name: "UnitedHealthcare", order: 7 },
-      { name: "More Providers", order: 8 },
+      { name: "Blue Cross Blue Shield", logo: "/attached_assets/insurance/bcbs-logo.png", order: 1 },
+      { name: "Aetna", logo: "/attached_assets/insurance/aetna-logo.png", order: 2 },
+      { name: "Optum", logo: "/attached_assets/insurance/optum-logo.png", order: 3 },
+      { name: "Cigna", logo: "/attached_assets/insurance/cigna-logo.png", order: 4 },
+      { name: "AdventHealth", logo: "/attached_assets/insurance/adventhealth-logo.png", order: 5 },
+      { name: "UMR", logo: "/attached_assets/insurance/umr-logo.png", order: 6 },
+      { name: "UnitedHealthcare", logo: "/attached_assets/insurance/uhc-logo.png", order: 7 },
+      { name: "More Providers", logo: "/attached_assets/insurance/more-logo.png", order: 8 },
     ];
 
     defaultInsurance.forEach((provider) => {
