@@ -8,7 +8,7 @@ export default function SiteHeader() {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Services", href: "#services" },
+    { label: "Services", href: "/services" },
     { label: "Our Team", href: "/team" },
     { label: "Insurance", href: "/insurance" },
     { label: "Contact", href: "#contact" }
