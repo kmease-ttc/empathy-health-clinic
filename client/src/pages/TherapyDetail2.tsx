@@ -6,6 +6,7 @@ import type { Therapy } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { LeadCaptureForm } from "@/components/LeadCaptureForm";
+import forestBg from "@assets/stock_images/peaceful_green_fores_98e1a8d8.jpg";
 
 export default function TherapyDetail() {
   const [, params] = useRoute("/:slug");
@@ -54,20 +55,26 @@ export default function TherapyDetail() {
     <div className="min-h-screen flex flex-col bg-background">
       <SiteHeader />
       <main className="flex-1">
-        <div className="bg-primary text-primary-foreground py-16 px-4">
-          <div className="container mx-auto max-w-4xl">
+        <div className="relative py-16 px-4">
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${forestBg})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+          </div>
+          <div className="container mx-auto max-w-4xl relative z-10">
             <Link 
               href="/therapy" 
-              className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground mb-6 transition-colors" 
+              className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors" 
               data-testid="link-back-to-therapies"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to All Therapies
             </Link>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4" data-testid="text-hero-title">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4 text-white" data-testid="text-hero-title">
               {therapy.heroTitle}
             </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/90 leading-relaxed" data-testid="text-hero-description">
+            <p className="text-lg md:text-xl text-white/90 leading-relaxed" data-testid="text-hero-description">
               {therapy.heroDescription}
             </p>
           </div>
