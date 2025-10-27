@@ -71,7 +71,14 @@ export default function HeroSection() {
               </div>
               <span className="text-sm font-medium">{reviewRating}</span>
             </div>
-            <SiGoogle className="w-6 h-6 text-white" />
+            <div className="flex items-center gap-1 bg-white px-3 py-1.5 rounded">
+              <span className="text-xl font-bold" style={{ color: '#4285F4' }}>G</span>
+              <span className="text-xl font-bold" style={{ color: '#EA4335' }}>o</span>
+              <span className="text-xl font-bold" style={{ color: '#FBBC05' }}>o</span>
+              <span className="text-xl font-bold" style={{ color: '#4285F4' }}>g</span>
+              <span className="text-xl font-bold" style={{ color: '#34A853' }}>l</span>
+              <span className="text-xl font-bold" style={{ color: '#EA4335' }}>e</span>
+            </div>
           </div>
         </div>
       </div>
