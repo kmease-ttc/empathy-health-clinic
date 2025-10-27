@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Phone, Star } from "lucide-react";
+import { SiGoogle } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
 import heroImageFallback from "@assets/generated_images/Calming_clinic_waiting_room_1ebe2eda.png";
@@ -61,14 +62,16 @@ export default function HeroSection() {
             </Button>
           </div>
           
-          <div className="flex items-center gap-2 text-white/95">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-              ))}
+          <div className="flex items-center gap-3 text-white/95">
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-full">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-sm font-medium">{reviewRating}</span>
             </div>
-            <span className="text-base font-medium">{reviewRating}</span>
-            <span className="text-base">· Based on {reviewCount} reviews</span>
+            <SiGoogle className="w-6 h-6 text-white" />
           </div>
         </div>
       </div>
