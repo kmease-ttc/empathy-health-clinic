@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import ProviderCoverage from "./ProviderCoverage";
 import TreatmentDetail from "./TreatmentDetail";
 import TherapyDetail2 from "./TherapyDetail2";
+import ConditionDetail from "./ConditionDetail";
 import NotFound from "./not-found";
 
 export default function PageBySlug() {
@@ -43,7 +44,18 @@ export default function PageBySlug() {
     retry: false,
   });
 
-  if (loadingInsurance || loadingTreatment || loadingTherapy) {
+  const { data: condition, isLoading: loadingCondition } = useQuery({
+    queryKey: ["/api/conditions/slug", slug],
+    queryFn: async () => {
+      const response = await fetch(`/api/conditions/slug/${slug}`);
+      if (!response.ok) return null;
+      return response.json();
+    },
+    enabled: !!slug && !insuranceProvider && !treatment && !therapy,
+    retry: false,
+  });
+
+  if (loadingInsurance || loadingTreatment || loadingTherapy || loadingCondition) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -61,6 +73,10 @@ export default function PageBySlug() {
 
   if (therapy) {
     return <TherapyDetail2 />;
+  }
+
+  if (condition) {
+    return <ConditionDetail />;
   }
 
   return <NotFound />;

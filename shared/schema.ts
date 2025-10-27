@@ -144,7 +144,17 @@ export type Therapy = typeof therapies.$inferSelect;
 // Conditions we treat
 export const conditions = pgTable("conditions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
   description: text("description").notNull(),
+  slug: text("slug").notNull(),
+  pageTitle: text("page_title").notNull(),
+  heroTitle: text("hero_title").notNull(),
+  heroDescription: text("hero_description").notNull(),
+  fullDescription: text("full_description").notNull(),
+  symptoms: text("symptoms").notNull(),
+  relatedTreatments: text("related_treatments").notNull().default('[]'),
+  relatedTherapies: text("related_therapies").notNull().default('[]'),
+  faqs: text("faqs").notNull().default('[]'),
   order: integer("order").notNull(),
 });
 

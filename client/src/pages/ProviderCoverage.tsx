@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link } from "wouter";
 import { Loader2, ArrowLeft, Phone, Mail, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { InsuranceProvider } from "@shared/schema";
+import type { InsuranceProvider, Condition } from "@shared/schema";
 import forestBg from "@assets/stock_images/peaceful_green_fores_98e1a8d8.jpg";
 
 export default function ProviderCoverage() {
@@ -19,6 +19,10 @@ export default function ProviderCoverage() {
       return response.json();
     },
     enabled: !!slug,
+  });
+
+  const { data: conditions } = useQuery<Condition[]>({
+    queryKey: ["/api/conditions"],
   });
 
   if (isLoading) {
@@ -113,30 +117,17 @@ export default function ProviderCoverage() {
                 What We Treat
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Depression & Mood Disorders</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Anxiety Disorders</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">ADHD & Focus Issues</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Bipolar Disorder</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">PTSD & Trauma</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Personality Disorders</span>
-                </div>
+                {conditions?.map((condition) => (
+                  <Link
+                    key={condition.id}
+                    href={`/${condition.slug}`}
+                    className="flex items-start gap-2 hover-elevate active-elevate-2 rounded-md p-2 -ml-2 transition-all"
+                    data-testid={`link-condition-${condition.slug}`}
+                  >
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-foreground">{condition.title}</span>
+                  </Link>
+                ))}
               </div>
             </section>
 

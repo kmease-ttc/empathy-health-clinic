@@ -71,6 +71,7 @@ export interface IStorage {
   // Condition methods
   getAllConditions(): Promise<Condition[]>;
   getCondition(id: string): Promise<Condition | undefined>;
+  getConditionBySlug(slug: string): Promise<Condition | undefined>;
   createCondition(condition: InsertCondition): Promise<Condition>;
   updateCondition(id: string, condition: Partial<InsertCondition>): Promise<Condition>;
   deleteCondition(id: string): Promise<void>;
@@ -547,20 +548,94 @@ export class MemStorage implements IStorage {
     // Initialize default conditions
     const defaultConditions: InsertCondition[] = [
       {
+        title: "Anxiety Disorders",
         description: "Anxiety disorders, such as generalized anxiety disorder (GAD), social anxiety disorder (SAD) or phobias",
+        slug: "anxiety-disorders",
+        pageTitle: "Anxiety Disorder Treatment in Winter Park, FL | Empathy Health",
+        heroTitle: "Expert Anxiety Disorder Treatment",
+        heroDescription: "Comprehensive anxiety treatment in Winter Park, FL. Our experienced team provides evidence-based therapy and medication management for all types of anxiety disorders including GAD, social anxiety, panic disorder, and phobias.",
+        fullDescription: "Anxiety disorders are among the most common mental health conditions, affecting millions of people. At Empathy Health Clinic, we understand that anxiety can be debilitating, interfering with work, relationships, and daily life. Our comprehensive approach combines evidence-based therapies with medication management when needed to help you regain control and reduce anxiety symptoms. We treat generalized anxiety disorder (GAD), social anxiety disorder, panic disorder, specific phobias, and other anxiety-related conditions.",
+        symptoms: "Common anxiety symptoms include excessive worrying, restlessness, difficulty concentrating, muscle tension, sleep problems, racing thoughts, panic attacks, avoidance of situations, physical symptoms like rapid heartbeat or sweating, and persistent fear or dread.",
+        relatedTreatments: JSON.stringify([]),
+        relatedTherapies: JSON.stringify(["cognitive-behavioral-therapy", "dialectical-behavior-therapy"]),
+        faqs: JSON.stringify([
+          { question: "Is anxiety treatable?", answer: "Yes, anxiety disorders are highly treatable. Most people see significant improvement with therapy, medication, or a combination of both. CBT is particularly effective for anxiety." },
+          { question: "Do I need medication for anxiety?", answer: "Not everyone needs medication. Many people benefit from therapy alone. Your psychiatrist will help determine if medication could be helpful based on your symptoms and preferences." },
+          { question: "How long does treatment take?", answer: "Many people see improvement within a few months of starting treatment. The timeline varies based on severity and the type of anxiety disorder." }
+        ]),
         order: 1,
       },
       {
+        title: "Depression",
         description: "Depression and depressive disorders",
+        slug: "depression",
+        pageTitle: "Depression Treatment in Winter Park, FL | Empathy Health Clinic",
+        heroTitle: "Compassionate Depression Treatment",
+        heroDescription: "Professional depression treatment in Winter Park, FL. Our psychiatric team offers comprehensive care including therapy, medication management, and support for major depression, persistent depressive disorder, and other mood disorders.",
+        fullDescription: "Depression is more than just feeling sad—it's a serious medical condition that affects how you feel, think, and handle daily activities. At Empathy Health Clinic, we provide compassionate, evidence-based treatment for all forms of depression. Our psychiatrists and therapists work collaboratively to develop a personalized treatment plan that may include medication management, psychotherapy, or both. We understand that depression affects every aspect of your life, and we're here to support your journey to wellness.",
+        symptoms: "Depression symptoms include persistent sadness or empty mood, loss of interest in activities you once enjoyed, changes in appetite or weight, sleep problems (insomnia or oversleeping), fatigue, feelings of worthlessness or guilt, difficulty concentrating, and thoughts of death or suicide.",
+        relatedTreatments: JSON.stringify([]),
+        relatedTherapies: JSON.stringify(["cognitive-behavioral-therapy", "psychodynamic-therapy", "dialectical-behavior-therapy"]),
+        faqs: JSON.stringify([
+          { question: "How do I know if I have depression or just sadness?", answer: "Clinical depression persists for at least two weeks and significantly interferes with daily functioning. If you're unsure, a psychiatric evaluation can help determine if you're experiencing depression." },
+          { question: "Will I need to take antidepressants forever?", answer: "Not necessarily. Treatment duration varies by individual. Some people benefit from short-term medication, while others need longer-term treatment to prevent relapse. Your psychiatrist will work with you to find the right approach." },
+          { question: "Can therapy really help depression?", answer: "Absolutely. Psychotherapy, particularly CBT and psychodynamic therapy, has strong evidence for treating depression. Many people benefit from therapy alone or combined with medication." }
+        ]),
         order: 2,
       },
       {
-        description: "Personality disorders, such as antisocial personality disorder (ASPD) or borderline personality disorder (BPD)",
+        title: "Bipolar Disorder",
+        description: "Bipolar disorder with manic and depressive episodes",
+        slug: "bipolar-disorder",
+        pageTitle: "Bipolar Disorder Treatment in Winter Park, FL | Empathy Health",
+        heroTitle: "Specialized Bipolar Disorder Treatment",
+        heroDescription: "Expert bipolar disorder treatment in Winter Park, FL. Our psychiatric team provides comprehensive mood stabilization, therapy, and ongoing support for Bipolar I, Bipolar II, and cyclothymic disorder.",
+        fullDescription: "Bipolar disorder is characterized by extreme mood swings that include emotional highs (mania or hypomania) and lows (depression). At Empathy Health Clinic, our psychiatrists specialize in bipolar disorder treatment, offering careful medication management to stabilize moods and prevent episodes. We combine pharmacological treatment with psychotherapy to help you understand your condition, recognize warning signs of mood episodes, and develop strategies for maintaining stability. Our goal is to help you live a full, productive life while managing bipolar disorder.",
+        symptoms: "Bipolar symptoms include manic episodes (elevated mood, increased energy, decreased need for sleep, racing thoughts, risky behavior), hypomanic episodes (similar but less severe), and depressive episodes (low mood, fatigue, hopelessness). Mood swings can occur rarely or multiple times per year.",
+        relatedTreatments: JSON.stringify(["bipolar-disorder-treatment"]),
+        relatedTherapies: JSON.stringify(["dialectical-behavior-therapy", "cognitive-behavioral-therapy"]),
+        faqs: JSON.stringify([
+          { question: "What's the difference between Bipolar I and Bipolar II?", answer: "Bipolar I involves full manic episodes that may require hospitalization, while Bipolar II involves less severe hypomanic episodes along with major depressive episodes. Both require treatment but may have different medication needs." },
+          { question: "Do I have to take medication for bipolar disorder?", answer: "Medication is typically essential for managing bipolar disorder and preventing dangerous manic or depressive episodes. Mood stabilizers, antipsychotics, or other medications help regulate mood swings." },
+          { question: "Can bipolar disorder be cured?", answer: "Bipolar disorder is a chronic condition that requires ongoing management, but it's highly treatable. With proper medication and therapy, most people with bipolar disorder can lead stable, fulfilling lives." }
+        ]),
         order: 3,
       },
       {
-        description: "Conditions on the schizophrenia spectrum, such as schizoaffective disorders",
+        title: "PTSD & Trauma",
+        description: "Post-traumatic stress disorder and trauma-related conditions",
+        slug: "ptsd-trauma",
+        pageTitle: "PTSD & Trauma Treatment in Winter Park, FL | Empathy Health",
+        heroTitle: "Trauma-Informed PTSD Treatment",
+        heroDescription: "Specialized PTSD and trauma treatment in Winter Park, FL. Our compassionate team offers evidence-based therapies including EMDR, CBT, and medication management to help you heal from traumatic experiences.",
+        fullDescription: "Post-traumatic stress disorder (PTSD) can develop after experiencing or witnessing a traumatic event. At Empathy Health Clinic, we provide trauma-informed care in a safe, supportive environment. Our therapists are trained in specialized treatments for PTSD and trauma, including EMDR (Eye Movement Desensitization and Reprocessing), trauma-focused CBT, and other evidence-based approaches. We understand that healing from trauma takes time, and we work at your pace to help you process difficult experiences and reclaim your life.",
+        symptoms: "PTSD symptoms include intrusive memories or flashbacks, nightmares, severe emotional distress, avoidance of trauma reminders, negative changes in thinking and mood, feeling emotionally numb, hypervigilance, being easily startled, difficulty sleeping, and irritability or angry outbursts.",
+        relatedTreatments: JSON.stringify(["ptsd-treatment"]),
+        relatedTherapies: JSON.stringify(["cognitive-behavioral-therapy", "dialectical-behavior-therapy"]),
+        faqs: JSON.stringify([
+          { question: "How long after a traumatic event does PTSD develop?", answer: "PTSD symptoms typically begin within three months of trauma but can appear years later. Not everyone who experiences trauma develops PTSD—it depends on many factors including trauma severity and individual resilience." },
+          { question: "Can PTSD be treated without medication?", answer: "Many people successfully treat PTSD through trauma-focused therapy alone, particularly EMDR or CBT. However, medication can be helpful for managing severe symptoms like depression, anxiety, or sleep problems alongside therapy." },
+          { question: "Will talking about trauma make it worse?", answer: "With a trained trauma therapist, processing trauma in a controlled, safe way actually helps reduce symptoms. Your therapist will help you work through traumatic memories at a pace that feels manageable." }
+        ]),
         order: 4,
+      },
+      {
+        title: "Personality Disorders",
+        description: "Personality disorders, such as borderline personality disorder (BPD) and antisocial personality disorder (ASPD)",
+        slug: "personality-disorders",
+        pageTitle: "Personality Disorder Treatment in Winter Park, FL | Empathy Health",
+        heroTitle: "Specialized Personality Disorder Treatment",
+        heroDescription: "Expert treatment for personality disorders in Winter Park, FL. We offer comprehensive care including DBT, psychodynamic therapy, and medication management for BPD, ASPD, and other personality disorders.",
+        fullDescription: "Personality disorders involve persistent patterns of thinking, feeling, and behaving that differ significantly from cultural expectations and cause distress or functional impairment. At Empathy Health Clinic, we specialize in treating various personality disorders, particularly borderline personality disorder (BPD). Our team offers evidence-based treatments like Dialectical Behavior Therapy (DBT), which is specifically designed for BPD, along with psychodynamic therapy and medication management. We provide long-term, consistent care to help you develop healthier patterns and improve your quality of life.",
+        symptoms: "Symptoms vary by type but may include unstable relationships, intense emotions, fear of abandonment, impulsive behaviors, chronic feelings of emptiness, identity disturbance, difficulty trusting others, and problems with anger or emotional regulation.",
+        relatedTreatments: JSON.stringify([]),
+        relatedTherapies: JSON.stringify(["dialectical-behavior-therapy", "psychodynamic-therapy", "cognitive-behavioral-therapy"]),
+        faqs: JSON.stringify([
+          { question: "Can personality disorders be treated?", answer: "Yes, while personality disorders are chronic conditions, they're treatable. DBT has particularly strong evidence for borderline personality disorder. Psychotherapy is the primary treatment, sometimes combined with medication for specific symptoms." },
+          { question: "How long does treatment take?", answer: "Treating personality disorders typically requires longer-term therapy (1-3 years or more) to create lasting change in deeply ingrained patterns. However, many people see symptom improvement within months of starting treatment." },
+          { question: "Do I need medication for a personality disorder?", answer: "There's no medication specifically for personality disorders, but medications can help manage co-occurring conditions like depression, anxiety, or mood instability. Psychotherapy is the cornerstone of treatment." }
+        ]),
+        order: 5,
       },
     ];
 
@@ -781,6 +856,10 @@ export class MemStorage implements IStorage {
 
   async getCondition(id: string): Promise<Condition | undefined> {
     return this.conditions.get(id);
+  }
+
+  async getConditionBySlug(slug: string): Promise<Condition | undefined> {
+    return Array.from(this.conditions.values()).find(c => c.slug === slug);
   }
 
   async createCondition(condition: InsertCondition): Promise<Condition> {

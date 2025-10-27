@@ -361,6 +361,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/conditions/slug/:slug", async (req, res) => {
+    try {
+      const condition = await storage.getConditionBySlug(req.params.slug);
+      if (!condition) {
+        return res.status(404).json({ error: "Condition not found" });
+      }
+      res.json(condition);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   app.post("/api/conditions", async (req, res) => {
     try {
       const validated = insertConditionSchema.parse(req.body);

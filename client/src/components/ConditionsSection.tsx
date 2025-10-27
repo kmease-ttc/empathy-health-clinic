@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import type { Condition, SiteContent } from "@shared/schema";
 
 export default function ConditionsSection() {
@@ -32,7 +33,13 @@ export default function ConditionsSection() {
             {conditions?.map((condition, index) => (
               <li key={condition.id} className="flex gap-3" data-testid={`condition-${index}`}>
                 <span className="text-primary mt-1">•</span>
-                <span className="text-base text-foreground leading-relaxed">{condition.description}</span>
+                <Link 
+                  href={`/${condition.slug}`}
+                  className="text-base text-foreground leading-relaxed hover:text-primary transition-colors underline-offset-2 hover:underline"
+                  data-testid={`link-condition-${condition.slug}`}
+                >
+                  {condition.description}
+                </Link>
               </li>
             ))}
           </ul>
