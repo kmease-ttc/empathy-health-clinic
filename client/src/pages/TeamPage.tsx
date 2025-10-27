@@ -47,10 +47,10 @@ export default function TeamPage() {
               {teamMembers?.map((member, index) => (
                 <div
                   key={member.id}
-                  className="bg-card border rounded-lg overflow-hidden hover-elevate transition-all duration-200"
+                  className="bg-card border rounded-lg hover-elevate transition-all duration-200"
                   data-testid={`team-member-card-${index}`}
                 >
-                  <div className="aspect-square overflow-hidden">
+                  <div className="aspect-square overflow-hidden rounded-t-lg">
                     <Avatar className="w-full h-full rounded-none">
                       <AvatarImage 
                         src={member.image} 
