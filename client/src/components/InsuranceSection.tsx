@@ -1,18 +1,13 @@
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import type { InsuranceProvider } from "@shared/schema";
 
 export default function InsuranceSection() {
-  const [isExpanded, setIsExpanded] = useState(false);
   const { data: providers } = useQuery<InsuranceProvider[]>({
     queryKey: ["/api/insurance-providers"],
   });
 
-  const visibleProviders = isExpanded ? providers : providers?.slice(0, 4);
-  const hasMore = (providers?.length ?? 0) > 4;
+  const visibleProviders = providers?.slice(0, 8);
 
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-background">
@@ -47,30 +42,6 @@ export default function InsuranceSection() {
             </div>
           ))}
         </div>
-        
-        {hasMore && (
-          <div className="text-center mt-8">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="gap-2"
-              data-testid="button-toggle-insurance"
-            >
-              {isExpanded ? (
-                <>
-                  Show Less
-                  <ChevronUp className="h-4 w-4" />
-                </>
-              ) : (
-                <>
-                  Show More Providers
-                  <ChevronDown className="h-4 w-4" />
-                </>
-              )}
-            </Button>
-          </div>
-        )}
         
         <div className="text-center mt-8">
           <Link 
