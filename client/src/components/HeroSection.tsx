@@ -24,7 +24,7 @@ export default function HeroSection() {
           backgroundColor: '#2d5f4a'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/15 to-transparent" />
       </div>
       
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
