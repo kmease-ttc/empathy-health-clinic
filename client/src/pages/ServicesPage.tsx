@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Treatment, Therapy } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import TrustFactors from "@/components/TrustFactors";
 import forestBg from "@assets/stock_images/peaceful_green_fores_98e1a8d8.jpg";
 
 export default function ServicesPage() {
@@ -115,6 +116,20 @@ export default function ServicesPage() {
         </section>
 
         <section className="py-16 md:py-20 bg-card border-y">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+                Why Choose Us
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Professional care you can trust
+              </p>
+            </div>
+            <TrustFactors variant="compact" />
+          </div>
+        </section>
+
+        <section className="py-16 md:py-20 bg-background">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">

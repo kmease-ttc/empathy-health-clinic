@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import type { Treatment } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import TrustFactors from "@/components/TrustFactors";
 import forestBg from "@assets/stock_images/peaceful_green_fores_98e1a8d8.jpg";
 
 export default function TreatmentDetail() {
@@ -243,6 +244,18 @@ export default function TreatmentDetail() {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="mt-16 pt-16 border-t">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-3">
+                Why Choose Empathy Health Clinic
+              </h2>
+              <p className="text-muted-foreground">
+                Professional, compassionate care you can trust
+              </p>
+            </div>
+            <TrustFactors variant="compact" limit={4} />
           </div>
         </div>
       </main>
