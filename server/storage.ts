@@ -194,7 +194,7 @@ export class MemStorage implements IStorage {
     const defaultInsurance: InsertInsuranceProvider[] = [
       { 
         name: "Blue Cross Blue Shield", 
-        logo: "/attached_assets/insurance/bcbs-logo.png",
+        logo: "/attached_assets/stock_images/blue_cross_blue_shie_c8ce8283.jpg",
         slug: "blue-cross-blue-shield-blue-cross-blue-shield-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Blue Cross Blue Shield",
         heroTitle: "Find a Psychiatrist That Accepts Blue Cross Blue Shield",
@@ -210,7 +210,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Aetna", 
-        logo: "/attached_assets/insurance/aetna-logo.png",
+        logo: "/attached_assets/stock_images/aetna_insurance_logo_11478061.jpg",
         slug: "aetna-aetna-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Aetna",
         heroTitle: "Find a Psychiatrist That Accepts Aetna",
@@ -226,7 +226,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Optum", 
-        logo: "/attached_assets/insurance/optum-logo.png",
+        logo: "/attached_assets/stock_images/optum_health_insuran_ff80d625.jpg",
         slug: "optum-optum-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Optum",
         heroTitle: "Find a Psychiatrist That Accepts Optum",
@@ -242,7 +242,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Cigna", 
-        logo: "/attached_assets/insurance/cigna-logo.png",
+        logo: "/attached_assets/stock_images/cigna_insurance_logo_eff54096.jpg",
         slug: "cigna-cigna-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Cigna",
         heroTitle: "Find a Psychiatrist That Accepts Cigna",
@@ -258,7 +258,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "AdventHealth", 
-        logo: "/attached_assets/insurance/adventhealth-logo.png",
+        logo: "/attached_assets/stock_images/adventhealth_insuran_3d39d3e5.jpg",
         slug: "adventhealth-adventhealth-coverage",
         pageTitle: "Find a Psychiatrist That Accepts AdventHealth",
         heroTitle: "Find a Psychiatrist That Accepts AdventHealth",
@@ -274,7 +274,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "UMR", 
-        logo: "/attached_assets/insurance/umr-logo.png",
+        logo: "/attached_assets/stock_images/umr_unitedhealthcare_0443c629.jpg",
         slug: "umr-umr-coverage",
         pageTitle: "Find a Psychiatrist That Accepts UMR",
         heroTitle: "Find a Psychiatrist That Accepts UMR",
@@ -290,7 +290,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "UnitedHealthcare", 
-        logo: "/attached_assets/insurance/uhc-logo.png",
+        logo: "/attached_assets/stock_images/unitedhealthcare_ins_b1c0510b.jpg",
         slug: "unitedhealthcare-unitedhealthcare-coverage",
         pageTitle: "Find a Psychiatrist That Accepts UnitedHealthcare",
         heroTitle: "Find a Psychiatrist That Accepts UnitedHealthcare",
@@ -306,7 +306,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "More Providers", 
-        logo: "/attached_assets/insurance/more-logo.png",
+        logo: "/attached_assets/stock_images/medical_health_insur_80f2befe.jpg",
         slug: "more-providers-more-providers-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Your Insurance",
         heroTitle: "Find a Psychiatrist That Accepts Your Insurance",
