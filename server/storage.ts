@@ -284,7 +284,7 @@ export class MemStorage implements IStorage {
     const defaultInsurance: InsertInsuranceProvider[] = [
       { 
         name: "Blue Cross Blue Shield", 
-        logo: "/attached_assets/stock_images/blue_cross_blue_shie_c8ce8283.jpg",
+        logo: "/attached_assets/stock_images/blue_cross_blue_shie_824de69a.jpg",
         slug: "blue-cross-blue-shield-blue-cross-blue-shield-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Blue Cross Blue Shield",
         heroTitle: "Find a Psychiatrist That Accepts Blue Cross Blue Shield",
