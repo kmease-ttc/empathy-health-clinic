@@ -17,7 +17,7 @@ export default function Admin() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border sticky top-0 bg-background/95 backdrop-blur-md z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-serif font-medium">Admin Panel</h1>
+          <h1 className="text-2xl font-serif font-medium">Patient Portal</h1>
           <Button
             variant="outline"
             onClick={() => setLocation("/")}

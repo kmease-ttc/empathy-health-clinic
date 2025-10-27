@@ -25,7 +25,7 @@ A modern, fast website with a content management system for Empathy Health Clini
 - ✅ SEO-optimized treatment landing pages with comprehensive content
 - ✅ SEO-optimized therapy landing pages with comprehensive content
 - ✅ High-converting lead capture forms on therapy pages
-- ✅ Admin panel at `/admin` for editing all content
+- ✅ Patient Portal at `/admin` for editing all content
 - ✅ Real-time content updates from API
 - ✅ Mobile-responsive design
 - ✅ Dark mode support
@@ -131,10 +131,10 @@ Each therapy modality has its own comprehensive SEO-optimized landing page:
 
 ## How to Edit Your Website
 
-### Access Admin Panel
+### Access Patient Portal
 
 1. Navigate to your site
-2. Click "Admin" in the header (or visit `/admin`)
+2. Click "Patient Portal" in the header (or visit `/admin`)
 3. Use the tabs to edit different sections
 
 ### Adding Insurance Provider Logos
@@ -151,7 +151,7 @@ Your insurance logos from WordPress need to be uploaded to this project:
    - Upload your logo files there
    - Recommended naming: `bcbs-logo.png`, `aetna-logo.png`, etc.
 
-3. **Update Admin Panel:**
+3. **Update Patient Portal:**
    - Go to `/admin` → Insurance tab
    - Click "Edit" on each provider
    - Update "Logo Path" to match your uploaded files

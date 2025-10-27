@@ -58,7 +58,7 @@ export default function SiteHeader() {
               onClick={() => window.location.href = '/admin'}
               data-testid="button-admin-link"
             >
-              Admin
+              Patient Portal
             </Button>
             <Button
               size="lg"
