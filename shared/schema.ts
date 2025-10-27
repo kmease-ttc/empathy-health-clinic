@@ -154,3 +154,22 @@ export const insertConditionSchema = createInsertSchema(conditions).omit({
 
 export type InsertCondition = z.infer<typeof insertConditionSchema>;
 export type Condition = typeof conditions.$inferSelect;
+
+// Leads from therapy landing pages
+export const leads = pgTable("leads", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  therapyInterest: text("therapy_interest"),
+  message: text("message"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const insertLeadSchema = createInsertSchema(leads).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertLead = z.infer<typeof insertLeadSchema>;
+export type Lead = typeof leads.$inferSelect;

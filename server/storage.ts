@@ -15,6 +15,8 @@ import {
   type InsertTherapy,
   type Condition,
   type InsertCondition,
+  type Lead,
+  type InsertLead,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -72,6 +74,10 @@ export interface IStorage {
   createCondition(condition: InsertCondition): Promise<Condition>;
   updateCondition(id: string, condition: Partial<InsertCondition>): Promise<Condition>;
   deleteCondition(id: string): Promise<void>;
+
+  // Lead methods
+  createLead(lead: InsertLead): Promise<Lead>;
+  getAllLeads(): Promise<Lead[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -83,6 +89,7 @@ export class MemStorage implements IStorage {
   private insuranceProviders: Map<string, InsuranceProvider>;
   private therapies: Map<string, Therapy>;
   private conditions: Map<string, Condition>;
+  private leads: Map<string, Lead>;
 
   constructor() {
     this.users = new Map();
@@ -92,6 +99,7 @@ export class MemStorage implements IStorage {
     this.insuranceProviders = new Map();
     this.therapies = new Map();
     this.conditions = new Map();
+    this.leads = new Map();
     this.initializeDefaultContent();
   }
 
@@ -759,6 +767,21 @@ export class MemStorage implements IStorage {
 
   async deleteCondition(id: string): Promise<void> {
     this.conditions.delete(id);
+  }
+
+  // Lead methods
+  async createLead(lead: InsertLead): Promise<Lead> {
+    const id = randomUUID();
+    const now = new Date().toISOString();
+    const newLead: Lead = { id, ...lead, createdAt: now };
+    this.leads.set(id, newLead);
+    return newLead;
+  }
+
+  async getAllLeads(): Promise<Lead[]> {
+    return Array.from(this.leads.values()).sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
   }
 }
 

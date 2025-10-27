@@ -24,6 +24,7 @@ A modern, fast website with a content management system for Empathy Health Clini
 - ✅ SEO-optimized insurance provider landing pages with custom URLs
 - ✅ SEO-optimized treatment landing pages with comprehensive content
 - ✅ SEO-optimized therapy landing pages with comprehensive content
+- ✅ High-converting lead capture forms on therapy pages
 - ✅ Admin panel at `/admin` for editing all content
 - ✅ Real-time content updates from API
 - ✅ Mobile-responsive design
@@ -40,6 +41,7 @@ The CMS manages the following content types:
 5. **Testimonials** - Patient reviews with ratings
 6. **Insurance Providers** - Accepted insurance companies with detailed landing pages
 7. **Conditions** - Mental health conditions treated
+8. **Leads** - Contact form submissions from therapy landing pages
 
 ## Insurance Provider Pages
 
@@ -117,6 +119,15 @@ Each therapy modality has its own comprehensive SEO-optimized landing page:
 - Rich, keyword-optimized content
 - Structured FAQ sections
 - Mobile-responsive design
+
+### Lead Capture Forms:
+- High-converting sidebar form on all therapy pages
+- Minimal friction: Only name, email, phone required
+- Trust signals: Insurance acceptance, same-week appointments, licensed professionals
+- Success state with thank you message
+- Alternative call-to-action (phone button)
+- Privacy/security reassurance
+- Mobile-optimized sticky positioning
 
 ## How to Edit Your Website
 

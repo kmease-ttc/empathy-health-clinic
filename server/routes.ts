@@ -9,6 +9,7 @@ import {
   insertInsuranceProviderSchema,
   insertTherapySchema,
   insertConditionSchema,
+  insertLeadSchema,
 } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -387,6 +388,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       await storage.deleteCondition(req.params.id);
       res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Lead routes
+  app.post("/api/leads", async (req, res) => {
+    try {
+      const validated = insertLeadSchema.parse(req.body);
+      const lead = await storage.createLead(validated);
+      res.json(lead);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/leads", async (req, res) => {
+    try {
+      const leads = await storage.getAllLeads();
+      res.json(leads);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

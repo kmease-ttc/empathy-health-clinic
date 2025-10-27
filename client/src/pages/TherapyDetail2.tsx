@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link } from "wouter";
-import { Loader2, ArrowLeft, Phone, Mail, CheckCircle2 } from "lucide-react";
+import { Loader2, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Therapy } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 
 export default function TherapyDetail() {
   const [, params] = useRoute("/:slug");
@@ -171,56 +172,7 @@ export default function TherapyDetail() {
             </div>
 
             <div className="md:col-span-1">
-              <div className="bg-card border rounded-lg p-6 sticky top-4">
-                <h3 className="text-xl font-semibold text-foreground mb-4">
-                  Schedule an Appointment
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  Ready to start your healing journey? Contact us today to schedule your first therapy session.
-                </p>
-                <div className="space-y-3">
-                  <Button className="w-full" asChild data-testid="button-call-office">
-                    <a href="tel:4072604458" className="flex items-center justify-center gap-2">
-                      <Phone className="h-4 w-4" />
-                      Call (407) 260-4458
-                    </a>
-                  </Button>
-                  <Button variant="outline" className="w-full" asChild data-testid="button-contact-us">
-                    <Link href="/#contact" className="flex items-center justify-center gap-2">
-                      <Mail className="h-4 w-4" />
-                      Contact Us
-                    </Link>
-                  </Button>
-                </div>
-                
-                <div className="mt-6 pt-6 border-t">
-                  <h4 className="font-semibold text-foreground mb-3">Office Hours</h4>
-                  <div className="space-y-2 text-sm text-muted-foreground">
-                    <div className="flex justify-between">
-                      <span>Monday - Friday:</span>
-                      <span className="text-foreground">9am - 5pm</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Saturday:</span>
-                      <span className="text-foreground">By Appointment</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sunday:</span>
-                      <span className="text-foreground">Closed</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 pt-6 border-t">
-                  <h4 className="font-semibold text-foreground mb-3">Insurance</h4>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    We accept most major insurance plans. Contact us to verify your coverage.
-                  </p>
-                  <Button variant="outline" size="sm" asChild className="w-full" data-testid="button-view-insurance">
-                    <Link href="/insurance">View Insurance Providers</Link>
-                  </Button>
-                </div>
-              </div>
+              <LeadCaptureForm therapyName={therapy.title} />
             </div>
           </div>
         </div>
