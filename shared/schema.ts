@@ -117,6 +117,30 @@ export const insertInsuranceProviderSchema = createInsertSchema(insuranceProvide
 export type InsertInsuranceProvider = z.infer<typeof insertInsuranceProviderSchema>;
 export type InsuranceProvider = typeof insuranceProviders.$inferSelect;
 
+// Therapies
+export const therapies = pgTable("therapies", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  shortDescription: text("short_description").notNull(),
+  icon: text("icon").notNull(),
+  slug: text("slug").notNull(),
+  pageTitle: text("page_title").notNull(),
+  heroTitle: text("hero_title").notNull(),
+  heroDescription: text("hero_description").notNull(),
+  description: text("description").notNull(),
+  whoCanBenefit: text("who_can_benefit").notNull(),
+  whatToExpect: text("what_to_expect").notNull(),
+  faqs: text("faqs").notNull().default('[]'),
+  order: integer("order").notNull(),
+});
+
+export const insertTherapySchema = createInsertSchema(therapies).omit({
+  id: true,
+});
+
+export type InsertTherapy = z.infer<typeof insertTherapySchema>;
+export type Therapy = typeof therapies.$inferSelect;
+
 // Conditions we treat
 export const conditions = pgTable("conditions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),

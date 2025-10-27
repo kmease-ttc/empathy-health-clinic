@@ -7,6 +7,7 @@ import {
   insertTeamMemberSchema,
   insertTestimonialSchema,
   insertInsuranceProviderSchema,
+  insertTherapySchema,
   insertConditionSchema,
 } from "@shared/schema";
 
@@ -265,6 +266,72 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/insurance-providers/:id", async (req, res) => {
     try {
       await storage.deleteInsuranceProvider(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Therapy routes
+  app.get("/api/therapies", async (_req, res) => {
+    try {
+      const therapies = await storage.getAllTherapies();
+      res.json(therapies);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/therapies/:id", async (req, res) => {
+    try {
+      const therapy = await storage.getTherapy(req.params.id);
+      if (!therapy) {
+        return res.status(404).json({ error: "Therapy not found" });
+      }
+      res.json(therapy);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/therapies/slug/:slug", async (req, res) => {
+    try {
+      const therapy = await storage.getTherapyBySlug(req.params.slug);
+      if (!therapy) {
+        return res.status(404).json({ error: "Therapy not found" });
+      }
+      res.json(therapy);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/therapies", async (req, res) => {
+    try {
+      const validated = insertTherapySchema.parse(req.body);
+      const therapy = await storage.createTherapy(validated);
+      res.json(therapy);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+
+  app.put("/api/therapies/:id", async (req, res) => {
+    try {
+      const validated = insertTherapySchema.partial().parse(req.body);
+      const therapy = await storage.updateTherapy(req.params.id, validated);
+      res.json(therapy);
+    } catch (error: any) {
+      if (error.message === "Therapy not found") {
+        return res.status(404).json({ error: error.message });
+      }
+      res.status(400).json({ error: error.message });
+    }
+  });
+
+  app.delete("/api/therapies/:id", async (req, res) => {
+    try {
+      await storage.deleteTherapy(req.params.id);
       res.json({ success: true });
     } catch (error: any) {
       res.status(500).json({ error: error.message });

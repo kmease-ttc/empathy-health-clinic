@@ -11,6 +11,8 @@ import {
   type InsertTestimonial,
   type InsuranceProvider,
   type InsertInsuranceProvider,
+  type Therapy,
+  type InsertTherapy,
   type Condition,
   type InsertCondition,
 } from "@shared/schema";
@@ -56,6 +58,14 @@ export interface IStorage {
   updateInsuranceProvider(id: string, provider: Partial<InsertInsuranceProvider>): Promise<InsuranceProvider>;
   deleteInsuranceProvider(id: string): Promise<void>;
 
+  // Therapy methods
+  getAllTherapies(): Promise<Therapy[]>;
+  getTherapy(id: string): Promise<Therapy | undefined>;
+  getTherapyBySlug(slug: string): Promise<Therapy | undefined>;
+  createTherapy(therapy: InsertTherapy): Promise<Therapy>;
+  updateTherapy(id: string, therapy: Partial<InsertTherapy>): Promise<Therapy>;
+  deleteTherapy(id: string): Promise<void>;
+
   // Condition methods
   getAllConditions(): Promise<Condition[]>;
   getCondition(id: string): Promise<Condition | undefined>;
@@ -71,6 +81,7 @@ export class MemStorage implements IStorage {
   private teamMembers: Map<string, TeamMember>;
   private testimonials: Map<string, Testimonial>;
   private insuranceProviders: Map<string, InsuranceProvider>;
+  private therapies: Map<string, Therapy>;
   private conditions: Map<string, Condition>;
 
   constructor() {
@@ -79,6 +90,7 @@ export class MemStorage implements IStorage {
     this.teamMembers = new Map();
     this.testimonials = new Map();
     this.insuranceProviders = new Map();
+    this.therapies = new Map();
     this.conditions = new Map();
     this.initializeDefaultContent();
   }
@@ -361,6 +373,69 @@ export class MemStorage implements IStorage {
       this.insuranceProviders.set(id, { id, ...provider });
     });
 
+    // Initialize default therapies
+    const defaultTherapies: InsertTherapy[] = [
+      {
+        title: "Cognitive Behavioral Therapy (CBT)",
+        shortDescription: "Evidence-based therapy to change negative thought patterns and improve mental health.",
+        icon: "Brain",
+        slug: "cognitive-behavioral-therapy",
+        pageTitle: "Cognitive Behavioral Therapy (CBT) in Winter Park, FL | Empathy Health",
+        heroTitle: "Cognitive Behavioral Therapy (CBT)",
+        heroDescription: "Transform your mental health with evidence-based cognitive behavioral therapy in Winter Park, FL. Our experienced therapists help you identify and change negative thought patterns, develop healthier coping strategies, and achieve lasting improvement in your wellbeing.",
+        description: "Cognitive Behavioral Therapy (CBT) is one of the most extensively researched and effective forms of psychotherapy. At Empathy Health Clinic, our CBT specialists work with you to identify negative thought patterns that contribute to emotional distress and problematic behaviors. Through structured sessions, you'll learn practical skills to challenge and reframe these thoughts, leading to healthier emotional responses and behaviors.",
+        whoCanBenefit: "CBT is highly effective for depression, anxiety disorders, PTSD, OCD, panic disorder, phobias, eating disorders, and substance abuse. If you struggle with negative thinking patterns, self-defeating behaviors, or difficulty managing stress and emotions, CBT can provide the tools and strategies you need for lasting change.",
+        whatToExpect: "CBT sessions are typically structured and goal-oriented. You'll work collaboratively with your therapist to identify specific problems, set measurable goals, and develop practical strategies. Expect homework assignments between sessions to practice new skills. Most people see significant improvement within 12-20 sessions, though duration varies based on individual needs.",
+        faqs: JSON.stringify([
+          { question: "How is CBT different from regular talk therapy?", answer: "CBT is more structured and focused on present-day problems rather than extensive exploration of the past. It's goal-oriented and teaches specific skills you can use immediately to change thoughts and behaviors." },
+          { question: "Will I have homework?", answer: "Yes, practicing skills between sessions is crucial to CBT's effectiveness. Homework might include thought records, behavioral experiments, or relaxation exercises. Your therapist will work with you to ensure assignments are manageable." },
+          { question: "How long does CBT take?", answer: "Most people experience significant improvement within 12-20 sessions. Some conditions may require longer treatment, while others improve more quickly. Your therapist will regularly assess progress with you." }
+        ]),
+        order: 1,
+      },
+      {
+        title: "Dialectical Behavior Therapy (DBT)",
+        shortDescription: "Comprehensive therapy combining mindfulness, distress tolerance, and emotion regulation skills.",
+        icon: "Heart",
+        slug: "dialectical-behavior-therapy",
+        pageTitle: "Dialectical Behavior Therapy (DBT) in Winter Park, FL | Empathy Health",
+        heroTitle: "Dialectical Behavior Therapy (DBT)",
+        heroDescription: "Master emotional regulation and interpersonal effectiveness with dialectical behavior therapy in Winter Park, FL. Our DBT program combines individual therapy, skills training, and coaching to help you build a life worth living.",
+        description: "Dialectical Behavior Therapy (DBT) was originally developed for individuals with borderline personality disorder but has proven highly effective for various conditions involving emotional dysregulation. At Empathy Health Clinic, our comprehensive DBT program teaches four key skill modules: mindfulness, distress tolerance, emotion regulation, and interpersonal effectiveness. These skills help you manage intense emotions, reduce self-destructive behaviors, and improve relationships.",
+        whoCanBenefit: "DBT is especially effective for borderline personality disorder, chronic suicidal ideation, self-harm behaviors, emotional dysregulation, intense relationship conflicts, and co-occurring disorders. If you experience intense emotions that feel overwhelming, engage in impulsive behaviors, or struggle with unstable relationships, DBT can provide life-changing skills.",
+        whatToExpect: "Comprehensive DBT includes weekly individual therapy, a skills training group, phone coaching for crisis situations, and therapist consultation meetings. Skills training covers mindfulness, distress tolerance, emotion regulation, and interpersonal effectiveness. Treatment typically lasts 6-12 months, with ongoing maintenance as needed. You'll practice skills between sessions and track your progress.",
+        faqs: JSON.stringify([
+          { question: "What makes DBT different from CBT?", answer: "While DBT is based on CBT principles, it places greater emphasis on acceptance and mindfulness alongside change strategies. DBT is more comprehensive, including group skills training and phone coaching, making it especially effective for severe emotional dysregulation." },
+          { question: "Do I have to attend group sessions?", answer: "Skills training groups are a core component of comprehensive DBT. The group provides a supportive environment to learn and practice skills with others facing similar challenges. Individual therapy alone may be offered if comprehensive DBT isn't available." },
+          { question: "How long does DBT treatment last?", answer: "Standard DBT is a year-long commitment, though some people benefit from longer treatment. The structured timeline allows time to learn all four skill modules and apply them to real-life situations with therapist support." }
+        ]),
+        order: 2,
+      },
+      {
+        title: "Psychodynamic Therapy",
+        shortDescription: "Insight-oriented therapy exploring unconscious patterns affecting current relationships and behaviors.",
+        icon: "Users",
+        slug: "psychodynamic-therapy",
+        pageTitle: "Psychodynamic Therapy in Winter Park, FL | Empathy Health Clinic",
+        heroTitle: "Psychodynamic Therapy",
+        heroDescription: "Gain deep self-understanding through psychodynamic therapy in Winter Park, FL. Our therapists help you uncover unconscious patterns from your past that influence your current relationships, emotions, and behaviors, leading to lasting personal growth.",
+        description: "Psychodynamic therapy is an insight-oriented approach that explores how unconscious patterns from your past affect your present life. At Empathy Health Clinic, our psychodynamic therapists create a safe space for you to explore your inner world, understand the roots of your difficulties, and develop greater self-awareness. This deeper understanding leads to meaningful changes in how you relate to yourself and others.",
+        whoCanBenefit: "Psychodynamic therapy is effective for depression, anxiety, relationship difficulties, chronic feelings of emptiness, repetitive patterns in relationships, low self-esteem, and identity issues. If you find yourself repeating the same patterns in relationships, struggle with understanding your emotions, or want deeper self-understanding beyond symptom relief, psychodynamic therapy can be transformative.",
+        whatToExpect: "Psychodynamic therapy sessions are typically less structured than CBT or DBT. You'll discuss whatever feels important, and your therapist will help you notice patterns and connections you may not see. Treatment focuses on your relationship with the therapist as a window into your other relationships. Sessions may explore childhood experiences, dreams, and fantasies. Treatment length varies widely based on goals and depth of work desired.",
+        faqs: JSON.stringify([
+          { question: "Do I have to talk about my childhood?", answer: "While exploring early experiences can be helpful, psychodynamic therapy focuses on patterns that are currently causing difficulty. Your therapist will follow your lead and only explore what feels relevant to your current concerns." },
+          { question: "How is this different from psychoanalysis?", answer: "Psychodynamic therapy is less intensive than traditional psychoanalysis (1-2 sessions per week vs. 4-5) and typically shorter in duration. It uses psychoanalytic concepts but in a more flexible, practical format suited to modern life." },
+          { question: "How long does psychodynamic therapy take?", answer: "Treatment length varies widely. Some people benefit from short-term work (6-12 months), while others engage in longer-term therapy (2+ years) for deeper character change. Your therapist will discuss treatment length based on your goals." }
+        ]),
+        order: 3,
+      },
+    ];
+
+    defaultTherapies.forEach((therapy) => {
+      const id = randomUUID();
+      this.therapies.set(id, { id, ...therapy });
+    });
+
     // Initialize default conditions
     const defaultConditions: InsertCondition[] = [
       {
@@ -554,6 +629,41 @@ export class MemStorage implements IStorage {
 
   async deleteInsuranceProvider(id: string): Promise<void> {
     this.insuranceProviders.delete(id);
+  }
+
+  // Therapy methods
+  async getAllTherapies(): Promise<Therapy[]> {
+    return Array.from(this.therapies.values()).sort((a, b) => a.order - b.order);
+  }
+
+  async getTherapy(id: string): Promise<Therapy | undefined> {
+    return this.therapies.get(id);
+  }
+
+  async getTherapyBySlug(slug: string): Promise<Therapy | undefined> {
+    return Array.from(this.therapies.values()).find(t => t.slug === slug);
+  }
+
+  async createTherapy(therapy: InsertTherapy): Promise<Therapy> {
+    const id = randomUUID();
+    const newTherapy: Therapy = { id, ...therapy };
+    this.therapies.set(id, newTherapy);
+    return newTherapy;
+  }
+
+  async updateTherapy(
+    id: string,
+    therapy: Partial<InsertTherapy>
+  ): Promise<Therapy> {
+    const existing = this.therapies.get(id);
+    if (!existing) throw new Error("Therapy not found");
+    const updated = { ...existing, ...therapy };
+    this.therapies.set(id, updated);
+    return updated;
+  }
+
+  async deleteTherapy(id: string): Promise<void> {
+    this.therapies.delete(id);
   }
 
   // Condition methods

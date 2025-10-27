@@ -4,6 +4,7 @@ import TreatmentsEditor from "@/components/admin/TreatmentsEditor";
 import TeamMembersEditor from "@/components/admin/TeamMembersEditor";
 import TestimonialsEditor from "@/components/admin/TestimonialsEditor";
 import InsuranceProvidersEditor from "@/components/admin/InsuranceProvidersEditor";
+import TherapiesEditor from "@/components/admin/TherapiesEditor";
 import ConditionsEditor from "@/components/admin/ConditionsEditor";
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
@@ -30,12 +31,15 @@ export default function Admin() {
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         <Tabs defaultValue="site-content" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 gap-2">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-7 gap-2">
             <TabsTrigger value="site-content" data-testid="tab-site-content">
               Site Content
             </TabsTrigger>
             <TabsTrigger value="treatments" data-testid="tab-treatments">
               Treatments
+            </TabsTrigger>
+            <TabsTrigger value="therapies" data-testid="tab-therapies">
+              Therapies
             </TabsTrigger>
             <TabsTrigger value="team" data-testid="tab-team">
               Team
@@ -57,6 +61,10 @@ export default function Admin() {
 
           <TabsContent value="treatments">
             <TreatmentsEditor />
+          </TabsContent>
+
+          <TabsContent value="therapies">
+            <TherapiesEditor />
           </TabsContent>
 
           <TabsContent value="team">
