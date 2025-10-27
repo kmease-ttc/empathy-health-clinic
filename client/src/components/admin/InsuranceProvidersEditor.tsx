@@ -31,11 +31,7 @@ export default function InsuranceProvidersEditor() {
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertInsuranceProvider) => {
-      return apiRequest("/api/insurance-providers", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("POST", "/api/insurance-providers", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/insurance-providers"] });
@@ -49,12 +45,8 @@ export default function InsuranceProvidersEditor() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: async ({ id, data }: { id: string; data: Partial<InsertInsuranceProvider> }) => {
-      return apiRequest(`/api/insurance-providers/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+    mutationFn: async ({ id, data }: { id: string; data: Partial<InsuranceProvider> }) => {
+      return apiRequest("PUT", `/api/insurance-providers/${id}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/insurance-providers"] });
@@ -70,7 +62,7 @@ export default function InsuranceProvidersEditor() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/insurance-providers/${id}`, { method: "DELETE" });
+      return apiRequest("DELETE", `/api/insurance-providers/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/insurance-providers"] });

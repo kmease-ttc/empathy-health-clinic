@@ -35,11 +35,7 @@ export default function ServicesEditor() {
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertService) => {
-      return apiRequest("/api/services", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("POST", "/api/services", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/services"] });
@@ -54,11 +50,7 @@ export default function ServicesEditor() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<InsertService> }) => {
-      return apiRequest(`/api/services/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("PUT", `/api/services/${id}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/services"] });
@@ -74,7 +66,7 @@ export default function ServicesEditor() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/services/${id}`, { method: "DELETE" });
+      return apiRequest("DELETE", `/api/services/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/services"] });

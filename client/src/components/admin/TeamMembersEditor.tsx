@@ -33,11 +33,7 @@ export default function TeamMembersEditor() {
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertTeamMember) => {
-      return apiRequest("/api/team-members", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("POST", "/api/team-members", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/team-members"] });
@@ -52,11 +48,7 @@ export default function TeamMembersEditor() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<InsertTeamMember> }) => {
-      return apiRequest(`/api/team-members/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("PUT", `/api/team-members/${id}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/team-members"] });
@@ -72,7 +64,7 @@ export default function TeamMembersEditor() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/team-members/${id}`, { method: "DELETE" });
+      return apiRequest("DELETE", `/api/team-members/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/team-members"] });

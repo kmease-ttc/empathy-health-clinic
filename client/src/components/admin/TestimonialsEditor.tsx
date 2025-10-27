@@ -35,11 +35,7 @@ export default function TestimonialsEditor() {
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertTestimonial) => {
-      return apiRequest("/api/testimonials", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("POST", "/api/testimonials", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/testimonials"] });
@@ -54,11 +50,7 @@ export default function TestimonialsEditor() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<InsertTestimonial> }) => {
-      return apiRequest(`/api/testimonials/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("PUT", `/api/testimonials/${id}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/testimonials"] });
@@ -74,7 +66,7 @@ export default function TestimonialsEditor() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/testimonials/${id}`, { method: "DELETE" });
+      return apiRequest("DELETE", `/api/testimonials/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/testimonials"] });

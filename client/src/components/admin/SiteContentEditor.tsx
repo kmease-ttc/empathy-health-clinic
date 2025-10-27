@@ -25,11 +25,7 @@ export default function SiteContentEditor() {
 
   const updateMutation = useMutation({
     mutationFn: async (data: InsertSiteContent) => {
-      return apiRequest("/api/site-content", {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("PUT", "/api/site-content", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/site-content"] });

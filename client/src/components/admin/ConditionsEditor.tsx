@@ -32,11 +32,7 @@ export default function ConditionsEditor() {
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertCondition) => {
-      return apiRequest("/api/conditions", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("POST", "/api/conditions", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/conditions"] });
@@ -51,11 +47,7 @@ export default function ConditionsEditor() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<InsertCondition> }) => {
-      return apiRequest(`/api/conditions/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
+      return apiRequest("PUT", `/api/conditions/${id}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/conditions"] });
@@ -71,7 +63,7 @@ export default function ConditionsEditor() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/conditions/${id}`, { method: "DELETE" });
+      return apiRequest("DELETE", `/api/conditions/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/conditions"] });
