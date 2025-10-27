@@ -26,11 +26,14 @@ export default function InsuranceSection() {
                 className="max-w-full max-h-full object-contain"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
-                  const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                  if (fallback) fallback.style.display = 'block';
+                  const fallback = e.currentTarget.parentElement?.querySelector('p');
+                  if (fallback) {
+                    fallback.classList.remove('hidden');
+                    fallback.classList.add('flex');
+                  }
                 }}
               />
-              <p className="text-sm md:text-base font-medium text-center text-card-foreground hidden">
+              <p className="text-sm md:text-base font-medium text-center text-card-foreground hidden items-center justify-center h-full">
                 {provider.name}
               </p>
             </div>

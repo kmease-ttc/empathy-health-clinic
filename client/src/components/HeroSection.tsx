@@ -19,7 +19,14 @@ export default function HeroSection() {
     <section className="relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center">
       <div 
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ 
+          backgroundImage: `url(${heroImage})`,
+          backgroundColor: '#2d5f4a'
+        }}
+        onError={(e) => {
+          console.error('Hero image failed to load:', heroImage);
+          e.currentTarget.style.backgroundImage = `url(${heroImageFallback})`;
+        }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
       </div>

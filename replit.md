@@ -45,6 +45,28 @@ The CMS manages the following content types:
 2. Click "Admin" in the header (or visit `/admin`)
 3. Use the tabs to edit different sections
 
+### Adding Insurance Provider Logos
+
+Your insurance logos from WordPress need to be uploaded to this project:
+
+1. **Download from WordPress:**
+   - Log into your WordPress admin
+   - Go to Media Library
+   - Download each insurance logo (BCBS, Aetna, Cigna, etc.)
+
+2. **Upload to Replit:**
+   - In this project, create folder: `attached_assets/insurance/`
+   - Upload your logo files there
+   - Recommended naming: `bcbs-logo.png`, `aetna-logo.png`, etc.
+
+3. **Update Admin Panel:**
+   - Go to `/admin` → Insurance tab
+   - Click "Edit" on each provider
+   - Update "Logo Path" to match your uploaded files
+   - Example: `/attached_assets/insurance/bcbs-logo.png`
+
+Until you upload the logos, the insurance section will display provider names as text.
+
 ### Edit Content
 
 **Site Content Tab:**
