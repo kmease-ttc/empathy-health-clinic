@@ -355,7 +355,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Aetna", 
-        logo: "/attached_assets/stock_images/aetna_insurance_logo_11478061.jpg",
+        logo: "/attached_assets/Aetna-Logo-1024x640_1761603073153.png",
         slug: "aetna-aetna-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Aetna",
         heroTitle: "Find a Psychiatrist That Accepts Aetna",
@@ -387,7 +387,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Cigna", 
-        logo: "/attached_assets/stock_images/cigna_insurance_logo_eff54096.jpg",
+        logo: "/attached_assets/Cigna-Logo-1024x576_1761603078566.png",
         slug: "cigna-cigna-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Cigna",
         heroTitle: "Find a Psychiatrist That Accepts Cigna",
@@ -403,7 +403,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "AdventHealth", 
-        logo: "/attached_assets/stock_images/adventhealth_insuran_3d39d3e5.jpg",
+        logo: "/attached_assets/AdventHealth_Logo.svg_1761603073152.png",
         slug: "adventhealth-adventhealth-coverage",
         pageTitle: "Find a Psychiatrist That Accepts AdventHealth",
         heroTitle: "Find a Psychiatrist That Accepts AdventHealth",
@@ -467,7 +467,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "First Health", 
-        logo: "/attached_assets/generated_images/First_Health_logo_b3859bf9.png",
+        logo: "/attached_assets/First-Health-Logo_1761603088941.jpg",
         slug: "first-health-first-health-coverage",
         pageTitle: "Find a Psychiatrist That Accepts First Health",
         heroTitle: "Find a Psychiatrist That Accepts First Health",
@@ -483,7 +483,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Medicare", 
-        logo: "/attached_assets/generated_images/Medicare_logo_637d5df1.png",
+        logo: "/attached_assets/Medicare-Logo-1536x864_1761603097276.png",
         slug: "medicare-medicare-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Medicare",
         heroTitle: "Find a Psychiatrist That Accepts Medicare",
