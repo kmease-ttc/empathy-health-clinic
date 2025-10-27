@@ -3,8 +3,7 @@ import { Phone, Star } from "lucide-react";
 import { SiGoogle } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
-import forestBg from "@assets/stock_images/peaceful_green_fores_98e1a8d8.jpg";
-import therapistImage from "@assets/stock_images/professional_woman_t_6c5ef11b.jpg";
+import heroImage from "@assets/heroimage_1761605616315.png";
 
 export default function HeroSection() {
   const { data: content } = useQuery<SiteContent>({
@@ -21,7 +20,7 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{ 
-          backgroundImage: `url(${forestBg})`,
+          backgroundImage: `url(${heroImage})`,
           backgroundColor: '#2d5f4a'
         }}
       >
@@ -29,64 +28,51 @@ export default function HeroSection() {
       </div>
       
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="max-w-xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-white mb-6">
-              {title}
-            </h1>
-            <p className="text-lg md:text-xl text-white/95 leading-relaxed mb-8">
-              {subtitle}
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button 
-                size="lg"
-                className="bg-primary text-primary-foreground border border-primary-border px-8 py-6 text-lg rounded-full backdrop-blur-md"
-                data-testid="button-request-appointment"
-                onClick={() => console.log('Request appointment clicked')}
-              >
-                Request Appointment
-              </Button>
-              <Button 
-                size="lg"
-                variant="outline"
-                className="px-8 py-6 text-lg rounded-full backdrop-blur-md bg-white/10 text-white border-white/30"
-                data-testid="button-call-now"
-                onClick={() => console.log('Call now clicked')}
-              >
-                <Phone className="w-5 h-5 mr-2" />
-                Call Now
-              </Button>
-            </div>
-            
-            <div className="flex items-center gap-3 text-white/95">
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-full">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <span className="text-sm font-medium">{reviewRating}</span>
-              </div>
-              <div className="flex items-center gap-1 bg-white px-3 py-1.5 rounded">
-                <span className="text-xl font-bold" style={{ color: '#4285F4' }}>G</span>
-                <span className="text-xl font-bold" style={{ color: '#EA4335' }}>o</span>
-                <span className="text-xl font-bold" style={{ color: '#FBBC05' }}>o</span>
-                <span className="text-xl font-bold" style={{ color: '#4285F4' }}>g</span>
-                <span className="text-xl font-bold" style={{ color: '#34A853' }}>l</span>
-                <span className="text-xl font-bold" style={{ color: '#EA4335' }}>e</span>
-              </div>
-            </div>
+        <div className="max-w-xl">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-white mb-6">
+            {title}
+          </h1>
+          <p className="text-lg md:text-xl text-white/95 leading-relaxed mb-8">
+            {subtitle}
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <Button 
+              size="lg"
+              className="bg-primary text-primary-foreground border border-primary-border px-8 py-6 text-lg rounded-full backdrop-blur-md"
+              data-testid="button-request-appointment"
+              onClick={() => console.log('Request appointment clicked')}
+            >
+              Request Appointment
+            </Button>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="px-8 py-6 text-lg rounded-full backdrop-blur-md bg-white/10 text-white border-white/30"
+              data-testid="button-call-now"
+              onClick={() => console.log('Call now clicked')}
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              Call Now
+            </Button>
           </div>
-
-          <div className="hidden md:flex items-center justify-end">
-            <div className="relative">
-              <img 
-                src={therapistImage} 
-                alt="Professional therapist in nature setting"
-                className="rounded-lg shadow-2xl max-w-md lg:max-w-lg w-full h-auto object-cover"
-                data-testid="img-hero-therapist"
-              />
+          
+          <div className="flex items-center gap-3 text-white/95">
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-full">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-sm font-medium">{reviewRating}</span>
+            </div>
+            <div className="flex items-center gap-1 bg-white px-3 py-1.5 rounded">
+              <span className="text-xl font-bold" style={{ color: '#4285F4' }}>G</span>
+              <span className="text-xl font-bold" style={{ color: '#EA4335' }}>o</span>
+              <span className="text-xl font-bold" style={{ color: '#FBBC05' }}>o</span>
+              <span className="text-xl font-bold" style={{ color: '#4285F4' }}>g</span>
+              <span className="text-xl font-bold" style={{ color: '#34A853' }}>l</span>
+              <span className="text-xl font-bold" style={{ color: '#EA4335' }}>e</span>
             </div>
           </div>
         </div>
