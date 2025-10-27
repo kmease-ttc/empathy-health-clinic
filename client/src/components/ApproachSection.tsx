@@ -1,4 +1,3 @@
-import approachImage from "@assets/generated_images/Therapy_consultation_session_e4985de5.png";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
 
@@ -34,32 +33,22 @@ export default function ApproachSection() {
           Our Approach, Step by Step
         </h2>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="order-2 lg:order-1">
-            <img
-              src={approachImage}
-              alt="Therapy session"
-              className="rounded-xl w-full object-cover"
-            />
-          </div>
-          
-          <div className="order-1 lg:order-2 space-y-8">
-            {steps.map((step, index) => (
-              <div key={index} className="flex gap-4" data-testid={`step-${index}`}>
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
-                  {step.number}
-                </div>
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold mb-2 text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
+        <div className="max-w-3xl mx-auto space-y-8">
+          {steps.map((step, index) => (
+            <div key={index} className="flex gap-4" data-testid={`step-${index}`}>
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                {step.number}
               </div>
-            ))}
-          </div>
+              <div>
+                <h3 className="text-xl md:text-2xl font-semibold mb-2 text-foreground">
+                  {step.title}
+                </h3>
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
         
         <div className="mt-16 max-w-4xl mx-auto">
