@@ -12,6 +12,7 @@ import {
   insertConditionSchema,
   insertLeadSchema,
   insertBlogPostSchema,
+  insertNewsletterSubscriberSchema,
   insertPageViewSchema,
   insertAnalyticsEventSchema,
   insertWebVitalSchema,
@@ -528,6 +529,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
       await storage.deleteBlogPost(req.params.id);
       res.json({ success: true });
     } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Newsletter subscriber routes
+  app.post("/api/newsletter/subscribe", async (req, res) => {
+    try {
+      const validated = insertNewsletterSubscriberSchema.parse(req.body);
+      const subscriber = await storage.createNewsletterSubscriber(validated);
+      res.json({ success: true, subscriber });
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/newsletter/subscribers", async (req, res) => {
+    try {
+      const subscribers = await storage.getAllNewsletterSubscribers();
+      res.json(subscribers);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/newsletter/send", async (req, res) => {
+    try {
+      // Get active subscribers
+      const subscribers = await storage.getActiveNewsletterSubscribers();
+      
+      if (subscribers.length === 0) {
+        return res.status(400).json({ error: "No active subscribers" });
+      }
+
+      // Get latest blog posts
+      const blogPosts = await storage.getAllBlogPosts();
+      
+      if (blogPosts.length === 0) {
+        return res.status(400).json({ error: "No blog posts to send" });
+      }
+
+      // Send newsletter to all subscribers
+      // Note: We'll implement the actual email sending in the email.ts file
+      const { sendNewsletterEmail } = await import("./email");
+      await sendNewsletterEmail(subscribers, blogPosts);
+      
+      res.json({ 
+        success: true, 
+        sentTo: subscribers.length,
+        message: `Newsletter sent to ${subscribers.length} subscriber${subscribers.length !== 1 ? 's' : ''}`
+      });
+    } catch (error: any) {
+      console.error('Failed to send newsletter:', error);
       res.status(500).json({ error: error.message });
     }
   });
