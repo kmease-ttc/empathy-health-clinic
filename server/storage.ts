@@ -229,6 +229,42 @@ export class MemStorage implements IStorage {
         ]),
         order: 6,
       },
+      {
+        title: "OCD Treatment",
+        shortDescription: "Evidence-based treatment for obsessive-compulsive disorder including therapy and medication.",
+        icon: "Brain",
+        slug: "ocd-treatment",
+        pageTitle: "OCD Treatment in Winter Park, FL | Obsessive-Compulsive Disorder Care",
+        heroTitle: "Effective OCD Treatment",
+        heroDescription: "Specialized OCD treatment in Winter Park, FL. Our experienced team provides evidence-based therapy and medication management to help you overcome intrusive thoughts and compulsive behaviors.",
+        description: "Obsessive-Compulsive Disorder (OCD) can be overwhelming, but with proper treatment, you can regain control of your life. At Empathy Health Clinic, we offer specialized OCD treatment combining exposure and response prevention (ERP) therapy with medication management when needed. Our compassionate providers understand the challenges of OCD and are committed to helping you break free from the cycle of obsessions and compulsions.",
+        whoCanBenefit: "Our OCD treatment helps individuals experiencing persistent intrusive thoughts (obsessions), repetitive behaviors or mental rituals (compulsions), excessive fears of contamination, need for symmetry or order, or distressing unwanted thoughts. If OCD is interfering with your daily life, work, or relationships, we can help.",
+        whatToExpect: "Treatment typically begins with a thorough evaluation to understand your specific OCD symptoms. We'll develop a personalized treatment plan that may include exposure and response prevention (ERP) therapy, cognitive-behavioral therapy (CBT), and medication such as SSRIs. Most people see significant improvement within 8-12 weeks of consistent treatment.",
+        faqs: JSON.stringify([
+          { question: "What is ERP therapy?", answer: "Exposure and Response Prevention (ERP) is the gold-standard treatment for OCD. It involves gradually exposing yourself to anxiety-triggering situations while learning to resist compulsive behaviors. It's highly effective when done properly with a trained therapist." },
+          { question: "Do I need medication for OCD?", answer: "Not everyone with OCD needs medication, but many people benefit from SSRIs in combination with therapy. Medication can help reduce the intensity of obsessions and make therapy more effective." },
+          { question: "How long does OCD treatment take?", answer: "Most people see improvement within 8-12 weeks of starting treatment. Full recovery often takes 6-12 months of consistent therapy and medication management. Maintenance treatment helps prevent relapse." }
+        ]),
+        order: 7,
+      },
+      {
+        title: "PTSD Treatment",
+        shortDescription: "Trauma-focused treatment for post-traumatic stress disorder and trauma recovery.",
+        icon: "Heart",
+        slug: "ptsd-treatment",
+        pageTitle: "PTSD Treatment in Winter Park, FL | Trauma Therapy & Recovery",
+        heroTitle: "Comprehensive PTSD Treatment",
+        heroDescription: "Specialized PTSD and trauma treatment in Winter Park, FL. Our trauma-informed providers offer evidence-based therapies and medication management to help you heal from traumatic experiences and reclaim your life.",
+        description: "Post-Traumatic Stress Disorder (PTSD) can develop after experiencing or witnessing traumatic events. At Empathy Health Clinic, we provide trauma-informed care using evidence-based approaches including trauma-focused cognitive behavioral therapy (TF-CBT), EMDR, and medication management. Our compassionate team creates a safe environment where you can process trauma and develop healthy coping strategies.",
+        whoCanBenefit: "Our PTSD treatment helps individuals experiencing flashbacks, nightmares, avoidance of trauma reminders, hypervigilance, emotional numbness, or difficulty trusting others after traumatic experiences. Whether you've experienced military combat, assault, accidents, natural disasters, or other trauma, we provide specialized care for recovery.",
+        whatToExpect: "Treatment begins with a comprehensive trauma assessment in a safe, supportive environment. We'll develop a personalized treatment plan that may include trauma-focused therapy, EMDR (Eye Movement Desensitization and Reprocessing), medication for symptoms like anxiety and insomnia, and skills training for emotional regulation. Recovery is possible, and we're here to support you every step of the way.",
+        faqs: JSON.stringify([
+          { question: "Will I have to talk about my trauma?", answer: "Trauma-focused therapy does involve processing traumatic memories, but we go at your pace in a safe, controlled manner. Some treatments like EMDR can be effective without detailed verbal descriptions of trauma." },
+          { question: "Can PTSD be cured?", answer: "While PTSD is a chronic condition, many people achieve full recovery with proper treatment. Evidence-based treatments like TF-CBT and EMDR have high success rates in significantly reducing or eliminating PTSD symptoms." },
+          { question: "How long does PTSD treatment take?", answer: "Treatment duration varies, but many people see significant improvement within 3-6 months of trauma-focused therapy. Some individuals benefit from longer-term treatment, especially if they've experienced multiple traumas." }
+        ]),
+        order: 8,
+      },
     ];
 
     defaultTreatments.forEach((treatment) => {
