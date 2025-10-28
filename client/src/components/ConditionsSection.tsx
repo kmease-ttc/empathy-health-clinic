@@ -16,12 +16,12 @@ export default function ConditionsSection() {
   const phone = content?.footerPhone || "386-848-8751";
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-card">
+    <section className="py-12 md:py-16 lg:py-20 bg-card">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-medium text-center mb-6">
           Trusted Therapist & Psychiatrist Orlando for All Mental Health Needs
         </h2>
-        <p className="text-lg md:text-xl text-center text-muted-foreground mb-12 max-w-4xl mx-auto">
+        <p className="text-lg md:text-xl text-center text-muted-foreground mb-10 max-w-4xl mx-auto">
           Our mental health clinic providers specialize in over 150 conditions and disorders. In addition to traditional, one-on-one sessions, we also offer couples therapy to help address relationship and communication issues.
         </p>
         

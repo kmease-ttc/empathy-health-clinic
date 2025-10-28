@@ -22,9 +22,9 @@ export default function TreatmentsSection() {
   const hasMore = (treatments?.length || 0) > 6;
 
   return (
-    <section id="treatments" className="py-16 md:py-24 lg:py-32 bg-card">
+    <section id="treatments" className="py-12 md:py-16 lg:py-20 bg-card">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold text-foreground mb-4">
             Featured Services
           </h2>

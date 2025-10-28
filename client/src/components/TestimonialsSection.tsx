@@ -8,12 +8,12 @@ export default function TestimonialsSection() {
   });
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-card">
+    <section className="py-12 md:py-16 lg:py-20 bg-card">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-medium text-center mb-4">
           Trusted by 100+ Patients
         </h2>
-        <p className="text-lg text-center text-muted-foreground mb-12 md:mb-16">
+        <p className="text-lg text-center text-muted-foreground mb-10">
           See what our patients are saying
         </p>
         

@@ -15,9 +15,9 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
-        <section className="py-16 md:py-20 bg-card border-y">
+        <section className="py-12 md:py-16 bg-card border-y">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
                 Why Choose Empathy Health Clinic
               </h2>
