@@ -239,7 +239,7 @@ export default function ProviderCoverage() {
             </div>
           </div>
 
-          <div id="contact-form" className="mt-16 scroll-mt-24">
+          <div id="contact-form" className="md:col-span-3 mt-16 scroll-mt-24">
             <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/20 rounded-xl p-8 md:p-12 shadow-lg">
               <div className="max-w-2xl mx-auto">
                 <div className="text-center mb-8">
