@@ -180,25 +180,53 @@ export default function TreatmentDetail() {
             </div>
 
             <div className="md:col-span-1">
-              <div className="bg-card border rounded-lg p-6 sticky top-4">
-                <h3 className="text-xl font-semibold text-foreground mb-4">
-                  Request a Free Consultation
+              <div className="bg-primary/5 border-2 border-primary/30 rounded-lg p-6 sticky top-24">
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Get Started Today
                 </h3>
-                <p className="text-muted-foreground mb-6">
-                  Take the first step toward healing. Fill out the form below and we'll call you within 24 hours to discuss your treatment options.
+                <p className="text-foreground/80 mb-6 leading-relaxed">
+                  Take the first step toward recovery. Our compassionate team is ready to help you feel better.
                 </p>
-                <ShortContactForm />
                 
-                <div className="mt-6 pt-6 border-t">
-                  <p className="text-sm text-center text-muted-foreground mb-3">
-                    Prefer to call us directly?
-                  </p>
-                  <Button className="w-full" variant="outline" asChild data-testid="button-call-office">
+                <div className="space-y-3 mb-6">
+                  <Button 
+                    size="lg" 
+                    className="w-full" 
+                    onClick={() => {
+                      const form = document.querySelector('#contact-form');
+                      form?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }}
+                    data-testid="button-scroll-to-form"
+                  >
+                    Request Free Consultation
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="w-full" 
+                    asChild 
+                    data-testid="button-call-office"
+                  >
                     <a href="tel:3868488751" className="flex items-center justify-center gap-2">
-                      <Phone className="h-4 w-4" />
+                      <Phone className="h-5 w-5" />
                       Call (386) 848-8751
                     </a>
                   </Button>
+                </div>
+                
+                <div className="bg-background/50 rounded-md p-4 space-y-2 text-sm">
+                  <div className="flex items-center gap-2 text-foreground">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span>Most insurance accepted</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-foreground">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span>Same-week appointments</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-foreground">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span>Telehealth available</span>
+                  </div>
                 </div>
                 
                 <div className="mt-6 pt-6 border-t">
@@ -246,22 +274,38 @@ export default function TreatmentDetail() {
             </div>
           </div>
 
-          <div className="mt-16 bg-primary/5 border border-primary/20 rounded-lg p-8 md:p-12">
-            <div className="max-w-2xl mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-3">
-                  Ready to Start Your Treatment Journey?
-                </h2>
-                <p className="text-muted-foreground text-lg">
-                  Don't wait to get the help you deserve. Request a free consultation and take the first step toward feeling better.
-                </p>
+          <div id="contact-form" className="mt-16 scroll-mt-24">
+            <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/20 rounded-xl p-8 md:p-12 shadow-lg">
+              <div className="max-w-2xl mx-auto">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                    <Phone className="h-8 w-8 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    Ready to Start Treatment?
+                  </h2>
+                  <p className="text-foreground/70 text-lg max-w-xl mx-auto">
+                    Complete the form below and we'll call you within 24 hours to schedule your free consultation.
+                  </p>
+                </div>
+                <div className="bg-background rounded-xl p-6 md:p-8 shadow-sm border">
+                  <ShortContactForm />
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-foreground/70">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>Most insurance accepted</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>Same-week appointments</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>Telehealth available</span>
+                  </div>
+                </div>
               </div>
-              <div className="bg-card rounded-lg p-6 md:p-8 shadow-sm">
-                <ShortContactForm />
-              </div>
-              <p className="text-center text-sm text-muted-foreground mt-6">
-                ✓ Most insurance accepted • ✓ Evening & weekend appointments • ✓ Telehealth available
-              </p>
             </div>
           </div>
 
