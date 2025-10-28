@@ -61,7 +61,7 @@ export default function TreatmentDetail() {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${forestBg})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30" />
           </div>
           <div className="container mx-auto max-w-4xl relative z-10">
             <Link 
