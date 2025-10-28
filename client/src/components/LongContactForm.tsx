@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle2, Briefcase, Heart, Pill, CreditCard, User } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import {
   Select,
   SelectContent,
@@ -74,6 +75,7 @@ const DAYS = [
 export default function LongContactForm() {
   const [step, setStep] = useState(1);
   const { toast } = useToast();
+  const formStartedTracked = useRef(false);
   
   const { data: insuranceProviders } = useQuery<InsuranceProvider[]>({
     queryKey: ["/api/insurance-providers"],
@@ -100,6 +102,13 @@ export default function LongContactForm() {
       memberId: "",
     },
   });
+
+  const handleFormStarted = () => {
+    if (!formStartedTracked.current) {
+      formStartedTracked.current = true;
+      trackEvent('form_started', 'engagement', 'Long Contact Form', 'long');
+    }
+  };
 
   const submitLead = useMutation({
     mutationFn: async (data: LongFormValues) => {
@@ -204,7 +213,10 @@ export default function LongContactForm() {
                       {SERVICES.map((service) => (
                         <div
                           key={service.value}
-                          onClick={() => field.onChange(service.value)}
+                          onClick={() => {
+                            handleFormStarted();
+                            field.onChange(service.value);
+                          }}
                           className={`p-4 border-2 rounded-xl cursor-pointer transition-all hover-elevate ${
                             field.value === service.value
                               ? 'border-primary bg-primary/5 shadow-md'

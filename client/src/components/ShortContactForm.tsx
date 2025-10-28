@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent } from "@/lib/analytics";
+import { useRef } from "react";
 
 const shortFormSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -35,6 +36,7 @@ interface ShortContactFormProps {
 
 export default function ShortContactForm({ service, className = "" }: ShortContactFormProps) {
   const { toast } = useToast();
+  const formStartedTracked = useRef(false);
   
   const form = useForm<ShortFormValues>({
     resolver: zodResolver(shortFormSchema),
@@ -47,6 +49,13 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
       service: service || "",
     },
   });
+
+  const handleFormStarted = () => {
+    if (!formStartedTracked.current) {
+      formStartedTracked.current = true;
+      trackEvent('form_started', 'engagement', 'Short Contact Form', 'short');
+    }
+  };
 
   const submitLead = useMutation({
     mutationFn: async (data: ShortFormValues) => {
@@ -94,7 +103,8 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
                   <FormControl>
                     <Input 
                       placeholder="John" 
-                      {...field} 
+                      {...field}
+                      onFocus={handleFormStarted}
                       data-testid="input-first-name"
                     />
                   </FormControl>
