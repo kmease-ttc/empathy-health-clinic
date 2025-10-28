@@ -238,6 +238,51 @@ export default function ProviderCoverage() {
               </div>
             </div>
           </div>
+
+          <div id="contact-form" className="mt-16 scroll-mt-24">
+            <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/20 rounded-xl p-8 md:p-12 shadow-lg">
+              <div className="max-w-2xl mx-auto">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                    <CheckCircle2 className="h-8 w-8 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    Verify Your {provider.name} Benefits
+                  </h2>
+                  <p className="text-foreground/70 text-lg max-w-xl mx-auto">
+                    We'll verify your coverage and help you understand your benefits. Contact us today to get started.
+                  </p>
+                </div>
+                <div className="flex flex-col md:flex-row gap-4 justify-center mb-8">
+                  <Button size="lg" className="gap-2" asChild data-testid="button-request-appointment">
+                    <Link href="/request-appointment">
+                      Request Appointment
+                    </Link>
+                  </Button>
+                  <Button size="lg" variant="outline" className="gap-2" asChild data-testid="button-call-now">
+                    <a href="tel:3868488751">
+                      <Phone className="h-5 w-5" />
+                      Call (386) 848-8751
+                    </a>
+                  </Button>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-foreground/70">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>In-network provider</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>Same-week appointments</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>Fast benefits verification</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <SiteFooter />

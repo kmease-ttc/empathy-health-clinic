@@ -184,6 +184,51 @@ export default function TherapyDetail() {
             </div>
           </div>
 
+          <div id="contact-form" className="mt-16 scroll-mt-24">
+            <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/20 rounded-xl p-8 md:p-12 shadow-lg">
+              <div className="max-w-2xl mx-auto">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                    <CheckCircle2 className="h-8 w-8 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    Ready to Begin Therapy?
+                  </h2>
+                  <p className="text-foreground/70 text-lg max-w-xl mx-auto">
+                    Take the first step toward positive change. Schedule your free consultation today.
+                  </p>
+                </div>
+                <div className="flex flex-col md:flex-row gap-4 justify-center mb-8">
+                  <Button size="lg" className="gap-2" asChild data-testid="button-request-appointment">
+                    <Link href="/request-appointment">
+                      Request Appointment
+                    </Link>
+                  </Button>
+                  <Button size="lg" variant="outline" className="gap-2" asChild data-testid="button-call-now">
+                    <a href="tel:3868488751">
+                      <CheckCircle2 className="h-5 w-5" />
+                      Call (386) 848-8751
+                    </a>
+                  </Button>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-foreground/70">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>Most insurance accepted</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>Same-week appointments</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span>Telehealth available</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="mt-16 pt-16 border-t">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-sans font-bold text-foreground mb-3">
