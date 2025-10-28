@@ -13,7 +13,7 @@ export default function SiteFooter() {
   });
 
   const phone = content?.footerPhone || "386-848-8751";
-  const emailAddress = content?.footerEmail || "info@empathyhealthclinic.com";
+  const emailAddress = content?.footerEmail || "provider@empathyhealthclinic.com";
   const address = content?.footerAddress || "Winter Park, Orlando, Florida";
 
   const quickLinks = [

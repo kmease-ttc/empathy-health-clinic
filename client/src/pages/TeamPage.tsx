@@ -92,7 +92,7 @@ export default function TeamPage() {
                 </a>
               </Button>
               <Button size="lg" variant="outline" asChild data-testid="button-email">
-                <a href="mailto:info@empathyhealthclinic.com" className="gap-2">
+                <a href="mailto:provider@empathyhealthclinic.com" className="gap-2">
                   <Mail className="h-5 w-5" />
                   Email Us
                 </a>
