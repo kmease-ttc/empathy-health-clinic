@@ -371,7 +371,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Optum", 
-        logo: "/attached_assets/stock_images/optum_health_insuran_b8057f6e.jpg",
+        logo: "/attached_assets/optum_1761610670721.webp",
         slug: "optum-optum-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Optum",
         heroTitle: "Find a Psychiatrist That Accepts Optum",
