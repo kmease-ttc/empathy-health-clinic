@@ -86,9 +86,9 @@ export default function TeamPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild data-testid="button-schedule">
-                <a href="tel:+14072038282" className="gap-2">
+                <a href="tel:3868488751" className="gap-2">
                   <Phone className="h-5 w-5" />
-                  Call (407) 203-8282
+                  Call 386-848-8751
                 </a>
               </Button>
               <Button size="lg" variant="outline" asChild data-testid="button-email">

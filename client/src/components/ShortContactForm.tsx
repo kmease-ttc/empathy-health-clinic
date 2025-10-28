@@ -147,7 +147,7 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
                 <FormControl>
                   <Input 
                     type="tel" 
-                    placeholder="(407) 555-1234" 
+                    placeholder="(386) 555-1234" 
                     {...field} 
                     data-testid="input-phone"
                   />

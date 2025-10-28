@@ -77,8 +77,8 @@ export function LeadCaptureForm({ therapyName }: LeadCaptureFormProps) {
         </p>
         <p className="text-sm text-muted-foreground">
           Need immediate assistance? Call us at{" "}
-          <a href="tel:4072604458" className="text-primary font-semibold hover:underline">
-            (407) 260-4458
+          <a href="tel:3868488751" className="text-primary font-semibold hover:underline">
+            386-848-8751
           </a>
         </p>
       </div>
@@ -170,7 +170,7 @@ export function LeadCaptureForm({ therapyName }: LeadCaptureFormProps) {
                 <FormControl>
                   <Input
                     type="tel"
-                    placeholder="(407) 555-1234"
+                    placeholder="(386) 555-1234"
                     {...field}
                     className="bg-white dark:bg-background"
                     data-testid="input-lead-phone"
@@ -237,9 +237,9 @@ export function LeadCaptureForm({ therapyName }: LeadCaptureFormProps) {
       <div className="mt-4 text-center">
         <p className="text-sm text-muted-foreground mb-2">Prefer to talk now?</p>
         <Button variant="outline" className="w-full" asChild data-testid="button-call-now">
-          <a href="tel:4072604458" className="flex items-center justify-center gap-2">
+          <a href="tel:3868488751" className="flex items-center justify-center gap-2">
             <Phone className="h-4 w-4" />
-            Call (407) 260-4458
+            Call 386-848-8751
           </a>
         </Button>
       </div>

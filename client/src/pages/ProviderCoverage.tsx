@@ -203,9 +203,9 @@ export default function ProviderCoverage() {
               </p>
               <div className="space-y-3">
                 <Button className="w-full" asChild data-testid="button-call-office">
-                  <a href="tel:4072604458" className="flex items-center justify-center gap-2">
+                  <a href="tel:3868488751" className="flex items-center justify-center gap-2">
                     <Phone className="h-4 w-4" />
-                    Call (407) 260-4458
+                    Call 386-848-8751
                   </a>
                 </Button>
                 <Button variant="outline" className="w-full" asChild data-testid="button-contact-us">
