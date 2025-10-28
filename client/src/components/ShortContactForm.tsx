@@ -76,7 +76,7 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
   };
 
   return (
-    <div className={`bg-card border rounded-lg p-6 md:p-8 ${className}`}>
+    <div className={className}>
       <h3 className="text-2xl font-sans font-bold text-foreground mb-6">
         Request an Appointment
       </h3>
