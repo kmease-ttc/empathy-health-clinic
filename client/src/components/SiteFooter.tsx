@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { SiGoogle, SiFacebook, SiInstagram } from "react-icons/si";
+import { Mail, MapPin, Phone, Calendar } from "lucide-react";
+import { SiFacebook, SiInstagram } from "react-icons/si";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
@@ -127,17 +127,17 @@ export default function SiteFooter() {
             </div>
             
             <div className="pt-4 border-t border-card-border">
-              <h4 className="text-sm font-semibold text-foreground mb-3">Follow Us</h4>
+              <h4 className="text-sm font-semibold text-foreground mb-3">Connect With Us</h4>
               <div className="flex gap-4">
                 <a
-                  href="https://www.google.com/maps/place/Empathy+Health+Clinic/"
+                  href="https://www.zocdoc.com/practice/empathy-health-clinic-75267"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"
-                  data-testid="link-google-business"
-                  aria-label="Google Business Profile"
+                  data-testid="link-zocdoc"
+                  aria-label="Book on ZocDoc"
                 >
-                  <SiGoogle className="w-6 h-6" />
+                  <Calendar className="w-6 h-6" />
                 </a>
                 <a
                   href="https://www.facebook.com/profile.php?id=100083226165903"
