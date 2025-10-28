@@ -3,15 +3,42 @@ import { Input } from "@/components/ui/input";
 import { Mail, MapPin, Phone, Calendar } from "lucide-react";
 import { SiFacebook, SiInstagram, SiX, SiTiktok, SiLinkedin } from "react-icons/si";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
 import { trackEvent } from "@/lib/analytics";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 export default function SiteFooter() {
   const [email, setEmail] = useState("");
+  const { toast } = useToast();
 
   const { data: content } = useQuery<SiteContent>({
     queryKey: ["/api/site-content"],
+  });
+
+  const subscribeMutation = useMutation({
+    mutationFn: async (email: string) => {
+      return await apiRequest("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Subscribed!",
+        description: "You'll receive our weekly mental health newsletter.",
+      });
+      setEmail("");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Subscription failed",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+      });
+    },
   });
 
   const phone = content?.footerPhone || "386-848-8751";
@@ -117,12 +144,14 @@ export default function SiteFooter() {
               <Button
                 className="rounded-lg"
                 data-testid="button-subscribe"
+                disabled={subscribeMutation.isPending || !email.trim()}
                 onClick={() => {
-                  console.log('Subscribe:', email);
-                  setEmail("");
+                  if (email.trim()) {
+                    subscribeMutation.mutate(email.trim());
+                  }
                 }}
               >
-                Subscribe
+                {subscribeMutation.isPending ? "Subscribing..." : "Subscribe"}
               </Button>
             </div>
             
