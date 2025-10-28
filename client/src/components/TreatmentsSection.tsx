@@ -37,28 +37,30 @@ export default function TreatmentsSection() {
           {displayedTreatments?.map((treatment, index) => {
             const Icon = iconMap[treatment.icon] || Brain;
             return (
-              <div
+              <Link
                 key={treatment.id}
-                className="rounded-2xl border border-card-border bg-background p-8 hover-elevate transition-transform duration-200 hover:scale-[1.02]"
-                data-testid={`treatment-${index}`}
+                href={`/${treatment.slug}`}
+                className="block"
+                data-testid={`link-treatment-${index}`}
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                  <Icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-foreground">
-                  {treatment.title}
-                </h3>
-                <p className="text-base text-muted-foreground leading-relaxed mb-6">
-                  {treatment.shortDescription}
-                </p>
-                <Link
-                  href={`/${treatment.slug}`}
-                  className="inline-flex items-center text-primary font-medium hover:underline"
-                  data-testid={`link-treatment-${index}`}
+                <div
+                  className="rounded-2xl border border-card-border bg-background p-8 hover-elevate transition-transform duration-200 hover:scale-[1.02] cursor-pointer h-full"
+                  data-testid={`treatment-${index}`}
                 >
-                  Learn More →
-                </Link>
-              </div>
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-semibold mb-4 text-foreground">
+                    {treatment.title}
+                  </h3>
+                  <p className="text-base text-muted-foreground leading-relaxed mb-6">
+                    {treatment.shortDescription}
+                  </p>
+                  <span className="inline-flex items-center text-primary font-medium hover:underline">
+                    Learn More →
+                  </span>
+                </div>
+              </Link>
             );
           })}
         </div>
