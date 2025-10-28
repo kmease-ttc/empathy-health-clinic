@@ -50,19 +50,21 @@ export default function ConditionsSection() {
             size="lg"
             className="px-8 py-6 text-lg rounded-full"
             data-testid="button-call-clinic"
-            onClick={() => console.log(`Call clicked: ${phone}`)}
+            asChild
           >
-            <Phone className="w-5 h-5 mr-2" />
-            {phone}
+            <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} className="flex items-center">
+              <Phone className="w-5 h-5 mr-2" />
+              {phone}
+            </a>
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="px-8 py-6 text-lg rounded-full"
             data-testid="button-book-appointment"
-            onClick={() => console.log('Book appointment clicked')}
+            asChild
           >
-            Book an Appointment
+            <a href="/request-appointment">Book an Appointment</a>
           </Button>
         </div>
       </div>

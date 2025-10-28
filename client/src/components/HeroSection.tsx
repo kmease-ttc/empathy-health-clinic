@@ -41,19 +41,21 @@ export default function HeroSection() {
               size="lg"
               className="bg-primary text-primary-foreground border border-primary-border px-8 py-6 text-lg rounded-full backdrop-blur-md"
               data-testid="button-request-appointment"
-              onClick={() => console.log('Request appointment clicked')}
+              asChild
             >
-              Request Appointment
+              <a href="/request-appointment">Request Appointment</a>
             </Button>
             <Button 
               size="lg"
               variant="outline"
               className="px-8 py-6 text-lg rounded-full backdrop-blur-md bg-white/10 text-white border-white/30"
               data-testid="button-call-now"
-              onClick={() => console.log('Call now clicked')}
+              asChild
             >
-              <Phone className="w-5 h-5 mr-2" />
-              Call Now
+              <a href="tel:3868488751" className="flex items-center">
+                <Phone className="w-5 h-5 mr-2" />
+                Call Now
+              </a>
             </Button>
           </div>
           
