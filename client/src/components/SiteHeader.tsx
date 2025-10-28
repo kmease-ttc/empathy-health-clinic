@@ -2,9 +2,17 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useQuery } from "@tanstack/react-query";
+import type { SiteContent } from "@shared/schema";
 
 export default function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const { data: content } = useQuery<SiteContent>({
+    queryKey: ["/api/site-content"],
+  });
+
+  const phone = content?.footerPhone || "386-848-8751";
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -52,6 +60,14 @@ export default function SiteHeader() {
           </nav>
           
           <div className="hidden md:flex items-center gap-4">
+            <a 
+              href={`tel:${phone.replace(/[^0-9]/g, '')}`}
+              className="flex items-center gap-2 text-primary font-semibold text-lg hover:text-primary/80 transition-colors"
+              data-testid="link-header-phone"
+            >
+              <Phone className="h-5 w-5" />
+              <span>{phone}</span>
+            </a>
             <ThemeToggle />
             <Button
               variant="ghost"
@@ -87,6 +103,14 @@ export default function SiteHeader() {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border bg-background">
           <div className="px-6 py-4 space-y-4">
+            <a 
+              href={`tel:${phone.replace(/[^0-9]/g, '')}`}
+              className="flex items-center justify-center gap-2 text-primary font-semibold text-xl py-3 border-b border-border"
+              data-testid="link-mobile-phone"
+            >
+              <Phone className="h-6 w-6" />
+              <span>{phone}</span>
+            </a>
             {navItems.map((item, index) => (
               <a
                 key={index}
