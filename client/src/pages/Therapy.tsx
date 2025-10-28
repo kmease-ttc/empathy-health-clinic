@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import * as Icons from "lucide-react";
 import type { Therapy } from "@shared/schema";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export default function TherapyPage() {
   const { data: therapies, isLoading } = useQuery<Therapy[]>({
@@ -23,6 +25,7 @@ export default function TherapyPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SiteHeader />
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
@@ -80,6 +83,7 @@ export default function TherapyPage() {
           </div>
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }

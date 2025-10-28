@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle2, Phone, Mail } from "lucide-react";
 import type { InsuranceProvider } from "@shared/schema";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export default function Insurance() {
   const { data: providers, isLoading } = useQuery<InsuranceProvider[]>({
@@ -20,6 +22,7 @@ export default function Insurance() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SiteHeader />
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
@@ -118,6 +121,7 @@ export default function Insurance() {
           </div>
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { Loader2, ArrowLeft, Phone, Mail, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { InsuranceProvider, Condition } from "@shared/schema";
 import forestBg from "@assets/stock_images/peaceful_green_fores_98e1a8d8.jpg";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export default function ProviderCoverage() {
   const [, params] = useRoute("/:slug");
@@ -54,6 +56,7 @@ export default function ProviderCoverage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SiteHeader />
       <div className="relative py-16 px-4">
         <div 
           className="absolute inset-0 bg-cover bg-center"
@@ -237,6 +240,7 @@ export default function ProviderCoverage() {
           </div>
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }
