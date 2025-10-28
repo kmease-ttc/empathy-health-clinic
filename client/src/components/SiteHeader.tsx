@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
+import logoImage from "@assets/image_1761618219825.png";
 
 export default function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,10 +27,14 @@ export default function SiteHeader() {
           <div className="flex items-center">
             <a 
               href="/" 
-              className="text-xl md:text-2xl font-sans font-medium text-foreground hover:text-primary transition-colors"
+              className="flex items-center gap-3 hover:opacity-80 transition-opacity"
               data-testid="link-logo"
             >
-              Empathy Health Clinic
+              <img 
+                src={logoImage} 
+                alt="Empathy Health Clinic" 
+                className="h-10 md:h-12 w-auto"
+              />
             </a>
           </div>
           
