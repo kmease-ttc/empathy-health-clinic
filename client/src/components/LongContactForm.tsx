@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { CheckCircle2, Briefcase, Heart, Pill, CreditCard, User } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -157,16 +158,53 @@ export default function LongContactForm() {
     if (isValid) setStep(step + 1);
   };
 
+  const totalSteps = 5;
+  const progress = (step / totalSteps) * 100;
+
   return (
-    <div className="max-w-3xl mx-auto bg-card border rounded-lg p-6 md:p-8">
-      <h2 className="text-3xl font-sans font-bold text-foreground mb-8">
-        Request Appointment
-      </h2>
+    <div className="bg-background border-2 border-primary/20 rounded-2xl shadow-xl p-6 md:p-10">
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-medium text-muted-foreground">
+            Step {step} of {totalSteps}
+          </span>
+          <span className="text-sm font-medium text-primary">
+            {Math.round(progress)}% Complete
+          </span>
+        </div>
+        <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-primary to-primary/70 transition-all duration-300 ease-in-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 mb-6">
+        {[1, 2, 3, 4, 5].map((num) => (
+          <div
+            key={num}
+            className={`flex-1 h-1 rounded-full transition-colors ${
+              num <= step ? 'bg-primary' : 'bg-muted'
+            }`}
+          />
+        ))}
+      </div>
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {step === 1 && (
             <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Briefcase className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Choose Your Service</h3>
+                  <p className="text-sm text-muted-foreground">Select the type of care you're interested in</p>
+                </div>
+              </div>
+              
               <FormField
                 control={form.control}
                 name="service"
@@ -200,6 +238,16 @@ export default function LongContactForm() {
 
           {step === 2 && (
             <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Heart className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Mental Health Information</h3>
+                  <p className="text-sm text-muted-foreground">Help us understand your needs</p>
+                </div>
+              </div>
+              
               <FormField
                 control={form.control}
                 name="conditions"
@@ -314,6 +362,16 @@ export default function LongContactForm() {
 
           {step === 3 && (
             <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Pill className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Medical Details</h3>
+                  <p className="text-sm text-muted-foreground">Tell us about your current treatment</p>
+                </div>
+              </div>
+              
               <FormField
                 control={form.control}
                 name="medications"
@@ -363,6 +421,16 @@ export default function LongContactForm() {
 
           {step === 4 && (
             <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <CreditCard className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Payment Information</h3>
+                  <p className="text-sm text-muted-foreground">How would you like to pay?</p>
+                </div>
+              </div>
+              
               <FormField
                 control={form.control}
                 name="paymentMethod"
@@ -397,7 +465,15 @@ export default function LongContactForm() {
 
           {step === 5 && (
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold">Your Information</h3>
+              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <User className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Contact Information</h3>
+                  <p className="text-sm text-muted-foreground">We'll use this to reach out to you</p>
+                </div>
+              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
