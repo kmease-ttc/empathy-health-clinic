@@ -150,7 +150,7 @@ export default function SiteFooter() {
                   <SiFacebook className="w-6 h-6" />
                 </a>
                 <a
-                  href="https://instagram.com/empathyhealthclinic"
+                  href="https://www.instagram.com/empathyhealthfl/?hl=en"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"
