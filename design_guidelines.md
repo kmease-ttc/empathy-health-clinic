@@ -14,14 +14,15 @@ Drawing inspiration from leading mental health and healthcare platforms (Headway
 
 ## Typography System
 
-**Font Families:**
-- Primary: Inter (Google Fonts) - for body text and UI elements
-- Headings: Instrument Serif (Google Fonts) - adds warmth and sophistication
+**Font Family:**
+- Universal: Inter (Google Fonts) - modern, highly readable sans-serif for all text throughout the site
+- Variable font with weights 400-700 for optimal performance
+- System font fallbacks: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif
 
 **Type Scale:**
-- Hero Headline: text-5xl md:text-6xl lg:text-7xl, font-serif, font-medium
-- Section Headings: text-3xl md:text-4xl lg:text-5xl, font-serif, font-medium
-- Subsection Headings: text-2xl md:text-3xl, font-serif, font-medium
+- Hero Headline: text-5xl md:text-6xl lg:text-7xl, font-sans, font-bold
+- Section Headings: text-3xl md:text-4xl lg:text-5xl, font-sans, font-bold
+- Subsection Headings: text-2xl md:text-3xl, font-sans, font-bold
 - Card Titles: text-xl md:text-2xl, font-sans, font-semibold
 - Body Large: text-lg md:text-xl, font-sans, leading-relaxed
 - Body Regular: text-base md:text-lg, font-sans, leading-relaxed

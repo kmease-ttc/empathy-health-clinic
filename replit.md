@@ -9,7 +9,7 @@ I want the agent to prioritize high-level features and architectural decisions. 
 ## System Architecture
 
 ### UI/UX Decisions
-The frontend is a React Single Page Application (SPA) built with TypeScript, utilizing Tailwind CSS and Shadcn UI components for a professional healthcare design. It features a responsive layout with full dark mode support. Aggressive cross-linking is implemented across all content types to enhance user navigation and SEO. Trust factors are prominently displayed throughout the site to build credibility. Lead capture forms on therapy pages are designed for high conversion with minimal friction.
+The frontend is a React Single Page Application (SPA) built with TypeScript, utilizing Tailwind CSS and Shadcn UI components for a professional healthcare design. It features a responsive layout with full dark mode support. Typography uses Inter font exclusively throughout the site, loaded via modern Google Fonts API with preconnect optimization for performance. Aggressive cross-linking is implemented across all content types to enhance user navigation and SEO. Trust factors are prominently displayed throughout the site to build credibility. Lead capture forms on therapy pages are designed for high conversion with minimal friction.
 
 ### Technical Implementations
 - **Frontend:** React SPA, TypeScript, Tailwind CSS, Shadcn UI, TanStack Query for data fetching, Wouter for routing.

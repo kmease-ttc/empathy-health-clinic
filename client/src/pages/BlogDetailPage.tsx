@@ -175,7 +175,7 @@ export default function BlogDetailPage() {
                 {blogPost.category}
               </Badge>
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-medium mb-6 text-white" data-testid="text-blog-title">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold mb-6 text-white" data-testid="text-blog-title">
               {blogPost.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-white/90">
@@ -223,14 +223,14 @@ export default function BlogDetailPage() {
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <article 
-                className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-medium prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
+                className="prose prose-lg max-w-none prose-headings:font-sans prose-headings:font-bold prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
                 data-testid="article-content"
               >
                 {blogPost.content.split('\n\n').map((paragraph, index) => {
                   if (paragraph.startsWith('## ')) {
                     const heading = paragraph.replace('## ', '');
                     return (
-                      <h2 key={index} className="text-2xl font-serif font-medium mt-8 mb-4 text-foreground">
+                      <h2 key={index} className="text-2xl font-sans font-bold mt-8 mb-4 text-foreground">
                         {heading}
                       </h2>
                     );
@@ -239,7 +239,7 @@ export default function BlogDetailPage() {
                   if (paragraph.startsWith('### ')) {
                     const heading = paragraph.replace('### ', '');
                     return (
-                      <h3 key={index} className="text-xl font-serif font-medium mt-6 mb-3 text-foreground">
+                      <h3 key={index} className="text-xl font-sans font-semibold mt-6 mb-3 text-foreground">
                         {heading}
                       </h3>
                     );
@@ -285,7 +285,7 @@ export default function BlogDetailPage() {
 
               {relatedPosts.length > 0 && (
                 <section className="mt-16 pt-16 border-t" data-testid="section-related-articles">
-                  <h2 className="text-3xl font-serif font-medium mb-8 text-foreground">Related Articles</h2>
+                  <h2 className="text-3xl font-sans font-bold mb-8 text-foreground">Related Articles</h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     {relatedPosts.map((post, index) => (
                       <Link key={post.id} href={`/blog/${post.slug}`} data-testid={`link-related-article-${index}`}>

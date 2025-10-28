@@ -54,7 +54,7 @@ export default function BlogListingPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
           </div>
           <div className="container mx-auto max-w-6xl relative z-10 text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium mb-6 text-white" data-testid="text-page-title">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white" data-testid="text-page-title">
               Mental Health Blog
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -85,7 +85,7 @@ export default function BlogListingPage() {
 
             {featuredPost && (
               <div className="mb-12" data-testid="featured-post">
-                <h2 className="text-2xl font-serif font-medium mb-6 text-foreground">Featured Article</h2>
+                <h2 className="text-2xl font-sans font-bold mb-6 text-foreground">Featured Article</h2>
                 <Link href={`/blog/${featuredPost.slug}`}>
                   <Card className="hover-elevate cursor-pointer">
                     <div className="grid md:grid-cols-2 gap-6">
@@ -93,7 +93,7 @@ export default function BlogListingPage() {
                         <Badge variant="secondary" className="mb-4" data-testid="badge-featured-category">
                           {featuredPost.category}
                         </Badge>
-                        <CardTitle className="text-3xl font-serif font-medium mb-4 leading-tight" data-testid="text-featured-title">
+                        <CardTitle className="text-3xl font-sans font-bold mb-4 leading-tight" data-testid="text-featured-title">
                           {featuredPost.title}
                         </CardTitle>
                         <p className="text-muted-foreground mb-6 text-lg leading-relaxed line-clamp-3" data-testid="text-featured-excerpt">
@@ -136,7 +136,7 @@ export default function BlogListingPage() {
 
         <section className="py-16 md:py-20 bg-background">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <h2 className="text-2xl font-serif font-medium mb-8 text-foreground">
+            <h2 className="text-2xl font-sans font-bold mb-8 text-foreground">
               {selectedCategory === "All" ? "All Articles" : `${selectedCategory} Articles`}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
