@@ -112,10 +112,10 @@ export default function Insurance() {
                     Call 386-848-8751
                   </a>
                 </Button>
-                <Button variant="outline" asChild data-testid="button-contact-us">
-                  <Link href="/contact" className="flex items-center gap-2">
+                <Button variant="outline" asChild data-testid="button-request-appointment">
+                  <Link href="/request-appointment" className="flex items-center gap-2">
                     <Mail className="h-4 w-4" />
-                    Contact Us
+                    Request Appointment
                   </Link>
                 </Button>
               </div>
