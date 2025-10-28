@@ -21,12 +21,17 @@ The frontend is a React Single Page Application (SPA) built with TypeScript, uti
 ### Feature Specifications
 - **Landing Page:** Beautiful, comprehensive landing page.
 - **Services Page (`/services`):** Overview of all offerings, categorized with cross-links.
-- **SEO-optimized Landing Pages:** Dedicated pages for Insurance Providers, Treatments, Therapies, and Conditions with detailed content and custom URLs.
-- **Team Page (`/team`):** Displays all staff members with photos and credentials.
+- **SEO-optimized Landing Pages:** 
+  - 12 Insurance Provider pages with comprehensive coverage details
+  - 8 Psychiatric Treatment pages
+  - 15 Therapy Service pages
+  - 10 Condition pages (Anxiety, Depression, Bipolar, PTSD, Personality Disorders, ADHD, OCD, Eating Disorders, Substance Use Disorders, Postpartum Depression)
+- **Team Page (`/team`):** Displays all staff members with professional photos and credentials.
 - **Patient Portal (`/admin`):** A comprehensive CMS for editing all content types.
 - **Lead Capture:** High-converting forms on therapy pages.
 - **Trust Factors:** Credibility indicators strategically placed throughout the site.
 - **Mobile Responsiveness & Dark Mode:** Full support for various devices and user preferences.
+- **Contact Information:** Prominent phone number (386-848-8751) in sticky header, visible on all pages.
 
 ### System Design Choices
 The system uses an in-memory storage solution, simplifying deployment by removing the need for a separate database setup, though this means data resets on server restarts. The project structure separates client, server, and shared (schemas) concerns, promoting modularity. Content types are rigorously defined to support detailed and SEO-rich pages, including specialized sections like "Who Can Benefit" and "What to Expect."
