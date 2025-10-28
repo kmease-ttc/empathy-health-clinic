@@ -179,17 +179,6 @@ export default function LongContactForm() {
           />
         </div>
       </div>
-
-      <div className="flex items-center gap-2 mb-6">
-        {[1, 2, 3, 4, 5].map((num) => (
-          <div
-            key={num}
-            className={`flex-1 h-1 rounded-full transition-colors ${
-              num <= step ? 'bg-primary' : 'bg-muted'
-            }`}
-          />
-        ))}
-      </div>
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
