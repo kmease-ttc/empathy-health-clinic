@@ -17,6 +17,8 @@ import {
   type InsertCondition,
   type Lead,
   type InsertLead,
+  type BlogPost,
+  type InsertBlogPost,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
