@@ -68,10 +68,12 @@ export default function SiteHeader() {
             </a>
             <Button
               variant="ghost"
-              onClick={() => window.location.href = '/admin'}
+              asChild
               data-testid="button-admin-link"
             >
-              Patient Portal
+              <a href="https://www.charmhealth.com/ehr/sign-in.html" target="_blank" rel="noopener noreferrer">
+                Patient Portal
+              </a>
             </Button>
             <Button
               size="lg"
