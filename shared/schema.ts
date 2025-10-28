@@ -92,6 +92,7 @@ export const testimonials = pgTable("testimonials", {
   date: text("date").notNull(),
   text: text("text").notNull(),
   rating: integer("rating").notNull(),
+  profileImage: text("profile_image"), // URL to profile image or null for initial-based avatar
   order: integer("order").notNull(),
 });
 

@@ -464,6 +464,7 @@ export class MemStorage implements IStorage {
         date: "October 10, 2025",
         text: "Marjorie spends more time and a more holistic approach to psychiatric care than any other practitioner I have worked with. She works with you to find the best personal treatment.",
         rating: 5,
+        profileImage: null, // Will use initials
         order: 1,
       },
       {
@@ -471,6 +472,7 @@ export class MemStorage implements IStorage {
         date: "October 1, 2025",
         text: "Empathy Health Clinic is great! From Chantal in the office to the Medication Managers Tony & Monique, to the quality therapists, especially Christine Orr, I would highly recommend Empathy to anyone.",
         rating: 5,
+        profileImage: null, // Will use initials
         order: 2,
       },
       {
@@ -478,6 +480,7 @@ export class MemStorage implements IStorage {
         date: "September 3, 2025",
         text: "Excellent psych medical management. Depression and anxiety are so much more manageable, fewer episodes, finally sleeping through the night. Alex provides exceptional care.",
         rating: 5,
+        profileImage: null, // Will use initials
         order: 3,
       },
     ];
