@@ -18,9 +18,10 @@ export default function InsuranceSection() {
         
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
           {visibleProviders?.map((provider, index) => (
-            <div
+            <Link
               key={provider.id}
-              className="aspect-square rounded-xl border border-border bg-card flex flex-col items-center justify-center hover-elevate transition-transform duration-200 hover:scale-[1.02] p-6"
+              href={`/insurance/${provider.slug}`}
+              className="aspect-square rounded-xl border border-border bg-card flex flex-col items-center justify-center hover-elevate transition-transform duration-200 hover:scale-[1.02] p-6 cursor-pointer"
               data-testid={`insurance-${index}`}
             >
               <img 
@@ -39,7 +40,7 @@ export default function InsuranceSection() {
               <p className="text-sm md:text-base font-medium text-center text-card-foreground hidden items-center justify-center h-full p-6">
                 {provider.name}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
         
