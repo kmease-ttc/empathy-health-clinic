@@ -28,8 +28,8 @@ export default function TeamSection() {
               className="text-center space-y-4"
               data-testid={`team-member-${index}`}
             >
-              <Avatar className="w-full aspect-square rounded-lg mx-auto">
-                <AvatarImage src={member.image} alt={member.name} className="object-cover" />
+              <Avatar className="w-full aspect-square rounded-lg mx-auto bg-muted p-4">
+                <AvatarImage src={member.image} alt={member.name} className="object-contain" />
                 <AvatarFallback className="text-2xl rounded-lg">
                   {member.name.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
