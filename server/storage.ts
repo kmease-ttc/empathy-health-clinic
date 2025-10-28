@@ -545,7 +545,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "More Providers", 
-        logo: "/attached_assets/stock_images/medical_health_insur_80f2befe.jpg",
+        logo: "",
         slug: "more-providers-more-providers-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Your Insurance",
         heroTitle: "Find a Psychiatrist That Accepts Your Insurance",

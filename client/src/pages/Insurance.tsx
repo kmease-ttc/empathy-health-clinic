@@ -36,17 +36,20 @@ export default function Insurance() {
             <Link key={provider.id} href={`/${provider.slug}`} data-testid={`link-provider-${provider.id}`}>
               <Card className="h-full hover-elevate active-elevate-2 cursor-pointer transition-all">
                 <CardHeader className="flex flex-col items-center text-center space-y-4 pb-4">
-                  <div className="h-20 w-full flex items-center justify-center">
-                    <img
-                      src={provider.logo}
-                      alt={`${provider.name} logo`}
-                      className="max-h-16 max-w-full object-contain"
-                      data-testid={`img-provider-logo-${provider.id}`}
-                    />
-                  </div>
-                  <CardTitle className="text-xl" data-testid={`text-provider-name-${provider.id}`}>
-                    {provider.name}
-                  </CardTitle>
+                  {provider.logo ? (
+                    <div className="h-20 w-full flex items-center justify-center">
+                      <img
+                        src={provider.logo}
+                        alt={`${provider.name} logo`}
+                        className="max-h-16 max-w-full object-contain"
+                        data-testid={`img-provider-logo-${provider.id}`}
+                      />
+                    </div>
+                  ) : (
+                    <CardTitle className="text-xl pt-2" data-testid={`text-provider-name-${provider.id}`}>
+                      {provider.name}
+                    </CardTitle>
+                  )}
                 </CardHeader>
                 <CardContent className="text-center">
                   <Button variant="outline" className="w-full" data-testid={`button-view-coverage-${provider.id}`}>
