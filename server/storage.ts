@@ -150,6 +150,14 @@ export class MemStorage implements IStorage {
   }
 
   private initializeDefaultContent() {
+    // Initialize default admin user
+    const adminId = randomUUID();
+    this.users.set(adminId, {
+      id: adminId,
+      username: "providers@empathyhealthclinic.com",
+      password: "Milly2025",
+    });
+
     // Initialize default site content
     this.siteContent = {
       id: randomUUID(),
