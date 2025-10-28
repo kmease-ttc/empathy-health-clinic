@@ -20,7 +20,6 @@ The frontend is a React Single Page Application (SPA) built with TypeScript, uti
 - **Dynamic Content:** Real-time content updates are pulled from the API.
 - **Blog System:** Complete blog with listing page (`/blog`) and individual post pages (`/blog/:slug`). 7 comprehensive mental health articles migrated from existing site with full SEO optimization.
 - **Blog SEO:** All blog posts include comprehensive SEO metadata (custom meta titles, descriptions, keywords, Open Graph tags, Twitter cards), JSON-LD structured data for rich snippets, related articles, author bios, social sharing, and category filtering.
-- **LiveChat Integration:** Site-wide LiveChat widget (license 17225574) for instant customer support on all pages.
 - **Analytics System:** Comprehensive site health monitoring with Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4 integration, page view tracking, conversion event tracking, and admin analytics dashboard at `/admin/analytics`.
 
 ### Feature Specifications
@@ -49,7 +48,6 @@ The frontend is a React Single Page Application (SPA) built with TypeScript, uti
   - Recent activity log with event timestamps
 - **Lead Capture:** High-converting forms on therapy pages with automatic email notifications to providers@empathyhealthclinic.com.
 - **Trust Factors:** Credibility indicators strategically placed throughout the site.
-- **LiveChat Widget:** Site-wide instant chat support for immediate customer assistance.
 - **Mobile Responsiveness & Dark Mode:** Full support for various devices and user preferences.
 - **Contact Information:** Prominent phone number (386-848-8751) in sticky header, visible on all pages. Email: providers@empathyhealthclinic.com.
 
@@ -66,7 +64,6 @@ The system uses an in-memory storage solution, simplifying deployment by removin
 - **Express.js:** Backend web application framework.
 - **Zod:** Schema declaration and validation library.
 - **SendGrid:** Email delivery service for lead notifications.
-- **LiveChat:** Real-time customer support chat widget.
 - **web-vitals:** Google's library for measuring Core Web Vitals (LCP, INP, CLS, FCP, TTFB).
 - **Lucide-react:** Icon library for UI elements.
 
