@@ -32,10 +32,8 @@ import type { InsuranceProvider } from "@shared/schema";
 
 const longFormSchema = z.object({
   service: z.string().min(1, "Please select a service"),
-  conditions: z.array(z.string()).default([]),
-  conditionsOther: z.string().optional(),
-  symptoms: z.array(z.string()).default([]),
-  symptomsOther: z.string().optional(),
+  concerns: z.array(z.string()).default([]),
+  concernsOther: z.string().optional(),
   medications: z.string().optional(),
   preferredDay: z.string().optional(),
   paymentMethod: z.enum(["insurance", "self-pay"]),
@@ -57,15 +55,21 @@ const SERVICES = [
   { value: "Medication Management", label: "Medication Management" },
 ];
 
-const CONDITIONS = [
-  "Depression", "Anxiety", "Bipolar Disorder", "ADHD", 
-  "PTSD", "OCD", "Schizophrenia", "Eating Disorders", "Other"
-];
-
-const SYMPTOMS = [
-  "Depression", "Anxiety", "Trauma/PTSD", "Relationship Issues",
-  "Stress Management", "Grief or Loss", "Anger Management",
-  "Self-Esteem Issues", "Eating Disorders", "Other"
+const CONCERNS = [
+  "Depression", 
+  "Anxiety", 
+  "Bipolar Disorder", 
+  "ADHD", 
+  "PTSD/Trauma",
+  "OCD", 
+  "Schizophrenia", 
+  "Eating Disorders",
+  "Relationship Issues",
+  "Stress Management", 
+  "Grief or Loss", 
+  "Anger Management",
+  "Self-Esteem Issues",
+  "Other"
 ];
 
 const DAYS = [
@@ -85,10 +89,8 @@ export default function LongContactForm() {
     resolver: zodResolver(longFormSchema),
     defaultValues: {
       service: "",
-      conditions: [],
-      conditionsOther: "",
-      symptoms: [],
-      symptomsOther: "",
+      concerns: [],
+      concernsOther: "",
       medications: "",
       preferredDay: "",
       paymentMethod: "insurance",
@@ -112,13 +114,9 @@ export default function LongContactForm() {
 
   const submitLead = useMutation({
     mutationFn: async (data: LongFormValues) => {
-      const conditions = [...data.conditions];
-      if (data.conditionsOther) {
-        conditions.push(data.conditionsOther);
-      }
-      const symptoms = [...data.symptoms];
-      if (data.symptomsOther) {
-        symptoms.push(data.symptomsOther);
+      const concerns = [...data.concerns];
+      if (data.concernsOther) {
+        concerns.push(data.concernsOther);
       }
 
       return apiRequest("POST", "/api/leads", {
@@ -128,8 +126,8 @@ export default function LongContactForm() {
         phone: data.phone,
         service: data.service,
         formType: "long",
-        conditions: JSON.stringify(conditions),
-        symptoms: JSON.stringify(symptoms),
+        conditions: JSON.stringify(concerns),
+        symptoms: JSON.stringify(concerns),
         medications: data.medications,
         preferredDay: data.preferredDay,
         paymentMethod: data.paymentMethod,
@@ -162,7 +160,7 @@ export default function LongContactForm() {
   };
 
   const nextStep = async () => {
-    const fields = step === 1 ? ["service"] : step === 2 ? ["conditions", "symptoms"] : step === 3 ? ["medications", "preferredDay"] : [];
+    const fields = step === 1 ? ["service"] : step === 2 ? ["concerns"] : step === 3 ? ["medications", "preferredDay"] : [];
     const isValid = await form.trigger(fields as any);
     if (isValid) setStep(step + 1);
   };
@@ -264,34 +262,34 @@ export default function LongContactForm() {
               
               <FormField
                 control={form.control}
-                name="conditions"
+                name="concerns"
                 render={() => (
                   <FormItem>
                     <FormLabel className="text-lg">
-                      Mental Health Conditions (Select all that apply)
+                      What brings you to therapy? (Select all that apply)
                     </FormLabel>
-                    <div className="space-y-2">
-                      {CONDITIONS.map((condition) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+                      {CONCERNS.map((concern) => (
                         <FormField
-                          key={condition}
+                          key={concern}
                           control={form.control}
-                          name="conditions"
+                          name="concerns"
                           render={({ field }) => (
                             <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                               <FormControl>
                                 <Checkbox
-                                  checked={field.value?.includes(condition)}
+                                  checked={field.value?.includes(concern)}
                                   onCheckedChange={(checked) => {
                                     const newValue = checked
-                                      ? [...(field.value || []), condition]
-                                      : field.value?.filter((value) => value !== condition);
+                                      ? [...(field.value || []), concern]
+                                      : field.value?.filter((value) => value !== concern);
                                     field.onChange(newValue);
                                   }}
-                                  data-testid={`checkbox-condition-${condition}`}
+                                  data-testid={`checkbox-concern-${concern}`}
                                 />
                               </FormControl>
                               <FormLabel className="font-normal cursor-pointer">
-                                {condition}
+                                {concern}
                               </FormLabel>
                             </FormItem>
                           )}
@@ -302,70 +300,15 @@ export default function LongContactForm() {
                 )}
               />
 
-              {form.watch("conditions")?.includes("Other") && (
+              {form.watch("concerns")?.includes("Other") && (
                 <FormField
                   control={form.control}
-                  name="conditionsOther"
+                  name="concernsOther"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Please specify other condition</FormLabel>
+                      <FormLabel>Please specify</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Specify..." data-testid="input-conditions-other" />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              )}
-
-              <FormField
-                control={form.control}
-                name="symptoms"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className="text-lg">
-                      Symptoms or Issues (Select all that apply)
-                    </FormLabel>
-                    <div className="space-y-2">
-                      {SYMPTOMS.map((symptom) => (
-                        <FormField
-                          key={symptom}
-                          control={form.control}
-                          name="symptoms"
-                          render={({ field }) => (
-                            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(symptom)}
-                                  onCheckedChange={(checked) => {
-                                    const newValue = checked
-                                      ? [...(field.value || []), symptom]
-                                      : field.value?.filter((value) => value !== symptom);
-                                    field.onChange(newValue);
-                                  }}
-                                  data-testid={`checkbox-symptom-${symptom}`}
-                                />
-                              </FormControl>
-                              <FormLabel className="font-normal cursor-pointer">
-                                {symptom}
-                              </FormLabel>
-                            </FormItem>
-                          )}
-                        />
-                      ))}
-                    </div>
-                  </FormItem>
-                )}
-              />
-
-              {form.watch("symptoms")?.includes("Other") && (
-                <FormField
-                  control={form.control}
-                  name="symptomsOther"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Please specify other symptom</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Specify..." data-testid="input-symptoms-other" />
+                        <Input {...field} placeholder="Specify..." data-testid="input-concerns-other" />
                       </FormControl>
                     </FormItem>
                   )}
