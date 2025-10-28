@@ -253,16 +253,16 @@ export default function ProviderCoverage() {
                     We'll verify your coverage and help you understand your benefits. Contact us today to get started.
                   </p>
                 </div>
-                <div className="flex flex-col md:flex-row gap-4 justify-center mb-8">
-                  <Button size="lg" className="gap-2" asChild data-testid="button-request-appointment">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 max-w-lg mx-auto">
+                  <Button size="lg" className="gap-2 flex-1" asChild data-testid="button-request-appointment">
                     <Link href="/request-appointment">
                       Request Appointment
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" className="gap-2" asChild data-testid="button-call-now">
-                    <a href="tel:3868488751">
+                  <Button size="lg" variant="outline" className="gap-2 flex-1" asChild data-testid="button-call-now">
+                    <a href="tel:3868488751" className="flex items-center justify-center gap-2">
                       <Phone className="h-5 w-5" />
-                      Call (386) 848-8751
+                      <span>Call (386) 848-8751</span>
                     </a>
                   </Button>
                 </div>
