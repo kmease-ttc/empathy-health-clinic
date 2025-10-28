@@ -21,9 +21,7 @@ export default function InsuranceSection() {
             <Link
               key={provider.id}
               href={`/${provider.slug}`}
-              className={`aspect-square rounded-xl border border-border flex flex-col items-center justify-center hover-elevate transition-transform duration-200 hover:scale-[1.02] p-6 cursor-pointer ${
-                provider.name === 'UMR' ? 'bg-muted' : 'bg-card'
-              }`}
+              className="aspect-square rounded-xl border border-border bg-card flex flex-col items-center justify-center hover-elevate transition-transform duration-200 hover:scale-[1.02] p-6 cursor-pointer"
               data-testid={`insurance-${index}`}
             >
               <img 
