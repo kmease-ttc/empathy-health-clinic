@@ -33,6 +33,7 @@ export default function Home() {
         <ApproachSection />
         <TeamSection />
         <ConditionsSection />
+        <div className="border-t" />
         <TestimonialsSection />
       </main>
       <SiteFooter />

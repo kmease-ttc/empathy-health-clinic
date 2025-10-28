@@ -419,7 +419,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "UMR", 
-        logo: "/attached_assets/UMR_logo (1)_1761611219085.png",
+        logo: "/attached_assets/image_1761611627164.png",
         slug: "umr-umr-coverage",
         pageTitle: "Find a Psychiatrist That Accepts UMR",
         heroTitle: "Find a Psychiatrist That Accepts UMR",
