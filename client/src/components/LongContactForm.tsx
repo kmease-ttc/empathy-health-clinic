@@ -159,7 +159,7 @@ export default function LongContactForm() {
 
   return (
     <div className="max-w-3xl mx-auto bg-card border rounded-lg p-6 md:p-8">
-      <h2 className="text-3xl font-serif font-bold text-foreground mb-8">
+      <h2 className="text-3xl font-sans font-bold text-foreground mb-8">
         Request Appointment
       </h2>
       

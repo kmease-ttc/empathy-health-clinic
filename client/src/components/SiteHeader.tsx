@@ -27,7 +27,7 @@ export default function SiteHeader() {
           <div className="flex items-center">
             <a 
               href="#" 
-              className="text-xl md:text-2xl font-serif font-medium text-foreground"
+              className="text-xl md:text-2xl font-sans font-medium text-foreground"
               data-testid="link-logo"
               onClick={(e) => {
                 e.preventDefault();

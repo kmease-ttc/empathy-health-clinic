@@ -79,7 +79,7 @@ export default function ProviderCoverage() {
               />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-serif font-bold mb-2 text-white" data-testid="text-hero-title">
+              <h1 className="text-3xl md:text-4xl font-sans font-bold mb-2 text-white" data-testid="text-hero-title">
                 {provider.heroTitle}
               </h1>
             </div>
@@ -94,7 +94,7 @@ export default function ProviderCoverage() {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="md:col-span-2 space-y-8">
             <section>
-              <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                 About {provider.name} Coverage
               </h2>
               <div className="prose prose-lg max-w-none">
@@ -105,7 +105,7 @@ export default function ProviderCoverage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                 Coverage Details
               </h2>
               <div className="prose prose-lg max-w-none">
@@ -116,7 +116,7 @@ export default function ProviderCoverage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                 What We Treat
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -135,7 +135,7 @@ export default function ProviderCoverage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                 Frequently Asked Questions
               </h2>
               <div className="space-y-4">
@@ -160,7 +160,7 @@ export default function ProviderCoverage() {
             </section>
 
             <section className="bg-card border rounded-lg p-6">
-              <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                 Our Services
               </h2>
               <div className="space-y-3">

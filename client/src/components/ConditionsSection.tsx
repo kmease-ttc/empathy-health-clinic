@@ -18,7 +18,7 @@ export default function ConditionsSection() {
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-card">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-medium text-center mb-6">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-medium text-center mb-6">
           Trusted Therapist & Psychiatrist Orlando for All Mental Health Needs
         </h2>
         <p className="text-lg md:text-xl text-center text-muted-foreground mb-12 max-w-4xl mx-auto">

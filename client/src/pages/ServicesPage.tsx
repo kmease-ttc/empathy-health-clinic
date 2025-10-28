@@ -87,7 +87,7 @@ export default function ServicesPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
           </div>
           <div className="container mx-auto max-w-6xl relative z-10 text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-white" data-testid="text-page-title">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white" data-testid="text-page-title">
               Our Services
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -99,7 +99,7 @@ export default function ServicesPage() {
         <section className="py-16 md:py-20 bg-background">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
                 Featured Services
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -115,7 +115,7 @@ export default function ServicesPage() {
                       <div className="p-3 bg-primary/10 rounded-lg">
                         <service.icon className="h-8 w-8 text-primary" />
                       </div>
-                      <CardTitle className="text-2xl font-serif">{service.title}</CardTitle>
+                      <CardTitle className="text-2xl font-sans">{service.title}</CardTitle>
                     </div>
                     <p className="text-muted-foreground leading-relaxed">
                       {service.description}
@@ -140,7 +140,7 @@ export default function ServicesPage() {
         <section className="py-16 md:py-20 bg-card border-y">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
                 Why Choose Us
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -156,7 +156,7 @@ export default function ServicesPage() {
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Brain className="h-10 w-10 text-primary" />
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
+                <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground">
                   Therapy Services
                 </h2>
               </div>
@@ -170,7 +170,7 @@ export default function ServicesPage() {
                 <Link key={therapy.id} href={`/${therapy.slug}`} data-testid={`therapy-link-${index}`}>
                   <Card className="h-full hover-elevate cursor-pointer">
                     <CardHeader>
-                      <CardTitle className="text-xl font-serif flex items-center gap-2">
+                      <CardTitle className="text-xl font-sans flex items-center gap-2">
                         <FileText className="h-5 w-5 text-primary flex-shrink-0" />
                         {therapy.title}
                       </CardTitle>
@@ -205,7 +205,7 @@ export default function ServicesPage() {
         <section className="py-16 md:py-20 bg-background">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
                 Treatment Programs
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -218,7 +218,7 @@ export default function ServicesPage() {
                 <Link key={treatment.id} href={`/${treatment.slug}`} data-testid={`treatment-link-${index}`}>
                   <Card className="h-full hover-elevate cursor-pointer">
                     <CardHeader>
-                      <CardTitle className="text-xl font-serif">
+                      <CardTitle className="text-xl font-sans">
                         {treatment.title}
                       </CardTitle>
                     </CardHeader>
@@ -241,7 +241,7 @@ export default function ServicesPage() {
 
         <section className="py-16 bg-card border-t">
           <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
+            <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-6">
               Ready to Get Started?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">

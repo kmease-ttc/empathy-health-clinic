@@ -72,7 +72,7 @@ export default function TherapyDetail() {
               <ArrowLeft className="h-4 w-4" />
               Back to All Therapies
             </Link>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4 text-white" data-testid="text-hero-title">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
               {therapy.heroTitle}
             </h1>
             <p className="text-lg md:text-xl text-white/90 leading-relaxed" data-testid="text-hero-description">
@@ -85,7 +85,7 @@ export default function TherapyDetail() {
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div className="md:col-span-2 space-y-8">
               <section>
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   About {therapy.title}
                 </h2>
                 <div className="prose prose-lg max-w-none">
@@ -96,7 +96,7 @@ export default function TherapyDetail() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   Who Can Benefit
                 </h2>
                 <div className="prose prose-lg max-w-none">
@@ -107,7 +107,7 @@ export default function TherapyDetail() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   What to Expect
                 </h2>
                 <div className="prose prose-lg max-w-none">
@@ -118,7 +118,7 @@ export default function TherapyDetail() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   Frequently Asked Questions
                 </h2>
                 <div className="space-y-4">
@@ -143,7 +143,7 @@ export default function TherapyDetail() {
               </section>
 
               <section className="bg-card border rounded-lg p-6">
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   Our Approach
                 </h2>
                 <div className="space-y-3">
@@ -186,7 +186,7 @@ export default function TherapyDetail() {
 
           <div className="mt-16 pt-16 border-t">
             <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-3">
+              <h2 className="text-2xl md:text-3xl font-sans font-bold text-foreground mb-3">
                 Why Choose Empathy Health Clinic
               </h2>
               <p className="text-muted-foreground">

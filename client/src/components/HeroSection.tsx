@@ -29,7 +29,7 @@ export default function HeroSection() {
       
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <div className="max-w-xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-6">
             {title}
           </h1>
           <p className="text-lg md:text-xl text-white/95 leading-relaxed mb-8">

@@ -28,7 +28,7 @@ export default function TherapyPage() {
       <SiteHeader />
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
+          <h1 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">
             Therapy Services
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -70,7 +70,7 @@ export default function TherapyPage() {
 
         <div className="bg-card rounded-lg p-8 border">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+            <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
               Start Your Healing Journey Today
             </h2>
             <p className="text-muted-foreground mb-6">

@@ -29,7 +29,7 @@ export default function SiteFooter() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
-            <h3 className="text-xl font-serif font-medium mb-4 text-foreground">
+            <h3 className="text-xl font-sans font-medium mb-4 text-foreground">
               Empathy Health Clinic
             </h3>
             <p className="text-base text-muted-foreground mb-6">

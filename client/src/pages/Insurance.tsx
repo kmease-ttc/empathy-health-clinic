@@ -25,7 +25,7 @@ export default function Insurance() {
       <SiteHeader />
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
+          <h1 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">
             Insurance We Accept
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -66,7 +66,7 @@ export default function Insurance() {
 
         <div className="bg-card rounded-lg p-8 border">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-serif font-bold text-foreground mb-4 text-center">
+            <h2 className="text-2xl font-sans font-bold text-foreground mb-4 text-center">
               What to Expect with Insurance Coverage
             </h2>
             <div className="space-y-4 mb-8">

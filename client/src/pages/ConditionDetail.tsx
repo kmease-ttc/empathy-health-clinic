@@ -102,7 +102,7 @@ export default function ConditionDetail() {
               <ArrowLeft className="h-4 w-4" />
               Back to All Conditions
             </Link>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4 text-white" data-testid="text-hero-title">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
               {condition.heroTitle}
             </h1>
             <p className="text-lg md:text-xl text-white/90 leading-relaxed" data-testid="text-hero-description">
@@ -115,7 +115,7 @@ export default function ConditionDetail() {
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div className="md:col-span-2 space-y-8">
               <section>
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   About {condition.title}
                 </h2>
                 <div className="prose prose-lg max-w-none">
@@ -126,7 +126,7 @@ export default function ConditionDetail() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   Common Symptoms
                 </h2>
                 <div className="prose prose-lg max-w-none">
@@ -138,7 +138,7 @@ export default function ConditionDetail() {
 
               {(relatedTreatments.length > 0 || relatedTherapies.length > 0) && (
                 <section>
-                  <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                     Related Treatments & Therapies
                   </h2>
                   <div className="space-y-3">
@@ -187,7 +187,7 @@ export default function ConditionDetail() {
               )}
 
               <section>
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   Frequently Asked Questions
                 </h2>
                 <div className="space-y-4">
@@ -212,7 +212,7 @@ export default function ConditionDetail() {
               </section>
 
               <section className="bg-card border rounded-lg p-6">
-                <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   Our Approach
                 </h2>
                 <div className="space-y-3">
