@@ -38,7 +38,8 @@ export default function ServicesPage() {
         "Medication management assessments",
         "Second opinion consultations",
         "Treatment progress evaluations"
-      ]
+      ],
+      link: "/psychiatric-evaluation"
     },
     {
       icon: Brain,
@@ -49,7 +50,8 @@ export default function ServicesPage() {
         "Regular monitoring and adjustments",
         "Side effect management",
         "Coordination with other providers"
-      ]
+      ],
+      link: "/medication-management"
     },
     {
       icon: FileText,
@@ -60,7 +62,8 @@ export default function ServicesPage() {
         "Dialectical Behavior Therapy (DBT)",
         "Trauma-focused therapy",
         "Individual and couples counseling"
-      ]
+      ],
+      link: "/therapy"
     },
     {
       icon: PawPrint,
@@ -71,7 +74,8 @@ export default function ServicesPage() {
         "Legitimate clinical evaluation",
         "Same-week appointments available",
         "Compliant with Fair Housing Act"
-      ]
+      ],
+      link: "/esa-letter"
     }
   ];
 
@@ -109,29 +113,36 @@ export default function ServicesPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
               {featuredServices.map((service, index) => (
-                <Card key={index} className="hover-elevate" data-testid={`featured-service-${index}`}>
-                  <CardHeader>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-primary/10 rounded-lg">
-                        <service.icon className="h-8 w-8 text-primary" />
+                <Link key={index} href={service.link} data-testid={`featured-service-link-${index}`}>
+                  <Card className="hover-elevate cursor-pointer h-full" data-testid={`featured-service-${index}`}>
+                    <CardHeader>
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="p-3 bg-primary/10 rounded-lg">
+                          <service.icon className="h-8 w-8 text-primary" />
+                        </div>
+                        <CardTitle className="text-2xl font-sans">{service.title}</CardTitle>
                       </div>
-                      <CardTitle className="text-2xl font-sans">{service.title}</CardTitle>
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {service.description}
-                    </p>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <ArrowRight className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                          <span className="text-foreground">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {service.description}
+                      </p>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-3 mb-4">
+                        {service.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <ArrowRight className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                            <span className="text-foreground">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-4">
+                        <span className="text-primary font-medium hover:underline">
+                          Learn more →
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </div>

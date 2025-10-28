@@ -266,6 +266,25 @@ export class MemStorage implements IStorage {
         ]),
         order: 8,
       },
+      {
+        title: "ESA Letter",
+        shortDescription: "Emotional Support Animal documentation for housing and travel accommodations.",
+        icon: "Heart",
+        slug: "esa-letter",
+        pageTitle: "ESA Letter in Winter Park, FL | Emotional Support Animal Letter",
+        heroTitle: "Emotional Support Animal (ESA) Letter",
+        heroDescription: "Get your legitimate ESA letter from licensed mental health professionals in Winter Park, FL. Our compassionate providers evaluate your need for an emotional support animal and provide proper documentation for housing and travel accommodations.",
+        description: "An Emotional Support Animal (ESA) provides therapeutic benefit to individuals with mental health conditions. At Empathy Health Clinic, our licensed mental health professionals conduct thorough evaluations to determine if an ESA would benefit your treatment. If appropriate, we provide legitimate ESA letters that comply with the Fair Housing Act and Air Carrier Access Act, allowing you to keep your support animal in housing and travel with them.",
+        whoCanBenefit: "Our ESA letter service helps individuals with diagnosed mental health conditions such as anxiety, depression, PTSD, panic disorder, or other conditions where an emotional support animal would provide therapeutic benefit. You must have a legitimate mental health condition and a genuine need for an ESA - we do not provide letters for convenience or to bypass pet policies.",
+        whatToExpect: "Your ESA evaluation includes a clinical assessment with a licensed mental health professional to discuss your mental health condition, treatment history, and how an emotional support animal would specifically help your symptoms. If clinically appropriate, we'll provide a legitimate ESA letter that includes all required elements for housing and travel accommodations. The process typically takes one appointment.",
+        faqs: JSON.stringify([
+          { question: "Is an ESA letter legitimate?", answer: "Yes! Our ESA letters are provided by licensed mental health professionals after a proper clinical evaluation. They comply with Fair Housing Act requirements and are recognized for housing accommodations." },
+          { question: "What's the difference between an ESA and a service dog?", answer: "Service dogs are trained to perform specific tasks for people with disabilities and have public access rights. ESAs provide emotional support and companionship but don't require special training and have different legal protections - primarily for housing and air travel." },
+          { question: "Will my landlord have to accept my ESA?", answer: "Under the Fair Housing Act, landlords must make reasonable accommodations for ESAs, even in no-pet housing. However, you need a legitimate ESA letter from a licensed healthcare provider who has evaluated you. There may be exceptions for certain housing types." },
+          { question: "How long does an ESA letter last?", answer: "ESA letters are typically valid for one year. We recommend annual re-evaluation to ensure your ESA continues to provide therapeutic benefit and to maintain current documentation." }
+        ]),
+        order: 9,
+      },
     ];
 
     defaultTreatments.forEach((treatment) => {
