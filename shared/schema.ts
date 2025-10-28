@@ -165,14 +165,26 @@ export const insertConditionSchema = createInsertSchema(conditions).omit({
 export type InsertCondition = z.infer<typeof insertConditionSchema>;
 export type Condition = typeof conditions.$inferSelect;
 
-// Leads from therapy landing pages
+// Leads from therapy landing pages and contact forms
 export const leads = pgTable("leads", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
   email: text("email").notNull(),
   phone: text("phone").notNull(),
-  therapyInterest: text("therapy_interest"),
-  message: text("message"),
+  smsOptIn: text("sms_opt_in").default("false"),
+  service: text("service"),
+  formType: text("form_type").notNull().default("short"), // 'short' or 'long'
+  // Long form fields
+  conditions: text("conditions").default('[]'),
+  symptoms: text("symptoms").default('[]'),
+  medications: text("medications"),
+  preferredDay: text("preferred_day"),
+  paymentMethod: text("payment_method"), // 'insurance' or 'self-pay'
+  insuranceProvider: text("insurance_provider"),
+  insuredName: text("insured_name"),
+  insuredDob: text("insured_dob"),
+  memberId: text("member_id"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 

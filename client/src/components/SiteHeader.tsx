@@ -64,7 +64,7 @@ export default function SiteHeader() {
               size="lg"
               className="rounded-full px-6"
               data-testid="button-header-appointment"
-              onClick={() => console.log('Request appointment from header')}
+              onClick={() => window.location.href = '/request-appointment'}
             >
               Request Appointment
             </Button>
@@ -109,7 +109,7 @@ export default function SiteHeader() {
               className="w-full rounded-full"
               data-testid="button-mobile-appointment"
               onClick={() => {
-                console.log('Request appointment from mobile menu');
+                window.location.href = '/request-appointment';
                 setMobileMenuOpen(false);
               }}
             >

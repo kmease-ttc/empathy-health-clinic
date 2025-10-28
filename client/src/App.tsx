@@ -9,6 +9,7 @@ import Insurance from "@/pages/Insurance";
 import Therapy from "@/pages/Therapy";
 import TeamPage from "@/pages/TeamPage";
 import ServicesPage from "@/pages/ServicesPage";
+import RequestAppointment from "@/pages/RequestAppointment";
 import PageBySlug from "@/pages/PageBySlug";
 import NotFound from "@/pages/not-found";
 
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/therapy" component={Therapy} />
       <Route path="/team" component={TeamPage} />
       <Route path="/services" component={ServicesPage} />
+      <Route path="/request-appointment" component={RequestAppointment} />
       <Route path="/:slug" component={PageBySlug} />
       <Route component={NotFound} />
     </Switch>
