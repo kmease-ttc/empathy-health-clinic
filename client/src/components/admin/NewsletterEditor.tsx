@@ -15,9 +15,7 @@ export default function NewsletterEditor() {
 
   const sendNewsletterMutation = useMutation({
     mutationFn: async () => {
-      return await apiRequest("/api/newsletter/send", {
-        method: "POST",
-      });
+      return await apiRequest("POST", "/api/newsletter/send");
     },
     onSuccess: (data: any) => {
       toast({

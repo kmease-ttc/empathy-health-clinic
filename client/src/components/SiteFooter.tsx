@@ -19,11 +19,7 @@ export default function SiteFooter() {
 
   const subscribeMutation = useMutation({
     mutationFn: async (email: string) => {
-      return await apiRequest("/api/newsletter/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+      return await apiRequest("POST", "/api/newsletter/subscribe", { email });
     },
     onSuccess: () => {
       toast({
