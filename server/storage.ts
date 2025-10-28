@@ -1032,6 +1032,25 @@ export class MemStorage implements IStorage {
         ]),
         order: 10,
       },
+      {
+        title: "Schizophrenia & Psychotic Disorders",
+        description: "Schizophrenia, schizoaffective disorder, and other psychotic disorders with hallucinations and delusions",
+        slug: "schizophrenia-psychotic-disorders",
+        pageTitle: "Schizophrenia Treatment in Winter Park, FL | Psychotic Disorder Care | Empathy Health",
+        heroTitle: "Specialized Schizophrenia & Psychotic Disorder Treatment",
+        heroDescription: "Expert schizophrenia treatment in Winter Park, FL. Our psychiatric team provides comprehensive medication management, therapy, and ongoing support for schizophrenia, schizoaffective disorder, and other psychotic disorders.",
+        fullDescription: "Schizophrenia and psychotic disorders are serious mental health conditions characterized by disruptions in thought processes, perceptions, emotional responsiveness, and social interactions. At Empathy Health Clinic, we specialize in treating schizophrenia, schizoaffective disorder, and other psychotic disorders with a combination of antipsychotic medications and supportive therapy. Our psychiatrists have extensive experience managing these complex conditions and work closely with patients and families to achieve stability, reduce symptoms, and improve quality of life. We understand that psychotic disorders require consistent, long-term care, and we're committed to supporting you throughout your treatment journey.",
+        symptoms: "Schizophrenia symptoms include hallucinations (seeing or hearing things that aren't there), delusions (false beliefs), disorganized thinking and speech, extremely disorganized or abnormal motor behavior, flat affect or reduced emotional expression, social withdrawal, difficulty concentrating, lack of motivation, and impaired functioning in work, relationships, or self-care.",
+        relatedTreatments: JSON.stringify(["medication-management"]),
+        relatedTherapies: JSON.stringify(["individual-therapy"]),
+        faqs: JSON.stringify([
+          { question: "Is schizophrenia treatable?", answer: "Yes. While schizophrenia is a chronic condition, it's highly treatable with antipsychotic medications and therapy. Most people with schizophrenia can manage their symptoms effectively and live fulfilling lives with proper treatment and support." },
+          { question: "Will I need to take medication forever?", answer: "Most people with schizophrenia require long-term medication to prevent relapse and manage symptoms. Stopping medication typically leads to symptom return. Your psychiatrist will work with you to find the right medication with the fewest side effects." },
+          { question: "What are the side effects of antipsychotic medications?", answer: "Side effects vary by medication but may include weight gain, drowsiness, or movement issues. Newer antipsychotics tend to have fewer side effects. We monitor closely and can adjust medications to minimize unwanted effects while maintaining symptom control." },
+          { question: "Can therapy help schizophrenia?", answer: "Yes. While medication is the primary treatment, therapy helps with coping strategies, medication adherence, social skills, and managing daily life challenges. Family therapy can also be beneficial for support and education." }
+        ]),
+        order: 11,
+      },
     ];
 
     defaultConditions.forEach((condition) => {
