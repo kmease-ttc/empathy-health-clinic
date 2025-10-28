@@ -104,6 +104,15 @@ export interface IStorage {
   trackEvent(data: InsertAnalyticsEvent): Promise<AnalyticsEvent>;
   getEvents(eventType?: string, startDate?: string, endDate?: string): Promise<AnalyticsEvent[]>;
   getEventCounts(): Promise<{eventType: string, count: number}[]>;
+  getFormConversionMetrics(): Promise<{
+    shortFormStarts: number;
+    shortFormSubmissions: number;
+    longFormStarts: number;
+    longFormSubmissions: number;
+    shortFormDropOffRate: number;
+    longFormDropOffRate: number;
+    totalDropOffRate: number;
+  }>;
   trackWebVital(data: InsertWebVital): Promise<WebVital>;
   getWebVitals(metricName?: string): Promise<WebVital[]>;
   getAverageWebVitals(): Promise<{metricName: string, avgValue: number, rating: string}[]>;
@@ -3511,6 +3520,59 @@ Remember: seeking help is a sign of strength. You deserve support, understanding
     return Array.from(eventCounts.entries())
       .map(([eventType, count]) => ({ eventType, count }))
       .sort((a, b) => b.count - a.count);
+  }
+
+  async getFormConversionMetrics(): Promise<{
+    shortFormStarts: number;
+    shortFormSubmissions: number;
+    longFormStarts: number;
+    longFormSubmissions: number;
+    shortFormDropOffRate: number;
+    longFormDropOffRate: number;
+    totalDropOffRate: number;
+  }> {
+    // Count form starts by type (from analytics events)
+    const shortFormStarts = this.analyticsEvents.filter(
+      e => e.eventType === 'form_started' && e.value === 'short'
+    ).length;
+    
+    const longFormStarts = this.analyticsEvents.filter(
+      e => e.eventType === 'form_started' && e.value === 'long'
+    ).length;
+    
+    // Count form submissions by type (from leads table)
+    const shortFormSubmissions = Array.from(this.leads.values()).filter(
+      l => l.formType === 'short'
+    ).length;
+    
+    const longFormSubmissions = Array.from(this.leads.values()).filter(
+      l => l.formType === 'long'
+    ).length;
+    
+    // Calculate drop-off rates
+    const shortFormDropOffRate = shortFormStarts > 0
+      ? ((shortFormStarts - shortFormSubmissions) / shortFormStarts) * 100
+      : 0;
+    
+    const longFormDropOffRate = longFormStarts > 0
+      ? ((longFormStarts - longFormSubmissions) / longFormStarts) * 100
+      : 0;
+    
+    const totalStarts = shortFormStarts + longFormStarts;
+    const totalSubmissions = shortFormSubmissions + longFormSubmissions;
+    const totalDropOffRate = totalStarts > 0
+      ? ((totalStarts - totalSubmissions) / totalStarts) * 100
+      : 0;
+    
+    return {
+      shortFormStarts,
+      shortFormSubmissions,
+      longFormStarts,
+      longFormSubmissions,
+      shortFormDropOffRate,
+      longFormDropOffRate,
+      totalDropOffRate,
+    };
   }
 
   async trackWebVital(data: InsertWebVital): Promise<WebVital> {

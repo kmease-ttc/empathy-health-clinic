@@ -608,6 +608,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/analytics/forms", async (_req, res) => {
+    try {
+      const metrics = await storage.getFormConversionMetrics();
+      res.json(metrics);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   app.get("/api/analytics/vitals", async (req, res) => {
     try {
       const { metricName } = req.query;
