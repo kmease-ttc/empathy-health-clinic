@@ -356,7 +356,7 @@ export class MemStorage implements IStorage {
       {
         name: "Karla McLeod",
         credentials: "Licensed Mental Health Counselor",
-        image: "/attached_assets/headshot_square_carla_1761616851171.png",
+        image: "/attached_assets/carla_headshot_square_v2_1761619702991.png",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "karla-mcleod",
         pageTitle: "Karla McLeod, LMHC | Licensed Mental Health Counselor | Winter Park, FL",
