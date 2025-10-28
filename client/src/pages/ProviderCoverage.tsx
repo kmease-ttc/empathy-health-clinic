@@ -246,7 +246,7 @@ export default function ProviderCoverage() {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                     <CheckCircle2 className="h-8 w-8 text-primary" />
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 break-words">
                     Verify Your {provider.name} Benefits
                   </h2>
                   <p className="text-foreground/70 text-lg max-w-xl mx-auto">
