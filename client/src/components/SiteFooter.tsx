@@ -122,6 +122,9 @@ export default function SiteFooter() {
           <p className="text-sm text-muted-foreground">
             © 2025 Empathy Health Clinic. All rights reserved.
           </p>
+          <p className="text-xs text-muted-foreground/60 mt-3">
+            Empathy Health Clinic provides mental wellness and behavioral health services. We do not sell or advertise prescription drugs online.
+          </p>
         </div>
       </div>
     </footer>
