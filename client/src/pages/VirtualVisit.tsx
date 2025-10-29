@@ -9,9 +9,12 @@ import { trackEvent } from "@/lib/analytics";
 import forestBg from "@assets/stock_images/peaceful_green_fores_98e1a8d8.jpg";
 
 export default function VirtualVisit() {
-  const { data: teamMembers, isLoading } = useQuery<TeamMember[]>({
+  const { data: allTeamMembers, isLoading } = useQuery<TeamMember[]>({
     queryKey: ["/api/team-members"],
   });
+
+  // Filter out Dr. Glenn from virtual visits
+  const teamMembers = allTeamMembers?.filter(member => member.slug !== 'dr-robert-glenn');
 
   if (isLoading) {
     return (

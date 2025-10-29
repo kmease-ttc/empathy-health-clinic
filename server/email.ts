@@ -1,7 +1,7 @@
 import sgMail from '@sendgrid/mail';
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
-const TO_EMAIL = 'providers@empathyhealthclinic.com';
+const TO_EMAILS = ['providers@empathyhealthclinic.com', 'kevin.mease@gmail.com'];
 const FROM_EMAIL = 'noreply@empathyhealthclinic.com';
 
 if (SENDGRID_API_KEY) {
@@ -217,7 +217,7 @@ Empathy Health Clinic | 2281 Lee Rd Suite 102, Winter Park FL | (386) 848-8751
   `.trim();
 
   const msg = {
-    to: TO_EMAIL,
+    to: TO_EMAILS,
     from: FROM_EMAIL,
     subject: `New Lead: ${fullName} - Empathy Health Clinic`,
     text: textContent,
@@ -226,7 +226,7 @@ Empathy Health Clinic | 2281 Lee Rd Suite 102, Winter Park FL | (386) 848-8751
 
   try {
     await sgMail.send(msg);
-    console.log(`Lead notification email sent successfully to ${TO_EMAIL}`);
+    console.log(`Lead notification email sent successfully to ${TO_EMAILS.join(', ')}`);
   } catch (error: any) {
     console.error('Error sending lead notification email:', error);
     if (error.response) {
