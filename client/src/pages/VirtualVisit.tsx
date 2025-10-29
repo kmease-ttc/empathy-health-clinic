@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import type { TeamMember } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SEOHead from "@/components/SEOHead";
 import { trackEvent } from "@/lib/analytics";
 import forestBg from "@assets/stock_images/peaceful_green_fores_0af17587.jpg";
 
@@ -26,6 +27,12 @@ export default function VirtualVisit() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title="Virtual Visit | Online Mental Health Services | Empathy Health Clinic"
+        description="Connect with your mental health provider from anywhere in Florida through our secure telehealth platform. Convenient online psychiatry and therapy appointments available."
+        keywords={["telehealth", "virtual visit", "online therapy", "online psychiatry", "telepsychiatry", "remote mental health", "Florida telehealth"]}
+        canonicalPath="/virtual-visit"
+      />
       <SiteHeader />
       <main className="flex-1">
         <div className="relative py-20 px-4">

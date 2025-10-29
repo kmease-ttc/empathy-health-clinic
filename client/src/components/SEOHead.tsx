@@ -26,9 +26,27 @@ export default function SEOHead({
   useEffect(() => {
     document.title = title;
 
-    const baseUrl = window.location.origin;
-    const currentUrl = canonicalPath ? `${baseUrl}${canonicalPath}` : window.location.href;
-    const defaultOgImage = ogImage || `${baseUrl}/attached_assets/stock_images/peaceful_green_fores_98e1a8d8.jpg`;
+    const normalizePath = (path: string): string => {
+      if (!path) return '/';
+      
+      let normalized = path.replace(/\/+/g, '/');
+      
+      if (!normalized.startsWith('/')) {
+        normalized = '/' + normalized;
+      }
+      
+      if (normalized.length > 1 && normalized.endsWith('/')) {
+        normalized = normalized.slice(0, -1);
+      }
+      
+      return normalized;
+    };
+
+    const preferredDomain = "https://empathyhealthclinic.com";
+    const normalizedPath = normalizePath(canonicalPath || window.location.pathname);
+    const canonicalUrl = `${preferredDomain}${normalizedPath}`;
+    const currentUrl = canonicalUrl;
+    const defaultOgImage = ogImage || `${preferredDomain}/attached_assets/stock_images/peaceful_green_fores_98e1a8d8.jpg`;
 
     const metaTags = [
       { name: "description", content: description },

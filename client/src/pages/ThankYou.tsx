@@ -17,6 +17,7 @@ export default function ThankYou() {
       <SEOHead
         title="Thank You | Empathy Health Clinic"
         description="Thank you for contacting Empathy Health Clinic. A team member will reach out within 24 hours."
+        canonicalPath="/thank-you"
       />
       <SiteHeader />
       <main className="flex-1 flex items-center justify-center py-12 md:py-20">

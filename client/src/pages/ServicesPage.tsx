@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Treatment, Therapy } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SEOHead from "@/components/SEOHead";
 import TrustFactors from "@/components/TrustFactors";
 import forestBg from "@assets/stock_images/calm_forest_trees_me_0c56a0e8.jpg";
 
@@ -81,6 +82,12 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title="Mental Health Services | Empathy Health Clinic | Florida"
+        description="Comprehensive mental health services including psychiatric evaluations, medication management, therapy, counseling, and ESA letters. Expert care from licensed providers in Florida."
+        keywords={["mental health services", "psychiatric services", "therapy services", "medication management", "psychiatric evaluation", "ESA letters", "Florida mental health"]}
+        canonicalPath="/services"
+      />
       <SiteHeader />
       <main className="flex-1">
         <div className="relative py-20 px-4">

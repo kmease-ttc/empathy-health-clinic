@@ -1,5 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SEOHead from "@/components/SEOHead";
 import LongContactForm from "@/components/LongContactForm";
 import OfficeMap from "@/components/OfficeMap";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
@@ -7,6 +8,12 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 export default function RequestAppointment() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-primary/5 via-background to-primary/10">
+      <SEOHead
+        title="Request Appointment | Empathy Health Clinic | Winter Park, FL"
+        description="Schedule your mental health appointment online. Same-week appointments available for psychiatry, therapy, and counseling services. Contact us at 386-848-8751."
+        keywords={["schedule appointment", "mental health appointment", "psychiatry appointment", "therapy appointment", "Winter Park FL", "mental health scheduling"]}
+        canonicalPath="/request-appointment"
+      />
       <SiteHeader />
       <main className="flex-1 py-12 md:py-20">
         <div className="container mx-auto px-6 lg:px-8">

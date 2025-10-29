@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SEOHead from "@/components/SEOHead";
 import type { TeamMember } from "@shared/schema";
 
 export default function TeamMemberDetail() {
@@ -48,6 +49,12 @@ export default function TeamMemberDetail() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title={`${member.name} | ${member.credentials} | Empathy Health Clinic`}
+        description={`Meet ${member.name}, ${member.credentials}. ${member.bio.slice(0, 150)}...`}
+        keywords={[member.name, member.credentials, "psychiatrist", "therapist", "mental health provider", "Florida"]}
+        canonicalPath={`/team/${member.slug}`}
+      />
       <SiteHeader />
       
       <main className="flex-1">

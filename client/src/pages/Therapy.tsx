@@ -7,6 +7,7 @@ import * as Icons from "lucide-react";
 import type { Therapy } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SEOHead from "@/components/SEOHead";
 
 export default function TherapyPage() {
   const { data: therapies, isLoading } = useQuery<Therapy[]>({
@@ -25,6 +26,12 @@ export default function TherapyPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Therapy Services | Empathy Health Clinic | Florida Counseling"
+        description="Comprehensive therapy and counseling services including CBT, DBT, trauma-focused therapy, couples counseling, and more. Licensed therapists providing evidence-based care in Florida."
+        keywords={["therapy", "counseling", "CBT", "DBT", "trauma therapy", "couples therapy", "Florida therapy", "mental health counseling"]}
+        canonicalPath="/therapy"
+      />
       <SiteHeader />
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         <div className="text-center mb-16">

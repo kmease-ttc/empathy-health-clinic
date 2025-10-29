@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import type { TeamMember } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SEOHead from "@/components/SEOHead";
 import forestBg from "@assets/stock_images/misty_forest_morning_dffbe3b2.jpg";
 
 export default function TeamPage() {
@@ -23,6 +24,12 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title="Our Team | Empathy Health Clinic | Expert Mental Health Providers"
+        description="Meet our compassionate team of psychiatrists, therapists, and mental health professionals dedicated to providing exceptional care in Florida. Experienced providers you can trust."
+        keywords={["mental health team", "psychiatrists", "therapists", "mental health professionals", "Florida providers", "psychiatric team"]}
+        canonicalPath="/team"
+      />
       <SiteHeader />
       <main className="flex-1">
         <div className="relative py-20 px-4">

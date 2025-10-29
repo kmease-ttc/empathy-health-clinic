@@ -6,6 +6,7 @@ import { Loader2, CheckCircle2, Phone, Mail } from "lucide-react";
 import type { InsuranceProvider } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SEOHead from "@/components/SEOHead";
 
 export default function Insurance() {
   const { data: providers, isLoading } = useQuery<InsuranceProvider[]>({
@@ -22,6 +23,12 @@ export default function Insurance() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Insurance Coverage | Empathy Health Clinic"
+        description="We accept most major insurance plans including Aetna, Blue Cross Blue Shield, Cigna, UnitedHealthcare, and more. Learn about your mental health coverage and benefits."
+        keywords={["insurance accepted", "mental health insurance", "Aetna", "Blue Cross", "Cigna", "UnitedHealthcare", "Florida mental health coverage"]}
+        canonicalPath="/insurance"
+      />
       <SiteHeader />
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         <div className="text-center mb-16">
