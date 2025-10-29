@@ -846,13 +846,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // SEO Routes - XML Sitemap
   app.get("/sitemap.xml", async (_req, res) => {
     try {
-      const [treatments, therapies, conditions, insuranceProviders, blogPosts, locations] = await Promise.all([
+      const [treatments, therapies, conditions, insuranceProviders, blogPosts, locations, teamMembers] = await Promise.all([
         storage.getAllTreatments(),
         storage.getAllTherapies(),
         storage.getAllConditions(),
         storage.getAllInsuranceProviders(),
         storage.getAllBlogPosts(),
-        storage.getAllLocations()
+        storage.getAllLocations(),
+        storage.getAllTeamMembers()
       ]);
 
       const baseUrl = process.env.REPLIT_DEPLOYMENT === "1" 
@@ -904,6 +905,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Location pages
       locations.forEach(location => {
         xml += `  <url>\n    <loc>${baseUrl}/locations/${location.slug}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
+      });
+
+      // Team member pages
+      teamMembers.forEach(member => {
+        xml += `  <url>\n    <loc>${baseUrl}/team/${member.slug}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
       });
 
       xml += '</urlset>';
