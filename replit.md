@@ -76,6 +76,13 @@ Addressed Google Search Console thin content feedback by expanding four major ov
 - Embedded contextual internal links throughout expanded content to strengthen topical authority and crawlability
 - Created comprehensive hub-and-spoke linking structure between overview pages and service/condition detail pages
 
+**Canonical Tag Verification & Cleanup:**
+- Removed duplicate/malformed Google Search Console verification meta tag from index.html
+- Verified all pages render exactly ONE canonical link tag pointing to preferred domain (https://empathyhealthclinic.com)
+- Confirmed no duplicate meta tags across all pages (description, og:title, og:url, google-site-verification)
+- All canonical URLs use proper path normalization (no trailing slashes except root)
+- Tested pages: homepage, insurance, services, therapy, team - all verified correct
+
 **Next Actions:**
 1. Submit updated sitemap to Google Search Console
 2. Request re-indexing for updated pages
