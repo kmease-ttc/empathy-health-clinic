@@ -8,6 +8,7 @@ import ApproachSection from "@/components/ApproachSection";
 import TeamSection from "@/components/TeamSection";
 import ConditionsSection from "@/components/ConditionsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import LocationSection from "@/components/LocationSection";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import OrganizationSchema from "@/components/OrganizationSchema";
@@ -122,6 +123,8 @@ export default function Home() {
         <ConditionsSection />
         <div className="border-t" />
         <TestimonialsSection />
+        <div className="border-t" />
+        <LocationSection />
       </main>
       <SiteFooter />
     </div>
