@@ -20,6 +20,23 @@ import {
 } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Legacy URL redirects for SEO
+  app.get("/treatments/:slug", (req, res) => {
+    res.redirect(301, `/${req.params.slug}`);
+  });
+  
+  app.get("/therapies/:slug", (req, res) => {
+    res.redirect(301, `/${req.params.slug}`);
+  });
+  
+  app.get("/conditions/:slug", (req, res) => {
+    res.redirect(301, `/${req.params.slug}`);
+  });
+  
+  app.get("/insurance/:slug", (req, res) => {
+    res.redirect(301, `/${req.params.slug}`);
+  });
+
   // Site content routes
   app.get("/api/site-content", async (_req, res) => {
     try {
