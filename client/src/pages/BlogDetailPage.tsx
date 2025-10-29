@@ -12,6 +12,72 @@ import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import forestBg from "@assets/stock_images/peaceful_green_fores_98e1a8d8.jpg";
 
+function renderTextWithLinks(text: string) {
+  const parts: (string | JSX.Element)[] = [];
+  let lastIndex = 0;
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let match;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      const beforeText = text.substring(lastIndex, match.index);
+      parts.push(...renderTextWithBold(beforeText));
+    }
+    
+    const linkText = match[1];
+    const linkUrl = match[2];
+    const isExternal = linkUrl.startsWith('http');
+    
+    parts.push(
+      <a
+        key={match.index}
+        href={linkUrl}
+        className="text-primary hover:text-primary/80 underline"
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+      >
+        {linkText}
+      </a>
+    );
+    
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    const remainingText = text.substring(lastIndex);
+    parts.push(...renderTextWithBold(remainingText));
+  }
+
+  return parts.length > 0 ? parts : text;
+}
+
+function renderTextWithBold(text: string) {
+  const parts: (string | JSX.Element)[] = [];
+  const boldRegex = /\*\*([^*]+)\*\*/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = boldRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+    
+    parts.push(
+      <strong key={match.index}>
+        {match[1]}
+      </strong>
+    );
+    
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : [text];
+}
+
 export default function BlogDetailPage() {
   const [, params] = useRoute("/blog/:slug");
   const slug = params?.slug || "";
@@ -144,8 +210,8 @@ export default function BlogDetailPage() {
       <SEOHead
         title={blogPost.metaTitle || `${blogPost.title} | Empathy Health Clinic`}
         description={blogPost.metaDescription || blogPost.excerpt}
-        keywords={blogPost.keywords}
-        ogImage={blogPost.ogImage || blogPost.featuredImage}
+        keywords={blogPost.keywords ?? undefined}
+        ogImage={blogPost.ogImage || blogPost.featuredImage || undefined}
         canonicalPath={`/blog/${blogPost.canonicalSlug || blogPost.slug}`}
         type="article"
         publishedDate={blogPost.publishedDate}
@@ -231,7 +297,7 @@ export default function BlogDetailPage() {
                     const heading = paragraph.replace('## ', '');
                     return (
                       <h2 key={index} className="text-2xl font-sans font-bold mt-8 mb-4 text-foreground">
-                        {heading}
+                        {renderTextWithLinks(heading)}
                       </h2>
                     );
                   }
@@ -240,7 +306,7 @@ export default function BlogDetailPage() {
                     const heading = paragraph.replace('### ', '');
                     return (
                       <h3 key={index} className="text-xl font-sans font-semibold mt-6 mb-3 text-foreground">
-                        {heading}
+                        {renderTextWithLinks(heading)}
                       </h3>
                     );
                   }
@@ -253,15 +319,9 @@ export default function BlogDetailPage() {
                           const text = item.replace(/^-\s*/, '');
                           if (!text) return null;
                           
-                          const parts = text.split(/(\*\*.*?\*\*)/g);
                           return (
                             <li key={i} className="text-foreground">
-                              {parts.map((part, j) => {
-                                if (part.startsWith('**') && part.endsWith('**')) {
-                                  return <strong key={j}>{part.slice(2, -2)}</strong>;
-                                }
-                                return <span key={j}>{part}</span>;
-                              })}
+                              {renderTextWithLinks(text)}
                             </li>
                           );
                         })}
@@ -269,15 +329,9 @@ export default function BlogDetailPage() {
                     );
                   }
 
-                  const parts = paragraph.split(/(\*\*.*?\*\*)/g);
                   return (
                     <p key={index} className="text-foreground leading-relaxed my-4">
-                      {parts.map((part, i) => {
-                        if (part.startsWith('**') && part.endsWith('**')) {
-                          return <strong key={i}>{part.slice(2, -2)}</strong>;
-                        }
-                        return <span key={i}>{part}</span>;
-                      })}
+                      {renderTextWithLinks(paragraph)}
                     </p>
                   );
                 })}
