@@ -42,7 +42,21 @@ Successfully restored all 165 published blog posts from WordPress backup:
    - Links point to condition pages (anxiety-disorders, depression, bipolar-disorder, PTSD-trauma, etc.)
    - Preserved 1,200+ existing external authoritative links from WordPress
    - Average 9.5 links per blog post for improved SEO and user navigation
+   - All markdown links now render as clickable hyperlinks (internal and external)
    - Scripts created: add-links-to-blogs-v3.ts for processing
+
+6. **Blog Featured Images (October 29, 2025):**
+   - Replaced all 161 external WordPress image URLs with locally-hosted stock images
+   - Downloaded 25 professional mental health stock images across 5 categories
+   - Intelligent image assignment based on blog post topics:
+     * Therapy/counseling posts → counseling session images
+     * Meditation/mindfulness posts → peaceful meditation images
+     * Depression/anxiety posts → mental health support images
+     * Healthcare posts → professional medical images
+     * Wellness posts → happy recovery images
+   - All images stored in `/attached_assets/stock_images/`
+   - Site now fully independent from WordPress infrastructure
+   - Scripts created: assign-blog-images.ts for automated categorization and assignment
 
 ## Recent Improvements (October 2025)
 
