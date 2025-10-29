@@ -4,6 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { queryClient } from "@/lib/queryClient";
 import { isGAActive, trackEvent } from "@/lib/analytics";
 import { 
@@ -24,7 +31,8 @@ import {
   User
 } from "lucide-react";
 import { useLocation } from "wouter";
-import type { Lead } from "@shared/schema";
+import { useState } from "react";
+import type { Lead, AnalyticsEvent } from "@shared/schema";
 
 interface DashboardData {
   pageViews: {
@@ -113,6 +121,8 @@ export default function AnalyticsDashboard() {
   const { data: leads, isLoading: leadsLoading } = useQuery<Lead[]>({
     queryKey: ['/api/leads'],
   });
+
+  const [selectedEvent, setSelectedEvent] = useState<AnalyticsEvent | null>(null);
 
   const handleRefresh = () => {
     queryClient.invalidateQueries({ queryKey: ['/api/analytics/dashboard'] });
@@ -572,7 +582,8 @@ export default function AnalyticsDashboard() {
                 {data.events.recent.slice(0, 20).map((event, index) => (
                   <div 
                     key={event.id || index} 
-                    className="flex items-center justify-between gap-4 p-3 rounded-lg border text-sm"
+                    className="flex items-center justify-between gap-4 p-3 rounded-lg border text-sm cursor-pointer hover-elevate active-elevate-2"
+                    onClick={() => setSelectedEvent(event)}
                     data-testid={`event-${index}`}
                   >
                     <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -596,6 +607,82 @@ export default function AnalyticsDashboard() {
             </CardContent>
           </Card>
         )}
+
+        {/* Event Details Dialog */}
+        <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Activity className="h-5 w-5" />
+                Event Details
+              </DialogTitle>
+              <DialogDescription>
+                Complete information about this tracked event
+              </DialogDescription>
+            </DialogHeader>
+            
+            {selectedEvent && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-muted-foreground">Event Type</p>
+                    <p className="text-base font-semibold" data-testid="dialog-event-type">
+                      {selectedEvent.eventType}
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-muted-foreground">Category</p>
+                    <Badge variant="outline" data-testid="dialog-event-category">
+                      {selectedEvent.eventCategory}
+                    </Badge>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-muted-foreground">Timestamp</p>
+                    <p className="text-base" data-testid="dialog-event-timestamp">
+                      {new Date(selectedEvent.timestamp).toLocaleString()}
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-muted-foreground">Page Path</p>
+                    <p className="text-base font-mono text-sm" data-testid="dialog-event-path">
+                      {selectedEvent.path}
+                    </p>
+                  </div>
+                </div>
+
+                <Separator />
+
+                {selectedEvent.eventLabel && (
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-muted-foreground">Event Label</p>
+                    <p className="text-base" data-testid="dialog-event-label">
+                      {selectedEvent.eventLabel}
+                    </p>
+                  </div>
+                )}
+
+                {selectedEvent.value && (
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-muted-foreground">Value</p>
+                    <p className="text-base" data-testid="dialog-event-value">
+                      {selectedEvent.value}
+                    </p>
+                  </div>
+                )}
+
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-muted-foreground">Event ID</p>
+                  <p className="text-xs font-mono text-muted-foreground" data-testid="dialog-event-id">
+                    {selectedEvent.id}
+                  </p>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {/* Lead Submissions */}
         <Card data-testid="card-lead-submissions">
