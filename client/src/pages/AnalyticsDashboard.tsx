@@ -18,9 +18,13 @@ import {
   Clock,
   Zap,
   AlertCircle,
-  CheckCircle2
+  CheckCircle2,
+  Mail,
+  Calendar,
+  User
 } from "lucide-react";
 import { useLocation } from "wouter";
+import type { Lead } from "@shared/schema";
 
 interface DashboardData {
   pageViews: {
@@ -106,9 +110,14 @@ export default function AnalyticsDashboard() {
     queryKey: ['/api/analytics/forms'],
   });
 
+  const { data: leads, isLoading: leadsLoading } = useQuery<Lead[]>({
+    queryKey: ['/api/leads'],
+  });
+
   const handleRefresh = () => {
     queryClient.invalidateQueries({ queryKey: ['/api/analytics/dashboard'] });
     queryClient.invalidateQueries({ queryKey: ['/api/analytics/forms'] });
+    queryClient.invalidateQueries({ queryKey: ['/api/leads'] });
     refetch();
   };
 
@@ -587,6 +596,176 @@ export default function AnalyticsDashboard() {
             </CardContent>
           </Card>
         )}
+
+        {/* Lead Submissions */}
+        <Card data-testid="card-lead-submissions">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Users className="h-5 w-5" />
+              Lead Submissions
+            </CardTitle>
+            <CardDescription>
+              All form submissions from your website (most recent first)
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {leadsLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <Activity className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            ) : !leads || leads.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                No lead submissions yet
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {leads.map((lead, index) => (
+                  <div 
+                    key={lead.id} 
+                    className="p-4 rounded-lg border hover-elevate"
+                    data-testid={`lead-${index}`}
+                  >
+                    <div className="flex items-start justify-between gap-4 mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-primary/10">
+                          <User className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-semibold" data-testid={`lead-name-${index}`}>
+                            {lead.firstName} {lead.lastName}
+                          </p>
+                          <Badge variant="outline" className="mt-1" data-testid={`lead-form-type-${index}`}>
+                            {lead.formType === 'short' ? 'Quick Contact' : 'Full Application'}
+                          </Badge>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-muted-foreground flex items-center gap-1">
+                          <Calendar className="h-3 w-3" />
+                          {new Date(lead.createdAt).toLocaleDateString()}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {new Date(lead.createdAt).toLocaleTimeString()}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-muted-foreground">Email:</span>
+                        <a 
+                          href={`mailto:${lead.email}`} 
+                          className="text-primary hover:underline"
+                          data-testid={`lead-email-${index}`}
+                        >
+                          {lead.email}
+                        </a>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Phone className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-muted-foreground">Phone:</span>
+                        <a 
+                          href={`tel:${lead.phone}`} 
+                          className="text-primary hover:underline"
+                          data-testid={`lead-phone-${index}`}
+                        >
+                          {lead.phone}
+                        </a>
+                      </div>
+                      {lead.service && (
+                        <div className="flex items-center gap-2">
+                          <FileText className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-muted-foreground">Service:</span>
+                          <span data-testid={`lead-service-${index}`}>{lead.service}</span>
+                        </div>
+                      )}
+                      {lead.smsOptIn === 'true' && (
+                        <div className="flex items-center gap-2">
+                          <Badge variant="secondary" className="text-xs">SMS Opt-in</Badge>
+                        </div>
+                      )}
+                    </div>
+
+                    {lead.formType === 'long' && (
+                      <>
+                        <Separator className="my-3" />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                          {lead.conditions && lead.conditions !== '[]' && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Conditions:</span>
+                              <p className="mt-1" data-testid={`lead-conditions-${index}`}>
+                                {JSON.parse(lead.conditions).join(', ')}
+                              </p>
+                            </div>
+                          )}
+                          {lead.symptoms && lead.symptoms !== '[]' && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Symptoms:</span>
+                              <p className="mt-1" data-testid={`lead-symptoms-${index}`}>
+                                {JSON.parse(lead.symptoms).join(', ')}
+                              </p>
+                            </div>
+                          )}
+                          {lead.medications && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Medications:</span>
+                              <p className="mt-1" data-testid={`lead-medications-${index}`}>
+                                {lead.medications}
+                              </p>
+                            </div>
+                          )}
+                          {lead.preferredDay && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Preferred Day:</span>
+                              <p className="mt-1" data-testid={`lead-preferred-day-${index}`}>
+                                {lead.preferredDay}
+                              </p>
+                            </div>
+                          )}
+                          {lead.paymentMethod && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Payment:</span>
+                              <p className="mt-1" data-testid={`lead-payment-${index}`}>
+                                {lead.paymentMethod === 'insurance' ? 'Insurance' : 'Self-Pay'}
+                              </p>
+                            </div>
+                          )}
+                          {lead.insuranceProvider && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Insurance Provider:</span>
+                              <p className="mt-1" data-testid={`lead-insurance-${index}`}>
+                                {lead.insuranceProvider}
+                              </p>
+                            </div>
+                          )}
+                          {lead.insuredName && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Insured Name:</span>
+                              <p className="mt-1">{lead.insuredName}</p>
+                            </div>
+                          )}
+                          {lead.insuredDob && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Insured DOB:</span>
+                              <p className="mt-1">{lead.insuredDob}</p>
+                            </div>
+                          )}
+                          {lead.memberId && (
+                            <div>
+                              <span className="text-muted-foreground font-medium">Member ID:</span>
+                              <p className="mt-1">{lead.memberId}</p>
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
