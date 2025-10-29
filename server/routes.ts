@@ -36,6 +36,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/insurance/:slug", (req, res) => {
     res.redirect(301, `/${req.params.slug}`);
   });
+  
+  // Blog post redirects for WordPress guest posts (accessed without /blog/ prefix)
+  const guestPostSlugs = [
+    '8-physical-signs-stress-is-impacting-your-body',
+    'it-service-providers-driving-healthcare-innovation-2025',
+    'bbp-certification-worker-safety',
+    'how-psychiatry-clinics-improve-revenue',
+    'balancing-career-growth-with-a-busy-life-a-guide-for-working-nurses',
+    'wellness-guide-for-counselors'
+  ];
+  
+  guestPostSlugs.forEach(slug => {
+    app.get(`/${slug}`, (req, res) => {
+      res.redirect(301, `/blog/${slug}`);
+    });
+  });
 
   // Site content routes
   app.get("/api/site-content", async (_req, res) => {
