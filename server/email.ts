@@ -72,7 +72,7 @@ export async function sendLeadNotification(data: LeadEmailData): Promise<void> {
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px;">
-        New Lead from Empathy Health Clinic Website
+        Appointment Request from Empathy Health Clinic Website
       </h2>
       
       <div style="margin: 20px 0;">
@@ -177,7 +177,7 @@ export async function sendLeadNotification(data: LeadEmailData): Promise<void> {
 
       <div style="margin-top: 30px; padding: 15px; background-color: #eff6ff; border-radius: 5px;">
         <p style="margin: 0; color: #1e40af; font-size: 14px;">
-          <strong>Next Steps:</strong> Please respond to this lead within 24 hours for best results.
+          <strong>Next Steps:</strong> Please respond to this appointment request within 24 hours for best results.
         </p>
       </div>
 
@@ -188,7 +188,7 @@ export async function sendLeadNotification(data: LeadEmailData): Promise<void> {
   `;
 
   const textContent = `
-New Lead from Empathy Health Clinic Website
+Appointment Request from Empathy Health Clinic Website
 
 Contact Information:
 Name: ${fullName}
@@ -212,7 +212,7 @@ ${memberId ? `Member ID: ${memberId}` : ''}
 ` : ''}
 
 ---
-Next Steps: Please respond to this lead within 24 hours for best results.
+Next Steps: Please respond to this appointment request within 24 hours for best results.
 
 Empathy Health Clinic | 2281 Lee Rd Suite 102, Winter Park FL | (386) 848-8751
   `.trim();
@@ -220,7 +220,7 @@ Empathy Health Clinic | 2281 Lee Rd Suite 102, Winter Park FL | (386) 848-8751
   const msg = {
     to: TO_EMAILS,
     from: FROM_EMAIL,
-    subject: `New Lead: ${fullName} - Empathy Health Clinic`,
+    subject: `Appointment Request: ${fullName} - Empathy Health Clinic`,
     text: textContent,
     html: htmlContent,
   };
