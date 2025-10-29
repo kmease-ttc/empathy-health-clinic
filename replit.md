@@ -52,18 +52,29 @@ Successfully restored all 165 published blog posts from WordPress backup:
      * Role of Therapy in Managing Bipolar Disorder → bipolar therapy session image
      * Effective Strategies for Managing Bipolar Disorder → wellness strategies image
      * Navigating Life with Agoraphobia → agoraphobia recovery image
-   - Downloaded 25 professional mental health stock images across 5 categories
-   - Intelligent image assignment based on blog post topics:
-     * Therapy/counseling posts → counseling session images
-     * Meditation/mindfulness posts → peaceful meditation images
-     * Depression/anxiety posts → mental health support images
-     * Healthcare posts → professional medical images
-     * Wellness posts → happy recovery images
+   - Downloaded 55 professional mental health stock images across categories:
+     * Therapy/counseling session images (10)
+     * Meditation/mindfulness images (10)
+     * Healthcare professional images (10)
+     * Depression/anxiety support images (original 25)
+   - **Image Distribution**: 110 unique images distributed across 165 blog posts (round-robin)
    - Fixed BlogDetailPage and BlogListingPage to display featuredImage from API data
-   - All 165 posts now have images: 4 AI-generated + 161 stock images
    - All images stored locally: `/attached_assets/generated_images/` and `/attached_assets/stock_images/`
    - Site now fully independent from WordPress infrastructure
-   - Scripts created: assign-blog-images.ts for automated categorization and assignment
+   - Scripts created: assign-blog-images.ts, redistribute-blog-images.ts
+
+7. **Blog Markdown Parser Enhancement (October 29, 2025):**
+   - Fixed markdown rendering in BlogDetailPage to properly parse all syntax
+   - **Removed raw markdown display**: No more visible `##`, `###`, `- [ ]`, `[text](url)` in articles
+   - **Proper HTML conversion**:
+     * H1 headings (`# `) → Skipped (already in hero)
+     * H2 headings (`## `) → `<h2>` elements
+     * H3 headings (`### `) → `<h3>` elements
+     * Lists with checkboxes (`- [ ]`, `- [x]`) → Clean `<ul><li>` elements (checkbox syntax stripped)
+     * Markdown links (`[text](url)`) → Proper `<a>` tags with target="_blank" for external links
+     * Bold text (`**text**`) → `<strong>` tags
+   - **Stateful parser**: Processes line-by-line, groups paragraphs and list items correctly
+   - All 165 blog posts now display professionally formatted, readable content
 
 ## Recent Improvements (October 2025)
 

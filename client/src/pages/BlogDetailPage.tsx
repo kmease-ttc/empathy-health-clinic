@@ -292,49 +292,111 @@ export default function BlogDetailPage() {
                 className="prose prose-lg max-w-none prose-headings:font-sans prose-headings:font-bold prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
                 data-testid="article-content"
               >
-                {blogPost.content.split('\n\n').map((paragraph, index) => {
-                  if (paragraph.startsWith('## ')) {
-                    const heading = paragraph.replace('## ', '');
-                    return (
-                      <h2 key={index} className="text-2xl font-sans font-bold mt-8 mb-4 text-foreground">
-                        {renderTextWithLinks(heading)}
-                      </h2>
-                    );
-                  }
+                {(() => {
+                  const lines = blogPost.content.split('\n');
+                  const elements: JSX.Element[] = [];
+                  let currentParagraph: string[] = [];
+                  let inList = false;
+                  let listItems: JSX.Element[] = [];
                   
-                  if (paragraph.startsWith('### ')) {
-                    const heading = paragraph.replace('### ', '');
-                    return (
-                      <h3 key={index} className="text-xl font-sans font-semibold mt-6 mb-3 text-foreground">
-                        {renderTextWithLinks(heading)}
-                      </h3>
-                    );
-                  }
+                  const flushParagraph = (index: number) => {
+                    if (currentParagraph.length > 0) {
+                      const text = currentParagraph.join(' ');
+                      elements.push(
+                        <p key={`p-${index}`} className="text-foreground leading-relaxed my-4">
+                          {renderTextWithLinks(text)}
+                        </p>
+                      );
+                      currentParagraph = [];
+                    }
+                  };
+                  
+                  const flushList = (index: number) => {
+                    if (listItems.length > 0) {
+                      elements.push(
+                        <ul key={`ul-${index}`} className="list-disc pl-6 space-y-2 my-4">
+                          {listItems}
+                        </ul>
+                      );
+                      listItems = [];
+                      inList = false;
+                    }
+                  };
 
-                  if (paragraph.includes('\n- ')) {
-                    const items = paragraph.split('\n').filter(line => line.trim());
-                    return (
-                      <ul key={index} className="list-disc pl-6 space-y-2 my-4">
-                        {items.map((item, i) => {
-                          const text = item.replace(/^-\s*/, '');
-                          if (!text) return null;
-                          
-                          return (
-                            <li key={i} className="text-foreground">
-                              {renderTextWithLinks(text)}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    );
-                  }
+                  lines.forEach((line, index) => {
+                    const trimmed = line.trim();
+                    
+                    // Skip empty lines
+                    if (!trimmed) {
+                      flushParagraph(index);
+                      flushList(index);
+                      return;
+                    }
+                    
+                    // H1 Headings (skip, already in hero)
+                    if (trimmed.match(/^#\s+/)) {
+                      flushParagraph(index);
+                      flushList(index);
+                      return;
+                    }
+                    
+                    // H2 Headings
+                    if (trimmed.match(/^##\s+/)) {
+                      flushParagraph(index);
+                      flushList(index);
+                      const heading = trimmed.replace(/^##\s+/, '');
+                      elements.push(
+                        <h2 key={`h2-${index}`} className="text-2xl font-sans font-bold mt-8 mb-4 text-foreground">
+                          {renderTextWithLinks(heading)}
+                        </h2>
+                      );
+                      return;
+                    }
+                    
+                    // H3 Headings
+                    if (trimmed.match(/^###\s+/)) {
+                      flushParagraph(index);
+                      flushList(index);
+                      const heading = trimmed.replace(/^###\s+/, '');
+                      elements.push(
+                        <h3 key={`h3-${index}`} className="text-xl font-sans font-semibold mt-6 mb-3 text-foreground">
+                          {renderTextWithLinks(heading)}
+                        </h3>
+                      );
+                      return;
+                    }
 
-                  return (
-                    <p key={index} className="text-foreground leading-relaxed my-4">
-                      {renderTextWithLinks(paragraph)}
-                    </p>
-                  );
-                })}
+                    // List items
+                    if (trimmed.match(/^-\s+/)) {
+                      flushParagraph(index);
+                      inList = true;
+                      // Remove list marker and checkbox syntax
+                      let text = trimmed.replace(/^-\s*/, '').replace(/^\[\s*\]\s*/, '').replace(/^\[x\]\s*/i, '');
+                      if (text) {
+                        listItems.push(
+                          <li key={`li-${index}`} className="text-foreground">
+                            {renderTextWithLinks(text)}
+                          </li>
+                        );
+                      }
+                      return;
+                    }
+
+                    // Regular text - accumulate into paragraph
+                    if (!inList) {
+                      currentParagraph.push(trimmed);
+                    } else {
+                      flushList(index);
+                      currentParagraph.push(trimmed);
+                    }
+                  });
+                  
+                  // Flush any remaining content
+                  flushParagraph(lines.length);
+                  flushList(lines.length);
+                  
+                  return elements;
+                })()}
               </article>
 
               {relatedPosts.length > 0 && (
