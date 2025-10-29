@@ -17,20 +17,21 @@ let vitalsData: WebVitalsMetrics = {
 };
 
 const sendToBackend = (metric: Metric) => {
-  const body = JSON.stringify({
+  const data = {
     metricName: metric.name,
     value: String(metric.value),
     rating: metric.rating,
     metricId: metric.id,
     navigationType: metric.navigationType || 'navigate',
-  });
+  };
 
   if (navigator.sendBeacon) {
-    navigator.sendBeacon('/api/analytics/vitals', body);
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    navigator.sendBeacon('/api/analytics/vitals', blob);
   } else {
     fetch('/api/analytics/vitals', {
       method: 'POST',
-      body,
+      body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' },
       keepalive: true,
     }).catch(console.error);
