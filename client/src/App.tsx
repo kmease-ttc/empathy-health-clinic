@@ -11,6 +11,7 @@ import StickyMobileCTA from "@/components/StickyMobileCTA";
 import Home from "@/pages/Home";
 import Admin from "@/pages/Admin";
 import AnalyticsDashboard from "@/pages/AnalyticsDashboard";
+import SEOOptimization from "@/pages/SEOOptimization";
 import Insurance from "@/pages/Insurance";
 import Therapy from "@/pages/Therapy";
 import TeamPage from "@/pages/TeamPage";
@@ -41,6 +42,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/admin" component={Admin} />
         <Route path="/admin/analytics" component={AnalyticsDashboard} />
+        <Route path="/admin/seo" component={SEOOptimization} />
         <Route path="/insurance" component={Insurance} />
         <Route path="/therapy" component={Therapy} />
         <Route path="/team" component={TeamPage} />

@@ -31,13 +31,20 @@ export default function Admin() {
       </header>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="mb-6">
+        <div className="mb-6 flex flex-wrap gap-3">
           <Button
             variant="default"
             onClick={() => setLocation("/admin/analytics")}
             data-testid="button-analytics"
           >
             View Analytics Dashboard
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setLocation("/admin/seo")}
+            data-testid="button-seo-optimization"
+          >
+            SEO Optimization
           </Button>
         </div>
         
