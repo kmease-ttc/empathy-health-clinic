@@ -83,6 +83,18 @@ Addressed Google Search Console thin content feedback by expanding four major ov
 - All canonical URLs use proper path normalization (no trailing slashes except root)
 - Tested pages: homepage, insurance, services, therapy, team - all verified correct
 
+**Duplicate Content Resolution:**
+- Identified and fixed duplicate URL routing for team members
+- Removed team member handling from PageBySlug component (previously accessible at both `/team/:slug` and `/:slug`)
+- Team members now ONLY accessible at `/team/:slug` with proper canonical tags
+- Verified: accessing team members at root level `/:slug` returns 404 (prevents duplicate indexing)
+- Content types routing:
+  - Insurance providers: `/:slug` (e.g., `/blue-cross-blue-shield`)
+  - Treatments: `/:slug` (e.g., `/psychiatric-evaluation`)
+  - Therapies: `/:slug` (e.g., `/cognitive-behavioral-therapy`)
+  - Conditions: `/:slug` (e.g., `/anxiety-disorders`)
+  - Team members: `/team/:slug` (e.g., `/team/dr-smith`) - unique route prevents conflicts
+
 **Next Actions:**
 1. Submit updated sitemap to Google Search Console
 2. Request re-indexing for updated pages
