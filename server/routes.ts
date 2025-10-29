@@ -37,6 +37,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, `/${req.params.slug}`);
   });
   
+  // WordPress URL redirects
+  app.get("/psychiatric-services", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  
+  app.get("/psychiatric-services/", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  
+  app.get("/locations/psychiatry-orlando", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  
+  app.get("/locations/psychiatry-orlando/", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  
+  app.get("/find-a-psychiatrist-that-takes-medicare-medicare-coverage", (req, res) => {
+    res.redirect(301, "/insurance");
+  });
+  
+  app.get("/find-a-psychiatrist-that-takes-medicare-medicare-coverage/", (req, res) => {
+    res.redirect(301, "/insurance");
+  });
+  
   // Blog post redirects for WordPress guest posts (accessed without /blog/ prefix)
   const guestPostSlugs = [
     '8-physical-signs-stress-is-impacting-your-body',
