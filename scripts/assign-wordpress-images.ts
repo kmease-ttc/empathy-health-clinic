@@ -43,7 +43,7 @@ const monthToBatch: Record<string, string> = {
 function isValidBlogImage(filename: string): boolean {
   const lowerName = filename.toLowerCase();
   
-  // Exclude insurance company logos
+  // Exclude insurance company logos and off-topic images
   const excludePatterns = [
     'adventhealth',
     'aetna',
@@ -60,9 +60,21 @@ function isValidBlogImage(filename: string): boolean {
     'screenshot',
     'team.jpg',
     'google-logo',
+    'google-and-insurance', // Insurance related
     'clip-path-group', // UI elements
     'arrow.', // UI elements
+    'arrow-', // UI elements
     '432377474_', // Social media images
+    '431608868_', // Social media images
+    'best-dental-implants', // Off-topic dental content
+    'dental-implants', // Off-topic dental content
+    'hero-image', // Generic placeholder
+    'placeholder', // Generic placeholder
+    'asd-', // Generic placeholder (asd-1024x576.png, etc)
+    'asd.', // Generic placeholder
+    'hero-image2', // Generic placeholder
+    'hero-image3', // Generic placeholder
+    'image-asset', // Generic placeholder
   ];
   
   // Check if filename contains any exclude patterns
