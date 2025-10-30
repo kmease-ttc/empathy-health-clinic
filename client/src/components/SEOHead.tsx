@@ -11,6 +11,7 @@ interface SEOHeadProps {
   modifiedDate?: string;
   author?: string;
   jsonLd?: object;
+  pageDesignType?: string;
 }
 
 export default function SEOHead({
@@ -24,6 +25,7 @@ export default function SEOHead({
   modifiedDate,
   author,
   jsonLd,
+  pageDesignType,
 }: SEOHeadProps) {
   useEffect(() => {
     document.title = title;
@@ -82,6 +84,10 @@ export default function SEOHead({
 
     if (modifiedDate) {
       metaTags.push({ property: "article:modified_time", content: modifiedDate });
+    }
+
+    if (pageDesignType) {
+      metaTags.push({ name: "page-design-type", content: pageDesignType });
     }
 
     metaTags.forEach(({ name, property, content }) => {

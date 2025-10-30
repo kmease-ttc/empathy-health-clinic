@@ -278,6 +278,7 @@ export const webVitals = pgTable("web_vitals", {
   rating: text("rating").notNull(), // 'good', 'needs-improvement', 'poor'
   metricId: text("metric_id").notNull(), // Unique ID for this measurement
   navigationType: text("navigation_type"), // 'navigate', 'reload', 'back-forward', etc.
+  pageDesignType: text("page_design_type"), // 'A-treatment', 'B-location', 'C-insurance', 'D-grid', 'E-custom'
   timestamp: text("timestamp").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 

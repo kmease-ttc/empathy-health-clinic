@@ -16,6 +16,11 @@ let vitalsData: WebVitalsMetrics = {
   ttfb: null,
 };
 
+const getPageDesignType = (): string | undefined => {
+  const meta = document.querySelector('meta[name="page-design-type"]');
+  return meta?.getAttribute('content') || undefined;
+};
+
 const sendToBackend = (metric: Metric) => {
   const data = {
     metricName: metric.name,
@@ -23,6 +28,7 @@ const sendToBackend = (metric: Metric) => {
     rating: metric.rating,
     metricId: metric.id,
     navigationType: metric.navigationType || 'navigate',
+    pageDesignType: getPageDesignType(),
   };
 
   if (navigator.sendBeacon) {
