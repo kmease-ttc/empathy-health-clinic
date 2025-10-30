@@ -78,16 +78,16 @@ export default function PsychotherapistOrlando() {
     "image": "https://empathyhealthclinic.com/logo.png",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Winter Park",
-      "addressLocality": "Orlando",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
       "addressRegion": "FL",
-      "postalCode": "32789",
+      "postalCode": "32810",
       "addressCountry": "US"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 28.6000,
-      "longitude": -81.3392
+      "latitude": 28.610653,
+      "longitude": -81.359379
     },
     "telephone": "+1-386-848-8751",
     "priceRange": "$$",
@@ -447,7 +447,7 @@ export default function PsychotherapistOrlando() {
               <div className="flex flex-col items-center gap-2">
                 <div className="flex items-center gap-2 text-foreground">
                   <MapPin className="h-5 w-5 text-primary" />
-                  <span className="font-medium">Winter Park, FL 32789</span>
+                  <span className="font-medium">2281 Lee Rd Suite 102, Winter Park, FL 32810</span>
                 </div>
                 <div className="flex items-center gap-2 text-foreground">
                   <Phone className="h-5 w-5 text-primary" />
@@ -463,14 +463,14 @@ export default function PsychotherapistOrlando() {
 
             <div className="rounded-xl overflow-hidden border shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111513.77664!2d-81.5!3d28.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e773d8fecdbc77%3A0xa2cd54c4c2c9e1c6!2sWinter%20Park%2C%20FL!5e0!3m2!1sen!2sus!4v1234567890123"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.0947843928326!2d-81.35937892421968!3d28.610653475683654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e7700b8b8b8b8b%3A0x1234567890abcdef!2s2281%20Lee%20Rd%20%23102%2C%20Winter%20Park%2C%20FL%2032810!5e0!3m2!1sen!2sus!4v1234567890123"
                 width="100%"
                 height="450"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Empathy Health Clinic Location - Orlando, FL"
+                title="Empathy Health Clinic - 2281 Lee Rd Suite 102, Winter Park, FL 32810"
                 data-testid="map-location"
               ></iframe>
             </div>
