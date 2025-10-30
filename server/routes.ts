@@ -936,9 +936,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         storage.getAllTeamMembers()
       ]);
 
-      const baseUrl = process.env.REPLIT_DEPLOYMENT === "1" 
-        ? `https://${process.env.REPLIT_DOMAINS?.split(',')[0] || 'empathyhealthclinic.com'}`
-        : "https://empathyhealthclinic.com";
+      // Always use production domain for sitemap (required for Google Search Console)
+      const baseUrl = "https://empathyhealthclinic.com";
 
       let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
       xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
@@ -947,7 +946,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n`;
 
       // Main pages
-      const mainPages = ['/services', '/insurance', '/team', '/blog', '/therapy', '/new-patients', '/virtual-visit', '/request-appointment'];
+      const mainPages = ['/services', '/insurance', '/team', '/blog', '/therapy', '/new-patients', '/virtual-visit', '/request-appointment', '/psychotherapist-orlando'];
       mainPages.forEach(page => {
         xml += `  <url>\n    <loc>${baseUrl}${page}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
       });
@@ -1003,9 +1002,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Robots.txt
   app.get("/robots.txt", (_req, res) => {
-    const baseUrl = process.env.REPLIT_DEPLOYMENT === "1" 
-      ? `https://${process.env.REPLIT_DOMAINS?.split(',')[0] || 'empathyhealthclinic.com'}`
-      : "https://empathyhealthclinic.com";
+    // Always use production domain for robots.txt (required for Google Search Console)
+    const baseUrl = "https://empathyhealthclinic.com";
 
     const robotsTxt = `User-agent: *
 Allow: /
