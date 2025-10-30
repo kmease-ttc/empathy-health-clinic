@@ -43,7 +43,6 @@ const longFormSchema = z.object({
   phone: z.string().min(10, "Valid phone number is required"),
   email: z.string().email("Valid email is required"),
   insuranceProvider: z.string().optional(),
-  insuredName: z.string().optional(),
   insuredDob: z.string().optional(),
   memberId: z.string().optional(),
 });
@@ -101,7 +100,6 @@ export default function LongContactForm() {
       phone: "",
       email: "",
       insuranceProvider: "",
-      insuredName: "",
       insuredDob: "",
       memberId: "",
     },
@@ -137,7 +135,7 @@ export default function LongContactForm() {
         preferredDay: data.preferredDay,
         paymentMethod: data.paymentMethod,
         insuranceProvider: data.insuranceProvider,
-        insuredName: data.insuredName,
+        insuredName: "",
         insuredDob: data.insuredDob,
         memberId: data.memberId,
         smsOptIn: "false",
@@ -623,19 +621,6 @@ export default function LongContactForm() {
                             ))}
                           </SelectContent>
                         </Select>
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="insuredName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Name of Insured</FormLabel>
-                        <FormControl>
-                          <Input {...field} data-testid="input-insured-name" />
-                        </FormControl>
                       </FormItem>
                     )}
                   />
