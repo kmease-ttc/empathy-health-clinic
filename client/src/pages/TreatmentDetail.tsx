@@ -104,6 +104,19 @@ export default function TreatmentDetail() {
           </p>
         </HeroBackground>
 
+        {treatment.slug === 'adhd-treatment' && (
+          <div className="bg-primary text-primary-foreground py-3">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="flex items-center justify-center gap-2 text-sm md:text-base font-medium">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Same-Week ADHD Testing Available | Most Insurance Accepted | Call 386-848-8751</span>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="container mx-auto px-4 py-12 max-w-4xl">
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div className="md:col-span-2 space-y-8">
