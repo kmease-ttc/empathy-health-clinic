@@ -46,6 +46,13 @@ export default function Admin() {
           >
             SEO Optimization
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => setLocation("/admin/google-ads")}
+            data-testid="button-google-ads"
+          >
+            Google Ads Performance
+          </Button>
         </div>
         
         <Tabs defaultValue="site-content" className="space-y-6">
