@@ -28,6 +28,8 @@ import NewPatients from "@/pages/NewPatients";
 import AffordableCare from "@/pages/AffordableCare";
 import StressManagement from "@/pages/StressManagement";
 import AltamonteSprings from "@/pages/AltamonteSprings";
+import WinterPark from "@/pages/WinterPark";
+import Orlando from "@/pages/Orlando";
 import PsychotherapistOrlando from "@/pages/PsychotherapistOrlando";
 import ThankYou from "@/pages/ThankYou";
 import PageBySlug from "@/pages/PageBySlug";
@@ -62,6 +64,8 @@ function Router() {
         <Route path="/stress-management" component={StressManagement} />
         <Route path="/psychotherapist-orlando" component={PsychotherapistOrlando} />
         <Route path="/locations/altamonte-springs" component={AltamonteSprings} />
+        <Route path="/locations/winter-park" component={WinterPark} />
+        <Route path="/locations/orlando" component={Orlando} />
         <Route path="/thank-you" component={ThankYou} />
         <Route path="/blog" component={BlogListingPage} />
         <Route path="/blog/:slug" component={BlogDetailPage} />
