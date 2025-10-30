@@ -38,7 +38,7 @@ export default function SiteFooter() {
   });
 
   const phone = content?.footerPhone || "386-848-8751";
-  const emailAddress = content?.footerEmail || "provider@empathyhealthclinic.com";
+  const emailAddress = content?.footerEmail || "providers@empathyhealthclinic.com";
   const address = content?.footerAddress || "2281 Lee Rd Suite 102, Winter Park FL";
 
   const quickLinks = [

@@ -287,7 +287,7 @@ export default function ConditionDetail() {
                     </a>
                   </Button>
                   <Button variant="outline" className="w-full" asChild data-testid="button-contact-us">
-                    <a href="mailto:provider@empathyhealthclinic.com" className="flex items-center justify-center gap-2">
+                    <a href="mailto:providers@empathyhealthclinic.com" className="flex items-center justify-center gap-2">
                       <Mail className="h-4 w-4" />
                       Email Us
                     </a>
