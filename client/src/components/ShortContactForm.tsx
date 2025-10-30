@@ -17,7 +17,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent } from "@/lib/analytics";
 import { useRef, useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Shield, Lock } from "lucide-react";
 
 const shortFormSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -247,10 +247,20 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
           </Form>
         </div>
         
-        <div className="sticky bottom-0 bg-card border-t p-4">
+        <div className="sticky bottom-0 bg-card border-t p-5">
+          <div className="mb-4 flex items-center justify-center gap-4 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <Lock className="h-3 w-3" />
+              <span>HIPAA Compliant</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Shield className="h-3 w-3" />
+              <span>100% Confidential</span>
+            </div>
+          </div>
           <Button 
             type="submit" 
-            className="w-full" 
+            className="w-full text-lg py-6 font-semibold" 
             size="lg"
             disabled={submitLead.isPending}
             data-testid="button-submit-form"
@@ -258,6 +268,9 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
           >
             {submitLead.isPending ? "Submitting..." : "Request Appointment"}
           </Button>
+          <p className="text-center text-xs text-muted-foreground mt-3">
+            Response within 24 hours • Most insurance accepted
+          </p>
         </div>
       </div>
     </div>
