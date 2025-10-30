@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link } from "wouter";
-import { Loader2, ArrowLeft, Phone, Mail, CheckCircle2, Users, Clock } from "lucide-react";
+import { Loader2, ArrowLeft, Phone, Mail, CheckCircle2, Users, Clock, Shield, Calendar, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Treatment } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
@@ -216,18 +216,18 @@ export default function TreatmentDetail() {
             </div>
 
             <div className="md:col-span-1">
-              <div className="bg-primary/5 border-2 border-primary/30 rounded-lg p-6 sticky top-24">
-                <h3 className="text-xl font-bold text-foreground mb-3">
+              <div className="bg-primary/10 border-2 border-primary/40 rounded-lg p-8 sticky top-24 shadow-lg">
+                <h3 className="text-2xl font-bold text-foreground mb-2">
                   Get Started Today
                 </h3>
-                <p className="text-foreground/80 mb-6 leading-relaxed">
-                  Take the first step toward recovery. Our compassionate team is ready to help you feel better.
+                <p className="text-foreground/80 mb-6 text-base leading-relaxed">
+                  Take the first step toward recovery. Our compassionate team is ready to help.
                 </p>
                 
-                <div className="space-y-3 mb-6">
+                <div className="space-y-4 mb-6">
                   <Button 
                     size="lg" 
-                    className="w-full" 
+                    className="w-full text-lg py-6 font-semibold" 
                     onClick={() => {
                       const form = document.querySelector('#contact-form');
                       form?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -239,7 +239,7 @@ export default function TreatmentDetail() {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="w-full" 
+                    className="w-full text-lg py-6 font-semibold border-2" 
                     asChild 
                     data-testid="button-call-office"
                   >
@@ -250,18 +250,24 @@ export default function TreatmentDetail() {
                   </Button>
                 </div>
                 
-                <div className="bg-background/50 rounded-md p-4 space-y-2 text-sm">
-                  <div className="flex items-center gap-2 text-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                    <span>Most insurance accepted</span>
+                <div className="bg-card border-2 border-primary/20 rounded-lg p-5 space-y-4 mb-6">
+                  <div className="flex items-center gap-3 text-foreground">
+                    <div className="bg-primary/10 p-2 rounded-md">
+                      <Shield className="h-5 w-5 text-primary flex-shrink-0" />
+                    </div>
+                    <span className="font-medium">Most insurance accepted</span>
                   </div>
-                  <div className="flex items-center gap-2 text-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                    <span>Same-week appointments</span>
+                  <div className="flex items-center gap-3 text-foreground">
+                    <div className="bg-primary/10 p-2 rounded-md">
+                      <Calendar className="h-5 w-5 text-primary flex-shrink-0" />
+                    </div>
+                    <span className="font-medium">Same-week appointments</span>
                   </div>
-                  <div className="flex items-center gap-2 text-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                    <span>Telehealth available</span>
+                  <div className="flex items-center gap-3 text-foreground">
+                    <div className="bg-primary/10 p-2 rounded-md">
+                      <Video className="h-5 w-5 text-primary flex-shrink-0" />
+                    </div>
+                    <span className="font-medium">Telehealth available</span>
                   </div>
                 </div>
                 
