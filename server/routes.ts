@@ -868,6 +868,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // UTM Analytics routes
+  app.get("/api/analytics/utm/leads-by-source", async (_req, res) => {
+    try {
+      const data = await storage.getLeadsByUTMSource();
+      res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/utm/leads-by-campaign", async (_req, res) => {
+    try {
+      const data = await storage.getLeadsByUTMCampaign();
+      res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/utm/leads-by-term", async (_req, res) => {
+    try {
+      const data = await storage.getLeadsByUTMTerm();
+      res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/utm/leads-by-landing-page", async (_req, res) => {
+    try {
+      const data = await storage.getLeadsByLandingPage();
+      res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/utm/page-views-by-source", async (_req, res) => {
+    try {
+      const data = await storage.getPageViewsByUTMSource();
+      res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/utm/page-views-by-campaign", async (_req, res) => {
+    try {
+      const data = await storage.getPageViewsByUTMCampaign();
+      res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   // SEO Routes - XML Sitemap
   app.get("/sitemap.xml", async (_req, res) => {
     try {

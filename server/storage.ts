@@ -140,6 +140,14 @@ export interface IStorage {
   trackWebVital(data: InsertWebVital): Promise<WebVital>;
   getWebVitals(metricName?: string): Promise<WebVital[]>;
   getAverageWebVitals(): Promise<{metricName: string, avgValue: number, rating: string}[]>;
+  
+  // UTM Analytics methods
+  getLeadsByUTMSource(): Promise<{utmSource: string | null, count: number}[]>;
+  getLeadsByUTMCampaign(): Promise<{utmCampaign: string | null, count: number}[]>;
+  getLeadsByUTMTerm(): Promise<{utmTerm: string | null, count: number}[]>;
+  getLeadsByLandingPage(): Promise<{landingPage: string | null, count: number}[]>;
+  getPageViewsByUTMSource(): Promise<{utmSource: string | null, count: number}[]>;
+  getPageViewsByUTMCampaign(): Promise<{utmCampaign: string | null, count: number}[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -1931,6 +1939,97 @@ export class MemStorage implements IStorage {
     return result.map(r => ({
       ...r,
       avgValue: typeof r.avgValue === 'string' ? parseFloat(r.avgValue) : r.avgValue
+    }));
+  }
+
+  // UTM Analytics methods
+  async getLeadsByUTMSource(): Promise<{utmSource: string | null, count: number}[]> {
+    const result = await db.select({
+      utmSource: leads.utmSource,
+      count: sql<number>`COUNT(*)::int`
+    })
+    .from(leads)
+    .groupBy(leads.utmSource)
+    .orderBy(sql`COUNT(*) DESC`);
+    
+    return result.map(r => ({
+      ...r,
+      count: typeof r.count === 'string' ? parseInt(r.count) : r.count
+    }));
+  }
+
+  async getLeadsByUTMCampaign(): Promise<{utmCampaign: string | null, count: number}[]> {
+    const result = await db.select({
+      utmCampaign: leads.utmCampaign,
+      count: sql<number>`COUNT(*)::int`
+    })
+    .from(leads)
+    .groupBy(leads.utmCampaign)
+    .orderBy(sql`COUNT(*) DESC`);
+    
+    return result.map(r => ({
+      ...r,
+      count: typeof r.count === 'string' ? parseInt(r.count) : r.count
+    }));
+  }
+
+  async getLeadsByUTMTerm(): Promise<{utmTerm: string | null, count: number}[]> {
+    const result = await db.select({
+      utmTerm: leads.utmTerm,
+      count: sql<number>`COUNT(*)::int`
+    })
+    .from(leads)
+    .groupBy(leads.utmTerm)
+    .orderBy(sql`COUNT(*) DESC`);
+    
+    return result.map(r => ({
+      ...r,
+      count: typeof r.count === 'string' ? parseInt(r.count) : r.count
+    }));
+  }
+
+  async getLeadsByLandingPage(): Promise<{landingPage: string | null, count: number}[]> {
+    const result = await db.select({
+      landingPage: leads.landingPage,
+      count: sql<number>`COUNT(*)::int`
+    })
+    .from(leads)
+    .groupBy(leads.landingPage)
+    .orderBy(sql`COUNT(*) DESC`);
+    
+    return result.map(r => ({
+      ...r,
+      count: typeof r.count === 'string' ? parseInt(r.count) : r.count
+    }));
+  }
+
+  async getPageViewsByUTMSource(): Promise<{utmSource: string | null, count: number}[]> {
+    const result = await db.select({
+      utmSource: pageViews.utmSource,
+      count: sql<number>`COUNT(*)::int`
+    })
+    .from(pageViews)
+    .groupBy(pageViews.utmSource)
+    .orderBy(sql`COUNT(*) DESC`);
+    
+    return result.map(r => ({
+      ...r,
+      count: typeof r.count === 'string' ? parseInt(r.count) : r.count
+    }));
+  }
+
+  async getPageViewsByUTMCampaign(): Promise<{utmCampaign: string | null, count: number}[]> {
+    const result = await db.select({
+      utmCampaign: pageViews.utmCampaign,
+      count: sql<number>`COUNT(*)::int`
+    })
+    .from(pageViews)
+    .groupBy(pageViews.utmCampaign)
+    .orderBy(sql`COUNT(*) DESC`);
+    
+    return result.map(r => ({
+      ...r,
+      count: typeof r.count === 'string' ? parseInt(r.count) : r.count
     }));
   }
 }
