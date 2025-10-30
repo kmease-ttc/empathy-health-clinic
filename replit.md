@@ -20,7 +20,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Google Maps Integration:** Embedded map on homepage showing clinic location with address, hours, contact info, and directions link for improved local SEO and user experience.
 - **Dynamic Content:** Real-time content updates from the API.
 - **Blog System:** Comprehensive blog with listing (`/blog`) and individual post pages (`/blog/:slug`), including SEO metadata, JSON-LD, related articles, author bios, and social sharing.
-- **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, page view tracking, conversion event tracking, and an admin analytics dashboard (`/admin/analytics`).
+- **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), and an admin analytics dashboard (`/admin/analytics`).
 - **SEO Optimization Dashboard:** Strategic SEO tools at `/admin/seo` with Search Console guidance, content gap analysis, internal linking recommendations, and actionable checklists.
 - **URL Redirects:** 301 permanent redirects from old WordPress URLs to preserve SEO value and prevent 404 errors.
 

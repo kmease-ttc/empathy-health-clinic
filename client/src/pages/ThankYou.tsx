@@ -7,11 +7,6 @@ import SEOHead from "@/components/SEOHead";
 import { trackEvent } from "@/lib/analytics";
 
 export default function ThankYou() {
-  useEffect(() => {
-    // Track conversion event
-    trackEvent("form_submission");
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead
