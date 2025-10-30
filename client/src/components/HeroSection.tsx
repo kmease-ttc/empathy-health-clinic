@@ -17,13 +17,18 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ 
-          backgroundImage: `url(${heroImage})`,
-          backgroundColor: '#2d5f4a'
-        }}
-      >
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src={heroImage}
+          alt="Empathy Health Clinic - Peaceful healing environment"
+          className="w-full h-full object-cover"
+          width={1920}
+          height={800}
+          loading="eager"
+          fetchPriority="high"
+          decoding="sync"
+          style={{ backgroundColor: '#2d5f4a' }}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/15 to-transparent" />
       </div>
       
