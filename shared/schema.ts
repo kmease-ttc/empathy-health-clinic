@@ -193,6 +193,13 @@ export const leads = pgTable("leads", {
   insuredName: text("insured_name"),
   insuredDob: text("insured_dob"),
   memberId: text("member_id"),
+  // UTM tracking for Google Ads attribution
+  landingPage: text("landing_page"), // First page they landed on
+  utmSource: text("utm_source"), // e.g., "google", "facebook"
+  utmMedium: text("utm_medium"), // e.g., "cpc", "organic"
+  utmCampaign: text("utm_campaign"), // Campaign name
+  utmTerm: text("utm_term"), // Keyword clicked (most important for Google Ads!)
+  utmContent: text("utm_content"), // Ad variation
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
@@ -241,6 +248,12 @@ export const pageViews = pgTable("page_views", {
   timestamp: text("timestamp").notNull().default(sql`CURRENT_TIMESTAMP`),
   userAgent: text("user_agent"),
   referrer: text("referrer"),
+  // UTM tracking for Google Ads attribution
+  utmSource: text("utm_source"), // e.g., "google", "facebook"
+  utmMedium: text("utm_medium"), // e.g., "cpc", "organic"
+  utmCampaign: text("utm_campaign"), // Campaign name
+  utmTerm: text("utm_term"), // Keyword clicked
+  utmContent: text("utm_content"), // Ad variation
 });
 
 export const insertPageViewSchema = createInsertSchema(pageViews).omit({
