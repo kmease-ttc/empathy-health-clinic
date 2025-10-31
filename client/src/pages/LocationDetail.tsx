@@ -235,9 +235,9 @@ export default function LocationDetail() {
                       View All Services
                     </Link>
                   </Button>
-                  <Button variant="outline" asChild data-testid="link-contact">
-                    <Link href="/contact">
-                      Contact Us
+                  <Button variant="outline" asChild data-testid="link-request-appointment">
+                    <Link href="/request-appointment">
+                      Request Appointment
                     </Link>
                   </Button>
                 </div>
