@@ -62,22 +62,28 @@ export default function HeroSection() {
             <HeroLeadForm />
           </div>
           
-          <div className="flex items-center gap-3 text-white/95">
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-full">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                ))}
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 max-w-md shadow-xl">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="flex flex-col">
+                <div className="text-5xl font-bold text-foreground">4.8</div>
+                <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Excellent</div>
               </div>
-              <span className="text-sm font-medium">{reviewRating}</span>
+              <div className="flex flex-col gap-1">
+                <div className="flex">
+                  {[...Array(4)].map((_, i) => (
+                    <Star key={i} className="w-7 h-7 fill-yellow-400 text-yellow-400" />
+                  ))}
+                  <Star className="w-7 h-7 fill-yellow-400/40 text-yellow-400/40" />
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-1 bg-white px-3 py-1.5 rounded">
-              <span className="text-xl font-bold" style={{ color: '#4285F4' }}>G</span>
-              <span className="text-xl font-bold" style={{ color: '#EA4335' }}>o</span>
-              <span className="text-xl font-bold" style={{ color: '#FBBC05' }}>o</span>
-              <span className="text-xl font-bold" style={{ color: '#4285F4' }}>g</span>
-              <span className="text-xl font-bold" style={{ color: '#34A853' }}>l</span>
-              <span className="text-xl font-bold" style={{ color: '#EA4335' }}>e</span>
+            <div className="border-t pt-4">
+              <p className="text-foreground text-lg italic mb-2">
+                "Absolutely wonderful experience!"
+              </p>
+              <p className="text-muted-foreground text-sm">
+                — Current Patient
+              </p>
             </div>
           </div>
         </div>
