@@ -26,6 +26,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive Landing Page, Services Page (`/services`), SEO-optimized landing pages for 12 Insurance Providers, 9 Psychiatric Treatments, 15 Therapy Services, and 10 Conditions.
+- **Location Pages (`/locations`):** 11 city-specific landing pages optimized for local SEO including psychiatry services in Winter Park, Orlando, Altamonte Springs, Maitland, Casselberry, and Lake Mary. Each page features unique city-specific content, LocalBusiness schema with Winter Park address and areaServed array, internal links to services and appointment pages, and city-targeted meta descriptions.
 - **Blog Section (`/blog`):** 165 migrated and 7 new SEO-optimized articles with features like category filters and JSON-LD.
 - **Team Page (`/team`):** Displays staff with bios and credentials.
 - **Admin Panel (`/admin`):** CMS for content editing and lead management.
