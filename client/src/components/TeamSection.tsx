@@ -33,6 +33,10 @@ export default function TeamSection() {
                   src={member.image} 
                   alt={member.name}
                   className="w-full h-full object-contain"
+                  loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={400}
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     const fallback = e.currentTarget.parentElement?.querySelector('p');

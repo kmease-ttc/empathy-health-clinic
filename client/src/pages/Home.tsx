@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import SiteHeader from "@/components/SiteHeader";
 import HeroSection from "@/components/HeroSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
@@ -6,13 +7,14 @@ import InsuranceSection from "@/components/InsuranceSection";
 import TreatmentsSection from "@/components/TreatmentsSection";
 import ApproachSection from "@/components/ApproachSection";
 import ComparisonSection from "@/components/ComparisonSection";
-import TeamSection from "@/components/TeamSection";
-import ConditionsSection from "@/components/ConditionsSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import LocationSection from "@/components/LocationSection";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import OrganizationSchema from "@/components/OrganizationSchema";
+
+const TeamSection = lazy(() => import("@/components/TeamSection"));
+const ConditionsSection = lazy(() => import("@/components/ConditionsSection"));
+const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
+const LocationSection = lazy(() => import("@/components/LocationSection"));
 
 export default function Home() {
   return (
@@ -122,12 +124,14 @@ export default function Home() {
         <ComparisonSection />
         <ReviewsAndBadges />
         <div className="border-t" />
-        <TeamSection />
-        <ConditionsSection />
-        <div className="border-t" />
-        <TestimonialsSection />
-        <div className="border-t" />
-        <LocationSection />
+        <Suspense fallback={<div className="py-20" />}>
+          <TeamSection />
+          <ConditionsSection />
+          <div className="border-t" />
+          <TestimonialsSection />
+          <div className="border-t" />
+          <LocationSection />
+        </Suspense>
       </main>
       <SiteFooter />
     </div>
