@@ -37,7 +37,7 @@ import {
 import { randomUUID } from "crypto";
 import blogPostsData from "./blog-posts-data.json";
 import { db } from "./db";
-import { eq, sql, and, gte, lte, desc } from "drizzle-orm";
+import { eq, sql, and, or, gte, lte, desc } from "drizzle-orm";
 
 export interface IStorage {
   // User methods
@@ -2042,9 +2042,10 @@ export class MemStorage implements IStorage {
       .where(and(eq(analyticsEvents.eventType, 'form_started'), eq(analyticsEvents.value, 'long')));
     
     // Count form submissions by type (from leads table)
+    // Note: "hero" and "short" both count as short form submissions
     const shortFormSubmissionsResult = await db.select({ count: sql<number>`count(*)::int` })
       .from(leads)
-      .where(eq(leads.formType, 'short'));
+      .where(or(eq(leads.formType, 'short'), eq(leads.formType, 'hero')));
     
     const longFormSubmissionsResult = await db.select({ count: sql<number>`count(*)::int` })
       .from(leads)
