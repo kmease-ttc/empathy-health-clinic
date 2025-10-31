@@ -1,7 +1,9 @@
 import { Shield, Award, Calendar, Heart, Users, CheckCircle, Lock, Sparkles } from "lucide-react";
+import psychologyTodayLogo from "@assets/image_1761922062341.png";
 
 interface TrustFactor {
-  icon: React.ElementType;
+  icon?: React.ElementType;
+  logo?: string;
   title: string;
   description: string;
 }
@@ -26,6 +28,11 @@ const trustFactors: TrustFactor[] = [
     icon: Calendar,
     title: "Same-Week Appointments",
     description: "Fast access to care when you need it most"
+  },
+  {
+    logo: psychologyTodayLogo,
+    title: "Featured on Psychology Today",
+    description: "Verified provider directory listing"
   },
   {
     icon: Sparkles,
@@ -67,7 +74,15 @@ export default function TrustFactors({ variant = "grid", limit }: TrustFactorsPr
             data-testid={`trust-factor-${index}`}
           >
             <div className="p-3 bg-primary/10 rounded-lg mb-3">
-              <factor.icon className="h-6 w-6 text-primary" />
+              {factor.logo ? (
+                <img 
+                  src={factor.logo} 
+                  alt={factor.title}
+                  className="h-6 w-auto object-contain"
+                />
+              ) : factor.icon ? (
+                <factor.icon className="h-6 w-6 text-primary" />
+              ) : null}
             </div>
             <h3 className="text-sm font-semibold text-foreground mb-1">
               {factor.title}
@@ -89,8 +104,16 @@ export default function TrustFactors({ variant = "grid", limit }: TrustFactorsPr
           className="flex flex-col items-center text-center p-6 bg-card border rounded-lg hover-elevate"
           data-testid={`trust-factor-${index}`}
         >
-          <div className="p-4 bg-primary/10 rounded-full mb-4">
-            <factor.icon className="h-8 w-8 text-primary" />
+          <div className="p-4 bg-primary/10 rounded-full mb-4 flex items-center justify-center min-h-[4rem]">
+            {factor.logo ? (
+              <img 
+                src={factor.logo} 
+                alt={factor.title}
+                className="h-8 w-auto object-contain max-w-[8rem]"
+              />
+            ) : factor.icon ? (
+              <factor.icon className="h-8 w-8 text-primary" />
+            ) : null}
           </div>
           <h3 className="text-lg font-semibold text-foreground mb-2">
             {factor.title}
