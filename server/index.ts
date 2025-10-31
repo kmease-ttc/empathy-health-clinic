@@ -17,6 +17,28 @@ app.use(compression({
   threshold: 1024
 }));
 
+// 301 Redirect: www to non-www (preserves SEO & domain authority)
+app.use((req, res, next) => {
+  const host = req.headers.host || '';
+  
+  // Check if the request is coming from www subdomain
+  if (host.startsWith('www.')) {
+    // Get the protocol (http or https)
+    const protocol = req.protocol || (req.secure ? 'https' : 'http');
+    
+    // Remove 'www.' from the host
+    const newHost = host.substring(4);
+    
+    // Construct the new URL
+    const newUrl = `${protocol}://${newHost}${req.originalUrl}`;
+    
+    // Send 301 permanent redirect
+    return res.redirect(301, newUrl);
+  }
+  
+  next();
+});
+
 declare module 'http' {
   interface IncomingMessage {
     rawBody: unknown
