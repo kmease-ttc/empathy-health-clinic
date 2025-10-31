@@ -24,7 +24,7 @@ export default function HeroSection() {
   const reviewRating = content?.reviewRating || "EXCELLENT";
 
   return (
-    <section className="relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center overflow-hidden">
+    <section className="relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-start overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <img
           src={heroImage}
