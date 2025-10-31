@@ -170,7 +170,14 @@ export default function LongContactForm() {
   const nextStep = async () => {
     const fields = step === 1 ? ["service"] : step === 2 ? ["concerns"] : step === 3 ? ["medications", "preferredDay"] : [];
     const isValid = await form.trigger(fields as any);
-    if (isValid) setStep(step + 1);
+    if (isValid) {
+      // Track form started only when user advances from Step 1 to Step 2
+      // This shows real intent to complete the form, not just curiosity
+      if (step === 1) {
+        handleFormStarted();
+      }
+      setStep(step + 1);
+    }
   };
 
   const totalSteps = 5;
@@ -298,7 +305,6 @@ export default function LongContactForm() {
                         <div
                           key={service.value}
                           onClick={() => {
-                            handleFormStarted();
                             field.onChange(service.value);
                           }}
                           className={`p-4 border-2 rounded-xl cursor-pointer transition-all hover-elevate ${
