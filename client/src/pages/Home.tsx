@@ -1,7 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import HeroSection from "@/components/HeroSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
-import InsuranceLogosStrip from "@/components/InsuranceLogosStrip";
 import TrustFactors from "@/components/TrustFactors";
 import InsuranceSection from "@/components/InsuranceSection";
 import TreatmentsSection from "@/components/TreatmentsSection";
@@ -104,7 +103,6 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <ReviewsAndBadges />
-        <InsuranceLogosStrip />
         <section className="py-12 md:py-16 bg-card border-y">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-8">
