@@ -21,7 +21,7 @@ export default function AltamonteSprings() {
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Psychiatrist Altamonte Springs FL | Mental Health Therapy"
-        description="Expert psychiatrists and therapists serving Altamonte Springs, FL. Depression, anxiety, ADHD treatment. 10 minutes from Altamonte. Insurance accepted. Call 386-848-8751."
+        description="Expert psychiatrists & therapists serving Altamonte Springs, FL. Depression, anxiety, ADHD treatment. Insurance accepted. Call 386-848-8751."
         keywords={["psychiatrist Altamonte Springs", "therapist Altamonte Springs FL", "mental health Altamonte Springs", "anxiety treatment Altamonte", "depression therapy Altamonte Springs", "psychiatry near Altamonte"]}
         canonicalPath="/locations/altamonte-springs"
       />

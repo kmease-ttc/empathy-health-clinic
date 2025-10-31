@@ -39,7 +39,7 @@ export default function BlogListingPage() {
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Mental Health Blog | Empathy Health Clinic"
-        description="Expert insights, guidance, and resources for mental health, wellness, and personal growth. Written by mental health professionals for everyone seeking support and understanding."
+        description="Expert insights & resources for mental health, wellness & growth from mental health professionals. Support for anxiety, depression & more."
         keywords={["mental health blog", "therapy advice", "wellness tips", "mental health resources", "psychiatric care", "counseling insights"]}
         canonicalPath="/blog"
         type="website"
