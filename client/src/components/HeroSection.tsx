@@ -42,7 +42,7 @@ export default function HeroSection() {
             <img 
               src={empathyLogo} 
               alt="Empathy Health Clinic" 
-              className="h-12 md:h-14 w-auto drop-shadow-lg"
+              className="h-44 md:h-52 w-auto drop-shadow-lg"
             />
           </div>
           
@@ -81,16 +81,21 @@ export default function HeroSection() {
             </div>
           </div>
           
-          {/* Subtle Rating Card */}
-          <div className="inline-block bg-white/80 backdrop-blur-sm rounded-lg px-6 py-3 shadow-md">
-            <div className="flex items-center justify-center gap-3">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-black stroke-[1.5]" />
-                ))}
+          {/* Rating and Insurance Cards */}
+          <div className="flex flex-wrap justify-center items-center gap-4">
+            <div className="bg-white/80 backdrop-blur-sm rounded-lg px-6 py-3 shadow-md">
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-black stroke-[1.5]" />
+                  ))}
+                </div>
+                <span className="text-foreground font-semibold text-sm">4.8 EXCELLENT</span>
+                <img src={googleLogo} alt="Google" className="h-3 w-auto object-contain" data-testid="badge-google" style={{ filter: 'saturate(1.3) contrast(1.1)' }} />
               </div>
-              <span className="text-foreground font-semibold text-sm">4.8 EXCELLENT</span>
-              <img src={googleLogo} alt="Google" className="h-3 w-auto object-contain" data-testid="badge-google" style={{ filter: 'saturate(1.3) contrast(1.1)' }} />
+            </div>
+            <div className="bg-white/80 backdrop-blur-sm rounded-lg px-6 py-3 shadow-md">
+              <span className="text-foreground font-semibold text-sm">Most Insurances Accepted</span>
             </div>
           </div>
         </div>
