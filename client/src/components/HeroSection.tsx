@@ -38,18 +38,23 @@ export default function HeroSection() {
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <div className="max-w-6xl mx-auto text-center">
           {/* Logo */}
-          <div className="mb-8 flex justify-center">
+          <div className="mb-6 flex justify-center">
             <img 
               src={empathyLogo} 
               alt="Empathy Health Clinic" 
-              className="h-48 md:h-60 w-auto drop-shadow-lg"
+              className="h-12 md:h-14 w-auto drop-shadow-lg"
             />
           </div>
           
           {/* Heading */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-medium text-white mb-12 drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-medium text-white mb-4 drop-shadow-lg">
             {title}
           </h1>
+          
+          {/* Subtitle */}
+          <p className="text-lg md:text-xl text-white/95 mb-10 drop-shadow font-light max-w-3xl mx-auto">
+            {subtitle}
+          </p>
           
           {/* Lead Form */}
           <div className="mb-10 w-full max-w-5xl mx-auto">
