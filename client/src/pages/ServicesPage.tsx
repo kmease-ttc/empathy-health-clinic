@@ -84,8 +84,8 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Psychiatric Services Winter Park FL | Empathy Health"
-        description="Mental health services at Empathy Health Clinic. Expert psychiatric care & treatment for disorders. Winter Park, FL. Call 386-848-8751."
+        title="Psychiatric & Counseling Services | Empathy Health Clinic Orlando"
+        description="Comprehensive psychiatric services in Orlando, FL. Medication management, therapy, psychiatric evaluations & counseling. Most insurance accepted."
         keywords={["psychiatric services Winter Park", "mental health services Orlando", "psychiatrist Winter Park FL", "medication management Florida", "psychiatric evaluation Orlando"]}
         canonicalPath="/services"
       />

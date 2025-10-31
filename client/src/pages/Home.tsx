@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead
-        title="Psychiatrist Winter Park FL | Empathy Health Clinic"
-        description="Expert psychiatrist & therapist in Winter Park, FL. Psychiatric evaluations, therapy, medication management. Most insurance accepted. Call 386-848-8751."
+        title="Empathy Health Clinic | Psychiatry, Therapy & Counseling in Winter Park FL"
+        description="Expert psychiatry & therapy in Winter Park, FL. Comprehensive mental health care including medication management & counseling. Most insurance accepted."
         keywords={["psychiatrist Winter Park", "mental health Winter Park FL", "therapy Winter Park", "psychiatric services Florida", "anxiety treatment Orlando", "depression treatment Florida"]}
         canonicalPath="/"
         jsonLd={{

@@ -86,11 +86,28 @@ export default function TherapyDetail() {
     }
   })();
 
+  const getMetaDescription = (): string => {
+    const maxLength = 155;
+    
+    // Get description from database or generate fallback
+    const desc = therapy.description || createMetaDescription(therapy.title);
+    
+    // Strip HTML tags and normalize whitespace
+    const plainText = desc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    
+    // Truncate if needed
+    if (plainText.length <= maxLength) {
+      return plainText;
+    }
+    
+    return plainText.substring(0, maxLength - 3) + '...';
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title={`${therapy.title} Winter Park FL | Empathy Health`}
-        description={createMetaDescription(therapy.title)}
+        title={therapy.pageTitle || `${therapy.title} Winter Park FL | Empathy Health`}
+        description={getMetaDescription()}
         keywords={[therapy.title, `${therapy.title} Winter Park`, "therapist Winter Park FL", "counseling Orlando", "therapy Florida"]}
         canonicalPath={`/${therapy.slug}`}
       />

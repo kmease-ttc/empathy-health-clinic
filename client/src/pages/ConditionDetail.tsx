@@ -116,11 +116,28 @@ export default function ConditionDetail() {
     }
   })();
 
+  const getMetaDescription = (): string => {
+    const maxLength = 155;
+    
+    // Get description from database or generate fallback
+    const desc = condition.description || createMetaDescription(condition.title);
+    
+    // Strip HTML tags and normalize whitespace
+    const plainText = desc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    
+    // Truncate if needed
+    if (plainText.length <= maxLength) {
+      return plainText;
+    }
+    
+    return plainText.substring(0, maxLength - 3) + '...';
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title={`${condition.title} Treatment Winter Park FL | Empathy`}
-        description={createMetaDescription(condition.title)}
+        title={condition.pageTitle || `${condition.title} Treatment Winter Park FL | Empathy`}
+        description={getMetaDescription()}
         keywords={[condition.title, `${condition.title} treatment Winter Park`, `${condition.title} therapy Florida`, "psychiatrist Orlando", "mental health Winter Park FL"]}
         canonicalPath={`/${condition.slug}`}
       />
