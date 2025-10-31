@@ -683,15 +683,17 @@ export default function AnalyticsDashboard() {
         )}
 
         {/* Recent Activity */}
-        {data?.events.recent && data.events.recent.length > 0 && (
-          <Card data-testid="card-recent-activity">
-            <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
-              <CardDescription>Latest tracked events (last 20)</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {data.events.recent.slice(0, 20).map((event, index) => (
+        {(() => {
+          const filteredRecentEvents = data?.events.recent?.filter((e: any) => e.eventType !== 'virtual_visit_click') || [];
+          return filteredRecentEvents.length > 0 && (
+            <Card data-testid="card-recent-activity">
+              <CardHeader>
+                <CardTitle>Recent Activity</CardTitle>
+                <CardDescription>Latest tracked events (excluding virtual visits from current clients)</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {filteredRecentEvents.slice(0, 20).map((event, index) => (
                   <div 
                     key={event.id || index} 
                     className="flex items-center justify-between gap-4 p-3 rounded-lg border text-sm cursor-pointer hover-elevate active-elevate-2"
@@ -714,11 +716,12 @@ export default function AnalyticsDashboard() {
                       </span>
                     </div>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })()}
 
         {/* Event Details Dialog */}
         <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>

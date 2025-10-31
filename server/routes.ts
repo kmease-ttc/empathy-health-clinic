@@ -595,6 +595,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Resend email notification for a specific lead
+  app.post("/api/leads/:id/resend-email", async (req, res) => {
+    try {
+      const leads = await storage.getAllLeads();
+      const lead = leads.find(l => l.id === req.params.id);
+      
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+
+      await sendLeadNotification({
+        firstName: lead.firstName,
+        lastName: lead.lastName,
+        email: lead.email,
+        phone: lead.phone,
+        smsOptIn: lead.smsOptIn,
+        service: lead.service,
+        formType: lead.formType,
+        conditions: lead.conditions,
+        symptoms: lead.symptoms,
+        medications: lead.medications,
+        preferredDay: lead.preferredDay,
+        paymentMethod: lead.paymentMethod,
+        insuranceProvider: lead.insuranceProvider,
+        insuredName: lead.insuredName,
+        insuredDob: lead.insuredDob,
+        memberId: lead.memberId,
+      });
+
+      console.log(`✅ Resent email notification for lead: ${lead.firstName} ${lead.lastName}`);
+      res.json({ success: true, message: "Email notification resent successfully" });
+    } catch (error: any) {
+      console.error('❌ Failed to resend lead notification:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   // Blog post routes
   app.get("/api/blog-posts", async (_req, res) => {
     try {
