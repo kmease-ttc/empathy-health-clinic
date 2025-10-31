@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
-import heroImage from "@assets/image_1761931078555.png";
+import heroImage from "@assets/image_1761931549596.png";
 import HeroLeadForm from "@/components/HeroLeadForm";
 import zocdocLogo from "@assets/logo_lockup_positive_rgb_1761921702261.png";
 import googleLogo from "@assets/google-wordmark.webp";
@@ -24,12 +24,12 @@ export default function HeroSection() {
         <img
           src={heroImage}
           alt="Empathy Health Clinic - Peaceful healing environment"
-          className="w-full h-full object-cover object-right"
+          className="w-full h-full object-cover"
           width={1920}
           height={800}
           loading="eager"
           decoding="sync"
-          style={{ backgroundColor: '#2d5f4a' }}
+          style={{ backgroundColor: '#2d5f4a', objectPosition: '75% center' }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
       </div>
