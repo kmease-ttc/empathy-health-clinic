@@ -1,5 +1,6 @@
 import { Shield, Award, Calendar, Heart, Users, CheckCircle, Lock, Sparkles } from "lucide-react";
 import psychologyTodayLogo from "@assets/image_1761922062341.png";
+import goodTherapyLogo from "@assets/image_1761922436191.png";
 
 interface TrustFactor {
   icon?: React.ElementType;
@@ -33,6 +34,11 @@ const trustFactors: TrustFactor[] = [
     logo: psychologyTodayLogo,
     title: "Featured on Psychology Today",
     description: "Verified provider directory listing"
+  },
+  {
+    logo: goodTherapyLogo,
+    title: "Listed on GoodTherapy",
+    description: "Trusted mental health resource platform"
   },
   {
     icon: Sparkles,
