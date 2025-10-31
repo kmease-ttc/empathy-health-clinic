@@ -8,6 +8,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import TrustFactors from "@/components/TrustFactors";
+import HeroLeadForm from "@/components/HeroLeadForm";
 import forestBg from "@assets/stock_images/calm_forest_trees_me_0c56a0e8.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -107,6 +108,13 @@ export default function ServicesPage() {
             </p>
           </div>
         </div>
+
+        {/* Lead Form Section */}
+        <section className="py-12 bg-background border-b">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <HeroLeadForm />
+          </div>
+        </section>
 
         <section className="py-16 md:py-20 bg-card border-y">
           <div className="max-w-4xl mx-auto px-6 lg:px-8">

@@ -7,6 +7,7 @@ import type { InsuranceProvider } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
+import HeroLeadForm from "@/components/HeroLeadForm";
 import { trackEvent } from "@/lib/analytics";
 import heroImage from "@assets/stock_images/healthcare_insurance_a8872338.jpg";
 
@@ -75,6 +76,13 @@ export default function Insurance() {
               </Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Lead Form Section */}
+      <section className="py-12 bg-background border-b">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <HeroLeadForm />
         </div>
       </section>
 
