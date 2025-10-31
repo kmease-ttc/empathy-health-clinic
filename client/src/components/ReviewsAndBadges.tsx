@@ -1,25 +1,28 @@
 import zocdocLogo from "@assets/logo_lockup_positive_rgb_1761921702261.png";
 import googleLogo from "@assets/google-wordmark.webp";
 import healthgradesLogo from "@assets/healthgrades-logo.png";
+import goodTherapyLogo from "@assets/stock_images/goodtherapy_logo_off_4f39ac80.jpg";
 
 const PLATFORM_BADGES = [
   {
     name: "Healthgrades",
     logo: healthgradesLogo,
-    alt: "Verified on Healthgrades",
-    height: "h-12"
+    alt: "Verified on Healthgrades"
   },
   {
     name: "Zocdoc",
     logo: zocdocLogo,
-    alt: "Verified on Zocdoc",
-    height: "h-10"
+    alt: "Verified on Zocdoc"
   },
   {
     name: "Google",
     logo: googleLogo,
-    alt: "Verified on Google",
-    height: "h-10"
+    alt: "Verified on Google"
+  },
+  {
+    name: "GoodTherapy",
+    logo: goodTherapyLogo,
+    alt: "Verified on GoodTherapy"
   }
 ];
 
@@ -36,20 +39,14 @@ export default function ReviewsAndBadges() {
             {PLATFORM_BADGES.map((platform) => (
               <div
                 key={platform.name}
-                className="flex items-center justify-center h-14 opacity-100 hover:opacity-70 transition-opacity"
+                className="flex items-center justify-center opacity-100 hover:opacity-70 transition-opacity"
                 data-testid={`badge-${platform.name.toLowerCase()}`}
               >
-                {platform.logo ? (
-                  <img 
-                    src={platform.logo} 
-                    alt={platform.alt}
-                    className={`${platform.height} w-auto`}
-                  />
-                ) : (
-                  <div className="flex items-center gap-2 px-6 py-2 border-2 rounded-lg">
-                    <span className="text-xl font-bold text-foreground">{platform.name}</span>
-                  </div>
-                )}
+                <img 
+                  src={platform.logo} 
+                  alt={platform.alt}
+                  className="h-10 w-auto object-contain"
+                />
               </div>
             ))}
           </div>
