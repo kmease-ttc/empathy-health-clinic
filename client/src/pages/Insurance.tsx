@@ -8,6 +8,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import { trackEvent } from "@/lib/analytics";
+import heroImage from "@assets/stock_images/healthcare_insurance_a8872338.jpg";
 
 export default function Insurance() {
   const { data: providers, isLoading } = useQuery<InsuranceProvider[]>({
@@ -31,17 +32,100 @@ export default function Insurance() {
         canonicalPath="/insurance"
       />
       <SiteHeader />
-      <div className="container mx-auto px-4 py-16 max-w-6xl">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">
+      
+      {/* Hero Section */}
+      <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/70" />
+        
+        <div className="relative z-10 container mx-auto px-4 text-center max-w-4xl">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6">
             Insurance We Accept
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            We work with most major insurance providers to make quality mental health care accessible. 
-            Click on your insurance provider below to learn more about coverage details.
+          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
+            We work with most major insurance providers to make quality mental health care accessible and affordable.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg"
+              variant="default"
+              asChild 
+              data-testid="button-hero-call"
+              onClick={() => trackEvent('phone_click', 'conversion', 'Insurance Hero Phone', '386-848-8751')}
+            >
+              <a href="tel:3868488751" className="flex items-center gap-2">
+                <Phone className="h-5 w-5" />
+                Call 386-848-8751
+              </a>
+            </Button>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
+              asChild 
+              data-testid="button-hero-appointment"
+              onClick={() => trackEvent('appointment_click', 'conversion', 'Insurance Hero CTA')}
+            >
+              <Link href="/request-appointment" className="flex items-center gap-2">
+                <Mail className="h-5 w-5" />
+                Request Appointment
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 py-16 max-w-6xl">
+        {/* Insurance Provider Grid */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-8 text-center">
+            Our Accepted Insurance Plans
+          </h2>
+          <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+            Click on your insurance provider below to learn more about coverage details and copay information.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {providers?.map((provider) => (
+              <Link 
+                key={provider.id} 
+                href={`/${provider.slug}`} 
+                data-testid={`link-provider-${provider.id}`}
+                onClick={() => trackEvent('insurance_provider_click', 'engagement', 'Insurance Page', provider.name)}
+              >
+                <Card className="h-full hover-elevate active-elevate-2 cursor-pointer transition-all">
+                  <CardHeader className="flex flex-col items-center text-center space-y-4 pb-4">
+                    {provider.logo ? (
+                      <div className={`h-20 w-full flex items-center justify-center ${
+                        provider.name === 'UMR' ? 'bg-muted rounded-lg' : ''
+                      }`}>
+                        <img
+                          src={provider.logo}
+                          alt={`${provider.name} logo`}
+                          className="max-h-16 max-w-full object-contain"
+                          data-testid={`img-provider-logo-${provider.id}`}
+                        />
+                      </div>
+                    ) : (
+                      <CardTitle className="text-xl pt-2" data-testid={`text-provider-name-${provider.id}`}>
+                        {provider.name}
+                      </CardTitle>
+                    )}
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <Button variant="outline" className="w-full" data-testid={`button-view-coverage-${provider.id}`}>
+                      View Coverage Details
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
         </div>
 
+        {/* Understanding Mental Health Insurance */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className="prose prose-lg max-w-none">
             <h2 className="text-3xl font-sans font-bold text-foreground mb-6">Understanding Your Mental Health Insurance Benefits</h2>
@@ -109,43 +193,7 @@ export default function Insurance() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {providers?.map((provider) => (
-            <Link 
-              key={provider.id} 
-              href={`/${provider.slug}`} 
-              data-testid={`link-provider-${provider.id}`}
-              onClick={() => trackEvent('insurance_provider_click', 'engagement', 'Insurance Page', provider.name)}
-            >
-              <Card className="h-full hover-elevate active-elevate-2 cursor-pointer transition-all">
-                <CardHeader className="flex flex-col items-center text-center space-y-4 pb-4">
-                  {provider.logo ? (
-                    <div className={`h-20 w-full flex items-center justify-center ${
-                      provider.name === 'UMR' ? 'bg-muted rounded-lg' : ''
-                    }`}>
-                      <img
-                        src={provider.logo}
-                        alt={`${provider.name} logo`}
-                        className="max-h-16 max-w-full object-contain"
-                        data-testid={`img-provider-logo-${provider.id}`}
-                      />
-                    </div>
-                  ) : (
-                    <CardTitle className="text-xl pt-2" data-testid={`text-provider-name-${provider.id}`}>
-                      {provider.name}
-                    </CardTitle>
-                  )}
-                </CardHeader>
-                <CardContent className="text-center">
-                  <Button variant="outline" className="w-full" data-testid={`button-view-coverage-${provider.id}`}>
-                    View Coverage Details
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
+        {/* What to Expect Card */}
         <div className="bg-card rounded-lg p-8 border">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-2xl font-sans font-bold text-foreground mb-4 text-center">
