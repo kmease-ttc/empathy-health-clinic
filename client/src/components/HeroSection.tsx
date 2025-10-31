@@ -20,18 +20,18 @@ export default function HeroSection() {
         <img
           src={heroImage}
           alt="Empathy Health Clinic - Peaceful healing environment"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-right"
           width={1920}
           height={800}
           loading="eager"
           decoding="sync"
           style={{ backgroundColor: '#2d5f4a' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/15 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
       </div>
       
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div className="max-w-5xl">
+        <div className="max-w-3xl pr-8">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-6">
             {title}
           </h1>
