@@ -62,20 +62,20 @@ export default function HeroSection() {
             <HeroLeadForm />
           </div>
           
-          <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 max-w-md shadow-xl">
-            <div className="text-center mb-4">
-              <div className="text-6xl font-bold text-foreground mb-1">4.8 EXCELLENT</div>
-              <div className="flex justify-center gap-1 mb-3">
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 max-w-sm shadow-xl">
+            <div className="text-center mb-3">
+              <div className="text-4xl font-bold text-foreground mb-1">4.8 EXCELLENT</div>
+              <div className="flex justify-center gap-0.5 mb-2">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-8 h-8 fill-yellow-400 text-yellow-400" />
+                  <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
             </div>
-            <div className="border-t pt-4">
-              <p className="text-foreground text-lg italic mb-2 text-center">
+            <div className="border-t pt-3">
+              <p className="text-foreground text-base italic mb-1 text-center">
                 "Absolutely wonderful experience!"
               </p>
-              <p className="text-muted-foreground text-sm text-center">
+              <p className="text-muted-foreground text-xs text-center">
                 — Current Patient
               </p>
             </div>
