@@ -8,7 +8,7 @@ const PLATFORM_BADGES = [
     name: "Healthgrades",
     logo: healthgradesLogo,
     alt: "Verified on Healthgrades",
-    height: "h-20"
+    height: "h-32"
   },
   {
     name: "Zocdoc",
@@ -26,7 +26,7 @@ const PLATFORM_BADGES = [
     name: "Yelp",
     logo: yelpLogo,
     alt: "Verified on Yelp",
-    height: "h-20"
+    height: "h-32"
   }
 ];
 
