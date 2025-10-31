@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
-import logoImage from "@assets/image_1761618219825.png";
+import logoImage from "@assets/image_1761877985362.png";
 import { trackEvent } from "@/lib/analytics";
 
 export default function SiteHeader() {
