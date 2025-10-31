@@ -26,7 +26,7 @@ const PLATFORM_BADGES = [
     name: "Yelp",
     logo: yelpLogo,
     alt: "Verified on Yelp",
-    height: "h-10"
+    height: "h-20"
   }
 ];
 
