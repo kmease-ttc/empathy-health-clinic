@@ -46,7 +46,7 @@ export default function Insurance() {
             Insurance We Accept
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-            We work with most major insurance providers to make quality mental health care accessible and affordable.
+            Find an in-network doctor from most insurance plans.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
