@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle2, Briefcase, Heart, Pill, CreditCard, User, Shield, Calendar, Clock } from "lucide-react";
+import { CheckCircle2, Briefcase, Heart, Pill, CreditCard, User, Shield, Calendar, Clock, Star, Building2 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { getUTMDataForLead } from "@/lib/utm-tracker";
 import {
@@ -168,7 +168,7 @@ export default function LongContactForm() {
   };
 
   const nextStep = async () => {
-    const fields = step === 1 ? ["service"] : step === 2 ? ["concerns"] : step === 3 ? ["medications", "preferredDay"] : [];
+    const fields = step === 1 ? ["firstName", "lastName", "email", "phone", "service"] : step === 2 ? ["paymentMethod"] : [];
     const isValid = await form.trigger(fields as any);
     if (isValid) {
       // Track form started only when user advances from Step 1 to Step 2
@@ -180,7 +180,7 @@ export default function LongContactForm() {
     }
   };
 
-  const totalSteps = 5;
+  const totalSteps = 3;
   const progress = (step / totalSteps) * 100;
 
   if (isSubmitted) {
@@ -256,20 +256,76 @@ export default function LongContactForm() {
 
   return (
     <div className="bg-background border-2 border-primary/20 rounded-2xl shadow-xl overflow-hidden">
-      <div className="bg-primary/10 border-b px-6 py-3">
+      <div className="bg-primary/10 border-b px-4 md:px-6 py-3">
         <div className="flex items-center justify-center gap-2 text-primary font-semibold">
           <Calendar className="h-4 w-4" />
           <span className="text-sm">Same-Day Appointments Available • Most Patients Scheduled Within 24 Hours</span>
         </div>
       </div>
-      <div className="p-6 md:p-10">
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium text-muted-foreground">
+      
+      {/* Trust Badges */}
+      <div className="px-4 md:px-6 py-3 bg-card/50 border-b">
+        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 text-xs">
+          <div className="flex items-center gap-1.5">
+            <Shield className="h-3.5 w-3.5 text-foreground" />
+            <span className="font-medium text-muted-foreground">HIPAA Secure</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="flex gap-0.5 px-1.5 py-0.5 bg-primary/10 rounded">
+              <Star className="h-3 w-3 text-foreground fill-foreground" />
+              <Star className="h-3 w-3 text-foreground fill-foreground" />
+              <Star className="h-3 w-3 text-foreground fill-foreground" />
+              <Star className="h-3 w-3 text-foreground fill-foreground" />
+              <Star className="h-3 w-3 text-foreground fill-foreground" />
+            </div>
+            <span className="font-medium text-muted-foreground">5 Stars on Google</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Building2 className="h-3.5 w-3.5 text-foreground" />
+            <span className="font-medium text-muted-foreground">Serving Winter Park Patients</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-4 md:p-10">
+        {/* Header with reassurance */}
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Request Your Appointment</h2>
+          <p className="text-sm text-muted-foreground mb-3">Takes less than a minute to complete</p>
+          <a 
+            href="tel:386-848-8751"
+            className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+            onClick={(e) => {
+              e.preventDefault();
+              // Track phone click
+              fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  firstName: 'Phone',
+                  lastName: 'Click',
+                  email: 'phone-click@tracking.local',
+                  phone: '386-848-8751',
+                  service: 'Phone Contact',
+                  formType: 'phone_click',
+                  source: window.location.pathname,
+                  paymentMethod: 'insurance',
+                  smsOptIn: 'false',
+                }),
+                keepalive: true
+              });
+              window.location.href = 'tel:386-848-8751';
+            }}
+            data-testid="link-prefer-call"
+          >
+            Prefer to call? Tap here to speak with our team →
+          </a>
+        </div>
+
+        <div className="mb-6">
+          <div className="flex items-center justify-center mb-3">
+            <span className="text-sm font-semibold text-foreground">
               Step {step} of {totalSteps}
-            </span>
-            <span className="text-sm font-medium text-primary">
-              {Math.round(progress)}% Complete
             </span>
           </div>
           <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
@@ -283,276 +339,18 @@ export default function LongContactForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {step === 1 && (
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Briefcase className="h-6 w-6 text-primary" />
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-4 pb-3 border-b">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <User className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground">Choose Your Service</h3>
-                  <p className="text-sm text-muted-foreground">Select the type of care you're interested in</p>
+                  <h3 className="text-xl font-bold text-foreground">Basic Information</h3>
+                  <p className="text-xs text-muted-foreground">Tell us about yourself</p>
                 </div>
               </div>
               
-              <FormField
-                control={form.control}
-                name="service"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg mb-4 block">Preferred Service *</FormLabel>
-                    <div className="grid grid-cols-1 gap-3">
-                      {SERVICES.map((service) => (
-                        <div
-                          key={service.value}
-                          onClick={() => {
-                            field.onChange(service.value);
-                          }}
-                          className={`p-4 border-2 rounded-xl cursor-pointer transition-all hover-elevate ${
-                            field.value === service.value
-                              ? 'border-primary bg-primary/5 shadow-md'
-                              : 'border-border bg-card hover:border-primary/50'
-                          }`}
-                          data-testid={`radio-service-${service.value}`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
-                              field.value === service.value
-                                ? 'border-primary bg-primary'
-                                : 'border-muted-foreground'
-                            }`}>
-                              {field.value === service.value && (
-                                <CheckCircle2 className="h-3 w-3 text-primary-foreground" />
-                              )}
-                            </div>
-                            <span className={`font-medium ${
-                              field.value === service.value ? 'text-foreground' : 'text-foreground'
-                            }`}>
-                              {service.label}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          )}
-
-          {step === 2 && (
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Heart className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground">Mental Health Information</h3>
-                  <p className="text-sm text-muted-foreground">Help us understand your needs</p>
-                </div>
-              </div>
-              
-              <FormField
-                control={form.control}
-                name="concerns"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className="text-lg">
-                      What brings you to therapy? (Select all that apply)
-                    </FormLabel>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
-                      {CONCERNS.map((concern) => (
-                        <FormField
-                          key={concern}
-                          control={form.control}
-                          name="concerns"
-                          render={({ field }) => (
-                            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(concern)}
-                                  onCheckedChange={(checked) => {
-                                    const newValue = checked
-                                      ? [...(field.value || []), concern]
-                                      : field.value?.filter((value) => value !== concern);
-                                    field.onChange(newValue);
-                                  }}
-                                  data-testid={`checkbox-concern-${concern}`}
-                                />
-                              </FormControl>
-                              <FormLabel className="font-normal cursor-pointer">
-                                {concern}
-                              </FormLabel>
-                            </FormItem>
-                          )}
-                        />
-                      ))}
-                    </div>
-                  </FormItem>
-                )}
-              />
-
-              {form.watch("concerns")?.includes("Other") && (
-                <FormField
-                  control={form.control}
-                  name="concernsOther"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Please specify</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Specify..." data-testid="input-concerns-other" />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              )}
-            </div>
-          )}
-
-          {step === 3 && (
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Pill className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground">Medical Details</h3>
-                  <p className="text-sm text-muted-foreground">Tell us about your current treatment</p>
-                </div>
-              </div>
-              
-              <FormField
-                control={form.control}
-                name="medications"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Current Medications</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="List any medications you are currently taking..." 
-                        {...field} 
-                        data-testid="textarea-medications"
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="preferredDay"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="mb-3 block">Preferred Day of Week</FormLabel>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                      {DAYS.map((day) => (
-                        <div
-                          key={day}
-                          onClick={() => field.onChange(day)}
-                          className={`p-3 border-2 rounded-lg cursor-pointer text-center transition-all hover-elevate ${
-                            field.value === day
-                              ? 'border-primary bg-primary/5 shadow-sm'
-                              : 'border-border bg-card hover:border-primary/50'
-                          }`}
-                          data-testid={`radio-day-${day}`}
-                        >
-                          <span className={`text-sm font-medium ${
-                            field.value === day ? 'text-primary' : 'text-foreground'
-                          }`}>
-                            {day}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </FormItem>
-                )}
-              />
-            </div>
-          )}
-
-          {step === 4 && (
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <CreditCard className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground">Payment Information</h3>
-                  <p className="text-sm text-muted-foreground">How would you like to pay?</p>
-                </div>
-              </div>
-              
-              <FormField
-                control={form.control}
-                name="paymentMethod"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg mb-4 block">Payment Method *</FormLabel>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <div
-                        onClick={() => field.onChange('insurance')}
-                        className={`p-4 border-2 rounded-xl cursor-pointer transition-all hover-elevate ${
-                          field.value === 'insurance'
-                            ? 'border-primary bg-primary/5 shadow-md'
-                            : 'border-border bg-card hover:border-primary/50'
-                        }`}
-                        data-testid="radio-payment-insurance"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
-                            field.value === 'insurance'
-                              ? 'border-primary bg-primary'
-                              : 'border-muted-foreground'
-                          }`}>
-                            {field.value === 'insurance' && (
-                              <CheckCircle2 className="h-3 w-3 text-primary-foreground" />
-                            )}
-                          </div>
-                          <span className="font-medium">Insurance</span>
-                        </div>
-                      </div>
-                      <div
-                        onClick={() => field.onChange('self-pay')}
-                        className={`p-4 border-2 rounded-xl cursor-pointer transition-all hover-elevate ${
-                          field.value === 'self-pay'
-                            ? 'border-primary bg-primary/5 shadow-md'
-                            : 'border-border bg-card hover:border-primary/50'
-                        }`}
-                        data-testid="radio-payment-self-pay"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
-                            field.value === 'self-pay'
-                              ? 'border-primary bg-primary'
-                              : 'border-muted-foreground'
-                          }`}>
-                            {field.value === 'self-pay' && (
-                              <CheckCircle2 className="h-3 w-3 text-primary-foreground" />
-                            )}
-                          </div>
-                          <span className="font-medium">Self-pay</span>
-                        </div>
-                      </div>
-                    </div>
-                  </FormItem>
-                )}
-              />
-            </div>
-          )}
-
-          {step === 5 && (
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <User className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground">Contact Information</h3>
-                  <p className="text-sm text-muted-foreground">We'll use this to reach out to you</p>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <FormField
                   control={form.control}
                   name="firstName"
@@ -560,7 +358,7 @@ export default function LongContactForm() {
                     <FormItem>
                       <FormLabel>First Name *</FormLabel>
                       <FormControl>
-                        <Input {...field} data-testid="input-first-name" />
+                        <Input {...field} placeholder="John" data-testid="input-first-name" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -573,7 +371,7 @@ export default function LongContactForm() {
                     <FormItem>
                       <FormLabel>Last Name *</FormLabel>
                       <FormControl>
-                        <Input {...field} data-testid="input-last-name" />
+                        <Input {...field} placeholder="Doe" data-testid="input-last-name" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -583,12 +381,12 @@ export default function LongContactForm() {
 
               <FormField
                 control={form.control}
-                name="phone"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone *</FormLabel>
+                    <FormLabel>Email *</FormLabel>
                     <FormControl>
-                      <Input type="tel" {...field} data-testid="input-phone" />
+                      <Input type="email" {...field} placeholder="john@example.com" data-testid="input-email" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -597,14 +395,152 @@ export default function LongContactForm() {
 
               <FormField
                 control={form.control}
-                name="email"
+                name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email *</FormLabel>
+                    <FormLabel>Phone *</FormLabel>
                     <FormControl>
-                      <Input type="email" {...field} data-testid="input-email" />
+                      <Input type="tel" {...field} placeholder="(555) 123-4567" data-testid="input-phone" />
                     </FormControl>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="service"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>What service are you interested in? *</FormLabel>
+                    <div className="grid grid-cols-1 gap-2 mt-2">
+                      {SERVICES.map((service) => (
+                        <div
+                          key={service.value}
+                          onClick={() => field.onChange(service.value)}
+                          className={`p-3 border-2 rounded-lg cursor-pointer transition-all hover-elevate ${
+                            field.value === service.value
+                              ? 'border-primary bg-primary/5'
+                              : 'border-border bg-card hover:border-primary/50'
+                          }`}
+                          data-testid={`radio-service-${service.value}`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
+                              field.value === service.value
+                                ? 'border-primary bg-primary'
+                                : 'border-muted-foreground'
+                            }`}>
+                              {field.value === service.value && (
+                                <CheckCircle2 className="h-2.5 w-2.5 text-primary-foreground" />
+                              )}
+                            </div>
+                            <span className="text-sm font-medium">{service.label}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-4 pb-3 border-b">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Briefcase className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-foreground">Preferences</h3>
+                  <p className="text-xs text-muted-foreground">Help us personalize your care</p>
+                </div>
+              </div>
+
+              <FormField
+                control={form.control}
+                name="preferredDay"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Preferred Day (Optional)</FormLabel>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+                      {DAYS.map((day) => (
+                        <div
+                          key={day}
+                          onClick={() => field.onChange(day)}
+                          className={`p-2 border-2 rounded-lg cursor-pointer text-center transition-all hover-elevate ${
+                            field.value === day
+                              ? 'border-primary bg-primary/5'
+                              : 'border-border bg-card hover:border-primary/50'
+                          }`}
+                          data-testid={`radio-day-${day}`}
+                        >
+                          <span className={`text-xs font-medium ${
+                            field.value === day ? 'text-primary' : 'text-foreground'
+                          }`}>
+                            {day.substring(0, 3)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="paymentMethod"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Payment Method *</FormLabel>
+                    <div className="grid grid-cols-2 gap-3 mt-2">
+                      <div
+                        onClick={() => field.onChange('insurance')}
+                        className={`p-3 border-2 rounded-lg cursor-pointer transition-all hover-elevate ${
+                          field.value === 'insurance'
+                            ? 'border-primary bg-primary/5'
+                            : 'border-border bg-card hover:border-primary/50'
+                        }`}
+                        data-testid="radio-payment-insurance"
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                            field.value === 'insurance'
+                              ? 'border-primary bg-primary'
+                              : 'border-muted-foreground'
+                          }`}>
+                            {field.value === 'insurance' && (
+                              <CheckCircle2 className="h-2.5 w-2.5 text-primary-foreground" />
+                            )}
+                          </div>
+                          <span className="text-sm font-medium">Insurance</span>
+                        </div>
+                      </div>
+                      <div
+                        onClick={() => field.onChange('self-pay')}
+                        className={`p-3 border-2 rounded-lg cursor-pointer transition-all hover-elevate ${
+                          field.value === 'self-pay'
+                            ? 'border-primary bg-primary/5'
+                            : 'border-border bg-card hover:border-primary/50'
+                        }`}
+                        data-testid="radio-payment-self-pay"
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                            field.value === 'self-pay'
+                              ? 'border-primary bg-primary'
+                              : 'border-muted-foreground'
+                          }`}>
+                            {field.value === 'self-pay' && (
+                              <CheckCircle2 className="h-2.5 w-2.5 text-primary-foreground" />
+                            )}
+                          </div>
+                          <span className="text-sm font-medium">Self-pay</span>
+                        </div>
+                      </div>
+                    </div>
                   </FormItem>
                 )}
               />
@@ -616,11 +552,11 @@ export default function LongContactForm() {
                     name="insuranceProvider"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Insurance Provider</FormLabel>
+                        <FormLabel>Insurance Provider (Optional)</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-insurance-provider">
-                              <SelectValue placeholder="Select your insurance provider" />
+                              <SelectValue placeholder="Select your insurance" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -639,37 +575,92 @@ export default function LongContactForm() {
                     )}
                   />
 
-                  <FormField
-                    control={form.control}
-                    name="insuredDob"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Date of Birth of Insured</FormLabel>
-                        <FormControl>
-                          <Input type="date" {...field} data-testid="input-insured-dob" />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <FormField
+                      control={form.control}
+                      name="insuredDob"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Date of Birth (Optional)</FormLabel>
+                          <FormControl>
+                            <Input type="date" {...field} data-testid="input-insured-dob" />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
 
-                  <FormField
-                    control={form.control}
-                    name="memberId"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Member ID#</FormLabel>
-                        <FormControl>
-                          <Input {...field} data-testid="input-member-id" />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                    <FormField
+                      control={form.control}
+                      name="memberId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Member ID (Optional)</FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder="ID#" data-testid="input-member-id" />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                 </>
               )}
             </div>
           )}
 
-          <div className="flex justify-between pt-6 border-t">
+          {step === 3 && (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-4 pb-3 border-b">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-foreground">Review & Confirm</h3>
+                  <p className="text-xs text-muted-foreground">Verify your information</p>
+                </div>
+              </div>
+              
+              <div className="bg-card border rounded-lg p-4 space-y-3">
+                <div>
+                  <p className="text-xs text-muted-foreground mb-1">Contact Information</p>
+                  <p className="font-medium">{form.watch("firstName")} {form.watch("lastName")}</p>
+                  <p className="text-sm text-muted-foreground">{form.watch("email")}</p>
+                  <p className="text-sm text-muted-foreground">{form.watch("phone")}</p>
+                </div>
+
+                <div className="border-t pt-3">
+                  <p className="text-xs text-muted-foreground mb-1">Service Requested</p>
+                  <p className="font-medium">{form.watch("service")}</p>
+                </div>
+
+                {form.watch("preferredDay") && (
+                  <div className="border-t pt-3">
+                    <p className="text-xs text-muted-foreground mb-1">Preferred Day</p>
+                    <p className="font-medium">{form.watch("preferredDay")}</p>
+                  </div>
+                )}
+
+                <div className="border-t pt-3">
+                  <p className="text-xs text-muted-foreground mb-1">Payment Method</p>
+                  <p className="font-medium capitalize">{form.watch("paymentMethod")}</p>
+                  {form.watch("paymentMethod") === "insurance" && form.watch("insuranceProvider") && (
+                    <p className="text-sm text-muted-foreground mt-1">{form.watch("insuranceProvider")}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                <p className="text-sm font-medium text-foreground mb-2">What happens next?</p>
+                <ul className="text-xs text-muted-foreground space-y-1.5">
+                  <li>✓ We'll call you within 24 hours to schedule your appointment</li>
+                  <li>✓ You'll be matched with the best provider for your needs</li>
+                  <li>✓ Same-day appointments available for urgent cases</li>
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* Desktop buttons */}
+          <div className="hidden md:flex justify-between pt-4 border-t">
             {step > 1 && (
               <Button
                 type="button"
@@ -682,7 +673,7 @@ export default function LongContactForm() {
               </Button>
             )}
             
-            {step < 5 ? (
+            {step < 3 ? (
               <Button
                 type="button"
                 onClick={nextStep}
@@ -699,10 +690,52 @@ export default function LongContactForm() {
                 className="ml-auto"
                 data-testid="button-submit"
               >
-                {submitLead.isPending ? "Submitting..." : "Submit"}
+                {submitLead.isPending ? "Submitting..." : "Submit Request"}
               </Button>
             )}
           </div>
+
+          {/* Mobile fixed buttons */}
+          <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-background border-t shadow-lg z-50">
+            <div className="flex gap-3 max-w-md mx-auto">
+              {step > 1 && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep(step - 1)}
+                  className="flex-1"
+                  data-testid="button-previous-mobile"
+                >
+                  <ChevronLeft className="h-4 w-4 mr-1" />
+                  Back
+                </Button>
+              )}
+              
+              {step < 3 ? (
+                <Button
+                  type="button"
+                  onClick={nextStep}
+                  className={step === 1 ? "w-full" : "flex-1"}
+                  data-testid="button-next-mobile"
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4 ml-1" />
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={submitLead.isPending}
+                  className="flex-1"
+                  data-testid="button-submit-mobile"
+                >
+                  {submitLead.isPending ? "Submitting..." : "Submit Request"}
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {/* Add padding on mobile to prevent content from hiding behind fixed button */}
+          <div className="md:hidden h-20" />
           
           <div className="mt-6 pt-6 border-t">
             <div className="flex flex-col items-center gap-2 text-center">
