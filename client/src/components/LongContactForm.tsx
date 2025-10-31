@@ -129,6 +129,7 @@ export default function LongContactForm() {
         phone: data.phone,
         service: data.service,
         formType: "long",
+        source: window.location.pathname,
         conditions: JSON.stringify(concerns),
         symptoms: JSON.stringify(concerns),
         medications: data.medications,

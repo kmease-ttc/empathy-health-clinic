@@ -31,7 +31,8 @@ export default function HeroLeadForm() {
         email: email.trim(),
         phone: phone.trim(),
         service: service || "General Inquiry",
-        formType: "short",
+        formType: "hero",
+        source: window.location.pathname,
         smsOptIn: "false",
       });
     },

@@ -195,6 +195,7 @@ export const leads = pgTable("leads", {
   memberId: text("member_id"),
   // UTM tracking for Google Ads attribution
   landingPage: text("landing_page"), // First page they landed on
+  source: text("source"), // Page where lead was generated (form submitted or phone clicked)
   utmSource: text("utm_source"), // e.g., "google", "facebook"
   utmMedium: text("utm_medium"), // e.g., "cpc", "organic"
   utmCampaign: text("utm_campaign"), // Campaign name

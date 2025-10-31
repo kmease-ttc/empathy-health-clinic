@@ -856,9 +856,16 @@ export default function AnalyticsDashboard() {
                           <p className="font-semibold" data-testid={`lead-name-${index}`}>
                             {lead.firstName} {lead.lastName}
                           </p>
-                          <Badge variant="outline" className="mt-1" data-testid={`lead-form-type-${index}`}>
-                            {lead.formType === 'long' ? 'Full Application' : 'Quick Contact'}
-                          </Badge>
+                          <div className="flex flex-wrap items-center gap-2 mt-1">
+                            <Badge variant="outline" data-testid={`lead-form-type-${index}`}>
+                              {lead.formType === 'long' ? 'Full Application' : lead.formType === 'phone_click' ? 'Phone Click' : 'Quick Contact'}
+                            </Badge>
+                            {lead.source && (
+                              <span className="text-xs text-muted-foreground" data-testid={`lead-source-${index}`}>
+                                Source: {lead.source}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                       <div className="text-right">
