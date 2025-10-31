@@ -6,34 +6,43 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { Loader2 } from "lucide-react";
-import Home from "@/pages/Home";
-import Insurance from "@/pages/Insurance";
-import Therapy from "@/pages/Therapy";
-import TeamPage from "@/pages/TeamPage";
-import TeamMemberDetail from "@/pages/TeamMemberDetail";
-import ServicesPage from "@/pages/ServicesPage";
-import RequestAppointment from "@/pages/RequestAppointment";
-import VirtualVisit from "@/pages/VirtualVisit";
-import NewPatients from "@/pages/NewPatients";
-import AffordableCare from "@/pages/AffordableCare";
-import Pricing from "@/pages/Pricing";
-import StressManagement from "@/pages/StressManagement";
-import AltamonteSprings from "@/pages/AltamonteSprings";
-import WinterPark from "@/pages/WinterPark";
-import Orlando from "@/pages/Orlando";
-import PsychotherapistOrlando from "@/pages/PsychotherapistOrlando";
-import ThankYou from "@/pages/ThankYou";
-import LocationDetail from "@/pages/LocationDetail";
-import PageBySlug from "@/pages/PageBySlug";
-import NotFound from "@/pages/not-found";
 
+// Only load Home page immediately for fast initial render
+import Home from "@/pages/Home";
+
+// Lazy load all other pages for optimal performance
+const Insurance = lazy(() => import("@/pages/Insurance"));
+const Therapy = lazy(() => import("@/pages/Therapy"));
+const TeamPage = lazy(() => import("@/pages/TeamPage"));
+const TeamMemberDetail = lazy(() => import("@/pages/TeamMemberDetail"));
+const ServicesPage = lazy(() => import("@/pages/ServicesPage"));
+const RequestAppointment = lazy(() => import("@/pages/RequestAppointment"));
+const VirtualVisit = lazy(() => import("@/pages/VirtualVisit"));
+const NewPatients = lazy(() => import("@/pages/NewPatients"));
+const AffordableCare = lazy(() => import("@/pages/AffordableCare"));
+const Pricing = lazy(() => import("@/pages/Pricing"));
+const StressManagement = lazy(() => import("@/pages/StressManagement"));
+const AltamonteSprings = lazy(() => import("@/pages/AltamonteSprings"));
+const WinterPark = lazy(() => import("@/pages/WinterPark"));
+const Orlando = lazy(() => import("@/pages/Orlando"));
+const PsychotherapistOrlando = lazy(() => import("@/pages/PsychotherapistOrlando"));
+const ThankYou = lazy(() => import("@/pages/ThankYou"));
+const LocationDetail = lazy(() => import("@/pages/LocationDetail"));
+const PageBySlug = lazy(() => import("@/pages/PageBySlug"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Admin pages
 const Admin = lazy(() => import("@/pages/Admin"));
 const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
 const SEOOptimization = lazy(() => import("@/pages/SEOOptimization"));
 const GoogleAdsPerformance = lazy(() => import("@/pages/GoogleAdsPerformance"));
 const LeadInsights = lazy(() => import("@/pages/LeadInsights"));
+
+// Blog pages
 const BlogListingPage = lazy(() => import("@/pages/BlogListingPage"));
 const BlogDetailPage = lazy(() => import("@/pages/BlogDetailPage"));
+
+// Components
 const StickyMobileCTA = lazy(() => import("@/components/StickyMobileCTA"));
 
 function Router() {
@@ -74,22 +83,86 @@ function Router() {
             <LeadInsights />
           </Suspense>
         </Route>
-        <Route path="/insurance" component={Insurance} />
-        <Route path="/therapy" component={Therapy} />
-        <Route path="/team" component={TeamPage} />
-        <Route path="/team/:slug" component={TeamMemberDetail} />
-        <Route path="/services" component={ServicesPage} />
-        <Route path="/request-appointment" component={RequestAppointment} />
-        <Route path="/virtual-visit" component={VirtualVisit} />
-        <Route path="/new-patients" component={NewPatients} />
-        <Route path="/pricing" component={Pricing} />
-        <Route path="/affordable-care" component={AffordableCare} />
-        <Route path="/stress-management" component={StressManagement} />
-        <Route path="/psychotherapist-orlando" component={PsychotherapistOrlando} />
-        <Route path="/locations/altamonte-springs" component={AltamonteSprings} />
-        <Route path="/locations/winter-park" component={WinterPark} />
-        <Route path="/locations/orlando" component={Orlando} />
-        <Route path="/thank-you" component={ThankYou} />
+        <Route path="/insurance">
+          <Suspense fallback={<LoadingFallback />}>
+            <Insurance />
+          </Suspense>
+        </Route>
+        <Route path="/therapy">
+          <Suspense fallback={<LoadingFallback />}>
+            <Therapy />
+          </Suspense>
+        </Route>
+        <Route path="/team">
+          <Suspense fallback={<LoadingFallback />}>
+            <TeamPage />
+          </Suspense>
+        </Route>
+        <Route path="/team/:slug">
+          <Suspense fallback={<LoadingFallback />}>
+            <TeamMemberDetail />
+          </Suspense>
+        </Route>
+        <Route path="/services">
+          <Suspense fallback={<LoadingFallback />}>
+            <ServicesPage />
+          </Suspense>
+        </Route>
+        <Route path="/request-appointment">
+          <Suspense fallback={<LoadingFallback />}>
+            <RequestAppointment />
+          </Suspense>
+        </Route>
+        <Route path="/virtual-visit">
+          <Suspense fallback={<LoadingFallback />}>
+            <VirtualVisit />
+          </Suspense>
+        </Route>
+        <Route path="/new-patients">
+          <Suspense fallback={<LoadingFallback />}>
+            <NewPatients />
+          </Suspense>
+        </Route>
+        <Route path="/pricing">
+          <Suspense fallback={<LoadingFallback />}>
+            <Pricing />
+          </Suspense>
+        </Route>
+        <Route path="/affordable-care">
+          <Suspense fallback={<LoadingFallback />}>
+            <AffordableCare />
+          </Suspense>
+        </Route>
+        <Route path="/stress-management">
+          <Suspense fallback={<LoadingFallback />}>
+            <StressManagement />
+          </Suspense>
+        </Route>
+        <Route path="/psychotherapist-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychotherapistOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/locations/altamonte-springs">
+          <Suspense fallback={<LoadingFallback />}>
+            <AltamonteSprings />
+          </Suspense>
+        </Route>
+        <Route path="/locations/winter-park">
+          <Suspense fallback={<LoadingFallback />}>
+            <WinterPark />
+          </Suspense>
+        </Route>
+        <Route path="/locations/orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <Orlando />
+          </Suspense>
+        </Route>
+        <Route path="/thank-you">
+          <Suspense fallback={<LoadingFallback />}>
+            <ThankYou />
+          </Suspense>
+        </Route>
         <Route path="/blog">
           <Suspense fallback={<LoadingFallback />}>
             <BlogListingPage />
@@ -100,9 +173,21 @@ function Router() {
             <BlogDetailPage />
           </Suspense>
         </Route>
-        <Route path="/locations/:slug" component={LocationDetail} />
-        <Route path="/:slug" component={PageBySlug} />
-        <Route component={NotFound} />
+        <Route path="/locations/:slug">
+          <Suspense fallback={<LoadingFallback />}>
+            <LocationDetail />
+          </Suspense>
+        </Route>
+        <Route path="/:slug">
+          <Suspense fallback={<LoadingFallback />}>
+            <PageBySlug />
+          </Suspense>
+        </Route>
+        <Route>
+          <Suspense fallback={<LoadingFallback />}>
+            <NotFound />
+          </Suspense>
+        </Route>
       </Switch>
       {showStickyCTA && (
         <Suspense fallback={null}>
