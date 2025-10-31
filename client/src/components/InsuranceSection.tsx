@@ -63,17 +63,6 @@ export default function InsuranceSection() {
             See all ({totalCount}+)
           </Link>
         </div>
-        
-        <div>
-          <Button
-            variant="outline"
-            size="default"
-            onClick={() => window.location.href = '/request-appointment'}
-            data-testid="button-add-insurance"
-          >
-            Add your insurance coverage
-          </Button>
-        </div>
       </div>
     </section>
   );
