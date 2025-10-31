@@ -6,6 +6,7 @@ import { Link } from "wouter";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
+import PhysicianSchema from "@/components/PhysicianSchema";
 import type { TeamMember } from "@shared/schema";
 
 export default function TeamMemberDetail() {
@@ -55,6 +56,7 @@ export default function TeamMemberDetail() {
         keywords={[member.name, member.credentials, "psychiatrist", "therapist", "mental health provider", "Florida"]}
         canonicalPath={`/team/${member.slug}`}
       />
+      <PhysicianSchema teamMember={member} />
       <SiteHeader />
       
       <main className="flex-1">

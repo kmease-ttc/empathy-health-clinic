@@ -103,8 +103,14 @@ export default function BlogDetailPage() {
         "@type": "BlogPosting",
         "headline": blogPost.metaTitle || blogPost.title,
         "author": {
-          "@type": "Organization",
+          "@type": "Person",
           "name": blogPost.author,
+          "url": window.location.origin,
+          "affiliation": {
+            "@type": "MedicalOrganization",
+            "name": "Empathy Health Clinic"
+          },
+          "knowsAbout": ["Mental Health", "Psychiatry", "Psychology", "Psychotherapy"]
         },
         "datePublished": blogPost.publishedDate,
         "dateModified": blogPost.lastUpdated || blogPost.publishedDate,
