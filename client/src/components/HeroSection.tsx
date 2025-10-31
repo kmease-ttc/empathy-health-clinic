@@ -2,6 +2,7 @@ import { Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
 import heroImage from "@assets/image_1761933517108.png";
+import empathyLogo from "@assets/blog_images_batch_2024_08/08/empathy-logo.png";
 import HeroLeadForm from "@/components/HeroLeadForm";
 import zocdocLogo from "@assets/logo_lockup_positive_rgb_1761921702261.png";
 import googleLogo from "@assets/google-wordmark.webp";
@@ -31,60 +32,60 @@ export default function HeroSection() {
           decoding="sync"
           style={{ backgroundColor: '#2d5f4a', objectPosition: '75% center' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
       </div>
       
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div className="max-w-5xl pr-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-6">
-            {title}
-          </h1>
-          <p className="text-lg md:text-xl text-white/95 leading-relaxed mb-6">
-            {subtitle}
-          </p>
-          
-          <div className="flex flex-wrap items-center gap-4 mb-8 text-white/95">
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-primary" />
-              <span className="text-sm md:text-base font-medium">Licensed Florida Clinicians</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-primary" />
-              <span className="text-sm md:text-base font-medium">In-Person & Telehealth</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-primary" />
-              <span className="text-sm md:text-base font-medium">Same-Week Appointments</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-primary" />
-              <span className="text-sm md:text-base font-medium">Most Insurance Accepted</span>
-            </div>
+        <div className="max-w-6xl mx-auto text-center">
+          {/* Logo */}
+          <div className="mb-8 flex justify-center">
+            <img 
+              src={empathyLogo} 
+              alt="Empathy Health Clinic" 
+              className="h-16 md:h-20 w-auto drop-shadow-lg"
+            />
           </div>
           
-          <div className="mb-8 w-full">
+          {/* Heading */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-medium text-white mb-12 drop-shadow-lg">
+            {title}
+          </h1>
+          
+          {/* Lead Form */}
+          <div className="mb-10 w-full max-w-5xl mx-auto">
             <HeroLeadForm />
           </div>
           
-          <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 max-w-sm shadow-xl">
-            <div className="text-center mb-3">
-              <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">4.8 EXCELLENT</div>
-              <div className="flex justify-center items-center gap-2 mb-2">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <img src={googleLogo} alt="Google" className="h-4 w-auto object-contain" data-testid="badge-google" />
-              </div>
+          {/* Trust Factors */}
+          <div className="flex flex-wrap justify-center items-center gap-6 mb-8 text-white">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-white" />
+              <span className="text-sm md:text-base font-medium drop-shadow">Licensed Florida Clinicians</span>
             </div>
-            <div className="border-t pt-3">
-              <p className="text-foreground text-sm italic mb-1 text-center">
-                "Absolutely wonderful experience!"
-              </p>
-              <p className="text-muted-foreground text-xs text-center">
-                — Current Patient
-              </p>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-white" />
+              <span className="text-sm md:text-base font-medium drop-shadow">In-Person & Telehealth</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-white" />
+              <span className="text-sm md:text-base font-medium drop-shadow">Same-Week Appointments</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-white" />
+              <span className="text-sm md:text-base font-medium drop-shadow">Most Insurance Accepted</span>
+            </div>
+          </div>
+          
+          {/* Subtle Rating Card */}
+          <div className="inline-block bg-white/80 backdrop-blur-sm rounded-lg px-6 py-3 shadow-md">
+            <div className="flex items-center justify-center gap-3">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-foreground font-semibold text-sm">4.8 EXCELLENT</span>
+              <img src={googleLogo} alt="Google" className="h-3 w-auto object-contain opacity-70" data-testid="badge-google" />
             </div>
           </div>
         </div>
