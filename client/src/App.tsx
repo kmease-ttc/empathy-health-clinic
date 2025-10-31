@@ -16,6 +16,7 @@ import RequestAppointment from "@/pages/RequestAppointment";
 import VirtualVisit from "@/pages/VirtualVisit";
 import NewPatients from "@/pages/NewPatients";
 import AffordableCare from "@/pages/AffordableCare";
+import Pricing from "@/pages/Pricing";
 import StressManagement from "@/pages/StressManagement";
 import AltamonteSprings from "@/pages/AltamonteSprings";
 import WinterPark from "@/pages/WinterPark";
@@ -81,6 +82,7 @@ function Router() {
         <Route path="/request-appointment" component={RequestAppointment} />
         <Route path="/virtual-visit" component={VirtualVisit} />
         <Route path="/new-patients" component={NewPatients} />
+        <Route path="/pricing" component={Pricing} />
         <Route path="/affordable-care" component={AffordableCare} />
         <Route path="/stress-management" component={StressManagement} />
         <Route path="/psychotherapist-orlando" component={PsychotherapistOrlando} />
