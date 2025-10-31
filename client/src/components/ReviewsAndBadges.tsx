@@ -86,7 +86,7 @@ export default function ReviewsAndBadges() {
             {PLATFORM_BADGES.map((platform) => (
               <div
                 key={platform.name}
-                className="flex items-center justify-center h-12 opacity-70 hover:opacity-100 transition-opacity"
+                className="flex items-center justify-center h-12 opacity-100 hover:opacity-70 transition-opacity"
                 data-testid={`badge-${platform.name.toLowerCase()}`}
               >
                 {platform.icon ? (
