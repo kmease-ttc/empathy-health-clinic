@@ -30,6 +30,8 @@ export default function InsuranceSection() {
                 src={provider.logo} 
                 alt={provider.name}
                 className="w-full h-full object-contain"
+                loading="lazy"
+                decoding="async"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   const fallback = e.currentTarget.parentElement?.querySelector('p');
