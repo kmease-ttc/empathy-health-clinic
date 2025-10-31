@@ -32,6 +32,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Admin Panel (`/admin`):** CMS for content editing and lead management.
 - **Analytics Dashboard (`/admin/analytics`):** Monitors key performance metrics.
 - **SEO Optimization Dashboard (`/admin/seo`):** Provides strategic SEO insights and tools.
+- **Competitive Comparison Section:** "Why Choose Empathy Health Clinic?" section on homepage comparing Empathy Health Clinic vs Healing Psychiatry of Florida across 3 key differentiators (Personalized Care, Faster Access, Telehealth Statewide) with high-converting CTA.
 - **Lead Capture:** High-converting forms with automated email notifications.
 - **Trust Factors:** Integration of credibility indicators like HIPAA compliance.
 - **Accessibility:** Mobile responsiveness and dark mode support.

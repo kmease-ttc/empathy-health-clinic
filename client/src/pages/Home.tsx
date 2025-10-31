@@ -7,6 +7,7 @@ import TrustFactors from "@/components/TrustFactors";
 import InsuranceSection from "@/components/InsuranceSection";
 import TreatmentsSection from "@/components/TreatmentsSection";
 import ApproachSection from "@/components/ApproachSection";
+import ComparisonSection from "@/components/ComparisonSection";
 import TeamSection from "@/components/TeamSection";
 import ConditionsSection from "@/components/ConditionsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -122,6 +123,8 @@ export default function Home() {
         <InsuranceSection />
         <TreatmentsSection />
         <ApproachSection />
+        <div className="border-t" />
+        <ComparisonSection />
         <div className="border-t" />
         <TeamSection />
         <ConditionsSection />
