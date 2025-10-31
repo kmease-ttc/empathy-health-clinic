@@ -81,11 +81,11 @@ export default function HeroSection() {
             <div className="flex items-center justify-center gap-3">
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-black stroke-[1.5]" />
                 ))}
               </div>
               <span className="text-foreground font-semibold text-sm">4.8 EXCELLENT</span>
-              <img src={googleLogo} alt="Google" className="h-3 w-auto object-contain opacity-70" data-testid="badge-google" />
+              <img src={googleLogo} alt="Google" className="h-3 w-auto object-contain" data-testid="badge-google" style={{ filter: 'saturate(1.3) contrast(1.1)' }} />
             </div>
           </div>
         </div>
