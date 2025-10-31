@@ -63,25 +63,20 @@ export default function HeroSection() {
           </div>
           
           <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 max-w-md shadow-xl">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="flex flex-col">
-                <div className="text-5xl font-bold text-foreground">4.8</div>
-                <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Excellent</div>
+            <div className="text-center mb-4">
+              <div className="text-6xl font-bold text-foreground mb-1">4.8 EXCELLENT</div>
+              <div className="flex justify-center gap-1 mb-2">
+                {[...Array(4)].map((_, i) => (
+                  <Star key={i} className="w-8 h-8 fill-yellow-400 text-yellow-400" />
+                ))}
               </div>
-              <div className="flex flex-col gap-1">
-                <div className="flex">
-                  {[...Array(4)].map((_, i) => (
-                    <Star key={i} className="w-7 h-7 fill-yellow-400 text-yellow-400" />
-                  ))}
-                  <Star className="w-7 h-7 fill-yellow-400/40 text-yellow-400/40" />
-                </div>
-              </div>
+              <div className="text-lg font-bold text-foreground uppercase tracking-wider mb-3">Excellent</div>
             </div>
             <div className="border-t pt-4">
-              <p className="text-foreground text-lg italic mb-2">
+              <p className="text-foreground text-lg italic mb-2 text-center">
                 "Absolutely wonderful experience!"
               </p>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-muted-foreground text-sm text-center">
                 — Current Patient
               </p>
             </div>
