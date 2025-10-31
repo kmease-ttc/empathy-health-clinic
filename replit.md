@@ -22,7 +22,12 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Blog System:** Comprehensive blog with listing (`/blog`) and individual post pages (`/blog/:slug`), including SEO metadata, JSON-LD, related articles, author bios, and social sharing.
 - **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), and an admin analytics dashboard (`/admin/analytics`).
 - **SEO Optimization Dashboard:** Strategic SEO tools at `/admin/seo` with Search Console guidance, content gap analysis, internal linking recommendations, and actionable checklists.
-- **URL Redirects:** 301 permanent redirects from old WordPress URLs to preserve SEO value and prevent 404 errors.
+- **URL Redirects:** 301 permanent redirects configured in `server/index.ts`:
+  - **www to non-www redirect:** Preserves 100% domain authority after domain change
+  - **Old WordPress blog URLs:** Redirects broken backlinks to preserve SEO value:
+    - `/blog/finding-comfort-self-care-tips-for-those-who-are-grieving/` → grief counseling post
+    - `/understanding-4-types-of-bpd/` → blog homepage (content pending)
+    - `/narcissistic-behavior-in-a-relationship/` → blog homepage (content pending)
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive Landing Page, Services Page (`/services`), SEO-optimized landing pages for 12 Insurance Providers, 9 Psychiatric Treatments, 15 Therapy Services, and 10 Conditions.

@@ -39,6 +39,32 @@ app.use((req, res, next) => {
   next();
 });
 
+// 301 Redirects: Old WordPress URLs to preserve backlink SEO value
+app.use((req, res, next) => {
+  const redirectMap: Record<string, string> = {
+    // Grief self-care article → existing grief counseling post
+    '/blog/finding-comfort-self-care-tips-for-those-who-are-grieving': '/blog/the-power-of-grief-counseling-in-healing-the-heart-2',
+    '/blog/finding-comfort-self-care-tips-for-those-who-are-grieving/': '/blog/the-power-of-grief-counseling-in-healing-the-heart-2',
+    
+    // BPD article → blog homepage (content to be created)
+    '/understanding-4-types-of-bpd': '/blog',
+    '/understanding-4-types-of-bpd/': '/blog',
+    
+    // Narcissistic behavior articles → blog homepage (content to be created)
+    '/narcissistic-behavior-in-a-relationship': '/blog',
+    '/narcissistic-behavior-in-a-relationship/': '/blog',
+    '/narcissisticbehavior-in-a-relationship': '/blog',
+    '/narcissisticbehavior-in-a-relationship/': '/blog',
+  };
+
+  const redirectTo = redirectMap[req.path];
+  if (redirectTo) {
+    return res.redirect(301, redirectTo);
+  }
+
+  next();
+});
+
 declare module 'http' {
   interface IncomingMessage {
     rawBody: unknown
