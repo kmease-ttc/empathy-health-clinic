@@ -75,7 +75,7 @@ export default function HeroLeadForm() {
   return (
     <form 
       onSubmit={handleSubmit}
-      className="bg-white/95 backdrop-blur-md rounded-full shadow-2xl p-2 max-w-4xl w-full"
+      className="bg-white/95 backdrop-blur-md rounded-full shadow-2xl p-2 w-full"
       data-testid="form-hero-lead"
     >
       <div className="flex flex-col md:flex-row gap-2">

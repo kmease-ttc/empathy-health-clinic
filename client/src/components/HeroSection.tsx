@@ -31,19 +31,23 @@ export default function HeroSection() {
       </div>
       
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div className="max-w-xl">
+        <div className="max-w-5xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-6">
             {title}
           </h1>
-          <p className="text-lg md:text-xl text-white/95 leading-relaxed mb-4">
+          <p className="text-lg md:text-xl text-white/95 leading-relaxed mb-6">
             {subtitle}
           </p>
           
-          <p className="text-base md:text-lg text-white/90 mb-6 font-light">
-            Private, in-person and telehealth appointments with licensed Florida clinicians.
-          </p>
-          
           <div className="flex flex-wrap items-center gap-4 mb-8 text-white/95">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-primary" />
+              <span className="text-sm md:text-base font-medium">Licensed Florida Clinicians</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-primary" />
+              <span className="text-sm md:text-base font-medium">In-Person & Telehealth</span>
+            </div>
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-primary" />
               <span className="text-sm md:text-base font-medium">Same-Week Appointments</span>
@@ -52,13 +56,9 @@ export default function HeroSection() {
               <div className="h-2 w-2 rounded-full bg-primary" />
               <span className="text-sm md:text-base font-medium">Most Insurance Accepted</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-primary" />
-              <span className="text-sm md:text-base font-medium">Telehealth Available</span>
-            </div>
           </div>
           
-          <div className="mb-8">
+          <div className="mb-8 w-full">
             <HeroLeadForm />
           </div>
           
