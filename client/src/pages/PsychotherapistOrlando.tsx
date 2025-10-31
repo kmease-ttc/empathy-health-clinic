@@ -168,16 +168,27 @@ export default function PsychotherapistOrlando() {
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex justify-center items-center gap-4 mb-2">
                 <Button size="lg" asChild data-testid="button-call-now">
                   <a href="tel:3868488751" className="flex items-center gap-2">
                     <Phone className="h-4 w-4" />
                     Call 386-848-8751
                   </a>
                 </Button>
-                <Button size="lg" variant="outline" asChild data-testid="button-request-appointment">
-                  <a href="#contact-form">Request Appointment</a>
-                </Button>
+                <span className="text-muted-foreground font-medium">or</span>
+              </div>
+            </div>
+
+            {/* Hero Lead Form - Above the Fold */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <div className="bg-card border rounded-xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold text-foreground mb-4 text-center">
+                  Request Your First Appointment
+                </h3>
+                <LeadCaptureForm therapyName="Psychotherapy (Orlando)" />
+                <p className="text-xs text-muted-foreground text-center mt-3">
+                  Most new patients seen within 2-3 days • Free insurance verification
+                </p>
               </div>
             </div>
 
