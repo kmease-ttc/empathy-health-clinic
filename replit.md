@@ -17,11 +17,17 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Content Management:** Full CRUD operations via an admin panel (`/admin`) for diverse content types (treatments, therapies, conditions, team, testimonials, insurance, blog, leads).
 - **Email Notifications:** SendGrid integration for lead notification emails.
 - **SEO Features:** Unique meta tags, canonical tags, structured data (Organization/LocalBusiness, Article schema), auto-generated XML sitemap, robots.txt, SEO-friendly URLs, rich content optimization, mobile-first design, image alt text.
-- **Google Maps Integration:** Embedded map on homepage showing clinic location with address, hours, contact info, and directions link for improved local SEO and user experience.
+- **Google Maps Integration:** Embedded map on homepage showing clinic location with address, hours, contact info, and directions link for improved local SEO and user experience. Footer map conditionally hidden on `/request-appointment` page to prevent duplicate display.
 - **Dynamic Content:** Real-time content updates from the API.
 - **Blog System:** Comprehensive blog with listing (`/blog`) and individual post pages (`/blog/:slug`), including SEO metadata, JSON-LD, related articles, author bios, and social sharing.
 - **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), and an admin analytics dashboard (`/admin/analytics`).
 - **SEO Optimization Dashboard:** Strategic SEO tools at `/admin/seo` with Search Console guidance, content gap analysis, internal linking recommendations, and actionable checklists.
+- **Performance Optimizations (Mobile-First):**
+  - **Code Splitting:** All pages (except Home) lazy-loaded with React.lazy() and Suspense boundaries to reduce initial bundle size
+  - **Analytics Deferral:** GA4, web-vitals, and UTM tracking load via requestIdleCallback with 2s timeout (Safari fallback: 1.5s setTimeout)
+  - **Resource Hints:** dns-prefetch and preconnect for Google Fonts, Google Maps, GTM, and Ahrefs for faster external resource loading
+  - **Script Optimization:** Ahrefs analytics deferred instead of async to prevent parser blocking
+  - **Hero Image Preload:** Critical hero image preloaded with fetchpriority="high" for optimal LCP
 - **URL Redirects:** 301 permanent redirects configured in `server/index.ts`:
   - **www to non-www redirect:** Preserves 100% domain authority after domain change
   - **Old WordPress blog URLs:** Redirects broken backlinks to preserve SEO value:
