@@ -42,7 +42,7 @@ export default function HeroSection() {
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <div className="max-w-6xl mx-auto text-center">
           {/* Logo */}
-          <div className="mb-2 flex justify-center">
+          <div className="mb-1 flex justify-center">
             <img 
               src={empathyLogo} 
               alt="Empathy Health Clinic" 
@@ -51,7 +51,7 @@ export default function HeroSection() {
           </div>
           
           {/* Heading */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-medium text-white mb-4 drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-medium text-white mb-2 drop-shadow-lg">
             {title}
           </h1>
           
