@@ -3,6 +3,7 @@ import googleLogo from "@assets/google-wordmark.webp";
 import healthgradesLogo from "@assets/healthgrades-logo.png";
 import yelpLogo from "@assets/image_1761925935867.png";
 import goodTherapyLogo from "@assets/image_1761927553793.png";
+import scoreMyReviewsLogo from "@assets/image_1761927693804.png";
 
 const PLATFORM_BADGES = [
   {
@@ -33,6 +34,12 @@ const PLATFORM_BADGES = [
     name: "GoodTherapy",
     logo: goodTherapyLogo,
     alt: "GoodTherapy Verified Credentials",
+    height: "h-16"
+  },
+  {
+    name: "ScoreMyReviews",
+    logo: scoreMyReviewsLogo,
+    alt: "Score My Reviews",
     height: "h-16"
   }
 ];
