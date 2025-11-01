@@ -176,7 +176,7 @@ export default function Pricing() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-3">
-                    Comprehensive psychiatric assessments and ongoing medication management with board-certified psychiatrists. Includes diagnosis, treatment planning, and prescription management.
+                    Comprehensive psychiatric assessments and ongoing medication management with board-certified psychiatrists. Includes diagnosis, treatment planning, and medication monitoring services.
                   </p>
                   <div className="flex items-center justify-between bg-primary/5 p-3 rounded-lg">
                     <span className="text-sm font-medium text-foreground">Typical Insurance Copay</span>

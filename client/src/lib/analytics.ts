@@ -73,7 +73,7 @@ export const initGA = () => {
   script1.onload = () => {
     // Wait a brief moment for gtag to be defined
     setTimeout(() => {
-      if (window.gtag) {
+      if (typeof window.gtag === 'function') {
         console.log('✅ Google Analytics: gtag configured');
         if (adsConversionId) {
           console.log('✅ Google Ads: Conversion tracking initialized');
