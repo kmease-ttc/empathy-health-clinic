@@ -20,7 +20,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Google Maps Integration:** Embedded map on homepage showing clinic location with address, hours, contact info, and directions link for improved local SEO and user experience. Footer map conditionally hidden on `/request-appointment` page to prevent duplicate display.
 - **Dynamic Content:** Real-time content updates from the API.
 - **Blog System:** Comprehensive blog with listing (`/blog`) and individual post pages (`/blog/:slug`), including SEO metadata, JSON-LD, related articles, author bios, and social sharing.
-- **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), and an admin analytics dashboard (`/admin/analytics`).
+- **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, Facebook Pixel tracking, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), and an admin analytics dashboard (`/admin/analytics`).
 - **SEO Optimization Dashboard:** Strategic SEO tools at `/admin/seo` with Search Console guidance, content gap analysis, internal linking recommendations, and actionable checklists.
 - **Performance Optimizations (Mobile-First):**
   - **Code Splitting:** All pages (except Home) lazy-loaded with React.lazy() and Suspense boundaries to reduce initial bundle size
@@ -39,6 +39,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Core Pages:** Comprehensive Landing Page, Services Page (`/services`), SEO-optimized landing pages for 12 Insurance Providers, 9 Psychiatric Treatments, 15 Therapy Services, and 10 Conditions.
 - **Location Pages (`/locations`):** 11 city-specific landing pages optimized for local SEO including psychiatry services in Winter Park, Orlando, Altamonte Springs, Maitland, Casselberry, and Lake Mary. Each page features unique city-specific content, LocalBusiness schema with Winter Park address and areaServed array, internal links to services and appointment pages, and city-targeted meta descriptions.
 - **Blog Section (`/blog`):** 172 total SEO-optimized articles including 165 migrated posts and 14 new posts (high-value content targeting keyword gaps: BPD types, narcissistic relationships, ADHD combined type, anxiety disorders, psychotic depression, nocturnal panic attacks, and chronic anxiety) with features like category filters and JSON-LD.
+- **Social Media Integration:** Footer includes links to Facebook, Twitter/X, Instagram, TikTok, LinkedIn, YouTube, and ZocDoc for comprehensive social presence and patient engagement.
 - **Team Page (`/team`):** Displays staff with bios and credentials.
 - **Admin Panel (`/admin`):** CMS for content editing and lead management.
 - **Analytics Dashboard (`/admin/analytics`):** Monitors key performance metrics.
