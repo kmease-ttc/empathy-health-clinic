@@ -20,9 +20,9 @@ export default function Pricing() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Psychiatry & Therapy Pricing Winter Park FL | Empathy Health Clinic"
-        description="Transparent pricing for psychiatry and therapy services in Winter Park, FL. Insurance accepted, sliding scale fees, and flexible payment plans available. Call 386-848-8751."
-        keywords={["psychiatry pricing Winter Park", "therapy cost Florida", "mental health pricing Orlando", "psychiatrist fees Winter Park", "therapy rates Florida", "affordable mental health care"]}
+        title="In-Person Psychiatry & Therapy Pricing Winter Park FL | Empathy Health Clinic"
+        description="Transparent pricing for in-person psychiatry and therapy services at our Winter Park, FL clinic. Face-to-face care, insurance accepted, sliding scale fees available. Call 386-848-8751."
+        keywords={["psychiatry pricing Winter Park", "in-person therapy Winter Park", "face-to-face mental health care", "psychiatrist fees Winter Park", "therapy rates Florida", "affordable mental health care"]}
         canonicalPath="/pricing"
       />
       <SiteHeader />
@@ -40,10 +40,10 @@ export default function Pricing() {
               <DollarSign className="h-8 w-8 text-primary" />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white" data-testid="text-page-title">
-              Transparent Pricing for Mental Health Care
+              Transparent Pricing for In-Person Mental Health Care
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              Quality psychiatric services and therapy in Winter Park, FL with clear pricing, insurance acceptance, and flexible payment options to fit your budget.
+              Quality in-person psychiatric services and therapy at our Winter Park, FL clinic with clear pricing, insurance acceptance, and flexible payment options to fit your budget.
             </p>
           </div>
         </div>
@@ -53,10 +53,10 @@ export default function Pricing() {
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
-                Affordable Mental Health Services
+                Affordable In-Person Mental Health Services
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                We work with most insurance plans and offer flexible payment options to make quality mental health care accessible
+                Face-to-face care at our Winter Park clinic. We work with most insurance plans and offer flexible payment options to make quality mental health care accessible.
               </p>
             </div>
 
@@ -176,7 +176,7 @@ export default function Pricing() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-3">
-                    Comprehensive psychiatric assessments and ongoing medication management with board-certified psychiatrists. Includes diagnosis, treatment planning, and medication monitoring services.
+                    In-person psychiatric assessments and ongoing medication management at our Winter Park clinic with board-certified psychiatrists. Face-to-face appointments include diagnosis, treatment planning, and medication monitoring services.
                   </p>
                   <div className="flex items-center justify-between bg-primary/5 p-3 rounded-lg">
                     <span className="text-sm font-medium text-foreground">Typical Insurance Copay</span>
@@ -194,7 +194,7 @@ export default function Pricing() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-3">
-                    Evidence-based therapy including Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT), EMDR, and more with licensed therapists.
+                    In-person evidence-based therapy at our clinic including Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT), EMDR, and more with licensed therapists. All sessions conducted face-to-face.
                   </p>
                   <div className="flex items-center justify-between bg-primary/5 p-3 rounded-lg">
                     <span className="text-sm font-medium text-foreground">Typical Insurance Copay</span>
@@ -212,7 +212,7 @@ export default function Pricing() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-3">
-                    Specialized therapy for relationships and family dynamics. Strengthen communication, resolve conflicts, and build healthier relationships.
+                    In-person specialized therapy for relationships and family dynamics at our Winter Park clinic. Face-to-face sessions to strengthen communication, resolve conflicts, and build healthier relationships.
                   </p>
                   <div className="flex items-center justify-between bg-primary/5 p-3 rounded-lg">
                     <span className="text-sm font-medium text-foreground">Typical Insurance Copay</span>
@@ -220,28 +220,14 @@ export default function Pricing() {
                   </div>
                 </CardContent>
               </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-primary" />
-                    Telehealth Virtual Visits
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-3">
-                    Convenient virtual appointments from the comfort of your home. Same quality care, same pricing as in-person visits. HIPAA-compliant video platform.
-                  </p>
-                  <div className="flex items-center justify-between bg-primary/5 p-3 rounded-lg">
-                    <span className="text-sm font-medium text-foreground">Same as In-Person</span>
-                    <span className="font-semibold text-foreground">Insurance Accepted</span>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
             <div className="mt-8 p-6 bg-primary/10 rounded-lg">
-              <h3 className="font-semibold text-foreground mb-2">Good Faith Estimate</h3>
+              <h3 className="font-semibold text-foreground mb-2">All Services Provided In-Person at Our Winter Park Clinic</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                <strong>Face-to-face care:</strong> All psychiatric evaluations, medication management, and therapy sessions are conducted in person at our clinic located at 2281 Lee Rd #102, Winter Park, FL 32810. We believe in the value of direct, personal interaction for the highest quality mental health care.
+              </p>
+              <h3 className="font-semibold text-foreground mb-2 mt-4">Good Faith Estimate</h3>
               <p className="text-sm text-muted-foreground">
                 Under federal law, you have the right to receive a "Good Faith Estimate" of expected charges for medical services. We will provide this estimate before your first visit and can discuss payment options during your consultation.
               </p>
