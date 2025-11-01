@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { sendLeadNotification } from "./email";
 import * as googleAdsService from "./google-ads-service";
 import { blogGeneratorService } from "./blog-generator-service";
+import { ContentAnalyzerService } from "./content-analyzer-service";
 import { db } from "./db";
 import { sql } from "drizzle-orm";
 import {
@@ -763,6 +764,80 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("❌ Title generation error:", error);
       res.status(500).json({ 
         error: error.message || "Title generation failed",
+      });
+    }
+  });
+
+  // Autonomous content analysis routes
+  const contentAnalyzer = new ContentAnalyzerService(storage);
+
+  // Get all content gaps (strategic blog opportunities)
+  app.get("/api/content-gaps", async (_req, res) => {
+    try {
+      console.log("🔍 Analyzing content gaps...");
+      const gaps = await contentAnalyzer.getContentGaps();
+      
+      res.json({
+        success: true,
+        gaps,
+        count: gaps.length,
+      });
+    } catch (error: any) {
+      console.error("❌ Content gap analysis error:", error);
+      res.status(500).json({ 
+        error: error.message || "Content gap analysis failed",
+      });
+    }
+  });
+
+  // Auto-suggest next strategic blog topic
+  app.get("/api/suggest-topic", async (_req, res) => {
+    try {
+      console.log("🎯 Auto-suggesting strategic blog topic...");
+      const suggestion = await contentAnalyzer.analyzeSiteAndSuggestTopic();
+      
+      res.json({
+        success: true,
+        suggestion,
+      });
+    } catch (error: any) {
+      console.error("❌ Topic suggestion error:", error);
+      res.status(500).json({ 
+        error: error.message || "Topic suggestion failed",
+      });
+    }
+  });
+
+  // Auto-generate blog with suggested topic (fully autonomous)
+  app.post("/api/auto-generate-blog", async (_req, res) => {
+    try {
+      console.log("🤖 Starting autonomous blog generation...");
+      
+      // Step 1: Analyze site and suggest best topic
+      const suggestion = await contentAnalyzer.analyzeSiteAndSuggestTopic();
+      console.log(`✨ Selected topic: "${suggestion.topic}"`);
+      console.log(`   Keywords: ${suggestion.keywords}`);
+      console.log(`   Reasoning: ${suggestion.reasoning}`);
+      
+      // Step 2: Generate blog with suggested topic
+      const result = await blogGeneratorService.generateBlog({
+        topic: suggestion.topic,
+        keywords: suggestion.keywords,
+        city: 'Orlando',
+        imageStyle: 'professional mental health therapy',
+      });
+
+      res.json({
+        success: true,
+        data: result,
+        suggestion,
+        message: `Autonomous blog generated! Topic: "${suggestion.topic}" | SEO Score: ${result.seoScore}/100`,
+      });
+    } catch (error: any) {
+      console.error("❌ Autonomous blog generation error:", error);
+      res.status(500).json({ 
+        error: error.message || "Autonomous blog generation failed",
+        details: error instanceof Error ? error.stack : undefined
       });
     }
   });
