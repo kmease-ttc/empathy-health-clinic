@@ -13,14 +13,14 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 
 ### Technical Implementations
 - **Frontend:** React SPA, TypeScript, Tailwind CSS, Shadcn UI, TanStack Query, Wouter.
-- **Backend:** Express.js REST API with in-memory storage (MemStorage) and Zod validation.
+- **Backend:** Express.js REST API with hybrid storage: in-memory (MemStorage) for content, PostgreSQL for analytics/leads, and Zod validation.
 - **Content Management:** Full CRUD operations via an admin panel (`/admin`) for diverse content types (treatments, therapies, conditions, team, testimonials, insurance, blog, leads).
 - **Email Notifications:** SendGrid integration for lead notification emails.
 - **SEO Features:** Unique meta tags, canonical tags, structured data (Organization/LocalBusiness, Article schema), auto-generated XML sitemap, robots.txt, SEO-friendly URLs, rich content optimization, mobile-first design, image alt text.
 - **Google Maps Integration:** Embedded map on homepage showing clinic location with address, hours, contact info, and directions link for improved local SEO and user experience. Footer map conditionally hidden on `/request-appointment` page to prevent duplicate display.
 - **Dynamic Content:** Real-time content updates from the API.
-- **Blog System:** Comprehensive blog with listing (`/blog`) and individual post pages (`/blog/:slug`), including SEO metadata, JSON-LD, related articles, author bios, and social sharing.
-- **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, Facebook Pixel tracking, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), Google Ads API integration for paid vs organic attribution, and an admin analytics dashboard (`/admin/analytics`).
+- **Blog System:** Comprehensive blog with listing (`/blog`) and individual post pages (`/blog/:slug`), including SEO metadata, JSON-LD, related articles, author bios, and social sharing. Features hybrid organization with 2 featured posts, 9 latest articles (non-featured), and paginated archive with category filtering (Anxiety, Depression). Category filters don't trigger page scroll; only pagination scrolls to top.
+- **Analytics System:** PostgreSQL-backed analytics with Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, Facebook Pixel tracking, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), Google Ads API integration for paid vs organic attribution with auto-refresh 3x daily (every 8 hours), and an admin analytics dashboard (`/admin/analytics`).
 - **SEO Optimization Dashboard:** Strategic SEO tools at `/admin/seo` with Search Console guidance, content gap analysis, internal linking recommendations, and actionable checklists.
 - **Performance Optimizations (Mobile-First):**
   - **Code Splitting:** All pages (except Home) lazy-loaded with React.lazy() and Suspense boundaries to reduce initial bundle size
@@ -37,6 +37,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive Landing Page, Services Page (`/services`), SEO-optimized landing pages for 12 Insurance Providers, 9 Psychiatric Treatments, 15 Therapy Services, and 10 Conditions.
+- **Google Ads Landing Pages:** 5 dedicated pages to improve Quality Scores: EMDR Therapy (`/emdr-therapy`), Virtual/Telehealth Psychiatry (`/virtual-therapy`), Crisis/Urgent Care Therapy (`/crisis-therapy`), Depression Counseling (`/depression-counseling`), and Anxiety Therapy (`/anxiety-therapy`). Each optimized for specific keyword clusters with comprehensive content, lead capture forms, FAQ sections, and trust factors.
 - **Location Pages (`/locations`):** 11 city-specific landing pages optimized for local SEO including psychiatry services in Winter Park, Orlando, Altamonte Springs, Maitland, Casselberry, and Lake Mary. Each page features unique city-specific content, LocalBusiness schema with Winter Park address and areaServed array, internal links to services and appointment pages, and city-targeted meta descriptions.
 - **Blog Section (`/blog`):** 172 total SEO-optimized articles including 165 migrated posts and 14 new posts (high-value content targeting keyword gaps: BPD types, narcissistic relationships, ADHD combined type, anxiety disorders, psychotic depression, nocturnal panic attacks, and chronic anxiety) with features like category filters and JSON-LD.
 - **Social Media Integration:** Footer includes links to Facebook, Twitter/X, Instagram, TikTok, LinkedIn, YouTube, and ZocDoc for comprehensive social presence and patient engagement.

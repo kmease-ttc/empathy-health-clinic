@@ -175,6 +175,9 @@ export default function AnalyticsDashboard() {
     },
     enabled: googleAdsStatus?.isFullyConfigured === true,
     retry: false,
+    staleTime: 4 * 60 * 60 * 1000, // Data stays fresh for 4 hours
+    refetchInterval: 8 * 60 * 60 * 1000, // Auto-refresh every 8 hours (3x per day)
+    refetchOnWindowFocus: true, // Also refresh when user returns to tab
   });
 
   const [selectedEvent, setSelectedEvent] = useState<AnalyticsEvent | null>(null);
