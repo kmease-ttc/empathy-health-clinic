@@ -40,7 +40,45 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Google Ads Landing Pages:** 5 dedicated pages to improve Quality Scores: EMDR Therapy (`/emdr-therapy`), Virtual/Telehealth Psychiatry (`/virtual-therapy`), Crisis/Urgent Care Therapy (`/crisis-therapy`), Depression Counseling (`/depression-counseling`), and Anxiety Therapy (`/anxiety-therapy`). Each optimized for specific keyword clusters with comprehensive content, lead capture forms, FAQ sections, and trust factors.
 - **Location Pages (`/locations`):** 11 city-specific landing pages optimized for local SEO including psychiatry services in Winter Park, Orlando, Altamonte Springs, Maitland, Casselberry, and Lake Mary. Each page features unique city-specific content, LocalBusiness schema with Winter Park address and areaServed array, internal links to services and appointment pages, and city-targeted meta descriptions.
 - **Blog Section (`/blog`):** 172 total SEO-optimized articles including 165 migrated posts and 14 new posts (high-value content targeting keyword gaps: BPD types, narcissistic relationships, ADHD combined type, anxiety disorders, psychotic depression, nocturnal panic attacks, and chronic anxiety) with features like category filters and JSON-LD.
-- **AI Blog Generator (`/admin/blog`):** Automated blog generation system using Replit AI Integrations (OpenAI GPT-4o) that creates 2,000-word SEO-optimized, HIPAA-compliant blogs following 32 quality standards with comprehensive automated validation. Features include clickbait title generator, global image deduplication (PostgreSQL-backed), Unsplash API integration for professional stock images, link validation to prevent 404s, 100-point SEO scoring system with detailed quality checks, and one-click publishing to CMS. Validation enforces: word count (2000±5), meta description length (150-160 chars), single H1 tag, minimum 6 H2 subheadings, unique anchor text, primary keyword placement (title/meta/first paragraph), authoritative external links, local SEO mentions, HIPAA compliance checks, and no placeholder content.
+- **AI Blog Generator (`/admin/blog`):** Automated blog generation system using Replit AI Integrations (OpenAI GPT-4o) that creates 2,000-word SEO-optimized, HIPAA-compliant blogs following 32 quality standards with comprehensive automated validation. Features include clickbait title generator, global image deduplication (PostgreSQL-backed), Unsplash API integration for professional stock images, link validation to prevent 404s, 100-point SEO scoring system with 22 automated quality checks, and one-click publishing to CMS. 
+  
+  **Automated Validation Checks (22/32 standards):**
+  1. Meta description length (150-160 chars) - 25 point penalty
+  2. Word count (2000±5 words) - 25 point penalty
+  3. Exactly one H1 tag - 20 point penalty
+  4. Minimum 6 H2 subheadings - 5 point penalty
+  5. H3 heading hierarchy (proper nesting) - 3 point penalty
+  6. Minimum 4 internal links - 10 point penalty
+  7. Minimum 3 external links - 7 point penalty
+  8. Unique anchor text (no duplicates) - 10 point penalty
+  9. Title length (≤60 chars) - 10 point penalty
+  10. Primary keyword in title - 8 point penalty
+  11. Primary keyword in meta description - 8 point penalty
+  12. Primary keyword in first paragraph - 5 point penalty
+  13. Keyword density (0.5-3%) - 7 point penalty
+  14. HIPAA compliance (no patient identifiers) - 25 point penalty total
+  15. Local SEO mentions (2+ Orlando/Winter Park) - 12 point penalty total
+  16. Authoritative external links (NIMH, APA, SAMHSA, etc.) - 15 point penalty total
+  17. Proper HTML structure - 5 point penalty
+  18. No placeholder text ([brackets], "TODO", etc.) - 15 point penalty
+  19. Call-to-action (CTA) presence - 8 point penalty
+  20. Internal link destination validation - 5 point penalty
+  21. Adult-only content indicator (18+) - 5 point penalty
+  22. Link format validation - varies
+  
+  **GPT-4o Prompt-Enforced (10 remaining standards):**
+  - Complete sentences (no truncation)
+  - Professional structure (intro, 6-8 sections, conclusion)
+  - Image count (1 featured + 3-4 content images)
+  - HIPAA-compliant imagery
+  - Professional stock photos
+  - Image alt text
+  - Natural keyword distribution
+  - Mental health specialization focus
+  - Accessibility specifics
+  - Mobile-friendly formatting
+  
+  **Quality Threshold:** Blogs scoring below 70/100 trigger console warnings with detailed issue lists to prevent low-quality content publication.
 - **Social Media Integration:** Footer includes links to Facebook, Twitter/X, Instagram, TikTok, LinkedIn, YouTube, and ZocDoc for comprehensive social presence and patient engagement.
 - **Team Page (`/team`):** Displays staff with bios and credentials.
 - **Admin Panel (`/admin`):** CMS for content editing and lead management.
