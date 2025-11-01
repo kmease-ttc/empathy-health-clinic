@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { sendLeadNotification } from "./email";
+import * as googleAdsService from "./google-ads-service";
 import {
   insertSiteContentSchema,
   insertTreatmentSchema,
@@ -1005,6 +1006,96 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const data = await storage.getPageViewsByUTMCampaign();
       res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Google Ads API Routes
+  app.get("/api/google-ads/status", async (_req, res) => {
+    try {
+      const hasBasicConfig = googleAdsService.hasBasicConfig();
+      const isFullyConfigured = googleAdsService.isConfigured();
+      
+      res.json({
+        hasBasicConfig,
+        isFullyConfigured,
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/google-ads/oauth-url", async (req, res) => {
+    try {
+      const redirectUri = req.query.redirectUri as string;
+      if (!redirectUri) {
+        return res.status(400).json({ error: 'redirectUri is required' });
+      }
+
+      const url = googleAdsService.getOAuthUrl(redirectUri);
+      res.json({ url });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/google-ads/oauth-callback", async (req, res) => {
+    try {
+      const { code, redirectUri } = req.body;
+      if (!code || !redirectUri) {
+        return res.status(400).json({ error: 'code and redirectUri are required' });
+      }
+
+      const tokens = await googleAdsService.exchangeCodeForToken(code, redirectUri);
+      res.json(tokens);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/google-ads/test", async (_req, res) => {
+    try {
+      const result = await googleAdsService.testConnection();
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/google-ads/conversions", async (req, res) => {
+    try {
+      const { startDate, endDate } = req.query;
+      
+      if (!startDate || !endDate) {
+        return res.status(400).json({ error: 'startDate and endDate are required' });
+      }
+
+      const conversions = await googleAdsService.getConversionData(
+        startDate as string,
+        endDate as string
+      );
+      
+      res.json(conversions);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/google-ads/campaigns", async (req, res) => {
+    try {
+      const { startDate, endDate } = req.query;
+      
+      if (!startDate || !endDate) {
+        return res.status(400).json({ error: 'startDate and endDate are required' });
+      }
+
+      const campaigns = await googleAdsService.getCampaignPerformance(
+        startDate as string,
+        endDate as string
+      );
+      
+      res.json(campaigns);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

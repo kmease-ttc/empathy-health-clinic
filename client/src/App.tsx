@@ -36,6 +36,7 @@ const Admin = lazy(() => import("@/pages/Admin"));
 const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
 const SEOOptimization = lazy(() => import("@/pages/SEOOptimization"));
 const GoogleAdsPerformance = lazy(() => import("@/pages/GoogleAdsPerformance"));
+const GoogleAdsSetup = lazy(() => import("@/pages/GoogleAdsSetup"));
 const LeadInsights = lazy(() => import("@/pages/LeadInsights"));
 
 // Blog pages
@@ -76,6 +77,11 @@ function Router() {
         <Route path="/admin/google-ads">
           <Suspense fallback={<LoadingFallback />}>
             <GoogleAdsPerformance />
+          </Suspense>
+        </Route>
+        <Route path="/admin/google-ads-setup">
+          <Suspense fallback={<LoadingFallback />}>
+            <GoogleAdsSetup />
           </Suspense>
         </Route>
         <Route path="/admin/lead-insights">
