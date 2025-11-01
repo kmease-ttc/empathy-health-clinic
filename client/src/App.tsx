@@ -215,6 +215,7 @@ function App() {
         import("@/lib/utm-tracker")
       ]).then(([analytics, webVitals, utm]) => {
         analytics.initGA();
+        analytics.initFacebookPixel();
         webVitals.initWebVitals();
         utm.initUTMTracking();
       }).catch((error) => {

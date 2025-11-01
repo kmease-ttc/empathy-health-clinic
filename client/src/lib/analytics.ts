@@ -3,6 +3,8 @@ declare global {
     dataLayer: any[];
     gtag: (...args: any[]) => void;
     gtagReady?: Promise<void>;
+    fbq: (...args: any[]) => void;
+    _fbq: any;
   }
 }
 
@@ -12,6 +14,45 @@ if (typeof window !== 'undefined') {
     gtagReadyResolve = resolve;
   });
 }
+
+export const initFacebookPixel = () => {
+  const pixelId = import.meta.env.VITE_FACEBOOK_PIXEL_ID;
+  
+  if (!pixelId) {
+    console.warn('⚠️ Facebook Pixel: Missing VITE_FACEBOOK_PIXEL_ID environment variable');
+    return;
+  }
+
+  console.log('✅ Facebook Pixel: Initializing with ID:', pixelId.substring(0, 8) + '...');
+
+  // Load Facebook Pixel script
+  const script = document.createElement('script');
+  script.textContent = `
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '${pixelId}');
+    fbq('track', 'PageView');
+  `;
+  document.head.appendChild(script);
+
+  // Add noscript fallback
+  const noscript = document.createElement('noscript');
+  const img = document.createElement('img');
+  img.height = 1;
+  img.width = 1;
+  img.style.display = 'none';
+  img.src = `https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`;
+  noscript.appendChild(img);
+  document.head.appendChild(noscript);
+
+  console.log('✅ Facebook Pixel: Tracking initialized');
+};
 
 export const initGA = () => {
   const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
@@ -87,6 +128,11 @@ export const trackPageView = (url: string) => {
       });
     }
   }
+
+  // Track to Facebook Pixel
+  if (window.fbq) {
+    window.fbq('track', 'PageView');
+  }
   
   // Extract UTM parameters from current URL
   const searchParams = new URLSearchParams(window.location.search);
@@ -134,6 +180,17 @@ export const trackEvent = (
     console.warn('⚠️ Google Analytics: gtag not loaded, event not sent:', action);
   }
   
+  // Track Facebook Pixel events
+  if (window.fbq && category === 'conversion') {
+    if (action === 'form_submission') {
+      window.fbq('track', 'Lead');
+      console.log('📊 Facebook Pixel: Lead event tracked');
+    } else if (action === 'phone_click') {
+      window.fbq('track', 'Contact');
+      console.log('📊 Facebook Pixel: Contact event tracked');
+    }
+  }
+
   // Track Google Ads conversions for key events
   if (category === 'conversion') {
     if (action === 'phone_click') {
