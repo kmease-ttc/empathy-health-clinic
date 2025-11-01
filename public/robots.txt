@@ -1,0 +1,22 @@
+# Robots.txt for Empathy Health Clinic
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Block admin pages from search engines
+Disallow: /admin
+Disallow: /admin/
+
+# Allow crawling of all assets
+Allow: /attached_assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.webp$
+
+# Sitemap location
+Sitemap: https://empathyhealthclinic.com/sitemap.xml
