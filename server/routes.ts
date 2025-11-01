@@ -643,6 +643,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const category = req.query.category as string | undefined;
       const page = parseInt(req.query.page as string) || 1;
       const pageSize = parseInt(req.query.pageSize as string) || 15;
+      const offset = parseInt(req.query.offset as string) || 0;
       const featured = req.query.featured === 'true';
       
       let blogPosts = await storage.getAllBlogPosts();
@@ -657,6 +658,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Return only the 2 most recent posts for featured section
         blogPosts = blogPosts.slice(0, 2);
         return res.json({ posts: blogPosts, total: blogPosts.length, page: 1, pageSize: 2 });
+      }
+      
+      // Apply offset (useful for skipping featured posts in latest section)
+      if (offset > 0) {
+        blogPosts = blogPosts.slice(offset);
       }
       
       const total = blogPosts.length;

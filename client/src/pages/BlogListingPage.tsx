@@ -11,7 +11,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import forestBg from "@assets/stock_images/calm_forest_trees_me_c92dd644.jpg";
 
-const CATEGORIES = ["Mental Health", "Wellness", "Therapy"];
+const CATEGORIES = ["Mental Health", "Wellness", "Therapy", "Anxiety", "Depression"];
 
 interface BlogPostsResponse {
   posts: BlogPost[];
@@ -34,9 +34,9 @@ export default function BlogListingPage() {
   });
 
   const { data: latestData } = useQuery<BlogPostsResponse>({
-    queryKey: ["/api/blog-posts", { page: 1, pageSize: 9 }],
+    queryKey: ["/api/blog-posts", { page: 1, pageSize: 9, offset: 2 }],
     queryFn: async () => {
-      const response = await fetch("/api/blog-posts?page=1&pageSize=9");
+      const response = await fetch("/api/blog-posts?page=1&pageSize=9&offset=2");
       return response.json();
     }
   });
