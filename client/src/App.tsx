@@ -43,6 +43,13 @@ const LeadInsights = lazy(() => import("@/pages/LeadInsights"));
 const BlogListingPage = lazy(() => import("@/pages/BlogListingPage"));
 const BlogDetailPage = lazy(() => import("@/pages/BlogDetailPage"));
 
+// Google Ads Landing Pages
+const EMDRTherapy = lazy(() => import("@/pages/EMDRTherapy"));
+const VirtualTherapy = lazy(() => import("@/pages/VirtualTherapy"));
+const CrisisTherapy = lazy(() => import("@/pages/CrisisTherapy"));
+const DepressionCounseling = lazy(() => import("@/pages/DepressionCounseling"));
+const AnxietyTherapy = lazy(() => import("@/pages/AnxietyTherapy"));
+
 // Components
 const StickyMobileCTA = lazy(() => import("@/components/StickyMobileCTA"));
 
@@ -177,6 +184,31 @@ function Router() {
         <Route path="/blog/:slug">
           <Suspense fallback={<LoadingFallback />}>
             <BlogDetailPage />
+          </Suspense>
+        </Route>
+        <Route path="/emdr-therapy">
+          <Suspense fallback={<LoadingFallback />}>
+            <EMDRTherapy />
+          </Suspense>
+        </Route>
+        <Route path="/virtual-therapy">
+          <Suspense fallback={<LoadingFallback />}>
+            <VirtualTherapy />
+          </Suspense>
+        </Route>
+        <Route path="/crisis-therapy">
+          <Suspense fallback={<LoadingFallback />}>
+            <CrisisTherapy />
+          </Suspense>
+        </Route>
+        <Route path="/depression-counseling">
+          <Suspense fallback={<LoadingFallback />}>
+            <DepressionCounseling />
+          </Suspense>
+        </Route>
+        <Route path="/anxiety-therapy">
+          <Suspense fallback={<LoadingFallback />}>
+            <AnxietyTherapy />
           </Suspense>
         </Route>
         <Route path="/locations/:slug">
