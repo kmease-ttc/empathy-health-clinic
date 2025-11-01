@@ -133,6 +133,43 @@ export class BlogGeneratorService {
   }
 
   /**
+   * Generate a catchy, clickbait title from keywords using OpenAI
+   */
+  async generateTitle(keywords: string, city?: string): Promise<string> {
+    const cityContext = city ? ` Focus on ${city}, Florida if relevant.` : '';
+    
+    const prompt = `Generate ONE engaging, clickbait-style blog title for a mental health clinic's blog.
+
+Keywords: ${keywords}${cityContext}
+
+Requirements:
+- Make it attention-grabbing and emotionally compelling
+- Use power words that evoke curiosity or emotion
+- Keep it under 70 characters for SEO
+- Make it actionable or question-based when possible
+- Appeal to people seeking mental health help
+
+Examples of good styles:
+- "The Hidden Signs of [Condition] Most People Miss"
+- "How to Know If It's [X] or [Y] — And When to Seek Help"
+- "7 Surprising Ways [Treatment] Changes Your Life"
+- "What Everyone Gets Wrong About [Topic]"
+
+Return ONLY the title, nothing else.`;
+
+    const completion = await getOpenAI().chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        { role: "user", content: prompt }
+      ],
+      temperature: 0.9, // Higher temperature for more creative titles
+      max_tokens: 100,
+    });
+
+    return completion.choices[0].message.content?.trim() || "Understanding Mental Health: A Complete Guide";
+  }
+
+  /**
    * Validate that all links are not broken (no 404s)
    */
   private async validateLinks(links: string[]): Promise<boolean> {

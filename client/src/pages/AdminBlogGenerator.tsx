@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
 const blogGenerationSchema = z.object({
-  topic: z.string().min(5, "Topic must be at least 5 characters"),
+  title: z.string().min(5, "Title must be at least 5 characters"),
   keywords: z.string().min(3, "Keywords are required (comma separated)"),
   city: z.string().optional(),
   imageStyle: z.string().optional(),
@@ -48,25 +48,72 @@ interface GeneratedBlogResult {
 export default function AdminBlogGenerator() {
   const [generating, setGenerating] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [generatingTitle, setGeneratingTitle] = useState(false);
   const [generatedBlog, setGeneratedBlog] = useState<GeneratedBlogResult | null>(null);
   const { toast } = useToast();
 
   const form = useForm<BlogGenerationFormData>({
     resolver: zodResolver(blogGenerationSchema),
     defaultValues: {
-      topic: "",
+      title: "",
       keywords: "",
       city: "Orlando",
       imageStyle: "calming nature, peaceful mental health",
     },
   });
 
+  const generateTitle = async () => {
+    const keywords = form.getValues("keywords");
+    const city = form.getValues("city");
+
+    if (!keywords) {
+      toast({
+        title: "Keywords Required",
+        description: "Please enter keywords first to generate a title",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setGeneratingTitle(true);
+
+    try {
+      const response = await apiRequest("POST", "/api/generate-title", { keywords, city });
+      const responseData = await response.json() as { success: boolean; title: string };
+
+      if (responseData.success && responseData.title) {
+        form.setValue("title", responseData.title);
+        toast({
+          title: "✨ Title Generated!",
+          description: "Click 'Regenerate' for a different option",
+        });
+      } else {
+        throw new Error("Invalid response from server");
+      }
+    } catch (error) {
+      console.error("Title generation error:", error);
+      toast({
+        title: "❌ Title Generation Failed",
+        description: error instanceof Error ? error.message : "An error occurred while generating the title",
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingTitle(false);
+    }
+  };
+
   const onSubmit = async (data: BlogGenerationFormData) => {
     setGenerating(true);
     setGeneratedBlog(null);
 
     try {
-      const response = await apiRequest("POST", "/api/generate-blog", data);
+      // Use 'title' instead of 'topic' in the request
+      const response = await apiRequest("POST", "/api/generate-blog", {
+        topic: data.title,  // Backend still expects 'topic'
+        keywords: data.keywords,
+        city: data.city,
+        imageStyle: data.imageStyle,
+      });
       const responseData = await response.json() as { success: boolean; data: GeneratedBlogResult; message: string };
 
       if (responseData.success && responseData.data) {
@@ -168,27 +215,6 @@ export default function AdminBlogGenerator() {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
                     control={form.control}
-                    name="topic"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Blog Topic*</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="e.g., Understanding Anxiety Disorders in Orlando"
-                            data-testid="input-blog-topic"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          The main subject of your blog post
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
                     name="keywords"
                     render={({ field }) => (
                       <FormItem>
@@ -202,6 +228,54 @@ export default function AdminBlogGenerator() {
                         </FormControl>
                         <FormDescription>
                           Comma-separated keywords to target (primary keyword first)
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Blog Title*</FormLabel>
+                        <div className="flex gap-2">
+                          <FormControl>
+                            <Input
+                              placeholder="Click 'Generate Title' to create a catchy title"
+                              data-testid="input-blog-title"
+                              {...field}
+                            />
+                          </FormControl>
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            onClick={generateTitle}
+                            disabled={generatingTitle}
+                            data-testid="button-generate-title"
+                            className="whitespace-nowrap"
+                          >
+                            {generatingTitle ? (
+                              <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Generating...
+                              </>
+                            ) : field.value ? (
+                              <>
+                                <Sparkles className="mr-2 h-4 w-4" />
+                                Regenerate
+                              </>
+                            ) : (
+                              <>
+                                <Sparkles className="mr-2 h-4 w-4" />
+                                Generate Title
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                        <FormDescription>
+                          AI-generated clickbait title from your keywords
                         </FormDescription>
                         <FormMessage />
                       </FormItem>

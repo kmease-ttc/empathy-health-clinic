@@ -742,6 +742,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Generate clickbait titles from keywords
+  app.post("/api/generate-title", async (req, res) => {
+    try {
+      const { keywords, city } = req.body;
+
+      if (!keywords) {
+        return res.status(400).json({ error: "Keywords are required" });
+      }
+
+      console.log(`📝 Generating title for keywords: ${keywords}`);
+      
+      const title = await blogGeneratorService.generateTitle(keywords, city);
+
+      res.json({
+        success: true,
+        title,
+      });
+    } catch (error: any) {
+      console.error("❌ Title generation error:", error);
+      res.status(500).json({ 
+        error: error.message || "Title generation failed",
+      });
+    }
+  });
+
   // Blog generation with AI (follows all 32 best practices)
   app.post("/api/generate-blog", async (req, res) => {
     try {
