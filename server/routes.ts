@@ -827,6 +827,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
         imageStyle: 'professional mental health therapy',
       });
 
+      // CRITICAL: Quality & HIPAA gate - reject low-quality or non-compliant blogs
+      const MINIMUM_QUALITY_SCORE = 70;
+      const validationResults = result.validationResults as any;
+      const hasHIPAAViolation = validationResults?.noHIPAAViolations === false;
+      const issues = validationResults?.issues || [];
+
+      if (result.seoScore < MINIMUM_QUALITY_SCORE) {
+        console.error(`❌ QUALITY GATE FAILED: Score ${result.seoScore}/100 is below minimum threshold of ${MINIMUM_QUALITY_SCORE}`);
+        return res.status(400).json({
+          success: false,
+          error: `Blog quality too low (${result.seoScore}/100). Minimum required: ${MINIMUM_QUALITY_SCORE}/100`,
+          seoScore: result.seoScore,
+          issues,
+          suggestion,
+        });
+      }
+
+      if (hasHIPAAViolation) {
+        console.error("❌ HIPAA GATE FAILED: Content contains patient identifiers");
+        return res.status(400).json({
+          success: false,
+          error: "CRITICAL: Generated content contains HIPAA violations (patient identifiers). Generation aborted for compliance.",
+          seoScore: result.seoScore,
+          issues,
+          suggestion,
+        });
+      }
+
+      // Only return success if quality and compliance checks pass
+      console.log(`✅ QUALITY GATE PASSED: Score ${result.seoScore}/100, HIPAA compliant`);
+
       res.json({
         success: true,
         data: result,

@@ -49,6 +49,7 @@ export default function AdminBlogGenerator() {
   const [generating, setGenerating] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [generatingTitle, setGeneratingTitle] = useState(false);
+  const [autoGenerating, setAutoGenerating] = useState(false);
   const [generatedBlog, setGeneratedBlog] = useState<GeneratedBlogResult | null>(null);
   const { toast } = useToast();
 
@@ -176,6 +177,50 @@ export default function AdminBlogGenerator() {
     }
   };
 
+  const handleAutoGenerate = async () => {
+    setAutoGenerating(true);
+    setGeneratedBlog(null);
+
+    try {
+      toast({
+        title: "🤖 Analyzing Site...",
+        description: "Identifying strategic blog opportunities based on your services and existing content",
+      });
+
+      const response = await apiRequest("POST", "/api/auto-generate-blog", {});
+      const responseData = await response.json() as { 
+        success: boolean; 
+        data: GeneratedBlogResult; 
+        suggestion: { topic: string; keywords: string; reasoning: string; priority: number };
+        message: string;
+      };
+
+      if (responseData.success && responseData.data) {
+        setGeneratedBlog(responseData.data);
+        
+        // Update form with auto-suggested values
+        form.setValue("title", responseData.suggestion.topic);
+        form.setValue("keywords", responseData.suggestion.keywords);
+
+        toast({
+          title: "✅ Strategic Blog Generated!",
+          description: `Topic: "${responseData.suggestion.topic}" | ${responseData.message}`,
+        });
+      } else {
+        throw new Error("Invalid response from server");
+      }
+    } catch (error) {
+      console.error("Auto-generation error:", error);
+      toast({
+        title: "❌ Auto-Generation Failed",
+        description: error instanceof Error ? error.message : "An error occurred during autonomous blog generation",
+        variant: "destructive",
+      });
+    } finally {
+      setAutoGenerating(false);
+    }
+  };
+
   const getSEOScoreColor = (score: number) => {
     if (score >= 80) return "bg-green-500";
     if (score >= 60) return "bg-yellow-500";
@@ -203,11 +248,51 @@ export default function AdminBlogGenerator() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column: Input Form */}
         <div>
+          {/* Auto-Generate Banner */}
+          <Card className="mb-6 border-primary/50 bg-gradient-to-br from-primary/5 to-primary/10">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                Autonomous Blog Generator
+              </CardTitle>
+              <CardDescription>
+                Let AI analyze your site and automatically select the best topic, keywords, and create an SEO-optimized blog
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button
+                onClick={handleAutoGenerate}
+                disabled={autoGenerating || generating}
+                className="w-full"
+                size="lg"
+                data-testid="button-auto-generate"
+              >
+                {autoGenerating ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Analyzing & Generating...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="mr-2 h-5 w-5" />
+                    Auto-Generate Strategic Blog
+                  </>
+                )}
+              </Button>
+              <p className="text-xs text-muted-foreground mt-3 text-center">
+                Zero input required • Identifies content gaps • Aligns with your services
+              </p>
+            </CardContent>
+          </Card>
+
+          <Separator className="my-6" />
+          <p className="text-center text-sm text-muted-foreground mb-6">OR</p>
+
           <Card>
             <CardHeader>
-              <CardTitle>Blog Configuration</CardTitle>
+              <CardTitle>Manual Configuration</CardTitle>
               <CardDescription>
-                Enter details about the blog post you want to generate
+                Choose your own topic and keywords
               </CardDescription>
             </CardHeader>
             <CardContent>
