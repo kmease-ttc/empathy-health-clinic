@@ -142,6 +142,41 @@ export default function AnalyticsDashboard() {
     queryKey: ['/api/leads'],
   });
 
+  // Google Ads integration status and data
+  const { data: googleAdsStatus } = useQuery<{ hasBasicConfig: boolean; isFullyConfigured: boolean }>({
+    queryKey: ['/api/google-ads/status'],
+    retry: false,
+  });
+
+  const { data: googleAdsData, isLoading: googleAdsLoading } = useQuery({
+    queryKey: ['/api/google-ads/conversions', timeRange],
+    queryFn: async () => {
+      const now = new Date();
+      let startDate: string;
+      let endDate: string = now.toISOString().split('T')[0];
+
+      if (timeRange === 'today') {
+        startDate = endDate;
+      } else if (timeRange === '7d') {
+        const date = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        startDate = date.toISOString().split('T')[0];
+      } else if (timeRange === '30d') {
+        const date = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+        startDate = date.toISOString().split('T')[0];
+      } else {
+        // All time - get last 90 days
+        const date = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
+        startDate = date.toISOString().split('T')[0];
+      }
+
+      const response = await fetch(`/api/google-ads/conversions?startDate=${startDate}&endDate=${endDate}`);
+      if (!response.ok) return null;
+      return response.json();
+    },
+    enabled: googleAdsStatus?.isFullyConfigured === true,
+    retry: false,
+  });
+
   const [selectedEvent, setSelectedEvent] = useState<AnalyticsEvent | null>(null);
 
   const handleRefresh = () => {
@@ -327,6 +362,119 @@ export default function AnalyticsDashboard() {
                   <li>Add it to Replit Secrets as VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION</li>
                   <li>Publish your site and verify in Search Console</li>
                 </ol>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Paid vs Organic Conversions */}
+        <Card data-testid="card-conversion-sources">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TrendingUp className="h-5 w-5" />
+              Conversion Sources (Paid vs Organic)
+            </CardTitle>
+            <CardDescription>
+              Track where your leads come from - paid ads vs organic search
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {!googleAdsStatus?.isFullyConfigured ? (
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <AlertCircle className="h-6 w-6 text-yellow-500" />
+                  <div>
+                    <p className="font-medium">Google Ads Not Connected</p>
+                    <p className="text-sm text-muted-foreground">
+                      Connect your Google Ads account to track paid vs organic conversions
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => setLocation('/admin/google-ads-setup')}
+                  data-testid="button-setup-google-ads"
+                >
+                  Set Up Google Ads Integration
+                </Button>
+              </div>
+            ) : googleAdsLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <Activity className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            ) : googleAdsData && googleAdsData.length > 0 ? (
+              <div className="space-y-6">
+                {/* Summary Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div className="p-4 rounded-lg border">
+                    <p className="text-sm text-muted-foreground mb-1">Total Paid Conversions</p>
+                    <p className="text-2xl font-bold" data-testid="text-paid-conversions">
+                      {googleAdsData.reduce((sum: number, row: any) => sum + (row.conversions || 0), 0).toFixed(0)}
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-lg border">
+                    <p className="text-sm text-muted-foreground mb-1">Total Ad Spend</p>
+                    <p className="text-2xl font-bold" data-testid="text-ad-spend">
+                      ${googleAdsData.reduce((sum: number, row: any) => sum + (row.cost || 0), 0).toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-lg border">
+                    <p className="text-sm text-muted-foreground mb-1">Cost Per Conversion</p>
+                    <p className="text-2xl font-bold" data-testid="text-cost-per-conversion">
+                      ${(() => {
+                        const totalConversions = googleAdsData.reduce((sum: number, row: any) => sum + (row.conversions || 0), 0);
+                        const totalCost = googleAdsData.reduce((sum: number, row: any) => sum + (row.cost || 0), 0);
+                        return totalConversions > 0 ? (totalCost / totalConversions).toFixed(2) : '0.00';
+                      })()}
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-lg border">
+                    <p className="text-sm text-muted-foreground mb-1">Organic Conversions</p>
+                    <p className="text-2xl font-bold text-green-600 dark:text-green-400" data-testid="text-organic-conversions">
+                      {Math.max(0, (data?.conversions.totalLeads || 0) - googleAdsData.reduce((sum: number, row: any) => sum + (row.conversions || 0), 0))}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">Free traffic!</p>
+                  </div>
+                </div>
+
+                {/* Comparison */}
+                <div className="p-4 rounded-lg border bg-muted/50">
+                  <h3 className="font-semibold mb-3">Conversion Breakdown</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                        <span className="text-sm">Paid (Google Ads)</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="font-semibold">
+                          {googleAdsData.reduce((sum: number, row: any) => sum + (row.conversions || 0), 0).toFixed(0)}
+                        </span>
+                        <Badge variant="secondary">
+                          {((googleAdsData.reduce((sum: number, row: any) => sum + (row.conversions || 0), 0) / (data?.conversions.totalLeads || 1)) * 100).toFixed(1)}%
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span className="text-sm">Organic (Free Search)</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="font-semibold">
+                          {Math.max(0, (data?.conversions.totalLeads || 0) - googleAdsData.reduce((sum: number, row: any) => sum + (row.conversions || 0), 0))}
+                        </span>
+                        <Badge variant="default">
+                          {(((data?.conversions.totalLeads || 0) - googleAdsData.reduce((sum: number, row: any) => sum + (row.conversions || 0), 0)) / (data?.conversions.totalLeads || 1) * 100).toFixed(1)}%
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                <p>No Google Ads conversion data for this time period</p>
+                <p className="text-sm mt-2">Try selecting a different time range</p>
               </div>
             )}
           </CardContent>
