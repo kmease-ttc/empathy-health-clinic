@@ -200,13 +200,17 @@ Return ONLY the title, nothing else.`;
     metaDescription: string,
     title: string,
     internalLinks: string[],
-    externalLinks: string[]
+    externalLinks: string[],
+    keywords: string
   ): {
     score: number;
     validationResults: any;
   } {
     let score = 100;
     const issues: string[] = [];
+
+    // Extract primary keyword (first keyword in the list)
+    const primaryKeyword = keywords.split(',')[0]?.trim().toLowerCase() || '';
 
     // Critical: Meta description length (150-160 chars)
     if (metaDescription.length < 150 || metaDescription.length > 160) {
@@ -221,12 +225,20 @@ Return ONLY the title, nothing else.`;
       issues.push("Word count must be 2000±5 words");
     }
 
-    // Critical: H1 tag check
+    // Critical: H1 tag check (exactly one)
     const h1Matches = content.match(/<h1[^>]*>/gi);
     const h1Count = h1Matches ? h1Matches.length : 0;
     if (h1Count !== 1) {
       score -= 20;
       issues.push("Must have exactly one H1 tag");
+    }
+
+    // Important: H2 tags (multiple subheadings for structure)
+    const h2Matches = content.match(/<h2[^>]*>/gi);
+    const h2Count = h2Matches ? h2Matches.length : 0;
+    if (h2Count < 6) {
+      score -= 5;
+      issues.push("Should have at least 6 H2 subheadings for proper structure");
     }
 
     // Important: Internal links (minimum 4)
@@ -241,22 +253,196 @@ Return ONLY the title, nothing else.`;
       issues.push("Must have at least 3 external authoritative links");
     }
 
+    // Verify unique anchor text
+    const anchorTextSet = new Set<string>();
+    const anchorMatches = Array.from(content.matchAll(/<a[^>]*>([^<]+)<\/a>/gi));
+    let duplicateAnchors = false;
+    for (const match of anchorMatches) {
+      const anchorText = match[1].toLowerCase().trim();
+      if (anchorTextSet.has(anchorText)) {
+        duplicateAnchors = true;
+        break;
+      }
+      anchorTextSet.add(anchorText);
+    }
+    if (duplicateAnchors) {
+      score -= 10;
+      issues.push("All anchor text must be unique - found duplicates");
+    }
+
     // Title length (≤60 chars)
     if (title.length > 60) {
       score -= 5;
       issues.push("Title should be ≤60 characters");
     }
 
+    // Primary keyword in title
+    if (primaryKeyword && !title.toLowerCase().includes(primaryKeyword)) {
+      score -= 8;
+      issues.push("Title should include primary keyword");
+    }
+
+    // Primary keyword in meta description
+    if (primaryKeyword && !metaDescription.toLowerCase().includes(primaryKeyword)) {
+      score -= 8;
+      issues.push("Meta description should include primary keyword");
+    }
+
+    // Primary keyword in first paragraph (first 300 chars)
+    const firstParagraph = content.substring(0, 300).toLowerCase();
+    if (primaryKeyword && !firstParagraph.includes(primaryKeyword)) {
+      score -= 5;
+      issues.push("Primary keyword should appear in first paragraph");
+    }
+
+    // Check for HIPAA compliance indicators (no specific patient identifiers)
+    const hipaaViolations = /(patient named|john doe|jane doe|patient's name is|mr\.|mrs\.|ms\.)\s+[A-Z][a-z]+/i;
+    if (hipaaViolations.test(content)) {
+      score -= 15;
+      issues.push("Possible HIPAA violation - avoid specific patient identifiers");
+    }
+
+    // Check for local SEO mentions (Orlando, Winter Park, etc.)
+    const localMentions = /(orlando|winter park|altamonte springs|maitland|casselberry|lake mary)/gi;
+    const localMatches = content.match(localMentions);
+    if (!localMatches || localMatches.length < 2) {
+      score -= 5;
+      issues.push("Should mention Orlando/Winter Park area at least twice for local SEO");
+    }
+
+    // Verify external links are from authoritative sources
+    const authoritativeSources = ['nimh.nih.gov', 'apa.org', 'samhsa.gov', 'who.int', 'cdc.gov', 'mayoclinic.org', 'psychologytoday.com'];
+    const hasAuthoritativeLink = externalLinks.some(link => 
+      authoritativeSources.some(source => link.includes(source))
+    );
+    if (!hasAuthoritativeLink) {
+      score -= 7;
+      issues.push("Should include at least one link to authoritative sources (NIMH, APA, SAMHSA, etc.)");
+    }
+
+    // Check for proper HTML structure (paragraphs, no loose text)
+    const hasLooseText = /<body[^>]*>[^<]*[a-zA-Z]{20,}|<\/h[123]>[^<]*[a-zA-Z]{20,}/i.test(content);
+    if (hasLooseText) {
+      score -= 5;
+      issues.push("Content should be properly wrapped in HTML tags (p, h2, h3, etc.)");
+    }
+
+    // Check for placeholder text
+    const placeholderText = /\[.*?\]|lorem ipsum|coming soon|todo|tbd|xxx|placeholder/i;
+    if (placeholderText.test(content)) {
+      score -= 15;
+      issues.push("No placeholder text allowed - content must be complete");
+    }
+
+    // Validate keyword density (0.5-3%)
+    let keywordDensity = 0;
+    if (primaryKeyword && wordCount > 0) {
+      const keywordRegex = new RegExp(primaryKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      const keywordMatches = content.match(keywordRegex);
+      const keywordCount = keywordMatches ? keywordMatches.length : 0;
+      keywordDensity = (keywordCount / wordCount) * 100;
+      
+      if (keywordDensity < 0.5 || keywordDensity > 3) {
+        score -= 7;
+        issues.push(`Keyword density should be 0.5-3% (currently ${keywordDensity.toFixed(2)}%)`);
+      }
+    }
+
+    // Check for CTA (Call to Action) in content
+    const ctaPatterns = /(contact us|call us|schedule|appointment|reach out|get help|book now|request|connect with)/i;
+    if (!ctaPatterns.test(content)) {
+      score -= 8;
+      issues.push("Content should include a clear call-to-action");
+    }
+
+    // Validate internal link destinations (should point to actual pages)
+    const validInternalPaths = [
+      '/services', '/team', '/request-appointment', '/insurance', '/blog',
+      '/emdr-therapy', '/depression-counseling', '/anxiety-therapy', '/virtual-therapy',
+      '/crisis-therapy', '/treatments', '/therapies', '/conditions', '/locations'
+    ];
+    const invalidInternalLinks = internalLinks.filter(link => 
+      !validInternalPaths.some(path => link.includes(path))
+    );
+    if (invalidInternalLinks.length > 0) {
+      score -= 5;
+      issues.push(`Some internal links point to invalid pages: ${invalidInternalLinks.join(', ')}`);
+    }
+
+    // Check for adult-only content indicators (18+) - Required for mental health clinic content
+    const adultContentIndicators = /(adults?|18\+|over 18|18 and older|age 18)/i;
+    const hasAdultIndicator = adultContentIndicators.test(content);
+    if (!hasAdultIndicator) {
+      score -= 5;
+      issues.push("Content should specify it's for adults (18+) as per mental health clinic standards");
+    }
+    
+    // Check H3 tags for proper hierarchy
+    const h3Matches = content.match(/<h3[^>]*>/gi);
+    const h3Count = h3Matches ? h3Matches.length : 0;
+    
+    // Verify heading hierarchy (H2s should be followed by H3s in sections)
+    const hasProperHierarchy = h2Count > 0 && (h3Count === 0 || h3Count >= h2Count * 0.5);
+    if (!hasProperHierarchy && h2Count > 0) {
+      score -= 3;
+      issues.push("Heading hierarchy should include H3 subheadings under H2 sections");
+    }
+
+    // Enhanced penalty for critical HIPAA violations
+    if (hipaaViolations.test(content)) {
+      score -= 10; // Additional penalty for HIPAA (total -25)
+      issues.push("CRITICAL: Potential HIPAA violation detected - must remove patient identifiers");
+    }
+
+    // Enhanced penalty for missing authoritative links (total -15)
+    if (!hasAuthoritativeLink) {
+      score -= 8; // Additional penalty (total -15)
+      issues.push("CRITICAL: Must include authoritative medical sources (NIMH, APA, SAMHSA, etc.)");
+    }
+
+    // Enhanced penalty for insufficient local SEO (total -12)
+    if (!localMatches || localMatches.length < 2) {
+      score -= 7; // Additional penalty (total -12)
+      issues.push("CRITICAL: Must mention Orlando/Winter Park area at least twice");
+    }
+
+    if (issues.length > 0) {
+      console.warn("⚠️  SEO/Quality Issues Found:", issues);
+    }
+
+    const finalScore = Math.max(0, score);
+    
+    // Log warning if score is below recommended threshold
+    if (finalScore < 70) {
+      console.error(`❌ QUALITY WARNING: Blog score ${finalScore}/100 is below recommended threshold of 70`);
+      console.error(`   Issues found: ${issues.join(', ')}`);
+    }
+
     return {
-      score: Math.max(0, score),
+      score: finalScore,
       validationResults: {
         wordCountValid: wordCount >= 1995 && wordCount <= 2005,
         metaDescriptionValid: metaDescription.length >= 150 && metaDescription.length <= 160,
         h1Count,
+        h2Count,
+        h3Count,
         internalLinkCount: internalLinks.length,
         externalLinkCount: externalLinks.length,
-        uniqueAnchorText: true, // Validated by OpenAI prompt
+        uniqueAnchorText: !duplicateAnchors,
+        hasAuthoritativeLinks: hasAuthoritativeLink,
+        primaryKeywordInTitle: primaryKeyword ? title.toLowerCase().includes(primaryKeyword) : true,
+        primaryKeywordInMeta: primaryKeyword ? metaDescription.toLowerCase().includes(primaryKeyword) : true,
+        primaryKeywordInFirstPara: primaryKeyword ? firstParagraph.includes(primaryKeyword) : true,
+        keywordDensity: keywordDensity.toFixed(2) + '%',
+        localSEOMentions: localMatches?.length || 0,
+        noHIPAAViolations: !hipaaViolations.test(content),
+        noPlaceholders: !placeholderText.test(content),
+        hasCTA: ctaPatterns.test(content),
+        validInternalLinks: invalidInternalLinks.length === 0,
+        hasProperHeadingHierarchy: hasProperHierarchy,
+        hasAdultContentIndicator: hasAdultIndicator,
         wordCount,
+        issues,
       },
     };
   }
@@ -384,13 +570,14 @@ CRITICAL RULES:
         console.warn("⚠️  Some links may be broken");
       }
 
-      // Calculate SEO score
+      // Calculate SEO score with comprehensive validation
       const { score, validationResults } = this.calculateSEOScore(
         result.content,
         result.metaDescription,
         result.title,
         result.internalLinks,
-        result.externalLinks
+        result.externalLinks,
+        keywords
       );
 
       console.log(`✅ Blog generated! SEO Score: ${score}/100`);
