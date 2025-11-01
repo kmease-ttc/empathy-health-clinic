@@ -8,7 +8,9 @@ import type { Therapy } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
+import ShortContactForm from "@/components/ShortContactForm";
 import { trackEvent } from "@/lib/analytics";
+import therapyImage from "@assets/stock_images/professional_therapy_f11c950a.jpg";
 
 export default function TherapyPage() {
   const { data: therapies, isLoading } = useQuery<Therapy[]>({
@@ -34,16 +36,41 @@ export default function TherapyPage() {
         canonicalPath="/therapy"
       />
       <SiteHeader />
-      <div className="container mx-auto px-4 py-16 max-w-6xl">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">
-            Therapy Services
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Evidence-based therapeutic approaches tailored to your unique needs. 
-            Explore our comprehensive therapy services to find the right path for your healing journey.
-          </p>
+      
+      {/* Hero Section with Image */}
+      <div className="relative bg-background overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src={therapyImage} 
+            alt="Professional therapy session at Empathy Health Clinic"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/70" />
         </div>
+        
+        <div className="relative container mx-auto px-4 py-16 md:py-24">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-foreground mb-6">
+              Expert Therapy Services in Winter Park
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-8">
+              Evidence-based therapeutic approaches tailored to your unique needs. 
+              Begin your healing journey with compassionate, professional care.
+            </p>
+            <Button 
+              variant="default" 
+              size="lg" 
+              asChild 
+              data-testid="button-hero-cta"
+              onClick={() => trackEvent('therapy_hero_cta', 'conversion', 'Therapy Page')}
+            >
+              <a href="#contact-form">Schedule Your Consultation</a>
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-16 max-w-6xl">
 
         <div className="max-w-4xl mx-auto mb-16">
           <div className="prose prose-lg max-w-none">
@@ -154,24 +181,46 @@ export default function TherapyPage() {
           })}
         </div>
 
-        <div className="bg-card rounded-lg p-8 border">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-              Start Your Healing Journey Today
-            </h2>
-            <p className="text-muted-foreground mb-6">
-              Every journey begins with a single step. Our experienced therapists are here to guide you 
-              through evidence-based treatments tailored to your unique needs.
-            </p>
-            <Button 
-              variant="default" 
-              size="lg" 
-              asChild 
-              data-testid="button-schedule-consultation"
-              onClick={() => trackEvent('appointment_click', 'conversion', 'Therapy Page CTA')}
-            >
-              <Link href="/#contact">Schedule a Consultation</Link>
-            </Button>
+        {/* Lead Capture Form Section */}
+        <div id="contact-form" className="bg-card rounded-lg p-8 md:p-12 border shadow-lg">
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div>
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-4">
+                Start Your Healing Journey Today
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Every journey begins with a single step. Our experienced therapists are here to guide you 
+                through evidence-based treatments tailored to your unique needs.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-foreground">Licensed Therapists</p>
+                    <p className="text-sm text-muted-foreground">Expert care from experienced mental health professionals</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-foreground">Evidence-Based Approaches</p>
+                    <p className="text-sm text-muted-foreground">CBT, DBT, EMDR, and other proven therapeutic methods</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-foreground">Flexible Scheduling</p>
+                    <p className="text-sm text-muted-foreground">In-person and telehealth options available</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <ShortContactForm service="Therapy Services" />
+            </div>
           </div>
         </div>
       </div>
