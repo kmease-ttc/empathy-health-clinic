@@ -20,7 +20,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Google Maps Integration:** Embedded map on homepage showing clinic location with address, hours, contact info, and directions link for improved local SEO and user experience. Footer map conditionally hidden on `/request-appointment` page to prevent duplicate display.
 - **Dynamic Content:** Real-time content updates from the API.
 - **Blog System:** Comprehensive blog with listing (`/blog`) and individual post pages (`/blog/:slug`), including SEO metadata, JSON-LD, related articles, author bios, and social sharing.
-- **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, Facebook Pixel tracking, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), and an admin analytics dashboard (`/admin/analytics`).
+- **Analytics System:** Core Web Vitals tracking (LCP, INP, CLS, FCP, TTFB), Google Analytics 4, Facebook Pixel tracking, page view tracking, conversion event tracking, Google Ads conversion tracking (phone clicks & form submissions), Google Ads API integration for paid vs organic attribution, and an admin analytics dashboard (`/admin/analytics`).
 - **SEO Optimization Dashboard:** Strategic SEO tools at `/admin/seo` with Search Console guidance, content gap analysis, internal linking recommendations, and actionable checklists.
 - **Performance Optimizations (Mobile-First):**
   - **Code Splitting:** All pages (except Home) lazy-loaded with React.lazy() and Suspense boundaries to reduce initial bundle size
@@ -42,7 +42,8 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Social Media Integration:** Footer includes links to Facebook, Twitter/X, Instagram, TikTok, LinkedIn, YouTube, and ZocDoc for comprehensive social presence and patient engagement.
 - **Team Page (`/team`):** Displays staff with bios and credentials.
 - **Admin Panel (`/admin`):** CMS for content editing and lead management.
-- **Analytics Dashboard (`/admin/analytics`):** Monitors key performance metrics.
+- **Analytics Dashboard (`/admin/analytics`):** Monitors key performance metrics including paid vs organic conversion breakdown.
+- **Google Ads Setup (`/admin/google-ads-setup`):** OAuth setup page for connecting Google Ads account to enable paid conversion tracking and ROI analytics.
 - **SEO Optimization Dashboard (`/admin/seo`):** Provides strategic SEO insights and tools.
 - **Competitive Comparison Section:** "Why Choose Empathy Health Clinic?" section on homepage comparing Empathy Health Clinic vs Healing Psychiatry of Florida across 3 key differentiators (Personalized Care, Faster Access, Telehealth Statewide) with high-converting CTA.
 - **Lead Capture:** High-converting forms with automated email notifications.
@@ -63,5 +64,33 @@ The system uses an in-memory storage solution for simplified deployment, resulti
 - **Express.js:** Backend framework.
 - **Zod:** Schema validation.
 - **SendGrid:** Email delivery service.
+- **Google Ads API:** Paid conversion tracking and ROI analytics.
 - **web-vitals:** Core Web Vitals measurement.
 - **Lucide-react:** Icon library.
+
+## Google Ads Integration
+The system includes a complete Google Ads API integration for tracking paid vs organic conversions:
+
+### Configuration Required
+1. **Basic Credentials** (already configured in Replit Secrets):
+   - `GOOGLE_ADS_CLIENT_ID`: OAuth 2.0 Client ID
+   - `GOOGLE_ADS_CLIENT_SECRET`: OAuth 2.0 Client Secret
+   - `GOOGLE_ADS_CUSTOMER_ID`: Google Ads Account ID (4749499368)
+   - `GOOGLE_ADS_DEVELOPER_TOKEN`: API Developer Token
+
+2. **OAuth Refresh Token** (needs to be generated):
+   - Visit `/admin/google-ads-setup` to complete OAuth flow
+   - Authorize with Google Ads account
+   - Copy the refresh token to Replit Secrets as `GOOGLE_ADS_REFRESH_TOKEN`
+
+### Features
+- **Paid vs Organic Attribution:** Analytics Dashboard shows breakdown of conversions from paid ads vs organic search
+- **ROI Tracking:** Displays ad spend, cost per conversion, and campaign performance
+- **Real-time Metrics:** Fetches conversion data directly from Google Ads API with configurable time ranges
+- **Conversion Comparison:** Visual comparison of paid and organic conversion rates
+
+### Architecture
+- **Backend Service (`server/google-ads-service.ts`):** Encapsulates OAuth flow, API authentication, and data fetching
+- **API Routes (`server/routes.ts`):** RESTful endpoints for status checks, OAuth callbacks, and conversion data
+- **Setup Page (`/admin/google-ads-setup`):** Admin interface for OAuth authentication
+- **Analytics Dashboard (`/admin/analytics`):** Displays paid vs organic conversion metrics with cost analysis
