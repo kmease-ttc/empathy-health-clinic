@@ -31,6 +31,10 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Location Pages:** 11 city-specific landing pages optimized for local SEO, featuring unique content and LocalBusiness schema.
 - **Blog Section:** Over 170 SEO-optimized articles, including migrated and new high-value content.
 - **AI Blog Generator (`/admin/blog`):** Automated blog generation using Replit AI Integrations (OpenAI GPT-4o) capable of producing 2,000-word, SEO-optimized, HIPAA-compliant blogs. Features include clickbait title generation, image deduplication, Unsplash API integration, link validation, a 100-point SEO scoring system with 22 automated quality checks, and one-click publishing. This includes an **Autonomous Blog Generation** system that identifies content gaps, selects strategic topics, and generates complete blogs with strict quality gates (minimum 80/100 SEO score).
+
+  **Generation Approaches:**
+  - **3-Stage Generator (Recommended):** Production-ready approach using Planner → Drafter → Formatter stages. Consistently achieves 80+/100 SEO scores with 2000-word blogs in 30-40 seconds.
+  - **Progressive Generator (Failed Experiment - DO NOT USE):** Alternative approach (`/api/generate-blog-progressive`) that attempted incremental validation across 8 separate API calls. Despite implementing preservation guardrails (conditional instructions, context anchors, temperature tuning), the approach suffered from cumulative context loss: mid-process steps showed temporary success (1721 words at step 2) but final output collapsed to 375 words with 0/100 score. Root cause: Each separate GPT-4o call loses shared state and re-summarizes previous text despite explicit "preserve all content" instructions. Conclusion: Iterative prompting across multiple API calls fundamentally degrades quality regardless of prompt engineering techniques. Endpoint remains in codebase as a documented failed experiment but should not be used in production.
 - **Social Media Integration:** Links to major social platforms in the footer.
 - **Team Page:** Displays staff bios and credentials.
 - **Admin Panel:** CMS for content and lead management.
