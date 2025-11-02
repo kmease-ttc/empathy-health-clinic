@@ -309,7 +309,7 @@ Return ONLY the title, nothing else.`;
     // Verify external links are from authoritative sources
     const authoritativeSources = ['nimh.nih.gov', 'apa.org', 'samhsa.gov', 'who.int', 'cdc.gov', 'mayoclinic.org', 'psychologytoday.com'];
     const hasAuthoritativeLink = externalLinks.some(link => 
-      authoritativeSources.some(source => link.includes(source))
+      typeof link === 'string' && authoritativeSources.some(source => link.includes(source))
     );
     if (!hasAuthoritativeLink) {
       score -= 7;
@@ -358,7 +358,7 @@ Return ONLY the title, nothing else.`;
       '/crisis-therapy', '/treatments', '/therapies', '/conditions', '/locations'
     ];
     const invalidInternalLinks = internalLinks.filter(link => 
-      !validInternalPaths.some(path => link.includes(path))
+      typeof link === 'string' && !validInternalPaths.some(path => link.includes(path))
     );
     if (invalidInternalLinks.length > 0) {
       score -= 5;
@@ -484,6 +484,14 @@ Return JSON:
     });
     
     currentBlog = JSON.parse(step1.choices[0].message.content || "{}");
+    
+    // Defensive check: Ensure content is a string
+    if (typeof currentBlog.content !== 'string') {
+      console.error(`❌ ERROR: After step 1, content is not a string. Type: ${typeof currentBlog.content}`);
+      console.error(`Full response:`, currentBlog);
+      throw new Error(`Blog content must be a string, got ${typeof currentBlog.content}`);
+    }
+    
     let wordCount = currentBlog.content?.split(/\s+/).filter((w: string) => w.length > 0).length || 0;
     console.log(`   ✓ Generated ${wordCount} words`);
 
@@ -514,7 +522,13 @@ ${wordCount < 1995 ? `
 
 Return the blog with EXACTLY 1995-2005 words. Count carefully!
 
-Return JSON with same structure.`;
+Return EXACT same JSON structure:
+{
+  "title": "...",
+  "metaDescription": "...",
+  "slug": "...",
+  "content": "... HTML string ..."
+}`;
 
     let step2 = await getOpenAI().chat.completions.create({
       model: "gpt-4o",
@@ -525,6 +539,14 @@ Return JSON with same structure.`;
     });
 
     currentBlog = JSON.parse(step2.choices[0].message.content || "{}");
+    
+    // Defensive check: Ensure content is a string
+    if (typeof currentBlog.content !== 'string') {
+      console.error(`❌ ERROR: After step 2, content is not a string. Type: ${typeof currentBlog.content}`);
+      console.error(`Full response:`, currentBlog);
+      throw new Error(`Blog content must be a string, got ${typeof currentBlog.content}`);
+    }
+    
     wordCount = currentBlog.content?.split(/\s+/).filter((w: string) => w.length > 0).length || 0;
     console.log(`   ✓ Now ${wordCount} words (target: 1995-2005)`);
 
@@ -542,7 +564,13 @@ TASK: Rewrite to be 150-160 chars and include "${primaryKeyword}"
 Example: "Discover evidence-based ${primaryKeyword} in Orlando. Expert care at Empathy Health Clinic for adults 18+." (Check length!)
 ` : 'Meta description is perfect!'}
 
-Return full blog JSON with updated metaDescription.`;
+Return EXACT same JSON structure:
+{
+  "title": "...",
+  "metaDescription": "... 150-160 chars ...",
+  "slug": "...",
+  "content": "... HTML string ..."
+}`;
 
     let step3 = await getOpenAI().chat.completions.create({
       model: "gpt-4o",
@@ -554,6 +582,13 @@ Return full blog JSON with updated metaDescription.`;
 
     currentBlog = JSON.parse(step3.choices[0].message.content || "{}");
     console.log(`   ✓ Meta description: ${currentBlog.metaDescription?.length || 0} chars`);
+
+    // Defensive check: Ensure content is a string
+    if (typeof currentBlog.content !== 'string') {
+      console.error(`❌ ERROR: After step 3, content is not a string. Type: ${typeof currentBlog.content}`);
+      console.error(`Content value:`, currentBlog.content);
+      throw new Error(`Blog content must be a string, got ${typeof currentBlog.content}`);
+    }
 
     // ═══════════════════════════════════════════════════════════════
     // RULE 4: Heading Structure (1 H1, 6+ H2s, H3s)
@@ -577,7 +612,13 @@ TASK: Restructure content to have:
 Keep total word count at ${wordCount} words!
 ` : 'Structure is perfect!'}
 
-Return full blog JSON with proper heading structure.`;
+Return EXACT same JSON structure:
+{
+  "title": "...",
+  "metaDescription": "...",
+  "slug": "...",
+  "content": "... HTML string with proper headings ..."
+}`;
 
     let step4 = await getOpenAI().chat.completions.create({
       model: "gpt-4o",
@@ -588,6 +629,14 @@ Return full blog JSON with proper heading structure.`;
     });
 
     currentBlog = JSON.parse(step4.choices[0].message.content || "{}");
+    
+    // Defensive check: Ensure content is a string
+    if (typeof currentBlog.content !== 'string') {
+      console.error(`❌ ERROR: After step 4, content is not a string. Type: ${typeof currentBlog.content}`);
+      console.error(`Full response:`, currentBlog);
+      throw new Error(`Blog content must be a string, got ${typeof currentBlog.content}`);
+    }
+    
     console.log(`   ✓ Headings: ${(currentBlog.content?.match(/<h1>/gi) || []).length} H1, ${(currentBlog.content?.match(/<h2>/gi) || []).length} H2, ${(currentBlog.content?.match(/<h3>/gi) || []).length} H3`);
 
     // ═══════════════════════════════════════════════════════════════
@@ -646,7 +695,15 @@ Add natural mentions like:
 - "We provide services for adults 18+ in the Orlando area"
 ` : 'Local SEO is perfect!'}
 
-Return full blog JSON with local mentions added.`;
+Return EXACT same JSON structure:
+{
+  "title": "...",
+  "metaDescription": "...",
+  "slug": "...",
+  "content": "... HTML string with local SEO mentions ...",
+  "internalLinks": [...],
+  "externalLinks": [...]
+}`;
 
     let step6 = await getOpenAI().chat.completions.create({
       model: "gpt-4o",
@@ -668,7 +725,15 @@ Return full blog JSON with local mentions added.`;
 2. Meta description (currently: "${currentBlog.metaDescription}")
 3. First paragraph of content
 
-Return full blog JSON with keyword optimized.`;
+Return EXACT same JSON structure:
+{
+  "title": "... with keyword ...",
+  "metaDescription": "... with keyword ...",
+  "slug": "...",
+  "content": "... HTML string with keyword in first paragraph ...",
+  "internalLinks": [...],
+  "externalLinks": [...]
+}`;
 
     let step7 = await getOpenAI().chat.completions.create({
       model: "gpt-4o",
