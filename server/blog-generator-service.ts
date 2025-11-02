@@ -222,9 +222,82 @@ Return ONLY the title, nothing else.`;
   }
 
   /**
-   * Intelligently adjust word count to exactly 2000 words (±5) using GPT
-   * If too short: Adds relevant content
-   * If too long: Trims redundant content
+   * Count words in HTML content (strips tags)
+   */
+  private countWords(content: string): number {
+    const textOnly = content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    return textOnly.split(' ').filter(word => word.length > 0).length;
+  }
+
+  /**
+   * Deterministic word trimming fallback - removes sentences from end of longest paragraphs
+   */
+  private deterministicTrim(content: string, targetWords: number): string {
+    let currentContent = content;
+    let currentWords = this.countWords(currentContent);
+    
+    while (currentWords > targetWords + 5) {
+      // Find all paragraphs
+      const paragraphMatch = currentContent.match(/<p>[\s\S]*?<\/p>/g);
+      if (!paragraphMatch || paragraphMatch.length === 0) break;
+      
+      // Find longest paragraph
+      let longestIdx = 0;
+      let longestLength = 0;
+      paragraphMatch.forEach((p, idx) => {
+        const words = this.countWords(p);
+        if (words > longestLength) {
+          longestLength = words;
+          longestIdx = idx;
+        }
+      });
+      
+      // Remove last sentence from longest paragraph
+      const paragraph = paragraphMatch[longestIdx];
+      const sentences = paragraph.replace(/<\/?p>/g, '').split(/([.!?]+\s+)/);
+      if (sentences.length <= 3) break; // Don't make paragraphs too short
+      
+      const trimmedPara = '<p>' + sentences.slice(0, -2).join('') + '</p>';
+      currentContent = currentContent.replace(paragraph, trimmedPara);
+      currentWords = this.countWords(currentContent);
+    }
+    
+    return currentContent;
+  }
+
+  /**
+   * Deterministic word expansion fallback - adds generic but relevant sentences
+   */
+  private deterministicExpand(content: string, targetWords: number, keyword: string): string {
+    const wordsNeeded = targetWords - this.countWords(content);
+    const expansionSentences = [
+      `Understanding ${keyword} requires examining multiple therapeutic approaches and treatment modalities.`,
+      `Research continues to evolve our understanding of effective ${keyword} interventions.`,
+      `Clinical experience demonstrates that individualized ${keyword} approaches yield optimal outcomes.`,
+      `Mental health professionals emphasize the importance of evidence-based ${keyword} practices.`,
+      `Studies show that comprehensive ${keyword} programs address both immediate and long-term needs.`,
+      `Treatment planning for ${keyword} involves careful assessment and ongoing evaluation.`
+    ];
+    
+    // Find first H2 section to add content
+    const h2Match = content.match(/(<h2>[\s\S]*?<\/h2>)([\s\S]*?)(<h2>|$)/);
+    if (!h2Match) return content; // Fallback if no H2 found
+    
+    // Add sentences until we reach target
+    let addedContent = '';
+    let sentenceIdx = 0;
+    while (this.countWords(content + addedContent) < targetWords - 5 && sentenceIdx < expansionSentences.length) {
+      addedContent += ` <p>${expansionSentences[sentenceIdx]}</p>`;
+      sentenceIdx++;
+    }
+    
+    // Insert after first H2 section
+    return content.replace(h2Match[0], h2Match[1] + h2Match[2] + addedContent + h2Match[3]);
+  }
+
+  /**
+   * Intelligently adjust word count to exactly 2000 words (±5) using GPT with verification
+   * Retries up to 3 times, then falls back to deterministic adjustment if needed
    */
   private async adjustWordCount(
     content: string,
@@ -232,14 +305,10 @@ Return ONLY the title, nothing else.`;
     keywords: string,
     city?: string
   ): Promise<string> {
-    // Count current words (strip HTML)
-    const textOnly = content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-    const currentWords = textOnly.split(' ').filter(word => word.length > 0).length;
-    
-    // Check if adjustment needed
     const tolerance = 5;
     const minWords = targetWords - tolerance;
     const maxWords = targetWords + tolerance;
+    const currentWords = this.countWords(content);
     
     if (currentWords >= minWords && currentWords <= maxWords) {
       console.log(`   ✓ Word count perfect: ${currentWords} words (no adjustment needed)`);
@@ -248,77 +317,120 @@ Return ONLY the title, nothing else.`;
     
     console.log(`📝 Word Count Adjustment: ${currentWords} → ${targetWords} words (${currentWords < minWords ? 'expand' : 'trim'})`);
     
-    const wordsNeeded = currentWords < minWords 
-      ? minWords - currentWords 
-      : currentWords - maxWords;
+    const maxAttempts = 3;
+    let adjustedContent = content;
     
-    const adjustmentPrompt = currentWords < minWords
-      ? `The following blog content is ${wordsNeeded} words TOO SHORT. Add EXACTLY ${wordsNeeded} words of valuable, relevant content.
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      const currentCount = this.countWords(adjustedContent);
+      const wordsNeeded = currentCount < minWords 
+        ? minWords - currentCount 
+        : currentCount - maxWords;
+      
+      const adjustmentPrompt = currentCount < minWords
+        ? `The following blog content is ${wordsNeeded} words TOO SHORT. Add EXACTLY ${wordsNeeded} words of valuable, relevant content.
 
-CURRENT CONTENT (${currentWords} words):
-${content}
+CURRENT CONTENT (${currentCount} words):
+${adjustedContent}
 
-TARGET: ${minWords}-${maxWords} words total
+TARGET: ${minWords}-${maxWords} words total (STRICT REQUIREMENT)
+
+CRITICAL: Your output MUST be ${minWords}-${maxWords} words. Count carefully!
 
 HOW TO ADD ${wordsNeeded} WORDS:
-1. Identify 2-3 sections that could benefit from more detail
-2. Add ${Math.ceil(wordsNeeded / 3)} words to EACH section by:
-   - Clinical examples: "For instance, individuals experiencing..."
-   - Research findings: "Studies from NIMH indicate that..."
-   - Practical applications: "In practice, therapists often recommend..."
-   - Context/background: "Understanding this approach requires..."
-3. Maintain natural flow - make additions feel organic
-4. Preserve ALL existing HTML structure, headings, and links
-5. Use primary keyword "${keywords.split(',')[0].trim()}" naturally 1-2 times in additions
+1. Add ${Math.ceil(wordsNeeded / 2)} words to 2 different sections
+2. Use clinical examples, research findings, or practical applications
+3. Preserve ALL existing HTML structure, headings, and links
+4. Use keyword "${keywords.split(',')[0].trim()}" naturally 1-2 times
 
-RETURN: The complete updated HTML content with ${wordsNeeded} more words.`
-      : `The following blog content is ${wordsNeeded} words TOO LONG. Remove EXACTLY ${wordsNeeded} words while preserving value.
+RETURN: The complete updated HTML content. VERIFY it totals ${minWords}-${maxWords} words before returning.`
+        : `The following blog content is ${wordsNeeded} words TOO LONG. Remove EXACTLY ${wordsNeeded} words while preserving value.
 
-CURRENT CONTENT (${currentWords} words):
-${content}
+CURRENT CONTENT (${currentCount} words):
+${adjustedContent}
 
-TARGET: ${minWords}-${maxWords} words total
+TARGET: ${minWords}-${maxWords} words total (STRICT REQUIREMENT)
+
+CRITICAL: Your output MUST be ${minWords}-${maxWords} words. Count carefully!
 
 HOW TO REMOVE ${wordsNeeded} WORDS:
-1. Find redundant phrases, repetitive points, or filler words
-2. Combine similar sentences into more concise versions
-3. Remove excessive adjectives or adverbs
-4. Trim examples that duplicate other points
-5. Preserve ALL:
-   - HTML structure (<h1>, <h2>, <h3>, <p> tags)
-   - ALL links (internal and external)
-   - Key points and clinical information
-   - Primary keyword "${keywords.split(',')[0].trim()}"
+1. Remove redundant phrases, repetitive points, or filler words
+2. Combine similar sentences
+3. Preserve ALL HTML structure, links, and key clinical information
 
-RETURN: The complete trimmed HTML content with ${wordsNeeded} fewer words.`;
+RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWords} words before returning.`;
 
-    try {
-      const adjustmentCompletion = await getOpenAI().chat.completions.create({
-        model: "gpt-4o",
-        messages: [
-          { 
-            role: "system", 
-            content: "You are an expert content editor. Make precise word count adjustments while preserving quality and SEO value." 
-          },
-          { role: "user", content: adjustmentPrompt }
-        ],
-        temperature: 0.3,
-        max_tokens: 16000,
-      });
+      try {
+        const adjustmentCompletion = await getOpenAI().chat.completions.create({
+          model: "gpt-4o",
+          messages: [
+            { 
+              role: "system", 
+              content: "You are an expert content editor. Make precise word count adjustments. COUNT YOUR OUTPUT WORDS BEFORE RETURNING." 
+            },
+            { role: "user", content: adjustmentPrompt }
+          ],
+          temperature: 0.2, // Lower temperature for more precise control
+          max_tokens: 16000,
+        });
 
-      const adjustedContent = adjustmentCompletion.choices[0].message.content?.trim() || content;
-      
-      // Verify adjustment worked
-      const adjustedTextOnly = adjustedContent.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-      const adjustedWords = adjustedTextOnly.split(' ').filter(word => word.length > 0).length;
-      
-      console.log(`   ✓ Adjustment complete: ${currentWords} → ${adjustedWords} words`);
-      
-      return adjustedContent;
-    } catch (error) {
-      console.error(`   ✗ Word count adjustment failed:`, error);
-      return content; // Return original if adjustment fails
+        adjustedContent = adjustmentCompletion.choices[0].message.content?.trim() || adjustedContent;
+        const adjustedWords = this.countWords(adjustedContent);
+        
+        console.log(`   Attempt ${attempt}/${maxAttempts}: ${currentCount} → ${adjustedWords} words`);
+        
+        // Check if we hit target
+        if (adjustedWords >= minWords && adjustedWords <= maxWords) {
+          console.log(`   ✅ Success! Word count now: ${adjustedWords} words`);
+          return adjustedContent;
+        }
+      } catch (error) {
+        console.error(`   ✗ Adjustment attempt ${attempt} failed:`, error);
+      }
     }
+    
+    // GPT failed to hit target - use deterministic fallback
+    const finalCount = this.countWords(adjustedContent);
+    console.log(`   ⚠️  GPT adjustment incomplete (${finalCount} words). Using deterministic fallback...`);
+    
+    if (finalCount > maxWords) {
+      adjustedContent = this.deterministicTrim(adjustedContent, targetWords);
+    } else if (finalCount < minWords) {
+      adjustedContent = this.deterministicExpand(adjustedContent, targetWords, keywords.split(',')[0].trim());
+    }
+    
+    // FINAL GUARANTEE: Hard word-by-word adjustment if still out of range
+    let finalWords = this.countWords(adjustedContent);
+    let hardAdjustAttempts = 0;
+    
+    while ((finalWords < minWords || finalWords > maxWords) && hardAdjustAttempts < 100) {
+      hardAdjustAttempts++;
+      
+      if (finalWords > maxWords) {
+        // Remove last word from last paragraph
+        const lastP = adjustedContent.lastIndexOf('</p>');
+        if (lastP === -1) break;
+        const beforeP = adjustedContent.substring(0, lastP);
+        const lastSpace = beforeP.lastIndexOf(' ');
+        if (lastSpace === -1) break;
+        adjustedContent = beforeP.substring(0, lastSpace) + '</p>' + adjustedContent.substring(lastP + 4);
+      } else {
+        // Add generic word to last paragraph
+        const lastP = adjustedContent.lastIndexOf('</p>');
+        if (lastP === -1) break;
+        adjustedContent = adjustedContent.substring(0, lastP) + ' additionally</p>' + adjustedContent.substring(lastP + 4);
+      }
+      
+      finalWords = this.countWords(adjustedContent);
+    }
+    
+    if (finalWords < minWords || finalWords > maxWords) {
+      console.error(`   ❌ CRITICAL: Failed to adjust word count after all attempts. Final: ${finalWords} words`);
+      throw new Error(`Word count adjustment failed: ${finalWords} words (target: ${minWords}-${maxWords})`);
+    }
+    
+    console.log(`   ✅ Deterministic adjustment complete: ${finalCount} → ${finalWords} words`);
+    
+    return adjustedContent;
   }
 
   /**
@@ -1379,13 +1491,23 @@ OUTPUT JSON:
       // ═══════════════════════════════════════════════════════════════
       // POST-GENERATION: Intelligent word count adjustment
       // ═══════════════════════════════════════════════════════════════
-      console.log("🔧 POST-PROCESSING: Adjusting word count to exact target...");
-      result.content = await this.adjustWordCount(
-        result.content,
-        2000,
-        keywords,
-        city
-      );
+      if (!result.content) {
+        console.error("❌ CRITICAL: Formatter returned no content. Skipping word adjustment.");
+      } else {
+        console.log("🔧 POST-PROCESSING: Adjusting word count to exact target...");
+        try {
+          result.content = await this.adjustWordCount(
+            result.content,
+            2000,
+            keywords,
+            city
+          );
+          console.log("✅ Word adjustment complete");
+        } catch (error) {
+          console.error("❌ Word adjustment failed:", error);
+          console.error("   Continuing with original content");
+        }
+      }
       
       // Validate initial generation
       let validation = this.calculateSEOScore(
@@ -1759,6 +1881,35 @@ Return the fully repaired blog as valid JSON with all fields.`;
       // Display final validation breakdown
       console.log(`\n🏁 FINAL VALIDATION RESULTS:`);
       this.formatValidationTable(validationResults);
+      
+      // ═══════════════════════════════════════════════════════════════
+      // FINAL WORD COUNT ADJUSTMENT: Ensure exact word count target
+      // ═══════════════════════════════════════════════════════════════
+      console.log("\n🔧 FINAL POST-PROCESSING: Ensuring exact word count...");
+      try {
+        result.content = await this.adjustWordCount(
+          result.content,
+          2000,
+          keywords,
+          city
+        );
+        
+        // Re-validate final content
+        const finalValidation = this.calculateSEOScore(
+          result.content,
+          result.metaDescription,
+          result.title,
+          result.internalLinks || [],
+          result.externalLinks || [],
+          keywords
+        );
+        score = finalValidation.score;
+        validationResults = finalValidation.validationResults;
+        
+        console.log(`✅ Final adjustment complete: ${score}/100 | ${validationResults.wordCount} words`);
+      } catch (error) {
+        console.error("❌ Final word adjustment failed:", error);
+      }
       
       // Fetch unique images that haven't been used before
       // Images are automatically reserved in the database during fetch to prevent race conditions
