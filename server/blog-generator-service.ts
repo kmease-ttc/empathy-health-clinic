@@ -624,81 +624,180 @@ FINAL CHECKLIST BEFORE SUBMITTING:
 ☑ Keyword in title, meta, first paragraph`;
 
     try {
-      console.log("🤖 Generating blog with OpenAI GPT-4...");
+      console.log("🤖 Starting 3-step iterative blog generation...");
       
       let result: any;
       let score = 0;
       let validationResults: any;
-      let attempt = 0;
-      const maxAttempts = 3;
 
-      // Iterative generation with validation feedback
-      while (attempt < maxAttempts && score < 90) {
-        attempt++;
-        
-        if (attempt > 1) {
-          console.log(`🔄 Attempt ${attempt}/${maxAttempts} - Previous score: ${score}/100`);
-          console.log(`   Issues to fix: ${validationResults.issues.join(', ')}`);
-        }
+      // STEP 1: Generate base content with focus on structure and word count
+      console.log("📝 STEP 1/3: Generating base content (structure + 2000 words)...");
+      const step1Prompt = `Generate a comprehensive blog post about: ${topic}
 
-        // Build feedback message for regeneration attempts
-        const feedbackMessage = attempt === 1 ? `Generate a comprehensive, EXACTLY 2000-word blog post about: ${topic}.` :
-          `Previous attempt scored ${score}/100. Fix these issues:
+PRIMARY FOCUS FOR THIS STEP:
+1. Create EXACTLY 2000 words (±5 words: 1995-2005 words total)
+2. Proper heading structure: One H1, 6-8 H2 sections, multiple H3 subsections
+3. Professional medical content about the topic
+4. Natural, flowing paragraphs
 
+Word Count Strategy to Reach 2000 Words:
+- Introduction: 200-250 words
+- 6-8 Main Sections (H2 headings): 250-350 words each
+- Conclusion: 200-250 words
+- Total: ~2000 words
+
+Basic Requirements:
+- Title under 60 characters
+- Meta description 150-160 characters with keyword "${keywords.split(',')[0].trim()}"
+- Include some internal links to /services, /request-appointment
+- Mention Orlando and Winter Park
+- NO patient names or ages (use "individuals", "a person", "someone")
+
+Generate the base content now. Don't worry about perfection - we'll improve it in the next steps.`;
+
+      const step1Completion = await getOpenAI().chat.completions.create({
+        model: "gpt-4o",
+        response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: step1Prompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 16000,
+      });
+
+      result = JSON.parse(step1Completion.choices[0].message.content || "{}");
+      
+      // Validate step 1
+      let validation = this.calculateSEOScore(
+        result.content,
+        result.metaDescription,
+        result.title,
+        result.internalLinks || [],
+        result.externalLinks || [],
+        keywords
+      );
+      score = validation.score;
+      validationResults = validation.validationResults;
+      
+      console.log(`   Step 1 Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
+      console.log(`   Issues: ${validationResults.issues.slice(0, 3).join(', ')}`);
+
+      // STEP 2: Review and enhance SEO elements
+      console.log("🎯 STEP 2/3: Enhancing SEO elements (keywords, links, meta)...");
+      const step2Prompt = `Review the blog you just created and improve the SEO elements.
+
+CURRENT BLOG:
+Title: ${result.title}
+Meta Description: ${result.metaDescription}
+Word Count: ${validationResults.wordCount}
+Current Score: ${score}/100
+
+CONTENT PREVIEW (first 500 chars):
+${result.content.substring(0, 500)}...
+
+ISSUES TO FIX:
 ${validationResults.issues.map((issue: string, i: number) => `${i + 1}. ${issue}`).join('\n')}
 
-Generate a NEW blog post about: ${topic} that fixes ALL these issues.`;
+STEP 2 IMPROVEMENTS NEEDED:
+1. Fix meta description to be EXACTLY 150-160 characters with keyword "${keywords.split(',')[0].trim()}"
+2. Add 4+ internal links with UNIQUE anchor text:
+   - Use /services, /emdr-therapy, /depression-counseling, /anxiety-therapy, /request-appointment, /team
+   - Each link needs different anchor text (BAD: "learn more" twice; GOOD: "explore our services", "schedule consultation")
+3. Add 3+ authoritative external links from NIMH, APA, SAMHSA with unique anchor text
+4. Ensure primary keyword "${keywords.split(',')[0].trim()}" appears in: title, meta description, AND first paragraph
+5. If word count is not 1995-2005, adjust content length accordingly
+6. Check for any patient identifiers (names, ages, cities) and remove them - use only "individuals", "a person", "someone"
 
-        // Call OpenAI API with higher token limit for 2000-word blogs
-        const completion = await getOpenAI().chat.completions.create({
-          model: "gpt-4o", // Using gpt-4o - compatible with chat completions API via Replit AI Integrations
-          response_format: { type: "json_object" },
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: `${feedbackMessage}
+Return the IMPROVED blog with all SEO fixes applied. Keep the same general content but enhance the SEO elements.`;
 
-CRITICAL REMINDERS:
-- Word count: EXACTLY 2000 words (±5 words max: 1995-2005 words)
-- Meta description: EXACTLY 150-160 characters
-- Title: Under 60 characters
-- Include primary keyword "${keywords.split(',')[0].trim()}" in title, meta, and first paragraph
-- 4+ internal links with unique anchor text
-- 3+ authoritative external links (NIMH, APA, SAMHSA)
-- Mention Orlando 2+ times, Winter Park 1+ time
-- NO patient names, ages, or identifiable information (HIPAA - use "individuals", "a person", "someone")
-- Include clear call-to-action
+      const step2Completion = await getOpenAI().chat.completions.create({
+        model: "gpt-4o",
+        response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: step1Prompt },
+          { role: "assistant", content: JSON.stringify(result) },
+          { role: "user", content: step2Prompt }
+        ],
+        temperature: 0.5,
+        max_tokens: 16000,
+      });
 
-This will be automatically validated. Blogs scoring below 90/100 will be rejected.` }
-          ],
-          temperature: 0.5, // Lower temperature for more precise adherence to requirements
-          max_tokens: 16000, // Increased to ensure 2000 words aren't cut off
-        });
+      result = JSON.parse(step2Completion.choices[0].message.content || "{}");
+      
+      // Validate step 2
+      validation = this.calculateSEOScore(
+        result.content,
+        result.metaDescription,
+        result.title,
+        result.internalLinks || [],
+        result.externalLinks || [],
+        keywords
+      );
+      score = validation.score;
+      validationResults = validation.validationResults;
+      
+      console.log(`   Step 2 Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
+      console.log(`   Remaining Issues: ${validationResults.issues.slice(0, 3).join(', ')}`);
 
-        result = JSON.parse(completion.choices[0].message.content || "{}");
+      // STEP 3: Final polish for compliance and quality
+      console.log("✨ STEP 3/3: Final polish (HIPAA, formatting, quality)...");
+      const step3Prompt = `Final quality check and polish of your blog.
 
-        // Validate the generated content
-        const validation = this.calculateSEOScore(
-          result.content,
-          result.metaDescription,
-          result.title,
-          result.internalLinks || [],
-          result.externalLinks || [],
-          keywords
-        );
+CURRENT STATUS:
+Score: ${score}/100
+Word Count: ${validationResults.wordCount}
+Meta Length: ${result.metaDescription?.length || 0} chars
 
-        score = validation.score;
-        validationResults = validation.validationResults;
+REMAINING ISSUES:
+${validationResults.issues.map((issue: string, i: number) => `${i + 1}. ${issue}`).join('\n')}
 
-        // If score is good enough, break early
-        if (score >= 90) {
-          console.log(`✅ Generated high-quality blog on attempt ${attempt}! Score: ${score}/100`);
-          break;
-        }
+FINAL POLISH CHECKLIST:
+1. CRITICAL HIPAA CHECK: Scan for ANY patient identifiers:
+   - Remove: "Sarah", "John", "35-year-old", "age 42", "patient from Orlando"
+   - Use ONLY: "a patient", "an individual", "someone", "a person", "individuals experiencing..."
+2. Word Count: If not 1995-2005 words, add or trim content as needed
+3. Meta Description: Must be EXACTLY 150-160 characters (current: ${result.metaDescription?.length || 0})
+4. Anchor Text: Verify ALL links have unique anchor text (no duplicates like "learn more" appearing twice)
+5. CTAs: Add clear call-to-action phrases: "Contact us", "Schedule an appointment", "Request a consultation"
+6. Local SEO: Verify "Orlando" appears 2+ times, "Winter Park" 1+ time, "adults" or "18+" mentioned
+7. Formatting: Clean HTML, proper paragraph breaks, professional structure
 
-        // If this was the last attempt, log warning
-        if (attempt === maxAttempts && score < 90) {
-          console.warn(`⚠️  Max attempts reached. Best score: ${score}/100`);
-        }
+Return the FINAL, polished, publication-ready blog that scores 90+/100.`;
+
+      const step3Completion = await getOpenAI().chat.completions.create({
+        model: "gpt-4o",
+        response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: step1Prompt },
+          { role: "assistant", content: step1Completion.choices[0].message.content || "{}" },
+          { role: "user", content: step2Prompt },
+          { role: "assistant", content: JSON.stringify(result) },
+          { role: "user", content: step3Prompt }
+        ],
+        temperature: 0.3, // Lower temperature for precise fixes
+        max_tokens: 16000,
+      });
+
+      result = JSON.parse(step3Completion.choices[0].message.content || "{}");
+      
+      // Final validation
+      validation = this.calculateSEOScore(
+        result.content,
+        result.metaDescription,
+        result.title,
+        result.internalLinks || [],
+        result.externalLinks || [],
+        keywords
+      );
+      score = validation.score;
+      validationResults = validation.validationResults;
+      
+      console.log(`✅ 3-Step Generation Complete! Final Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
+      if (validationResults.issues.length > 0) {
+        console.log(`   Remaining Issues: ${validationResults.issues.join(', ')}`);
       }
       
       // Fetch unique images that haven't been used before
