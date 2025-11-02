@@ -1,6 +1,8 @@
 /**
- * Track phone number clicks as leads
+ * Track phone number clicks as leads and analytics events
  */
+
+import { trackEvent } from './analytics';
 
 export function initPhoneTracking() {
   // Track all phone links
@@ -14,6 +16,11 @@ export function initPhoneTracking() {
     newLink.addEventListener('click', async () => {
       const phoneNumber = newLink.getAttribute('href')?.replace('tel:', '') || '';
       
+      // Track as analytics event (shows up on dashboard)
+      trackEvent('phone_click', 'conversion', window.location.pathname, phoneNumber);
+      console.log(`📞 Phone click tracked: ${phoneNumber} from ${window.location.pathname}`);
+      
+      // Also create a lead record
       try {
         await fetch('/api/leads', {
           method: 'POST',
@@ -28,10 +35,8 @@ export function initPhoneTracking() {
             smsOptIn: 'false',
           }),
         });
-        
-        console.log(`📞 Phone click tracked: ${phoneNumber} from ${window.location.pathname}`);
       } catch (error) {
-        console.error('Failed to track phone click:', error);
+        console.error('Failed to create phone click lead:', error);
       }
     });
   });

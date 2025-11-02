@@ -643,9 +643,47 @@ export default function AnalyticsDashboard() {
                 <div className="p-2 rounded-lg bg-primary/10">
                   <Phone className="h-5 w-5 text-primary" />
                 </div>
-                <div>
+                <div className="flex-1">
                   <p className="text-2xl font-bold">{data?.conversions.phoneClicks || 0}</p>
                   <p className="text-sm text-muted-foreground">Phone Clicks</p>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="mt-2"
+                    onClick={async () => {
+                      try {
+                        const response = await fetch('/api/analytics/event', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                            eventType: 'phone_click',
+                            eventCategory: 'conversion',
+                            eventLabel: 'Manual Entry - Google Ads',
+                            value: '386-848-8751',
+                            path: '/google-ads-manual-entry'
+                          })
+                        });
+
+                        if (!response.ok) {
+                          throw new Error('Failed to log phone call');
+                        }
+
+                        toast({
+                          title: "📞 Phone Call Logged",
+                          description: "Phone call has been added to analytics",
+                        });
+                        refetch();
+                      } catch (error) {
+                        toast({
+                          title: "❌ Error",
+                          description: error instanceof Error ? error.message : "Failed to log phone call",
+                          variant: "destructive"
+                        });
+                      }
+                    }}
+                  >
+                    + Add Phone Call
+                  </Button>
                 </div>
               </div>
 
