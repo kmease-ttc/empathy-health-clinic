@@ -1294,82 +1294,300 @@ OUTPUT JSON:
       console.log(`\n📊 3-STAGE Generation Complete! Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
       this.formatValidationTable(validationResults);
       
-      // ADDITIONAL IMPROVEMENT LOOP: Keep going until 80+ score
+      // CONTEXTUAL FEEDBACK IMPROVEMENT LOOP: Feed validation failures back to GPT
       let improvementAttempt = 0;
-      const maxImprovementAttempts = 10; // Maximum 10 additional improvement rounds (was 5)
+      const maxImprovementAttempts = 10;
       const targetScore = 80;
+      let previousScore = score;
 
       while (score < targetScore && improvementAttempt < maxImprovementAttempts) {
         improvementAttempt++;
-        console.log(`🔄 IMPROVEMENT ROUND ${improvementAttempt}/${maxImprovementAttempts}: Current Score ${score}/100 → Target: ${targetScore}/100`);
-        console.log(`   Top issues: ${validationResults.issues.slice(0, 3).join(', ')}`);
+        const scoreDelta = score - previousScore;
+        console.log(`🔄 IMPROVEMENT ROUND ${improvementAttempt}/${maxImprovementAttempts}: ${score}/100 → Target: ${targetScore}/100 ${scoreDelta !== 0 ? `(${scoreDelta > 0 ? '+' : ''}${scoreDelta})` : ''}`);
 
-        // Build focused improvement prompt - only address failing validations
-        let focusedFixes = '';
+        // Build STRUCTURED feedback from actual failed validation rules
+        const failedRules = [];
         
-        // Priority 1: Word count (biggest penalty)
-        if (validationResults.issues.includes('Word count must be 2000±5 words')) {
+        // Critical Rules (≥15 points)
+        if (!validationResults.metaDescriptionValid) {
+          failedRules.push({
+            rule: 'Meta Description Length',
+            points: -25,
+            severity: 'CRITICAL',
+            current: `${result.metaDescription?.length || 0} characters`,
+            required: '150-160 characters',
+            fix: result.metaDescription?.length < 150 
+              ? `Expand to 150-160 chars. Add more detail about "${keywords.split(',')[0].trim()}" benefits.`
+              : `Trim to 150-160 chars. Remove filler words, keep "${keywords.split(',')[0].trim()}" keyword.`
+          });
+        }
+        
+        if (!validationResults.wordCountValid) {
           const wordsNeeded = validationResults.wordCount < 1995 
             ? 1995 - validationResults.wordCount 
             : validationResults.wordCount - 2005;
-          
-          focusedFixes += `
-1. WORD COUNT FIX (HIGHEST PRIORITY):
-   Current: ${validationResults.wordCount} words | Required: 1995-2005 words
-   ${validationResults.wordCount < 1995 
-     ? `Action: ADD exactly ${wordsNeeded} words by expanding 2-3 existing sections with detailed examples and explanations`
-     : `Action: REMOVE exactly ${wordsNeeded} words by trimming verbose phrases and redundant content`
-   }
-   After: Report new word count`;
+          failedRules.push({
+            rule: 'Word Count',
+            points: -25,
+            severity: 'CRITICAL',
+            current: `${validationResults.wordCount} words`,
+            required: '1995-2005 words (strict)',
+            fix: validationResults.wordCount < 1995
+              ? `ADD ${wordsNeeded} words: Expand 2-3 H2 sections with clinical examples, patient scenarios (anonymized), or research findings.`
+              : `REMOVE ${wordsNeeded} words: Trim redundant phrases, combine similar points, remove excessive adjectives.`
+          });
         }
         
-        // Priority 2: Meta description (25 point penalty)
-        if (validationResults.issues.some((i: string) => i.includes('Meta description'))) {
-          focusedFixes += `
-
-2. META DESCRIPTION FIX:
-   Current: ${result.metaDescription?.length || 0} chars | Required: 150-160 chars
-   Current text: "${result.metaDescription}"
-   Action: ${result.metaDescription?.length < 150 ? 'Expand' : 'Trim'} to exactly 150-160 chars, keep keyword "${keywords.split(',')[0].trim()}"`;
+        if (validationResults.h1Count !== 1) {
+          failedRules.push({
+            rule: 'H1 Tag Count',
+            points: -20,
+            severity: 'CRITICAL',
+            current: `${validationResults.h1Count} H1 tags`,
+            required: 'Exactly 1 H1',
+            fix: validationResults.h1Count === 0
+              ? 'Add ONE <h1> tag at the very start with the blog title.'
+              : 'Remove duplicate H1s. Keep only the first one. Convert others to H2.'
+          });
         }
         
-        // Priority 3: Other issues
-        const otherIssues = validationResults.issues.filter((i: string) => 
-          !i.includes('Word count') && !i.includes('Meta description')
-        );
-        if (otherIssues.length > 0) {
-          focusedFixes += `
-
-3. OTHER FIXES:
-${otherIssues.slice(0, 3).map((issue: string) => `   - ${issue}`).join('\n')}`;
+        if (!validationResults.noPlaceholders) {
+          failedRules.push({
+            rule: 'Placeholder Text',
+            points: -15,
+            severity: 'CRITICAL',
+            current: 'Contains [brackets] or TODO markers',
+            required: 'No placeholders allowed',
+            fix: 'Replace ALL [placeholder text] with actual content. Search for brackets, "TODO", "TBD", "insert", "example".'
+          });
+        }
+        
+        if (!validationResults.hasAuthoritativeLinks) {
+          failedRules.push({
+            rule: 'Authoritative External Links',
+            points: -15,
+            severity: 'CRITICAL',
+            current: 'Missing NIMH/APA/SAMHSA links',
+            required: 'At least 1 link to NIMH, APA, or SAMHSA',
+            fix: 'Add link to https://www.nimh.nih.gov/ or https://www.apa.org/ or https://www.samhsa.gov/ in relevant section.'
+          });
+        }
+        
+        // Important Rules (8-14 points)
+        if (validationResults.localSEOMentions < 2) {
+          failedRules.push({
+            rule: 'Local SEO Mentions',
+            points: -12,
+            severity: 'IMPORTANT',
+            current: `${validationResults.localSEOMentions} mentions`,
+            required: '2+ mentions of Orlando/Winter Park/Central Florida',
+            fix: 'Add "Orlando" or "Winter Park" naturally in 2+ places (e.g., "therapy in Orlando", "Winter Park mental health").'
+          });
+        }
+        
+        if (!validationResults.uniqueAnchorText) {
+          failedRules.push({
+            rule: 'Unique Anchor Text',
+            points: -10,
+            severity: 'IMPORTANT',
+            current: 'Duplicate link text detected',
+            required: 'All links must have unique anchor text',
+            fix: 'Find duplicate link text (e.g., "click here" × 3) and make each unique (e.g., "learn more about EMDR", "explore anxiety treatment").'
+          });
+        }
+        
+        if (!validationResults.primaryKeywordInTitle) {
+          failedRules.push({
+            rule: 'Keyword in Title',
+            points: -8,
+            severity: 'IMPORTANT',
+            current: `Title missing "${keywords.split(',')[0].trim()}"`,
+            required: 'Primary keyword in title',
+            fix: `Include "${keywords.split(',')[0].trim()}" in the title naturally.`
+          });
+        }
+        
+        if (!validationResults.primaryKeywordInMeta) {
+          failedRules.push({
+            rule: 'Keyword in Meta Description',
+            points: -8,
+            severity: 'IMPORTANT',
+            current: `Meta missing "${keywords.split(',')[0].trim()}"`,
+            required: 'Primary keyword in meta description',
+            fix: `Add "${keywords.split(',')[0].trim()}" to meta description.`
+          });
+        }
+        
+        if (validationResults.internalLinkCount < 4) {
+          failedRules.push({
+            rule: 'Internal Links',
+            points: -8,
+            severity: 'IMPORTANT',
+            current: `${validationResults.internalLinkCount} internal links`,
+            required: '4+ internal links',
+            fix: `Add ${4 - validationResults.internalLinkCount} more links to /services, /treatments, /conditions, /request-appointment.`
+          });
+        }
+        
+        if (validationResults.externalLinkCount < 3) {
+          failedRules.push({
+            rule: 'External Links',
+            points: -8,
+            severity: 'IMPORTANT',
+            current: `${validationResults.externalLinkCount} external links`,
+            required: '3+ authoritative external links',
+            fix: `Add ${3 - validationResults.externalLinkCount} more links to research (.gov/.edu) or professional orgs.`
+          });
+        }
+        
+        if (!validationResults.hasCTA) {
+          failedRules.push({
+            rule: 'Call-to-Action',
+            points: -8,
+            severity: 'IMPORTANT',
+            current: 'No CTA found',
+            required: 'Clear CTA phrase present',
+            fix: 'Add call-to-action: "schedule a consultation", "contact us", "request appointment", "call today".'
+          });
+        }
+        
+        const density = parseFloat(validationResults.keywordDensity);
+        if (density < 0.5 || density > 3) {
+          failedRules.push({
+            rule: 'Keyword Density',
+            points: -7,
+            severity: 'STANDARD',
+            current: `${validationResults.keywordDensity} (target: 0.5-3%)`,
+            required: '0.5-3% keyword density',
+            fix: density < 0.5
+              ? `Increase "${keywords.split(',')[0].trim()}" usage naturally (currently too low).`
+              : `Reduce "${keywords.split(',')[0].trim()}" repetition (currently keyword-stuffed).`
+          });
+        }
+        
+        // Standard Rules (<8 points)
+        if (validationResults.h2Count < 6) {
+          failedRules.push({
+            rule: 'H2 Subheadings',
+            points: -5,
+            severity: 'STANDARD',
+            current: `${validationResults.h2Count} H2 tags`,
+            required: '6+ H2 subheadings',
+            fix: `Add ${6 - validationResults.h2Count} more <h2> subheadings to break up content.`
+          });
+        }
+        
+        if (!validationResults.primaryKeywordInFirstPara) {
+          failedRules.push({
+            rule: 'Keyword in First Paragraph',
+            points: -5,
+            severity: 'STANDARD',
+            current: `First paragraph missing "${keywords.split(',')[0].trim()}"`,
+            required: 'Primary keyword in first paragraph',
+            fix: `Add "${keywords.split(',')[0].trim()}" naturally in the opening paragraph.`
+          });
+        }
+        
+        if (validationResults.titleLength > 60) {
+          failedRules.push({
+            rule: 'Title Length',
+            points: -5,
+            severity: 'STANDARD',
+            current: `${validationResults.titleLength} characters`,
+            required: '≤60 characters for SEO',
+            fix: `Shorten title to ≤60 chars. Remove filler words.`
+          });
+        }
+        
+        if (!validationResults.validInternalLinks) {
+          failedRules.push({
+            rule: 'Valid Internal Links',
+            points: -5,
+            severity: 'STANDARD',
+            current: 'Broken/invalid internal links',
+            required: 'All internal links must be valid paths',
+            fix: 'Fix broken links. Use /services, /treatments, /emdr-therapy, /depression-counseling, /anxiety-therapy.'
+          });
+        }
+        
+        if (!validationResults.hasAdultContentIndicator) {
+          failedRules.push({
+            rule: 'Adult Content Indicator',
+            points: -5,
+            severity: 'STANDARD',
+            current: 'Missing 18+ age compliance',
+            required: '18+/adult services indicator',
+            fix: 'Add "adult mental health services" or "ages 18+" or "18 and older" somewhere in content.'
+          });
+        }
+        
+        if (!validationResults.hasProperHeadingHierarchy) {
+          failedRules.push({
+            rule: 'Heading Hierarchy',
+            points: -3,
+            severity: 'STANDARD',
+            current: `${validationResults.h3Count} H3 tags`,
+            required: 'Proper H1→H2→H3 hierarchy',
+            fix: 'Ensure H3 tags only appear under H2s. Add more H3 subsections if needed.'
+          });
         }
 
-        const improvementPrompt = `TARGETED FIX REQUIRED - Current Score: ${score}/100 | Target: ${targetScore}/100
+        // Build repair prompt with structured feedback
+        const repairPrompt = `🔧 SEO REPAIR TASK: Fix validation failures to reach 80+/100 score
 
-${focusedFixes}
+CURRENT STATUS: ${score}/100 (Need +${targetScore - score} points to pass)
+PREVIOUS ATTEMPT: ${previousScore}/100 (${scoreDelta > 0 ? `✅ Improved +${scoreDelta}` : scoreDelta < 0 ? `⚠️ Declined ${scoreDelta}` : '⚠️ No change'})
 
-INSTRUCTIONS:
-1. Make ONLY the specific changes listed above
-2. DO NOT rebuild the entire blog - make targeted edits
-3. Report your changes: "Fixed [X], new word count: [Y]"
-4. Return the complete updated blog JSON
+FAILED VALIDATION RULES (${failedRules.length} issues found):
+${failedRules.map((r, i) => `
+${i + 1}. ❌ ${r.rule} [${r.points} points] (${r.severity})
+   Current: ${r.current}
+   Required: ${r.required}
+   Fix: ${r.fix}`).join('\n')}
 
-Current blog to edit:
-${JSON.stringify({ title: result.title, metaDescription: result.metaDescription, slug: result.slug, content: result.content, internalLinks: result.internalLinks, externalLinks: result.externalLinks, excerpt: result.excerpt, featuredImageQuery: result.featuredImageQuery, contentImageQueries: result.contentImageQueries }, null, 2)}`;
+REPAIR INSTRUCTIONS:
+1. Fix ONLY the specific issues listed above - do NOT rewrite the entire blog
+2. For each fix, maintain the existing content structure and tone
+3. Preserve all working elements (don't break what's already passing)
+4. Return the COMPLETE updated blog in JSON format
+5. Every 800 words, mentally recheck:
+   - Word count target (2000 ±5 strict)
+   - One H1, six+ H2, proper hierarchy
+   - 4+ internal links, 3+ external links
+   - 2+ Orlando/Winter Park mentions
+   - CTA and 18+ compliance present
+   - Proper keyword density and HTML structure
+
+CURRENT BLOG TO REPAIR:
+${JSON.stringify({ 
+  title: result.title, 
+  metaDescription: result.metaDescription, 
+  slug: result.slug, 
+  content: result.content, 
+  internalLinks: result.internalLinks, 
+  externalLinks: result.externalLinks, 
+  excerpt: result.excerpt, 
+  featuredImageQuery: result.featuredImageQuery, 
+  contentImageQueries: result.contentImageQueries 
+}, null, 2)}
+
+Return the fully repaired blog as valid JSON with all fields.`;
 
         const improvementCompletion = await getOpenAI().chat.completions.create({
           model: "gpt-4o",
           response_format: { type: "json_object" },
           messages: [
-            { role: "user", content: improvementPrompt }
+            { role: "system", content: "You are a senior SEO editor and compliance specialist. Fix only the specific validation failures mentioned." },
+            { role: "user", content: repairPrompt }
           ],
-          temperature: 0.2, // Very low temperature for precise fixes
+          temperature: 0.3, // Low temp for precise, targeted fixes
           max_tokens: 16000,
         });
 
         result = JSON.parse(improvementCompletion.choices[0].message.content || "{}");
         
-        // Validate improvement
+        // Re-validate
+        previousScore = score;
         validation = this.calculateSEOScore(
           result.content,
           result.metaDescription,
@@ -1381,16 +1599,20 @@ ${JSON.stringify({ title: result.title, metaDescription: result.metaDescription,
         score = validation.score;
         validationResults = validation.validationResults;
         
-        console.log(`   → Improved to ${score}/100 | Word Count: ${validationResults.wordCount}`);
+        const improvement = score - previousScore;
+        console.log(`   📈 Result: ${score}/100 | Δ${improvement > 0 ? '+' : ''}${improvement} | Words: ${validationResults.wordCount} | Remaining issues: ${validationResults.issues.length}`);
         
         if (score >= targetScore) {
-          console.log(`✅ SUCCESS! Achieved target score of ${targetScore}/100 on improvement round ${improvementAttempt}`);
+          console.log(`✅ SUCCESS! Achieved ${targetScore}+ score on round ${improvementAttempt}`);
+          break;
+        } else if (improvement === 0 && improvementAttempt > 3) {
+          console.log(`⚠️  No progress after ${improvementAttempt} attempts. Breaking loop.`);
           break;
         }
       }
 
       if (score < targetScore) {
-        console.log(`⚠️  Reached max improvement attempts. Final score: ${score}/100 (Target: ${targetScore}/100)`);
+        console.log(`⚠️  Final score: ${score}/100 (Target: ${targetScore}/100) after ${improvementAttempt} attempts`);
         console.log(`   Remaining Issues: ${validationResults.issues.join(', ')}`);
       } else {
         console.log(`🎉 Blog ready for publication! Final Score: ${score}/100`);
