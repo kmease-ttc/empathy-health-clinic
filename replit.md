@@ -80,6 +80,21 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
   - Accessibility specifics
   - Mobile-friendly formatting
   
+  **Image Selection Policy (Brand Standards):**
+  GPT-4o generates Unsplash search queries that strictly avoid:
+  - Pills, medication, pharmaceuticals, or prescriptions
+  - Overly sad, dark, or distressing imagery
+  - People crying, in obvious distress, or looking severely depressed
+  - Clinical settings with medical equipment
+  - Isolation imagery (person alone in darkness)
+  
+  Instead, queries focus on uplifting, professional imagery:
+  - Hope, healing, growth, and recovery themes
+  - Nature scenes (sunrise, peaceful landscapes, trees, water)
+  - Professional therapy environments (bright, welcoming offices)
+  - Wellness and self-care (meditation, mindfulness, peaceful moments)
+  - Support and connection (warm, professional, uplifting)
+  
   **Quality Threshold:** Blogs scoring below 70/100 trigger console warnings with detailed issue lists to prevent low-quality content publication.
 - **Social Media Integration:** Footer includes links to Facebook, Twitter/X, Instagram, TikTok, LinkedIn, YouTube, and ZocDoc for comprehensive social presence and patient engagement.
 - **Team Page (`/team`):** Displays staff with bios and credentials.

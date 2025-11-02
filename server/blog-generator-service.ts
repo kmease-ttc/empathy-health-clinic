@@ -546,6 +546,32 @@ MANDATORY REQUIREMENTS (AUTOMATIC VALIDATION):
   • "Reach out for help", "Book your consultation"
   • "Request an appointment", "Connect with our team"
 
+📸 IMAGE SEARCH QUERIES (CRITICAL - BRAND STANDARDS):
+✗ NEVER use queries that might return:
+  • Pills, medication, pharmaceuticals, or prescriptions
+  • Overly sad, dark, or distressing imagery
+  • People crying, in obvious distress, or looking severely depressed
+  • Clinical settings with medical equipment
+  • Isolation imagery (person alone in darkness)
+✓ ALWAYS use queries focused on:
+  • Hope, healing, growth, and recovery
+  • Nature scenes (sunrise, peaceful landscapes, trees, water)
+  • Professional therapy environments (bright, welcoming offices)
+  • Wellness and self-care (meditation, mindfulness, peaceful moments)
+  • Support and connection (warm, professional, uplifting)
+✓ Example GOOD queries:
+  • "peaceful nature healing sunrise hope"
+  • "professional therapy office bright welcoming"
+  • "wellness mindfulness calm serene"
+  • "mental health recovery growth journey"
+  • "supportive counseling warm environment"
+  • "therapy session professional bright office"
+✗ Example BAD queries (NEVER USE):
+  • "depression medication pills" ❌
+  • "sad person crying dark" ❌
+  • "mental illness distress" ❌
+  • "pharmaceutical treatment" ❌
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 OUTPUT FORMAT (JSON):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -556,8 +582,8 @@ OUTPUT FORMAT (JSON):
   "slug": "url-friendly-slug-from-title",
   "excerpt": "First 200 characters from content",
   "content": "FULL 2000-word HTML article - see structure below",
-  "featuredImageQuery": "peaceful mental health nature therapy",
-  "contentImageQueries": ["therapy session professional", "mental wellness mindfulness", "counseling support empathy"],
+  "featuredImageQuery": "peaceful nature healing sunrise hope mental wellness",
+  "contentImageQueries": ["professional therapy office bright welcoming", "wellness mindfulness calm serene", "supportive counseling warm environment"],
   "internalLinks": ["/services", "/emdr-therapy", "/depression-counseling", "/request-appointment"],
   "externalLinks": ["https://www.nimh.nih.gov/health/topics/...", "https://www.apa.org/topics/...", "https://www.samhsa.gov/..."]
 }
@@ -897,11 +923,11 @@ Return the IMPROVED blog with ALL issues fixed. This is attempt ${improvementAtt
       // Images are automatically reserved in the database during fetch to prevent race conditions
       console.log("🖼️  Fetching unique images from Unsplash...");
       const featuredImages = await this.fetchUniqueImages(
-        result.featuredImageQuery || imageStyle || "mental health wellness",
+        result.featuredImageQuery || imageStyle || "peaceful nature healing sunrise hope wellness",
         1
       );
       const contentImages = await this.fetchUniqueImages(
-        result.contentImageQueries?.[0] || "therapy counseling",
+        result.contentImageQueries?.[0] || "professional therapy office bright welcoming calm",
         3
       );
 
