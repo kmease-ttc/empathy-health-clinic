@@ -296,7 +296,7 @@ Return ONLY the title, nothing else.`;
   }
 
   /**
-   * Intelligently adjust word count to exactly 2000 words (±5) using GPT with verification
+   * Intelligently adjust word count to 1800-2200 words using GPT with verification
    * Retries up to 3 times, then falls back to deterministic adjustment if needed
    */
   private async adjustWordCount(
@@ -305,7 +305,7 @@ Return ONLY the title, nothing else.`;
     keywords: string,
     city?: string
   ): Promise<string> {
-    const tolerance = 5;
+    const tolerance = 200;
     const minWords = targetWords - tolerance;
     const maxWords = targetWords + tolerance;
     const currentWords = this.countWords(content);
@@ -533,11 +533,11 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
       issues.push("Meta description must be 150-160 characters");
     }
 
-    // Critical: Word count (2000 ±5 words)
+    // Critical: Word count (1800-2200 words)
     const wordCount = content.split(/\s+/).filter(w => w.length > 0).length;
-    if (wordCount < 1995 || wordCount > 2005) {
+    if (wordCount < 1800 || wordCount > 2200) {
       score -= 25;
-      issues.push("Word count must be 2000±5 words");
+      issues.push("Word count must be 1800-2200 words");
     }
 
     // Critical: H1 tag check (exactly one)
@@ -728,7 +728,7 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
     return {
       score: finalScore,
       validationResults: {
-        wordCountValid: wordCount >= 1995 && wordCount <= 2005,
+        wordCountValid: wordCount >= 1800 && wordCount <= 2200,
         metaDescriptionValid: metaDescription.length >= 150 && metaDescription.length <= 160,
         h1Count,
         h2Count,
@@ -821,24 +821,24 @@ Return COMPLETE blog in JSON format:
     console.log(`   ✓ Generated ${wordCount} words`);
 
     // ═══════════════════════════════════════════════════════════════
-    // RULE 2: Word Count (2000±5 words)
+    // RULE 2: Word Count (1800-2200 words)
     // ═══════════════════════════════════════════════════════════════
-    console.log("\n📊 RULE 2: Enforce EXACTLY 2000 words (±5)");
+    console.log("\n📊 RULE 2: Enforce 1800-2200 words");
     const step2Prompt = `CONTEXT: You are improving an existing long-form blog post across multiple refinement stages.
 This is Step 2 of 8. Never shorten or summarize existing content unless absolutely necessary to meet word count.
 Always preserve all existing sections and structure.
 
 CURRENT STATE: Your blog has ${wordCount} words.
-TARGET: Exactly 2000 words (±5 allowed: 1995-2005 total)
+TARGET: 1800-2200 words (aim for ~2000)
 
 Current blog:
 ${JSON.stringify(currentBlog, null, 2)}
 
 CONDITIONAL TASK:
-${wordCount >= 1995 && wordCount <= 2005 ? `
-✓ Word count is perfect! Return the blog exactly as-is with no modifications.
-` : wordCount < 1995 ? `
-⚠️ Blog is too short (${wordCount} words). ADD ${1995 - wordCount} more words.
+${wordCount >= 1800 && wordCount <= 2200 ? `
+✓ Word count is good! Return the blog exactly as-is with no modifications.
+` : wordCount < 1800 ? `
+⚠️ Blog is too short (${wordCount} words). ADD ${1800 - wordCount} more words.
 
 IF the blog already has good structure:
 - Expand each existing section with more detailed explanations
@@ -848,9 +848,9 @@ IF the blog already has good structure:
 - DO NOT remove any existing content
 
 ELSE (if blog lacks structure):
-- Add new comprehensive sections to reach 2000 words
+- Add new comprehensive sections to reach target range
 ` : `
-⚠️ Blog is too long (${wordCount} words). REMOVE ${wordCount - 2005} words.
+⚠️ Blog is too long (${wordCount} words). REMOVE ${wordCount - 2200} words.
 
 IF the blog has verbose or redundant sections:
 - Remove only redundant phrases and duplicate content
@@ -859,7 +859,7 @@ IF the blog has verbose or redundant sections:
 - Preserve all key information and structure
 `}
 
-CRITICAL: Return the COMPLETE updated blog with EXACTLY 1995-2005 words.
+CRITICAL: Return the COMPLETE updated blog with 1800-2200 words.
 Never truncate or summarize - always preserve full content.
 
 Return EXACT same JSON structure:
@@ -888,7 +888,7 @@ Return EXACT same JSON structure:
     }
     
     wordCount = currentBlog.content?.split(/\s+/).filter((w: string) => w.length > 0).length || 0;
-    console.log(`   ✓ Now ${wordCount} words (target: 1995-2005)`);
+    console.log(`   ✓ Now ${wordCount} words (target: 1800-2200)`);
 
     // ═══════════════════════════════════════════════════════════════
     // RULE 3: Meta Description (150-160 chars with keyword)
@@ -1302,13 +1302,13 @@ Return complete JSON:
       console.log("📋 STAGE 1/3: Creating content plan with word-count budgets...");
       const plannerPrompt = `Create a detailed content outline for a mental health blog about: ${topic}
 
-TARGET: Exactly 2000 words (±5 allowed: 1995-2005 total)
+TARGET: 1800-2200 words (aim for ~2000)
 PRIMARY KEYWORD: ${keywords.split(',')[0].trim()}
 
 INSTRUCTIONS:
 1. Create 6-8 H2 sections relevant to "${topic}"
 2. Each H2 should have 2 H3 subsections
-3. Assign word budgets that sum to EXACTLY 2000 words:
+3. Assign word budgets that sum to approximately 2000 words:
    - Introduction: 220 words
    - Each H2 section: 280 words
    - Conclusion: 80 words
@@ -1335,7 +1335,7 @@ OUTPUT JSON:
   }
 }
 
-MATH CHECK: Verify outline.wordBudget values sum to 1995-2005. Adjust if needed.`;
+MATH CHECK: Verify outline.wordBudget values sum to 1800-2200. Adjust if needed.`;
 
       const plannerCompletion = await getOpenAI().chat.completions.create({
         model: "gpt-4o",
@@ -1437,7 +1437,7 @@ YOUR TASK: Create the final JSON output ensuring it passes all validation rules 
 
 CRITICAL RULES (High Penalties):
 1. ✅ Meta Description (-25 pts): 150-160 characters and includes primary keyword "${keywords.split(',')[0].trim()}"
-2. ✅ Word Count (-25 pts): Exactly 2000 ±5 words (1995-2005)
+2. ✅ Word Count (-25 pts): 1800-2200 words (aim for ~2000)
 3. ✅ H1 Tag (-20 pts): Exactly ONE <h1> tag (no more, no less)
 4. ✅ Placeholder Text (-15 pts): NO [brackets], "TODO", "Lorem ipsum", "TBD", etc.
 5. ✅ Authoritative Links (-15 pts): At least 1 link to NIMH, APA, SAMHSA, WHO, CDC, Mayo Clinic, or Psychology Today
@@ -1554,16 +1554,16 @@ OUTPUT JSON:
         }
         
         if (!validationResults.wordCountValid) {
-          const wordsNeeded = validationResults.wordCount < 1995 
-            ? 1995 - validationResults.wordCount 
-            : validationResults.wordCount - 2005;
+          const wordsNeeded = validationResults.wordCount < 1800 
+            ? 1800 - validationResults.wordCount 
+            : validationResults.wordCount - 2200;
           failedRules.push({
             rule: 'Word Count',
             points: -25,
             severity: 'CRITICAL',
             current: `${validationResults.wordCount} words`,
-            required: '1995-2005 words (strict)',
-            fix: validationResults.wordCount < 1995
+            required: '1800-2200 words',
+            fix: validationResults.wordCount < 1800
               ? `⚠️ CRITICAL: ADD EXACTLY ${wordsNeeded} WORDS NOW.
               
 HOW TO ADD ${wordsNeeded} WORDS:
@@ -1574,7 +1574,7 @@ HOW TO ADD ${wordsNeeded} WORDS:
    - Expanding explanations with practical applications (e.g., "In practice, this means...")
    - Adding context or background information (e.g., "Historically, mental health professionals have...")
 3. Use complete sentences and full paragraphs - NO bullet points or short lists
-4. After adding content, verify TOTAL word count reaches 1995-2005 range
+4. After adding content, verify TOTAL word count reaches 1800-2200 range
 
 DO NOT just add a few sentences - you need ${wordsNeeded} words of substantial, valuable content.`
               : `REMOVE ${wordsNeeded} words: Trim redundant phrases, combine similar points, remove excessive adjectives.`
@@ -1802,14 +1802,14 @@ REPAIR INSTRUCTIONS:
 2. For each fix, maintain the existing content structure and tone
 3. Preserve all working elements (don't break what's already passing)
 4. ⚠️ IF WORD COUNT IS LISTED ABOVE: This is your #1 priority - add the EXACT number of words specified
-5. After making changes, COUNT YOUR WORDS to verify you hit 1995-2005 range
+5. After making changes, COUNT YOUR WORDS to verify you hit 1800-2200 range
 6. Return the COMPLETE updated blog in JSON format
 
 WORD COUNT PRIORITY:
 - If word count is a failed rule above, fixing it gains you 25 points
 - You MUST add substantial content, not just filler
 - Add complete paragraphs with valuable information
-- Verify final count is 1995-2005 before submitting
+- Verify final count is 1800-2200 before submitting
 
 CURRENT BLOG TO REPAIR:
 ${JSON.stringify({ 

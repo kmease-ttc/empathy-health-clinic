@@ -36,7 +36,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
   - **3-Stage Generator with Guaranteed Word Count (Current - PRODUCTION READY):** Uses Planner → Drafter → Formatter stages, followed by intelligent retry system (up to 10 attempts) that feeds structured validation failures back to GPT. Each retry receives detailed rule-by-rule feedback showing which of the 32 quality standards failed, point penalties, severity levels (CRITICAL/IMPORTANT/STANDARD), and specific fix instructions. Tracks improvement deltas per retry and exits early if no progress (3 consecutive rounds). Pre-validation layer catches malformed inputs before expensive API calls. Enhanced console logging with ANSI color-coded severity (red/yellow/cyan) for debugging.
   
   **Word Count Guarantee System (Nov 2024):**
-  The system implements a three-tier word count adjustment pipeline that **guarantees** 1995-2005 words or throws an error (fail-fast):
+  The system implements a three-tier word count adjustment pipeline that **guarantees** 1800-2200 words or throws an error (fail-fast):
   
   1. **GPT-4o Verification Loop:** After the formatter stage, the system verifies word count. If outside range, GPT-4o is called up to 3 times with explicit instructions to adjust content. Each attempt is re-counted and verified.
   
@@ -44,13 +44,13 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
   
   3. **Hard Word-by-Word Adjustment:** If still outside range after deterministic fallback, a final loop removes/adds individual words one at a time (up to 100 iterations) to converge on the target. This guarantees convergence for any delta ≤100 words.
   
-  4. **Fail-Fast Guard:** If word count is still outside 1995-2005 after all adjustment attempts, the system throws an error rather than returning out-of-range content.
+  4. **Fail-Fast Guard:** If word count is still outside 1800-2200 after all adjustment attempts, the system throws an error rather than returning out-of-range content.
   
   **Dual Checkpoint Integration:** Word count adjustment runs at two critical points:
   - Post-formatter stage (before initial SEO scoring)
   - Post-repair loop (after SEO validation and repairs)
   
-  This ensures that even if the repair loop adds/removes content, the final output is always within 1995-2005 words, guaranteeing the SEO score ≥80 by eliminating the 25-point word count penalty.
+  This ensures that even if the repair loop adds/removes content, the final output is always within 1800-2200 words, guaranteeing the SEO score ≥80 by eliminating the 25-point word count penalty.
   
   **Key Insight:** GPT-4o cannot reliably hit precise word counts through prompting alone. This implementation acknowledges that limitation and provides programmatic verification and adjustment at every stage.
   
