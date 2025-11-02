@@ -1153,36 +1153,42 @@ QUALITY REQUIREMENTS:
 ✓ Links: All anchor text must be unique (no "learn more" twice)
 ✓ Generic references only: "individuals", "a person", "someone", "many people" (NO patient names or ages)`;
 
-      const drafterPrompt = `Write blog content following this outline EXACTLY. CRITICAL: You MUST hit the exact word budget for each section.
+      const drafterPrompt = `Write blog content following this outline EXACTLY. 
+
+⚠️ CRITICAL WORD COUNT REQUIREMENT: You MUST produce EXACTLY 2000 words (±5 allowed: 1995-2005). Blogs under 1995 words will be rejected. This is the #1 priority.
 
 OUTLINE:
 ${JSON.stringify(outline, null, 2)}
 
-WRITING PROCESS:
+WRITING STRATEGY TO HIT 2000 WORDS:
 1. Write intro (${outline.outline.find((s: any) => s.section === 'intro')?.wordBudget || 220} words):
    - Include primary keyword "${keywords.split(',')[0].trim()}" in first paragraph
    - Mention Orlando and "adults 18+"
+   - Be DETAILED - don't summarize, expand with context
    
 2. Write each H2 section (280 words each):
-   - Follow word budget precisely
-   - Include H3 subsections as specified
+   - Follow word budget precisely - err on side of MORE words if needed
+   - Include H3 subsections with full explanations (not bullet points)
+   - Add clinical examples, case scenarios, research findings
    - Add required links with unique anchor text
+   - EXPAND naturally - don't be concise, be thorough
    
 3. Write conclusion (80 words):
    - Final CTA with Orlando mention
 
-WORD COUNT TRACKING:
-After EACH section, verify word count:
-- Count words in that section
-- Report running total
-- If off-target, adjust next section
+🎯 WORD COUNT ENFORCEMENT:
+- Each H2 section should be 280+ words (not 150, not 200 - FULL 280+)
+- Use complete sentences and paragraphs, not lists or bullets
+- Include practical examples and detailed explanations
+- Add context, background, and supporting details
+- THINK: "How can I make this section more valuable to readers?" then WRITE IT
 
-EXAMPLE OUTPUT:
-Intro: 220 words | Running total: 220
-Section 1: 280 words | Running total: 500
-Section 2: 280 words | Running total: 780
-...
-Conclusion: 80 words | Final total: 2000
+WORD COUNT VERIFICATION:
+After writing, count total words in content. If under 1995 words:
+- Identify which sections are too short
+- Expand 2-3 sections with additional paragraphs
+- Add more clinical examples, statistics, or context
+- NEVER return content under 1995 words
 
 RETURN JSON:
 {
@@ -1195,7 +1201,7 @@ RETURN JSON:
   "finalWordCount": 2000
 }
 
-START WRITING NOW. Hit those word budgets!`;
+START WRITING NOW. Remember: 2000 words is NON-NEGOTIABLE. Write with depth and detail.`;
 
       const drafterCompletion = await getOpenAI().chat.completions.create({
         model: "gpt-4o",
@@ -1299,6 +1305,7 @@ OUTPUT JSON:
       const maxImprovementAttempts = 10;
       const targetScore = 80;
       let previousScore = score;
+      let consecutiveNoProgress = 0;
 
       while (score < targetScore && improvementAttempt < maxImprovementAttempts) {
         improvementAttempt++;
@@ -1333,7 +1340,19 @@ OUTPUT JSON:
             current: `${validationResults.wordCount} words`,
             required: '1995-2005 words (strict)',
             fix: validationResults.wordCount < 1995
-              ? `ADD ${wordsNeeded} words: Expand 2-3 H2 sections with clinical examples, patient scenarios (anonymized), or research findings.`
+              ? `⚠️ CRITICAL: ADD EXACTLY ${wordsNeeded} WORDS NOW.
+              
+HOW TO ADD ${wordsNeeded} WORDS:
+1. Identify 2-3 H2 sections that are shortest/least detailed
+2. For EACH section, add ${Math.ceil(wordsNeeded / 3)} words by:
+   - Adding 2-3 new paragraphs with clinical examples (e.g., "For instance, individuals experiencing...")
+   - Including research findings or statistics (e.g., "Studies from NIMH show that...")
+   - Expanding explanations with practical applications (e.g., "In practice, this means...")
+   - Adding context or background information (e.g., "Historically, mental health professionals have...")
+3. Use complete sentences and full paragraphs - NO bullet points or short lists
+4. After adding content, verify TOTAL word count reaches 1995-2005 range
+
+DO NOT just add a few sentences - you need ${wordsNeeded} words of substantial, valuable content.`
               : `REMOVE ${wordsNeeded} words: Trim redundant phrases, combine similar points, remove excessive adjectives.`
           });
         }
@@ -1549,14 +1568,15 @@ REPAIR INSTRUCTIONS:
 1. Fix ONLY the specific issues listed above - do NOT rewrite the entire blog
 2. For each fix, maintain the existing content structure and tone
 3. Preserve all working elements (don't break what's already passing)
-4. Return the COMPLETE updated blog in JSON format
-5. Every 800 words, mentally recheck:
-   - Word count target (2000 ±5 strict)
-   - One H1, six+ H2, proper hierarchy
-   - 4+ internal links, 3+ external links
-   - 2+ Orlando/Winter Park mentions
-   - CTA and 18+ compliance present
-   - Proper keyword density and HTML structure
+4. ⚠️ IF WORD COUNT IS LISTED ABOVE: This is your #1 priority - add the EXACT number of words specified
+5. After making changes, COUNT YOUR WORDS to verify you hit 1995-2005 range
+6. Return the COMPLETE updated blog in JSON format
+
+WORD COUNT PRIORITY:
+- If word count is a failed rule above, fixing it gains you 25 points
+- You MUST add substantial content, not just filler
+- Add complete paragraphs with valuable information
+- Verify final count is 1995-2005 before submitting
 
 CURRENT BLOG TO REPAIR:
 ${JSON.stringify({ 
@@ -1602,11 +1622,18 @@ Return the fully repaired blog as valid JSON with all fields.`;
         const improvement = score - previousScore;
         console.log(`   📈 Result: ${score}/100 | Δ${improvement > 0 ? '+' : ''}${improvement} | Words: ${validationResults.wordCount} | Remaining issues: ${validationResults.issues.length}`);
         
+        // Track consecutive rounds with no progress
+        if (improvement <= 0) {
+          consecutiveNoProgress++;
+        } else {
+          consecutiveNoProgress = 0; // Reset if we made progress
+        }
+        
         if (score >= targetScore) {
           console.log(`✅ SUCCESS! Achieved ${targetScore}+ score on round ${improvementAttempt}`);
           break;
-        } else if (improvement === 0 && improvementAttempt > 3) {
-          console.log(`⚠️  No progress after ${improvementAttempt} attempts. Breaking loop.`);
+        } else if (consecutiveNoProgress >= 3) {
+          console.log(`⚠️  No progress for ${consecutiveNoProgress} consecutive attempts. Breaking loop to save API costs.`);
           break;
         }
       }
