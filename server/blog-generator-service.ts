@@ -193,6 +193,41 @@ Return ONLY the title, nothing else.`;
   }
 
   /**
+   * Format validation results as a detailed table for logging
+   */
+  private formatValidationTable(validationResults: any): void {
+    const rules = [
+      { name: 'Meta Description Length', passed: validationResults.metaDescriptionValid, points: 25, details: `${validationResults.metaDescriptionValid ? '✅' : '❌'} 150-160 chars` },
+      { name: 'Word Count', passed: validationResults.wordCountValid, points: 25, details: `${validationResults.wordCount} words` },
+      { name: 'H1 Tag Count', passed: validationResults.h1Count === 1, points: 20, details: `${validationResults.h1Count} H1${validationResults.h1Count !== 1 ? ' (need 1)' : ''}` },
+      { name: 'Placeholder Text', passed: validationResults.noPlaceholders, points: 15, details: validationResults.noPlaceholders ? '✅ None' : '❌ Found' },
+      { name: 'Authoritative Links', passed: validationResults.hasAuthoritativeLinks, points: 15, details: validationResults.hasAuthoritativeLinks ? '✅ NIMH/APA/SAMHSA' : '❌ Missing' },
+      { name: 'Local SEO Mentions', passed: validationResults.localSEOMentions >= 2, points: 12, details: `${validationResults.localSEOMentions} mention${validationResults.localSEOMentions !== 1 ? 's' : ''}` },
+      { name: 'Unique Anchor Text', passed: validationResults.uniqueAnchorText, points: 10, details: validationResults.uniqueAnchorText ? '✅ All unique' : '❌ Duplicates' },
+      { name: 'Keyword in Title', passed: validationResults.primaryKeywordInTitle, points: 8, details: validationResults.primaryKeywordInTitle ? '✅ Present' : '❌ Missing' },
+      { name: 'Keyword in Meta', passed: validationResults.primaryKeywordInMeta, points: 8, details: validationResults.primaryKeywordInMeta ? '✅ Present' : '❌ Missing' },
+      { name: 'Internal Links', passed: validationResults.internalLinkCount >= 4, points: 8, details: `${validationResults.internalLinkCount} links` },
+      { name: 'External Links', passed: validationResults.externalLinkCount >= 3, points: 8, details: `${validationResults.externalLinkCount} links` },
+      { name: 'Call-to-Action', passed: validationResults.hasCTA, points: 8, details: validationResults.hasCTA ? '✅ Present' : '❌ Missing' },
+      { name: 'Keyword Density', passed: parseFloat(validationResults.keywordDensity) >= 0.5 && parseFloat(validationResults.keywordDensity) <= 3, points: 7, details: validationResults.keywordDensity },
+      { name: 'H2 Subheadings', passed: validationResults.h2Count >= 6, points: 5, details: `${validationResults.h2Count} H2${validationResults.h2Count < 6 ? ' (need 6+)' : 's'}` },
+      { name: 'Keyword in First Para', passed: validationResults.primaryKeywordInFirstPara, points: 5, details: validationResults.primaryKeywordInFirstPara ? '✅ Present' : '❌ Missing' },
+      { name: 'Title Length', passed: validationResults.titleLength <= 60, points: 5, details: `${validationResults.titleLength || 0} chars` },
+      { name: 'Valid Internal Links', passed: validationResults.validInternalLinks, points: 5, details: validationResults.validInternalLinks ? '✅ Valid' : '❌ Invalid paths' },
+      { name: 'Adult Content Indicator', passed: validationResults.hasAdultContentIndicator, points: 5, details: validationResults.hasAdultContentIndicator ? '✅ 18+' : '❌ Missing' },
+      { name: 'Heading Hierarchy', passed: validationResults.hasProperHeadingHierarchy, points: 3, details: `${validationResults.h3Count} H3s` },
+    ];
+
+    console.log('\n📊 DETAILED VALIDATION BREAKDOWN:');
+    console.table(rules.map(r => ({
+      Rule: r.name,
+      Status: r.passed ? '✅ Pass' : '❌ Fail',
+      Points: r.points,
+      Details: r.details
+    })));
+  }
+
+  /**
    * Calculate SEO score based on 32 quality standards
    */
   private calculateSEOScore(
@@ -432,6 +467,7 @@ Return ONLY the title, nothing else.`;
         validInternalLinks: invalidInternalLinks.length === 0,
         hasProperHeadingHierarchy: hasProperHierarchy,
         hasAdultContentIndicator: hasAdultIndicator,
+        titleLength: title.length,
         wordCount,
         issues,
       },
@@ -1104,27 +1140,49 @@ START WRITING NOW. Hit those word budgets!`;
       // STAGE 3: FORMATTER - Assemble final JSON with all elements
       // ═══════════════════════════════════════════════════════════════
       console.log("🎨 STAGE 3/3: Formatting final output with images and links...");
-      const formatterPrompt = `Assemble the final blog post JSON output.
+      const formatterPrompt = `Assemble the final blog post JSON output that must pass all 22 automated validation rules.
 
 TITLE: ${outline.title}
 META DESCRIPTION: ${outline.metaDescription}
 SLUG: ${outline.slug}
 CONTENT: ${draftedContent.content}
 
-YOUR TASK: Create the final JSON output with all required fields.
+YOUR TASK: Create the final JSON output ensuring it passes all validation rules below.
 
-CRITICAL REQUIREMENTS:
-1. Extract internal links from content - ensure 4+ unique links
-2. Extract external links from content - ensure 3+ authoritative links
-3. Verify ALL anchor texts are unique (no duplicates)
-4. Create excerpt (first 200 chars of content, plain text)
-5. Generate image search queries (avoid pills, sadness; use hope, healing, nature themes)
-6. Verify meta description is 150-160 chars with primary keyword "${keywords.split(',')[0].trim()}"
+📋 22 AUTOMATED VALIDATION RULES (MUST PASS):
+
+CRITICAL RULES (High Penalties):
+1. ✅ Meta Description: 150-160 characters and includes primary keyword "${keywords.split(',')[0].trim()}"
+2. ✅ Word Count: Exactly 2000 ±5 words (1995-2005)
+3. ✅ H1 Tag: Exactly ONE <h1> tag (no more, no less)
+4. ✅ Placeholder Text: NO [brackets], "TODO", "Lorem ipsum", "TBD", etc.
+5. ✅ Authoritative Links: At least 1 link to NIMH, APA, SAMHSA, WHO, CDC, Mayo Clinic, or Psychology Today
+6. ✅ Local SEO: Mention "Orlando" or "Winter Park" at least 2x total
+
+IMPORTANT RULES (Medium Penalties):
+7. ✅ Unique Anchor Text: All link text must be unique (no "learn more" twice)
+8. ✅ Keyword in Title: Primary keyword must appear in title
+9. ✅ Keyword in Meta: Primary keyword must appear in meta description
+10. ✅ Internal Links: At least 4 links to /services, /team, /request-appointment, etc.
+11. ✅ External Links: At least 3 authoritative external links
+12. ✅ CTA: Include call-to-action ("contact us", "schedule", "get help")
+13. ✅ Keyword Density: 0.5-3% of total words
+
+STANDARD RULES (Lower Penalties):
+14. ✅ H2 Subheadings: At least 6 <h2> tags for structure
+15. ✅ Keyword in First Paragraph: Primary keyword in first 300 characters
+16. ✅ Title Length: ≤60 characters
+17. ✅ Proper HTML: All content wrapped in <p>, <h2>, <h3> tags
+18. ✅ Valid Internal Links: Only link to valid pages (listed above)
+19. ✅ Adult Indicator: Include "adults", "18+", "over 18" at least once
+20. ✅ Heading Hierarchy: H3 tags nested under H2 sections
+21. ✅ Link Validation: No broken or placeholder URLs
+22. ✅ Image Queries: Professional, hopeful themes (NO pills or sadness)
 
 OUTPUT JSON:
 {
   "title": "${outline.title}",
-  "metaDescription": "150-160 char description",
+  "metaDescription": "150-160 char description with keyword",
   "slug": "${outline.slug}",
   "excerpt": "First 200 chars as plain text",
   "content": "${draftedContent.content}",
@@ -1158,7 +1216,8 @@ OUTPUT JSON:
       score = validation.score;
       validationResults = validation.validationResults;
       
-      console.log(`📊 3-STAGE Generation Complete! Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
+      console.log(`\n📊 3-STAGE Generation Complete! Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
+      this.formatValidationTable(validationResults);
       
       // ADDITIONAL IMPROVEMENT LOOP: Keep going until 80+ score
       let improvementAttempt = 0;
@@ -1261,6 +1320,10 @@ ${JSON.stringify({ title: result.title, metaDescription: result.metaDescription,
       } else {
         console.log(`🎉 Blog ready for publication! Final Score: ${score}/100`);
       }
+      
+      // Display final validation breakdown
+      console.log(`\n🏁 FINAL VALIDATION RESULTS:`);
+      this.formatValidationTable(validationResults);
       
       // Fetch unique images that haven't been used before
       // Images are automatically reserved in the database during fetch to prevent race conditions
