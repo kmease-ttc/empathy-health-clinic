@@ -222,6 +222,106 @@ Return ONLY the title, nothing else.`;
   }
 
   /**
+   * Intelligently adjust word count to exactly 2000 words (±5) using GPT
+   * If too short: Adds relevant content
+   * If too long: Trims redundant content
+   */
+  private async adjustWordCount(
+    content: string,
+    targetWords: number = 2000,
+    keywords: string,
+    city?: string
+  ): Promise<string> {
+    // Count current words (strip HTML)
+    const textOnly = content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    const currentWords = textOnly.split(' ').filter(word => word.length > 0).length;
+    
+    // Check if adjustment needed
+    const tolerance = 5;
+    const minWords = targetWords - tolerance;
+    const maxWords = targetWords + tolerance;
+    
+    if (currentWords >= minWords && currentWords <= maxWords) {
+      console.log(`   ✓ Word count perfect: ${currentWords} words (no adjustment needed)`);
+      return content;
+    }
+    
+    console.log(`📝 Word Count Adjustment: ${currentWords} → ${targetWords} words (${currentWords < minWords ? 'expand' : 'trim'})`);
+    
+    const wordsNeeded = currentWords < minWords 
+      ? minWords - currentWords 
+      : currentWords - maxWords;
+    
+    const adjustmentPrompt = currentWords < minWords
+      ? `The following blog content is ${wordsNeeded} words TOO SHORT. Add EXACTLY ${wordsNeeded} words of valuable, relevant content.
+
+CURRENT CONTENT (${currentWords} words):
+${content}
+
+TARGET: ${minWords}-${maxWords} words total
+
+HOW TO ADD ${wordsNeeded} WORDS:
+1. Identify 2-3 sections that could benefit from more detail
+2. Add ${Math.ceil(wordsNeeded / 3)} words to EACH section by:
+   - Clinical examples: "For instance, individuals experiencing..."
+   - Research findings: "Studies from NIMH indicate that..."
+   - Practical applications: "In practice, therapists often recommend..."
+   - Context/background: "Understanding this approach requires..."
+3. Maintain natural flow - make additions feel organic
+4. Preserve ALL existing HTML structure, headings, and links
+5. Use primary keyword "${keywords.split(',')[0].trim()}" naturally 1-2 times in additions
+
+RETURN: The complete updated HTML content with ${wordsNeeded} more words.`
+      : `The following blog content is ${wordsNeeded} words TOO LONG. Remove EXACTLY ${wordsNeeded} words while preserving value.
+
+CURRENT CONTENT (${currentWords} words):
+${content}
+
+TARGET: ${minWords}-${maxWords} words total
+
+HOW TO REMOVE ${wordsNeeded} WORDS:
+1. Find redundant phrases, repetitive points, or filler words
+2. Combine similar sentences into more concise versions
+3. Remove excessive adjectives or adverbs
+4. Trim examples that duplicate other points
+5. Preserve ALL:
+   - HTML structure (<h1>, <h2>, <h3>, <p> tags)
+   - ALL links (internal and external)
+   - Key points and clinical information
+   - Primary keyword "${keywords.split(',')[0].trim()}"
+
+RETURN: The complete trimmed HTML content with ${wordsNeeded} fewer words.`;
+
+    try {
+      const adjustmentCompletion = await getOpenAI().chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { 
+            role: "system", 
+            content: "You are an expert content editor. Make precise word count adjustments while preserving quality and SEO value." 
+          },
+          { role: "user", content: adjustmentPrompt }
+        ],
+        temperature: 0.3,
+        max_tokens: 16000,
+      });
+
+      const adjustedContent = adjustmentCompletion.choices[0].message.content?.trim() || content;
+      
+      // Verify adjustment worked
+      const adjustedTextOnly = adjustedContent.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      const adjustedWords = adjustedTextOnly.split(' ').filter(word => word.length > 0).length;
+      
+      console.log(`   ✓ Adjustment complete: ${currentWords} → ${adjustedWords} words`);
+      
+      return adjustedContent;
+    } catch (error) {
+      console.error(`   ✗ Word count adjustment failed:`, error);
+      return content; // Return original if adjustment fails
+    }
+  }
+
+  /**
    * Format validation results as a detailed table for logging with severity colors
    */
   private formatValidationTable(validationResults: any): void {
@@ -1275,6 +1375,17 @@ OUTPUT JSON:
       });
 
       result = JSON.parse(formatterCompletion.choices[0].message.content || "{}");
+      
+      // ═══════════════════════════════════════════════════════════════
+      // POST-GENERATION: Intelligent word count adjustment
+      // ═══════════════════════════════════════════════════════════════
+      console.log("🔧 POST-PROCESSING: Adjusting word count to exact target...");
+      result.content = await this.adjustWordCount(
+        result.content,
+        2000,
+        keywords,
+        city
+      );
       
       // Validate initial generation
       let validation = this.calculateSEOScore(
