@@ -823,10 +823,10 @@ Return the FINAL, polished, publication-ready blog that scores 90+/100.`;
       
       console.log(`📊 3-Step Generation Complete! Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
       
-      // ADDITIONAL IMPROVEMENT LOOP: Keep going until 70+ score
+      // ADDITIONAL IMPROVEMENT LOOP: Keep going until 80+ score
       let improvementAttempt = 0;
-      const maxImprovementAttempts = 5; // Maximum 5 additional improvement rounds
-      const targetScore = 70;
+      const maxImprovementAttempts = 10; // Maximum 10 additional improvement rounds (was 5)
+      const targetScore = 80;
 
       while (score < targetScore && improvementAttempt < maxImprovementAttempts) {
         improvementAttempt++;
@@ -875,6 +875,21 @@ ${validationResults.issues.some((i: string) => i.includes('anchor text')) ? `
 🔴 DUPLICATE ANCHOR TEXT:
 Each link MUST have unique anchor text. Don't use "learn more" twice.
 Use: "explore our services", "schedule a consultation", "discover treatment options", "meet our team"
+` : ''}
+
+${validationResults.issues.some((i: string) => i.toLowerCase().includes('hipaa')) ? `
+🔴 CRITICAL HIPAA VIOLATION:
+REMOVE ALL patient identifiers immediately:
+- NO names: "Sarah", "John", "Mary", "Mr. Smith", "Mrs. Johnson"
+- NO ages: "35-year-old", "age 42", "elderly patient"
+- NO locations for patients: "patient from Orlando", "resident of Winter Park"
+ONLY use generic references: "a patient", "an individual", "someone experiencing...", "many people find..."
+` : ''}
+
+${validationResults.issues.some((i: string) => i.includes('first paragraph')) ? `
+🔴 KEYWORD IN FIRST PARAGRAPH:
+The primary keyword "${keywords.split(',')[0].trim()}" MUST appear in the first paragraph (first 150 words).
+Add it naturally to the opening paragraph.
 ` : ''}
 
 Return the IMPROVED blog with ALL issues fixed. This is attempt ${improvementAttempt + 3}/${maxImprovementAttempts + 3}.`;
