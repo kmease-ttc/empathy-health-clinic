@@ -1155,40 +1155,41 @@ QUALITY REQUIREMENTS:
 
       const drafterPrompt = `Write blog content following this outline EXACTLY. 
 
-⚠️ CRITICAL WORD COUNT REQUIREMENT: You MUST produce EXACTLY 2000 words (±5 allowed: 1995-2005). Blogs under 1995 words will be rejected. This is the #1 priority.
+⚠️ CRITICAL WORD COUNT REQUIREMENT: Target EXACTLY 2000 words. Acceptable range: 1995-2005 words.
+- Below 1995 = REJECTED (-25 points)
+- Above 2005 = REJECTED (-25 points)
+- Sweet spot: 1998-2002 words
 
 OUTLINE:
 ${JSON.stringify(outline, null, 2)}
 
-WRITING STRATEGY TO HIT 2000 WORDS:
+WRITING STRATEGY TO HIT 2000 WORDS (±2):
 1. Write intro (${outline.outline.find((s: any) => s.section === 'intro')?.wordBudget || 220} words):
    - Include primary keyword "${keywords.split(',')[0].trim()}" in first paragraph
    - Mention Orlando and "adults 18+"
-   - Be DETAILED - don't summarize, expand with context
+   - Be thorough but controlled
    
-2. Write each H2 section (280 words each):
-   - Follow word budget precisely - err on side of MORE words if needed
-   - Include H3 subsections with full explanations (not bullet points)
-   - Add clinical examples, case scenarios, research findings
+2. Write each H2 section (~280 words each):
+   - Follow word budget precisely - NOT 350, NOT 200 - aim for 280
+   - Include H3 subsections with complete explanations
+   - Add clinical examples, research findings
    - Add required links with unique anchor text
-   - EXPAND naturally - don't be concise, be thorough
+   - Include the primary keyword "${keywords.split(',')[0].trim()}" naturally 2-3 times per section
    
 3. Write conclusion (80 words):
    - Final CTA with Orlando mention
 
-🎯 WORD COUNT ENFORCEMENT:
-- Each H2 section should be 280+ words (not 150, not 200 - FULL 280+)
-- Use complete sentences and paragraphs, not lists or bullets
-- Include practical examples and detailed explanations
-- Add context, background, and supporting details
-- THINK: "How can I make this section more valuable to readers?" then WRITE IT
+🎯 WORD COUNT PRECISION:
+- Target 2000 words TOTAL (verify at end)
+- Each H2 section: ~280 words (not 350, not 150)
+- Use full paragraphs, but don't ramble
+- Quality over quantity - but hit the target
 
 WORD COUNT VERIFICATION:
-After writing, count total words in content. If under 1995 words:
-- Identify which sections are too short
-- Expand 2-3 sections with additional paragraphs
-- Add more clinical examples, statistics, or context
-- NEVER return content under 1995 words
+After writing, count total words. Adjust if needed:
+- If under 1995: Add 1-2 paragraphs to shortest sections
+- If over 2005: Trim verbose sentences, remove redundancies
+- GOAL: Land in 1998-2002 word range
 
 RETURN JSON:
 {
@@ -1201,7 +1202,7 @@ RETURN JSON:
   "finalWordCount": 2000
 }
 
-START WRITING NOW. Remember: 2000 words is NON-NEGOTIABLE. Write with depth and detail.`;
+START WRITING NOW. Target: 1998-2002 words. Precision matters.`;
 
       const drafterCompletion = await getOpenAI().chat.completions.create({
         model: "gpt-4o",
@@ -1472,15 +1473,24 @@ DO NOT just add a few sentences - you need ${wordsNeeded} words of substantial, 
         
         const density = parseFloat(validationResults.keywordDensity);
         if (density < 0.5 || density > 3) {
+          const keyword = keywords.split(',')[0].trim();
+          const currentCount = Math.round((density / 100) * validationResults.wordCount);
+          const targetCount = Math.ceil((0.5 / 100) * validationResults.wordCount);
+          const needsMore = targetCount - currentCount;
+          
           failedRules.push({
             rule: 'Keyword Density',
             points: -7,
             severity: 'STANDARD',
-            current: `${validationResults.keywordDensity} (target: 0.5-3%)`,
+            current: `${validationResults.keywordDensity} (${currentCount} mentions in ${validationResults.wordCount} words)`,
             required: '0.5-3% keyword density',
             fix: density < 0.5
-              ? `Increase "${keywords.split(',')[0].trim()}" usage naturally (currently too low).`
-              : `Reduce "${keywords.split(',')[0].trim()}" repetition (currently keyword-stuffed).`
+              ? `Add "${keyword}" ${needsMore} more times naturally throughout content. Examples:
+   - H2 headings: "Understanding ${keyword}" or "${keyword} Approaches"
+   - Paragraph intros: "When considering ${keyword}..." or "${keyword} can help individuals..."
+   - Section conclusions: "These aspects of ${keyword} demonstrate..."
+   Current: ${currentCount} mentions | Target: ${targetCount}+ mentions | Add: ${needsMore}+ more`
+              : `Reduce "${keyword}" repetition (currently keyword-stuffed). Remove ${currentCount - Math.floor((3 / 100) * validationResults.wordCount)} mentions.`
           });
         }
         
