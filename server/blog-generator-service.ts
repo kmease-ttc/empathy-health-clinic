@@ -795,9 +795,102 @@ Return the FINAL, polished, publication-ready blog that scores 90+/100.`;
       score = validation.score;
       validationResults = validation.validationResults;
       
-      console.log(`✅ 3-Step Generation Complete! Final Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
-      if (validationResults.issues.length > 0) {
+      console.log(`📊 3-Step Generation Complete! Score: ${score}/100 | Word Count: ${validationResults.wordCount}`);
+      
+      // ADDITIONAL IMPROVEMENT LOOP: Keep going until 80+ score
+      let improvementAttempt = 0;
+      const maxImprovementAttempts = 5; // Maximum 5 additional improvement rounds
+      const targetScore = 80;
+
+      while (score < targetScore && improvementAttempt < maxImprovementAttempts) {
+        improvementAttempt++;
+        console.log(`🔄 IMPROVEMENT ROUND ${improvementAttempt}/${maxImprovementAttempts}: Current Score ${score}/100 → Target: ${targetScore}/100`);
+        console.log(`   Issues to fix: ${validationResults.issues.slice(0, 5).join(', ')}`);
+
+        const improvementPrompt = `Your blog currently scores ${score}/100. We need ${targetScore}/100 to publish.
+
+CURRENT BLOG STATUS:
+- Title: ${result.title}
+- Meta Description (${result.metaDescription?.length || 0} chars): ${result.metaDescription}
+- Word Count: ${validationResults.wordCount} words
+- Current Score: ${score}/100
+
+CRITICAL ISSUES BLOCKING PUBLICATION:
+${validationResults.issues.map((issue: string, i: number) => `${i + 1}. ${issue}`).join('\n')}
+
+SPECIFIC FIXES NEEDED:
+
+${validationResults.issues.includes('Word count must be 2000±5 words') ? `
+🔴 WORD COUNT ISSUE (CRITICAL):
+Your blog has ${validationResults.wordCount} words. It MUST be between 1995-2005 words.
+${validationResults.wordCount < 1995 ? `ADD ${1995 - validationResults.wordCount} more words by:
+- Expanding each section with 2-3 more paragraphs
+- Adding more detailed examples and explanations
+- Creating additional H3 subsections under existing H2s` : `REMOVE ${validationResults.wordCount - 2005} words by:
+- Trimming redundant paragraphs
+- Making sentences more concise
+- Removing repetitive content`}
+` : ''}
+
+${validationResults.issues.some((i: string) => i.includes('Meta description')) ? `
+🔴 META DESCRIPTION ISSUE (CRITICAL):
+Current length: ${result.metaDescription?.length || 0} characters
+Required: EXACTLY 150-160 characters with keyword "${keywords.split(',')[0].trim()}"
+${result.metaDescription?.length < 150 ? 'ADD more words to reach 150-160 chars' : 'TRIM to 150-160 chars'}
+` : ''}
+
+${validationResults.issues.some((i: string) => i.includes('Keyword density')) ? `
+🔴 KEYWORD DENSITY ISSUE:
+The primary keyword "${keywords.split(',')[0].trim()}" needs to appear more naturally throughout the content.
+Add it to 2-3 more paragraphs in a natural way.
+` : ''}
+
+${validationResults.issues.some((i: string) => i.includes('anchor text')) ? `
+🔴 DUPLICATE ANCHOR TEXT:
+Each link MUST have unique anchor text. Don't use "learn more" twice.
+Use: "explore our services", "schedule a consultation", "discover treatment options", "meet our team"
+` : ''}
+
+Return the IMPROVED blog with ALL issues fixed. This is attempt ${improvementAttempt + 3}/${maxImprovementAttempts + 3}.`;
+
+        const improvementCompletion = await getOpenAI().chat.completions.create({
+          model: "gpt-4o",
+          response_format: { type: "json_object" },
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: `Review and fix this blog to score ${targetScore}+/100:\n\n${improvementPrompt}` }
+          ],
+          temperature: 0.4,
+          max_tokens: 16000,
+        });
+
+        result = JSON.parse(improvementCompletion.choices[0].message.content || "{}");
+        
+        // Validate improvement
+        validation = this.calculateSEOScore(
+          result.content,
+          result.metaDescription,
+          result.title,
+          result.internalLinks || [],
+          result.externalLinks || [],
+          keywords
+        );
+        score = validation.score;
+        validationResults = validation.validationResults;
+        
+        console.log(`   → Improved to ${score}/100 | Word Count: ${validationResults.wordCount}`);
+        
+        if (score >= targetScore) {
+          console.log(`✅ SUCCESS! Achieved target score of ${targetScore}/100 on improvement round ${improvementAttempt}`);
+          break;
+        }
+      }
+
+      if (score < targetScore) {
+        console.log(`⚠️  Reached max improvement attempts. Final score: ${score}/100 (Target: ${targetScore}/100)`);
         console.log(`   Remaining Issues: ${validationResults.issues.join(', ')}`);
+      } else {
+        console.log(`🎉 Blog ready for publication! Final Score: ${score}/100`);
       }
       
       // Fetch unique images that haven't been used before
