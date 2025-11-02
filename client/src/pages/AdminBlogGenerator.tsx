@@ -187,15 +187,14 @@ export default function AdminBlogGenerator() {
         description: "Identifying strategic blog opportunities based on your services and existing content",
       });
 
-      const response = await apiRequest("POST", "/api/auto-generate-blog", {});
-      const responseData = await response.json() as { 
-        success: boolean; 
-        data: GeneratedBlogResult; 
-        suggestion: { topic: string; keywords: string; reasoning: string; priority: number };
-        message: string;
-      };
+      const response = await fetch("/api/auto-generate-blog", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
 
-      if (responseData.success && responseData.data) {
+      const responseData = await response.json();
+
+      if (response.ok && responseData.success && responseData.data) {
         setGeneratedBlog(responseData.data);
         
         // Update form with auto-suggested values
@@ -204,10 +203,22 @@ export default function AdminBlogGenerator() {
 
         toast({
           title: "✅ Strategic Blog Generated!",
-          description: `Topic: "${responseData.suggestion.topic}" | ${responseData.message}`,
+          description: `Topic: "${responseData.suggestion.topic}" | Score: ${responseData.data.seoScore}/100`,
+        });
+      } else if (response.status === 400 && responseData.error) {
+        // Quality gate failure - show detailed feedback
+        const score = responseData.seoScore || 0;
+        const topIssues = responseData.issues?.slice(0, 3) || [];
+        
+        toast({
+          title: `⚠️ Quality Gate Failed (${score}/100)`,
+          description: topIssues.length > 0 
+            ? `Top issues: ${topIssues.join(", ")}`
+            : responseData.error,
+          variant: "destructive",
         });
       } else {
-        throw new Error("Invalid response from server");
+        throw new Error(responseData.error || "Invalid response from server");
       }
     } catch (error) {
       console.error("Auto-generation error:", error);
