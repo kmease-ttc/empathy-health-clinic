@@ -566,7 +566,7 @@ export class MemStorage implements IStorage {
       { 
         name: "Optum", 
         logo: "/attached_assets/optum_1761610670721.webp",
-        slug: "optum-optum-coverage",
+        slug: "optum-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Optum",
         heroTitle: "Find a Psychiatrist That Accepts Optum",
         heroDescription: "Expert psychiatrist that takes Optum in Winter Park, FL. Our mental health clinic offers comprehensive psychiatric care, medication management, and anxiety and depression treatment for Optum members in the Orlando area.",
@@ -582,7 +582,7 @@ export class MemStorage implements IStorage {
       { 
         name: "Cigna", 
         logo: "/attached_assets/Cigna-Logo-1024x576_1761603078566.png",
-        slug: "cigna-cigna-coverage",
+        slug: "cigna-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Cigna",
         heroTitle: "Find a Psychiatrist That Accepts Cigna",
         heroDescription: "Expert psychiatrist that takes Cigna in Winter Park, FL. Our mental health clinic offers comprehensive psychiatric care, medication management, and anxiety and depression treatment for Cigna members in the Orlando area.",
@@ -598,7 +598,7 @@ export class MemStorage implements IStorage {
       { 
         name: "AdventHealth", 
         logo: "/attached_assets/AdventHealth_Logo.svg_1761603073152.png",
-        slug: "adventhealth-adventhealth-coverage",
+        slug: "adventhealth-coverage",
         pageTitle: "Find a Psychiatrist That Accepts AdventHealth",
         heroTitle: "Find a Psychiatrist That Accepts AdventHealth",
         heroDescription: "Expert psychiatrist that takes AdventHealth in Winter Park, FL. Our mental health clinic offers comprehensive psychiatric care, medication management, and anxiety and depression treatment for AdventHealth members in the Orlando area.",
@@ -614,7 +614,7 @@ export class MemStorage implements IStorage {
       { 
         name: "UMR", 
         logo: "/attached_assets/rehab-that-takes-UMR.png._1761746528980.webp",
-        slug: "umr-umr-coverage",
+        slug: "umr-coverage",
         pageTitle: "Find a Psychiatrist That Accepts UMR",
         heroTitle: "Find a Psychiatrist That Accepts UMR",
         heroDescription: "Expert psychiatrist that takes UMR in Winter Park, FL. Our mental health clinic offers comprehensive psychiatric care, medication management, and anxiety and depression treatment for UMR members in the Orlando area.",
@@ -630,7 +630,7 @@ export class MemStorage implements IStorage {
       { 
         name: "UnitedHealthcare", 
         logo: "/attached_assets/united-healthcare_1761610722363.webp",
-        slug: "unitedhealthcare-unitedhealthcare-coverage",
+        slug: "unitedhealthcare-coverage",
         pageTitle: "Find a Psychiatrist That Accepts UnitedHealthcare",
         heroTitle: "Find a Psychiatrist That Accepts UnitedHealthcare",
         heroDescription: "Expert psychiatrist that takes UnitedHealthcare in Winter Park, FL. Our mental health clinic offers comprehensive psychiatric care, medication management, and anxiety and depression treatment for UnitedHealthcare members in the Orlando area.",
@@ -646,7 +646,7 @@ export class MemStorage implements IStorage {
       { 
         name: "Oscar Health", 
         logo: "/attached_assets/oscar-logo-1_1761610777161.png",
-        slug: "oscar-health-oscar-health-coverage",
+        slug: "oscar-health-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Oscar Health",
         heroTitle: "Find a Psychiatrist That Accepts Oscar Health",
         heroDescription: "Expert psychiatrist that takes Oscar Health in Winter Park, FL. Our mental health clinic offers comprehensive psychiatric care, medication management, and anxiety and depression treatment for Oscar Health members in the Orlando area.",

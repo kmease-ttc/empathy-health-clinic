@@ -157,6 +157,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, "/services");
   });
 
+  // Insurance provider slug fixes - remove duplicate naming
+  const insuranceSlugRedirects = {
+    'optum-optum-coverage': 'optum-coverage',
+    'cigna-cigna-coverage': 'cigna-coverage',
+    'adventhealth-adventhealth-coverage': 'adventhealth-coverage',
+    'umr-umr-coverage': 'umr-coverage',
+    'unitedhealthcare-unitedhealthcare-coverage': 'unitedhealthcare-coverage',
+    'oscar-health-oscar-health-coverage': 'oscar-health-coverage'
+  };
+  
+  Object.entries(insuranceSlugRedirects).forEach(([oldSlug, newSlug]) => {
+    app.get(`/${oldSlug}`, (req, res) => {
+      res.redirect(301, `/${newSlug}`);
+    });
+    app.get(`/${oldSlug}/`, (req, res) => {
+      res.redirect(301, `/${newSlug}`);
+    });
+  });
+
   // Site content routes
   app.get("/api/site-content", async (_req, res) => {
     try {
