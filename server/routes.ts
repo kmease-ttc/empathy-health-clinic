@@ -138,10 +138,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, "/anxiety-therapy");
   });
   app.get("/adhd-assessment-page/", (req, res) => {
-    res.redirect(301, "/services");
+    res.redirect(301, "/adhd-treatment");
   });
   app.get("/adhd-test", (req, res) => {
-    res.redirect(301, "/services");
+    res.redirect(301, "/adhd-treatment");
+  });
+  app.get("/adhd-test/", (req, res) => {
+    res.redirect(301, "/adhd-treatment");
   });
   app.get("/psychological-assessment", (req, res) => {
     res.redirect(301, "/services");
@@ -274,6 +277,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, "/blog/who-cheats-more-men-or-women");
   });
   
+  // More blog posts without /blog/ prefix
+  const blogPostRedirects = [
+    'understanding-the-anatomy-of-a-panic-attack',
+    'how-to-focus-better-with-adhd',
+    'deciphering-the-differences-therapy-vs-counseling',
+    'title-understanding-the-different-types-of-anxiety-disorders',
+    'the-power-of-cognitive-behavioral-therapy-cbt',
+    'grief-self-care-tips-for-grieving',
+    'signs-of-being-gay',
+    'is-codependency-bad',
+    '6-effective-tips-for-fighting-anxiety-and-regaining-control',
+    'understanding-adhd-diagnosis-treatment-and-coping-strategies',
+    'post-traumatic-stress-disorder-ptsd-understanding-symptoms-and-treatment'
+  ];
+  
+  blogPostRedirects.forEach(slug => {
+    app.get(`/${slug}`, (req, res) => {
+      res.redirect(301, `/blog/${slug}`);
+    });
+    app.get(`/${slug}/`, (req, res) => {
+      res.redirect(301, `/blog/${slug}`);
+    });
+  });
+  
   // Double slash typo fix
   app.get("/what-is-mental-breakdown//", (req, res) => {
     res.redirect(301, "/blog/what-is-mental-breakdown");
@@ -294,9 +321,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, "/intimacy-therapy");
   });
   
+  app.get("/therapy/in-person-therapy-orlando", (req, res) => {
+    res.redirect(301, "/in-person-therapy");
+  });
+  app.get("/therapy/in-person-therapy-orlando/", (req, res) => {
+    res.redirect(301, "/in-person-therapy");
+  });
+  
+  app.get("/treatments/in-person-therapy-orlando", (req, res) => {
+    res.redirect(301, "/in-person-therapy");
+  });
+  app.get("/treatments/in-person-therapy-orlando/", (req, res) => {
+    res.redirect(301, "/in-person-therapy");
+  });
+  
   // WordPress date archive URLs - redirect to blog
   const dateArchivePatterns = [
-    '/2025/10/06/', '/2025/09/30/', '/2025/09/28/', '/2025/09/25/', '/2025/09/27/', '/2025/09/29/', '/2025/10/01/'
+    '/2025/10/06/', '/2025/09/30/', '/2025/09/28/', '/2025/09/25/', '/2025/09/27/', '/2025/09/29/', '/2025/10/01/',
+    '/2025/05/02/', '/2025/04/13/', '/2025/04/29/', '/2025/06/25/', '/2025/05/28/', '/2025/05/27/'
   ];
   dateArchivePatterns.forEach(pattern => {
     app.get(pattern, (req, res) => {
@@ -338,6 +380,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   app.get("/locations/therapy-services-pine-hills/", (req, res) => {
     res.redirect(301, "/therapy-services-orlando");
+  });
+  
+  // Lockhart - redirect to Orlando
+  app.get("/locations/therapy-services-lockhart", (req, res) => {
+    res.redirect(301, "/therapy-services-orlando");
+  });
+  app.get("/locations/therapy-services-lockhart/", (req, res) => {
+    res.redirect(301, "/therapy-services-orlando");
+  });
+  app.get("/locations/psychiatry-lockhart", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-orlando");
+  });
+  app.get("/locations/psychiatry-lockhart/", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-orlando");
+  });
+  
+  // Apopka - redirect to Orlando
+  app.get("/locations/psychiatry-apopka", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-orlando");
+  });
+  app.get("/locations/psychiatry-apopka/", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-orlando");
+  });
+  
+  // Maitland/Casselberry - redirect to existing pages
+  app.get("/locations/therapy-services-maitland", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-maitland");
+  });
+  app.get("/locations/therapy-services-maitland/", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-maitland");
+  });
+  app.get("/locations/therapy-services-casselberry", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-casselberry");
+  });
+  app.get("/locations/therapy-services-casselberry/", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-casselberry");
+  });
+  app.get("/locations/psychiatry-maitland", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-maitland");
+  });
+  app.get("/locations/psychiatry-maitland/", (req, res) => {
+    res.redirect(301, "/locations/psychiatrist-maitland");
   });
   
   // Old WordPress category/service pages
@@ -391,11 +475,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, "/services");
   });
   
+  // Testimonial pages - redirect to homepage
+  app.get("/testimonials/:slug", (req, res) => {
+    res.redirect(301, "/");
+  });
+  app.get("/testimonials/:slug/", (req, res) => {
+    res.redirect(301, "/");
+  });
+  
   // WordPress tag pages - redirect all to blog
   app.get("/tag/:tagslug", (req, res) => {
     res.redirect(301, "/blog");
   });
   app.get("/tag/:tagslug/", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  
+  // WordPress author pages - redirect all to blog
+  app.get("/author/:authorslug", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  app.get("/author/:authorslug/", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  app.get("/author/:authorslug/feed", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  app.get("/author/:authorslug/feed/", (req, res) => {
     res.redirect(301, "/blog");
   });
   
@@ -424,11 +530,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Legacy blog post feed URLs accessed without /blog/ prefix
-  app.get("/dbt-therapy-winter-park-emotional-regulation-skills/feed", (req, res) => {
-    res.redirect(301, "/blog/dbt-therapy-winter-park-emotional-regulation-skills");
-  });
-  app.get("/dbt-therapy-winter-park-emotional-regulation-skills/feed/", (req, res) => {
-    res.redirect(301, "/blog/dbt-therapy-winter-park-emotional-regulation-skills");
+  const legacyBlogPostFeeds = [
+    'dbt-therapy-winter-park-emotional-regulation-skills',
+    'when-anxiety-hurts-your-love-life-how-emdr-and-dbt-can-rebuild-confidence',
+    'emdr-therapy-a-guide-to-healing-from-past-relationship-trauma',
+    'it-service-providers-driving-healthcare-innovation-2025',
+    'school-psychology-career-guide'
+  ];
+  
+  legacyBlogPostFeeds.forEach(slug => {
+    app.get(`/${slug}/feed`, (req, res) => {
+      res.redirect(301, `/blog/${slug}`);
+    });
+    app.get(`/${slug}/feed/`, (req, res) => {
+      res.redirect(301, `/blog/${slug}`);
+    });
   });
 
   // Insurance provider slug fixes - remove duplicate naming
