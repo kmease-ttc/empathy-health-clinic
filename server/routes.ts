@@ -275,6 +275,97 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/locations/psychiatry-wekiwa-springs/", (req, res) => {
     res.redirect(301, "/locations/psychiatrist-orlando");
   });
+  
+  // Old WordPress category/service pages
+  app.get("/therapy-approaches", (req, res) => {
+    res.redirect(301, "/therapy");
+  });
+  app.get("/therapy-approaches/", (req, res) => {
+    res.redirect(301, "/therapy");
+  });
+  
+  app.get("/therapy/relationship-and-family", (req, res) => {
+    res.redirect(301, "/couples-therapy");
+  });
+  app.get("/therapy/relationship-and-family/", (req, res) => {
+    res.redirect(301, "/couples-therapy");
+  });
+  
+  app.get("/treatments/conditions-we-treat", (req, res) => {
+    res.redirect(301, "/conditions");
+  });
+  app.get("/treatments/conditions-we-treat/", (req, res) => {
+    res.redirect(301, "/conditions");
+  });
+  
+  app.get("/treatments/medical-services", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  app.get("/treatments/medical-services/", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  
+  // WordPress utility pages - redirect to homepage or services
+  app.get("/thank-you", (req, res) => {
+    res.redirect(301, "/");
+  });
+  app.get("/thank-you/", (req, res) => {
+    res.redirect(301, "/");
+  });
+  
+  app.get("/terms-and-conditions", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  app.get("/terms-and-conditions/", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  
+  app.get("/authorization-form", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  app.get("/authorization-form/", (req, res) => {
+    res.redirect(301, "/services");
+  });
+  
+  // WordPress tag pages - redirect all to blog
+  app.get("/tag/:tagslug", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  app.get("/tag/:tagslug/", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  
+  // WordPress RSS feed URLs - redirect to blog or parent page
+  app.get("/comments/feed", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  app.get("/comments/feed/", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  
+  // Catch-all for any /feed/ URLs not already handled
+  app.get("/tag/:tagslug/feed", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  app.get("/tag/:tagslug/feed/", (req, res) => {
+    res.redirect(301, "/blog");
+  });
+  
+  // Blog post feed URLs - redirect to the blog post itself (remove /feed/ suffix)
+  app.get("/blog/:slug/feed", (req, res) => {
+    res.redirect(301, `/blog/${req.params.slug}`);
+  });
+  app.get("/blog/:slug/feed/", (req, res) => {
+    res.redirect(301, `/blog/${req.params.slug}`);
+  });
+  
+  // Legacy blog post feed URLs accessed without /blog/ prefix
+  app.get("/dbt-therapy-winter-park-emotional-regulation-skills/feed", (req, res) => {
+    res.redirect(301, "/blog/dbt-therapy-winter-park-emotional-regulation-skills");
+  });
+  app.get("/dbt-therapy-winter-park-emotional-regulation-skills/feed/", (req, res) => {
+    res.redirect(301, "/blog/dbt-therapy-winter-park-emotional-regulation-skills");
+  });
 
   // Insurance provider slug fixes - remove duplicate naming
   const insuranceSlugRedirects = {
