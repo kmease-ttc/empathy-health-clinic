@@ -215,6 +215,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, "/bipolar-disorder-treatment");
   });
   
+  app.get("/depression", (req, res) => {
+    res.redirect(301, "/depression-treatment");
+  });
+  app.get("/depression/", (req, res) => {
+    res.redirect(301, "/depression-treatment");
+  });
+  
+  // DBT typo/old URL - redirect to CBT
+  app.get("/dialectical-behavioral-therapy", (req, res) => {
+    res.redirect(301, "/cognitive-behavioral-therapy");
+  });
+  app.get("/dialectical-behavioral-therapy/", (req, res) => {
+    res.redirect(301, "/cognitive-behavioral-therapy");
+  });
+  
   // Old WordPress blog post URLs accessed without /blog/ prefix
   app.get("/understanding-cognitive-behavioral-therapy-cbt-a-guide-to-mental-wellness", (req, res) => {
     res.redirect(301, "/blog/understanding-cognitive-behavioral-therapy-cbt-a-guide-to-mental-wellness");
@@ -235,6 +250,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   app.get("/practical-strategies-for-managing-anxiety-in-daily-life/", (req, res) => {
     res.redirect(301, "/blog/practical-strategies-for-managing-anxiety-in-daily-life");
+  });
+  
+  app.get("/cpr-first-aid-certification-that-covers-medical-and-non-medical-scenarios", (req, res) => {
+    res.redirect(301, "/blog/cpr-first-aid-certification-that-covers-medical-and-non-medical-scenarios");
+  });
+  app.get("/cpr-first-aid-certification-that-covers-medical-and-non-medical-scenarios/", (req, res) => {
+    res.redirect(301, "/blog/cpr-first-aid-certification-that-covers-medical-and-non-medical-scenarios");
   });
   
   // Double slash typo fix
@@ -262,8 +284,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // WordPress query string URLs
   app.get("/", (req, res, next) => {
+    // WordPress attachment IDs - redirect to homepage
+    if (req.query.attachment_id) {
+      return res.redirect(301, "/");
+    }
+    // WordPress page IDs - redirect to homepage
     if (req.query.page_id) {
       return res.redirect(301, "/");
+    }
+    next();
+  });
+  
+  // WordPress query strings on treatment pages
+  app.get("/treatments/:slug", (req, res, next) => {
+    if (req.query.page_id) {
+      return res.redirect(301, `/${req.params.slug}`);
     }
     next();
   });
