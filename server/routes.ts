@@ -169,13 +169,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Additional WordPress legacy redirects from Google Search Console
-  app.get("/team", (req, res) => {
-    res.redirect(301, "/services");
-  });
-  app.get("/team/", (req, res) => {
-    res.redirect(301, "/services");
-  });
-  
   app.get("/contact", (req, res) => {
     res.redirect(301, "/services");
   });
