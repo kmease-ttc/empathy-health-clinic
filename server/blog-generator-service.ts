@@ -448,7 +448,7 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
     };
 
     const rules = [
-      { name: 'Meta Description Length', passed: validationResults.metaDescriptionValid, points: 25, details: `${validationResults.metaDescriptionValid ? '✅' : '❌'} 150-160 chars` },
+      { name: 'Meta Description Length', passed: validationResults.metaDescriptionValid, points: 25, details: `${validationResults.metaDescriptionValid ? '✅' : '❌'} 120-160 chars` },
       { name: 'Word Count', passed: validationResults.wordCountValid, points: 25, details: `${validationResults.wordCount} words` },
       { name: 'H1 Tag Count', passed: validationResults.h1Count === 1, points: 20, details: `${validationResults.h1Count} H1${validationResults.h1Count !== 1 ? ' (need 1)' : ''}` },
       { name: 'Placeholder Text', passed: validationResults.noPlaceholders, points: 15, details: validationResults.noPlaceholders ? '✅ None' : '❌ Found' },
@@ -527,10 +527,10 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
     // Extract primary keyword (first keyword in the list)
     const primaryKeyword = keywords.split(',')[0]?.trim().toLowerCase() || '';
 
-    // Critical: Meta description length (150-160 chars)
-    if (metaDescription.length < 150 || metaDescription.length > 160) {
+    // Critical: Meta description length (120-160 chars)
+    if (metaDescription.length < 120 || metaDescription.length > 160) {
       score -= 25;
-      issues.push("Meta description must be 150-160 characters");
+      issues.push("Meta description must be 120-160 characters");
     }
 
     // Critical: Word count (1800-2200 words)
@@ -729,7 +729,7 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
       score: finalScore,
       validationResults: {
         wordCountValid: wordCount >= 1800 && wordCount <= 2200,
-        metaDescriptionValid: metaDescription.length >= 150 && metaDescription.length <= 160,
+        metaDescriptionValid: metaDescription.length >= 120 && metaDescription.length <= 160,
         h1Count,
         h2Count,
         h3Count,
@@ -891,32 +891,32 @@ Return EXACT same JSON structure:
     console.log(`   ✓ Now ${wordCount} words (target: 1800-2200)`);
 
     // ═══════════════════════════════════════════════════════════════
-    // RULE 3: Meta Description (150-160 chars with keyword)
+    // RULE 3: Meta Description (120-160 chars with keyword)
     // ═══════════════════════════════════════════════════════════════
-    console.log("\n📝 RULE 3: Meta description must be 150-160 characters with keyword");
+    console.log("\n📝 RULE 3: Meta description must be 120-160 characters with keyword");
     const metaLength = currentBlog.metaDescription?.length || 0;
     const step3Prompt = `CONTEXT: You are improving an existing long-form blog post across multiple refinement stages.
 This is Step 3 of 8. Never shorten or summarize existing content.
 Always preserve all existing sections, structure, and word count.
 
 CURRENT STATE: Meta description is ${metaLength} characters.
-TARGET: Exactly 150-160 characters with keyword "${primaryKeyword}"
+TARGET: Exactly 120-160 characters with keyword "${primaryKeyword}"
 
 Current meta: "${currentBlog.metaDescription}"
 
 CONDITIONAL TASK:
-${metaLength >= 150 && metaLength <= 160 && currentBlog.metaDescription?.toLowerCase().includes(primaryKeyword.toLowerCase()) ? `
+${metaLength >= 120 && metaLength <= 160 && currentBlog.metaDescription?.toLowerCase().includes(primaryKeyword.toLowerCase()) ? `
 ✓ Meta description is perfect! Return the blog exactly as-is with no modifications.
 ` : `
 ⚠️ Meta description needs adjustment.
 
 IF meta description exists but is wrong length or missing keyword:
-- Rewrite ONLY the metaDescription field to be 150-160 chars and include "${primaryKeyword}"
+- Rewrite ONLY the metaDescription field to be 120-160 chars and include "${primaryKeyword}"
 - Example: "Discover evidence-based ${primaryKeyword} in Orlando. Expert care at Empathy Health Clinic for adults 18+."
 - DO NOT modify title, slug, or content
 
 ELSE (if no meta description exists):
-- Create a compelling 150-160 char description with "${primaryKeyword}"
+- Create a compelling 120-160 char description with "${primaryKeyword}"
 `}
 
 CRITICAL: Return the COMPLETE blog with ALL content preserved.
@@ -925,7 +925,7 @@ Only modify the metaDescription field - everything else stays identical.
 Return EXACT same JSON structure:
 {
   "title": "...",
-  "metaDescription": "... 150-160 chars ...",
+  "metaDescription": "... 120-160 chars ...",
   "slug": "...",
   "content": "... COMPLETE HTML string - NO CHANGES ..."
 }`;
@@ -1317,7 +1317,7 @@ INSTRUCTIONS:
 OUTPUT JSON:
 {
   "title": "Under 60 chars with keyword '${keywords.split(',')[0].trim()}'",
-  "metaDescription": "Exactly 150-160 chars with keyword",
+  "metaDescription": "Exactly 120-160 chars with keyword",
   "slug": "url-friendly-slug",
   "outline": [
     {"section": "intro", "wordBudget": 220, "notes": "Must include keyword in first paragraph, mention Orlando, mention 'adults 18+'"},
@@ -1444,7 +1444,7 @@ YOUR TASK: Create the final JSON output ensuring it passes all validation rules 
 📋 22 AUTOMATED VALIDATION RULES (MUST PASS):
 
 CRITICAL RULES (High Penalties):
-1. ✅ Meta Description (-25 pts): 150-160 characters and includes primary keyword "${keywords.split(',')[0].trim()}"
+1. ✅ Meta Description (-25 pts): 120-160 characters and includes primary keyword "${keywords.split(',')[0].trim()}"
 2. ✅ Word Count (-25 pts): 1800-2200 words (aim for ~2000)
 3. ✅ H1 Tag (-20 pts): Exactly ONE <h1> tag (no more, no less)
 4. ✅ Placeholder Text (-15 pts): NO [brackets], "TODO", "Lorem ipsum", "TBD", etc.
@@ -1474,7 +1474,7 @@ STANDARD RULES (Lower Penalties):
 OUTPUT JSON:
 {
   "title": "${outline.title}",
-  "metaDescription": "150-160 char description with keyword",
+  "metaDescription": "120-160 char description with keyword",
   "slug": "${outline.slug}",
   "excerpt": "First 200 chars as plain text",
   "content": "${draftedContent.content}",
@@ -1554,10 +1554,10 @@ OUTPUT JSON:
             points: -25,
             severity: 'CRITICAL',
             current: `${result.metaDescription?.length || 0} characters`,
-            required: '150-160 characters',
-            fix: result.metaDescription?.length < 150 
-              ? `Expand to 150-160 chars. Add more detail about "${keywords.split(',')[0].trim()}" benefits.`
-              : `Trim to 150-160 chars. Remove filler words, keep "${keywords.split(',')[0].trim()}" keyword.`
+            required: '120-160 characters',
+            fix: result.metaDescription?.length < 120 
+              ? `Expand to 120-160 chars. Add more detail about "${keywords.split(',')[0].trim()}" benefits.`
+              : `Trim to 120-160 chars. Remove filler words, keep "${keywords.split(',')[0].trim()}" keyword.`
           });
         }
         
