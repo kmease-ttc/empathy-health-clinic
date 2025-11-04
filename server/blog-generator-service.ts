@@ -450,7 +450,7 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
     const rules = [
       { name: 'Meta Description Length', passed: validationResults.metaDescriptionValid, points: 25, details: `${validationResults.metaDescriptionValid ? '✅' : '❌'} 120-160 chars` },
       { name: 'Word Count', passed: validationResults.wordCountValid, points: 25, details: `${validationResults.wordCount} words` },
-      { name: 'H1 Tag Count', passed: validationResults.h1Count === 1, points: 20, details: `${validationResults.h1Count} H1${validationResults.h1Count !== 1 ? ' (need 1)' : ''}` },
+      { name: 'H1 Tag Count', passed: validationResults.h1Count >= 1 && validationResults.h1Count <= 3, points: 20, details: `${validationResults.h1Count} H1${validationResults.h1Count === 0 || validationResults.h1Count > 3 ? ' (need 1-3)' : ''}` },
       { name: 'Placeholder Text', passed: validationResults.noPlaceholders, points: 15, details: validationResults.noPlaceholders ? '✅ None' : '❌ Found' },
       { name: 'Authoritative Links', passed: validationResults.hasAuthoritativeLinks, points: 15, details: validationResults.hasAuthoritativeLinks ? '✅ NIMH/APA/SAMHSA' : '❌ Missing' },
       { name: 'Local SEO Mentions', passed: validationResults.localSEOMentions >= 2, points: 12, details: `${validationResults.localSEOMentions} mention${validationResults.localSEOMentions !== 1 ? 's' : ''}` },
@@ -463,7 +463,7 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
       { name: 'Keyword Density', passed: parseFloat(validationResults.keywordDensity) >= 0.5 && parseFloat(validationResults.keywordDensity) <= 3, points: 7, details: validationResults.keywordDensity },
       { name: 'H2 Subheadings', passed: validationResults.h2Count >= 6, points: 5, details: `${validationResults.h2Count} H2${validationResults.h2Count < 6 ? ' (need 6+)' : 's'}` },
       { name: 'Keyword in First Para', passed: validationResults.primaryKeywordInFirstPara, points: 5, details: validationResults.primaryKeywordInFirstPara ? '✅ Present' : '❌ Missing' },
-      { name: 'Title Length', passed: validationResults.titleLength <= 60, points: 5, details: `${validationResults.titleLength || 0} chars` },
+      { name: 'Title Length', passed: validationResults.titleLength >= 30 && validationResults.titleLength <= 65, points: 5, details: `${validationResults.titleLength || 0} chars` },
       { name: 'Valid Internal Links', passed: validationResults.validInternalLinks, points: 5, details: validationResults.validInternalLinks ? '✅ Valid' : '❌ Invalid paths' },
       { name: 'Adult Content Indicator', passed: validationResults.hasAdultContentIndicator, points: 5, details: validationResults.hasAdultContentIndicator ? '✅ 18+' : '❌ Missing' },
       { name: 'Heading Hierarchy', passed: validationResults.hasProperHeadingHierarchy, points: 3, details: `${validationResults.h3Count} H3s` },
@@ -540,12 +540,12 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
       issues.push("Word count must be 1800-2200 words");
     }
 
-    // Critical: H1 tag check (exactly one)
+    // Critical: H1 tag check (allow 1-3 for semantic layouts)
     const h1Matches = content.match(/<h1[^>]*>/gi);
     const h1Count = h1Matches ? h1Matches.length : 0;
-    if (h1Count !== 1) {
+    if (h1Count === 0 || h1Count > 3) {
       score -= 20;
-      issues.push("Must have exactly one H1 tag");
+      issues.push(`Invalid H1 count: ${h1Count} (should be 1-3)`);
     }
 
     // Important: H2 tags (multiple subheadings for structure)
@@ -585,10 +585,10 @@ RETURN: The complete trimmed HTML content. VERIFY it totals ${minWords}-${maxWor
       issues.push("All anchor text must be unique - found duplicates");
     }
 
-    // Title length (≤60 chars)
-    if (title.length > 60) {
+    // Title length (30-65 chars for optimal display)
+    if (title.length < 30 || title.length > 65) {
       score -= 5;
-      issues.push("Title should be ≤60 characters");
+      issues.push("Title should be 30-65 characters for optimal SEO");
     }
 
     // Primary keyword in title
@@ -949,9 +949,9 @@ Return EXACT same JSON structure:
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // RULE 4: Heading Structure (1 H1, 6+ H2s, H3s)
+    // RULE 4: Heading Structure (1-3 H1s, 6+ H2s, H3s)
     // ═══════════════════════════════════════════════════════════════
-    console.log("\n🎯 RULE 4: Proper heading structure (1 H1, 6+ H2s, multiple H3s)");
+    console.log("\n🎯 RULE 4: Proper heading structure (1-3 H1s, 6+ H2s, multiple H3s)");
     const h1Count = (currentBlog.content?.match(/<h1>/gi) || []).length;
     const h2Count = (currentBlog.content?.match(/<h2>/gi) || []).length;
     const h3Count = (currentBlog.content?.match(/<h3>/gi) || []).length;
@@ -961,17 +961,17 @@ This is Step 4 of 8. Never shorten or summarize existing content.
 Always preserve all text, sections, and word count (~${wordCount} words).
 
 CURRENT STATE: ${h1Count} H1, ${h2Count} H2, ${h3Count} H3 tags
-TARGET: Exactly 1 H1, at least 6 H2, multiple H3 tags
+TARGET: 1-3 H1 tags (for semantic sections), at least 6 H2, multiple H3 tags
 
 CONDITIONAL TASK:
-${h1Count === 1 && h2Count >= 6 && h3Count >= 6 ? `
+${h1Count >= 1 && h1Count <= 3 && h2Count >= 6 && h3Count >= 6 ? `
 ✓ Heading structure is perfect! Return the blog exactly as-is with no modifications.
 ` : `
 ⚠️ Heading structure needs adjustment.
 
-IF content has wrong heading levels (too many H1s, not enough H2s/H3s):
+IF content has wrong heading levels (0 or >3 H1s, not enough H2s/H3s):
 - Adjust ONLY the heading tags to match the required structure:
-  * Exactly 1 <h1> tag (main title at the very top)
+  * 1-3 <h1> tags (typically one main title, optionally semantic sections)
   * At least 6 <h2> tags (main sections throughout the article)
   * At least 2 <h3> tags under each H2 (subsections)
 - DO NOT change any paragraph text
@@ -1316,7 +1316,7 @@ INSTRUCTIONS:
 
 OUTPUT JSON:
 {
-  "title": "Under 60 chars with keyword '${keywords.split(',')[0].trim()}'",
+  "title": "30-65 chars with keyword '${keywords.split(',')[0].trim()}'",
   "metaDescription": "Exactly 120-160 chars with keyword",
   "slug": "url-friendly-slug",
   "outline": [
@@ -1446,7 +1446,7 @@ YOUR TASK: Create the final JSON output ensuring it passes all validation rules 
 CRITICAL RULES (High Penalties):
 1. ✅ Meta Description (-25 pts): 120-160 characters and includes primary keyword "${keywords.split(',')[0].trim()}"
 2. ✅ Word Count (-25 pts): 1800-2200 words (aim for ~2000)
-3. ✅ H1 Tag (-20 pts): Exactly ONE <h1> tag (no more, no less)
+3. ✅ H1 Tag (-20 pts): 1-3 <h1> tags (semantic sections allowed)
 4. ✅ Placeholder Text (-15 pts): NO [brackets], "TODO", "Lorem ipsum", "TBD", etc.
 5. ✅ Authoritative Links (-15 pts): At least 1 link to NIMH, APA, SAMHSA, WHO, CDC, Mayo Clinic, or Psychology Today
 6. ✅ Local SEO (-12 pts): Mention "Orlando" or "Winter Park" at least 2x total
@@ -1463,7 +1463,7 @@ IMPORTANT RULES (Medium Penalties):
 STANDARD RULES (Lower Penalties):
 14. ✅ H2 Subheadings (-5 pts): At least 6 <h2> tags for structure
 15. ✅ Keyword in First Paragraph (-5 pts): Primary keyword in first 300 characters
-16. ✅ Title Length (-5 pts): ≤60 characters
+16. ✅ Title Length (-5 pts): 30-65 characters for optimal display
 17. ✅ Proper HTML (-5 pts): All content wrapped in <p>, <h2>, <h3> tags
 18. ✅ Valid Internal Links (-5 pts): Only link to valid pages (listed above)
 19. ✅ Adult Indicator (-5 pts): Include "adults", "18+", "over 18" at least once
@@ -1589,16 +1589,16 @@ DO NOT just add a few sentences - you need ${wordsNeeded} words of substantial, 
           });
         }
         
-        if (validationResults.h1Count !== 1) {
+        if (validationResults.h1Count === 0 || validationResults.h1Count > 3) {
           failedRules.push({
             rule: 'H1 Tag Count',
             points: -20,
             severity: 'CRITICAL',
             current: `${validationResults.h1Count} H1 tags`,
-            required: 'Exactly 1 H1',
+            required: '1-3 H1 tags (semantic sections)',
             fix: validationResults.h1Count === 0
               ? 'Add ONE <h1> tag at the very start with the blog title.'
-              : 'Remove duplicate H1s. Keep only the first one. Convert others to H2.'
+              : `Too many H1s (${validationResults.h1Count}). Keep 1-3 main H1 tags maximum. Convert extra H1s to H2.`
           });
         }
         
@@ -1748,14 +1748,16 @@ DO NOT just add a few sentences - you need ${wordsNeeded} words of substantial, 
           });
         }
         
-        if (validationResults.titleLength > 60) {
+        if (validationResults.titleLength < 30 || validationResults.titleLength > 65) {
           failedRules.push({
             rule: 'Title Length',
             points: -5,
             severity: 'STANDARD',
             current: `${validationResults.titleLength} characters`,
-            required: '≤60 characters for SEO',
-            fix: `Shorten title to ≤60 chars. Remove filler words.`
+            required: '30-65 characters for optimal SEO',
+            fix: validationResults.titleLength < 30
+              ? 'Expand title to at least 30 characters. Add descriptive context or location.'
+              : 'Shorten title to 65 chars or less. Remove filler words, use active voice.'
           });
         }
         
