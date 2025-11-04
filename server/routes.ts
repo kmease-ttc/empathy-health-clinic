@@ -1820,7 +1820,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'redirectUri is required' });
       }
 
-      const url = googleAdsService.getOAuthUrl(redirectUri);
+      // Generate state for CSRF protection
+      const state = googleAdsService.generateOAuthState();
+      const url = googleAdsService.getOAuthUrl(redirectUri, state);
       res.json({ url });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
@@ -1829,9 +1831,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/google-ads/oauth-callback", async (req, res) => {
     try {
-      const { code, redirectUri } = req.body;
+      const { code, redirectUri, state } = req.body;
       if (!code || !redirectUri) {
         return res.status(400).json({ error: 'code and redirectUri are required' });
+      }
+
+      // Validate state parameter for CSRF protection
+      if (!state || !googleAdsService.validateOAuthState(state)) {
+        return res.status(403).json({ error: 'Invalid or expired state parameter - possible CSRF attack' });
       }
 
       const tokens = await googleAdsService.exchangeCodeForToken(code, redirectUri);

@@ -33,11 +33,18 @@ export default function GoogleAdsSetup() {
   useEffect(() => {
     checkStatus();
     
-    // Check for OAuth callback code
+    // Check for OAuth callback code and state
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
-    if (code) {
-      handleOAuthCallback(code);
+    const state = params.get('state');
+    if (code && state) {
+      handleOAuthCallback(code, state);
+    } else if (code) {
+      toast({
+        title: "OAuth Failed",
+        description: "Missing state parameter - security validation failed",
+        variant: "destructive",
+      });
     }
   }, []);
 
@@ -51,18 +58,19 @@ export default function GoogleAdsSetup() {
     }
   };
 
-  const handleOAuthCallback = async (code: string) => {
+  const handleOAuthCallback = async (code: string, state: string) => {
     setLoading(true);
     try {
       const redirectUri = `${window.location.origin}/admin/google-ads-setup`;
       const response = await fetch('/api/google-ads/oauth-callback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, redirectUri }),
+        body: JSON.stringify({ code, redirectUri, state }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to complete OAuth');
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to complete OAuth');
       }
 
       const data = await response.json();

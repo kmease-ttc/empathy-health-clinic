@@ -1,4 +1,5 @@
 import { GoogleAdsApi, services } from 'google-ads-api';
+import crypto from 'crypto';
 
 interface GoogleAdsConfig {
   client_id: string;
@@ -9,6 +10,11 @@ interface GoogleAdsConfig {
 interface GoogleAdsClient {
   customer_id: string;
   refresh_token: string;
+}
+
+interface StoredState {
+  value: string;
+  expiresAt: number;
 }
 
 const config: GoogleAdsConfig = {
@@ -23,7 +29,45 @@ const clientConfig: GoogleAdsClient = {
   refresh_token: process.env.GOOGLE_ADS_REFRESH_TOKEN || '',
 };
 
-export function getOAuthUrl(redirectUri: string): string {
+// In-memory store for OAuth state parameters (CSRF protection)
+// States expire after 10 minutes
+const stateStore = new Map<string, StoredState>();
+
+// Clean up expired states every 5 minutes
+setInterval(() => {
+  const now = Date.now();
+  Array.from(stateStore.entries()).forEach(([key, state]) => {
+    if (state.expiresAt < now) {
+      stateStore.delete(key);
+    }
+  });
+}, 5 * 60 * 1000);
+
+export function generateOAuthState(): string {
+  const state = crypto.randomBytes(32).toString('hex');
+  const expiresAt = Date.now() + (10 * 60 * 1000); // 10 minutes
+  stateStore.set(state, { value: state, expiresAt });
+  return state;
+}
+
+export function validateOAuthState(state: string): boolean {
+  const stored = stateStore.get(state);
+  if (!stored) {
+    return false;
+  }
+  
+  // Check if expired
+  if (stored.expiresAt < Date.now()) {
+    stateStore.delete(state);
+    return false;
+  }
+  
+  // Valid - delete after use (single-use token)
+  stateStore.delete(state);
+  return true;
+}
+
+export function getOAuthUrl(redirectUri: string, state: string): string {
   const params = new URLSearchParams({
     client_id: config.client_id,
     redirect_uri: redirectUri,
@@ -31,6 +75,7 @@ export function getOAuthUrl(redirectUri: string): string {
     access_type: 'offline',
     prompt: 'consent',
     scope: 'https://www.googleapis.com/auth/adwords',
+    state: state, // CSRF protection
   });
 
   return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
