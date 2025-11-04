@@ -127,13 +127,13 @@ export default function Home() {
         <ComparisonSection />
         <ReviewsAndBadges />
         <div className="border-t" />
-        <FAQSection />
-        <div className="border-t" />
         <Suspense fallback={<div className="py-20" />}>
+          <TestimonialsSection />
+          <div className="border-t" />
           <TeamSection />
           <ConditionsSection />
           <div className="border-t" />
-          <TestimonialsSection />
+          <FAQSection />
           <div className="border-t" />
           <LocationSection />
         </Suspense>
