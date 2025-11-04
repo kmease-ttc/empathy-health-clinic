@@ -18,7 +18,8 @@ const config: GoogleAdsConfig = {
 };
 
 const clientConfig: GoogleAdsClient = {
-  customer_id: process.env.GOOGLE_ADS_CUSTOMER_ID || '',
+  // Remove dashes from customer ID if present (e.g., 123-456-7890 -> 1234567890)
+  customer_id: (process.env.GOOGLE_ADS_CUSTOMER_ID || '').replace(/-/g, ''),
   refresh_token: process.env.GOOGLE_ADS_REFRESH_TOKEN || '',
 };
 
@@ -98,28 +99,41 @@ export async function getConversionData(startDate: string, endDate: string) {
   });
 
   try {
-    // Query conversions with source/medium data
+    console.log(`📊 Google Ads: Fetching conversions from ${startDate} to ${endDate}`);
+    
+    // Query campaign performance with conversions
+    // Use campaign resource to get conversion data aggregated by campaign
     const query = `
       SELECT
         segments.date,
-        segments.conversion_action_name,
+        campaign.name,
+        campaign.id,
         metrics.conversions,
         metrics.conversions_value,
         metrics.all_conversions,
         metrics.all_conversions_value,
-        campaign.name,
-        campaign.id,
         metrics.cost_micros
-      FROM conversion_action
+      FROM campaign
       WHERE segments.date BETWEEN '${startDate}' AND '${endDate}'
+        AND campaign.status = 'ENABLED'
       ORDER BY segments.date DESC
     `;
 
-    const results = await customer.query(query);
+    // Add 30 second timeout to prevent hanging
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Google Ads API request timed out after 30 seconds')), 30000);
+    });
+
+    const results = await Promise.race([
+      customer.query(query),
+      timeoutPromise
+    ]) as any[];
+
+    console.log(`✅ Google Ads: Received ${results.length} conversion records`);
     
     return results.map((row: any) => ({
       date: row.segments?.date,
-      conversionAction: row.segments?.conversion_action_name,
+      conversionAction: 'Campaign Conversions',
       conversions: row.metrics?.conversions || 0,
       conversionsValue: row.metrics?.conversions_value || 0,
       allConversions: row.metrics?.all_conversions || 0,
@@ -130,7 +144,12 @@ export async function getConversionData(startDate: string, endDate: string) {
       cost: (row.metrics?.cost_micros || 0) / 1000000, // Convert micros to dollars
     }));
   } catch (error: any) {
-    console.error('Google Ads API Error:', error);
+    console.error('❌ Google Ads API Error:', {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      stack: error.stack?.substring(0, 500)
+    });
     throw new Error(`Failed to fetch Google Ads data: ${error.message}`);
   }
 }
