@@ -36,12 +36,28 @@ interface GeneratedBlogResult {
   seoScore: number;
   wordCount: number;
   validationResults: {
+    wordCount: number;
     wordCountValid: boolean;
     metaDescriptionValid: boolean;
     h1Count: number;
+    h2Count: number;
+    h3Count: number;
     internalLinkCount: number;
     externalLinkCount: number;
     uniqueAnchorText: boolean;
+    noPlaceholders: boolean;
+    hasAuthoritativeLinks: boolean;
+    localSEOMentions: number;
+    primaryKeywordInTitle: boolean;
+    primaryKeywordInMeta: boolean;
+    hasCTA: boolean;
+    keywordDensity: string;
+    primaryKeywordInFirstPara: boolean;
+    titleLength: number;
+    validInternalLinks: boolean;
+    hasAdultContentIndicator: boolean;
+    hasProperHeadingHierarchy: boolean;
+    issues: string[];
   };
 }
 
@@ -306,6 +322,39 @@ export default function AdminBlogGenerator() {
     if (score >= 80) return "default";
     if (score >= 60) return "secondary";
     return "destructive";
+  };
+
+  // Build validation rules from results
+  const getValidationRules = (results: GeneratedBlogResult["validationResults"]) => {
+    if (!results) return [];
+    
+    const rules = [
+      { name: 'Meta Description Length', passed: results.metaDescriptionValid, points: 25, details: `120-160 chars` },
+      { name: 'Word Count', passed: results.wordCountValid, points: 25, details: `${results.wordCount} words (need 1800-2200)` },
+      { name: 'H1 Tag Count', passed: results.h1Count >= 1 && results.h1Count <= 3, points: 20, details: `${results.h1Count} H1 (need 1-3)` },
+      { name: 'Placeholder Text', passed: results.noPlaceholders, points: 15, details: results.noPlaceholders ? 'None' : 'Found [brackets] or TODO' },
+      { name: 'Authoritative Links', passed: results.hasAuthoritativeLinks, points: 15, details: results.hasAuthoritativeLinks ? 'NIMH/APA/SAMHSA' : 'Missing' },
+      { name: 'Local SEO Mentions', passed: results.localSEOMentions >= 2, points: 12, details: `${results.localSEOMentions} mention(s) (need 2+)` },
+      { name: 'Unique Anchor Text', passed: results.uniqueAnchorText, points: 10, details: results.uniqueAnchorText ? 'All unique' : 'Duplicates found' },
+      { name: 'Keyword in Title', passed: results.primaryKeywordInTitle, points: 8, details: results.primaryKeywordInTitle ? 'Present' : 'Missing' },
+      { name: 'Keyword in Meta', passed: results.primaryKeywordInMeta, points: 8, details: results.primaryKeywordInMeta ? 'Present' : 'Missing' },
+      { name: 'Internal Links', passed: results.internalLinkCount >= 4, points: 8, details: `${results.internalLinkCount} links (need 4+)` },
+      { name: 'External Links', passed: results.externalLinkCount >= 3, points: 8, details: `${results.externalLinkCount} links (need 3+)` },
+      { name: 'Call-to-Action', passed: results.hasCTA, points: 8, details: results.hasCTA ? 'Present' : 'Missing' },
+      { name: 'Keyword Density', passed: parseFloat(results.keywordDensity) >= 0.5 && parseFloat(results.keywordDensity) <= 3, points: 7, details: `${results.keywordDensity} (need 0.5-3%)` },
+      { name: 'H2 Subheadings', passed: results.h2Count >= 6, points: 5, details: `${results.h2Count} H2 (need 6+)` },
+      { name: 'Keyword in First Para', passed: results.primaryKeywordInFirstPara, points: 5, details: results.primaryKeywordInFirstPara ? 'Present' : 'Missing' },
+      { name: 'Title Length', passed: results.titleLength >= 30 && results.titleLength <= 65, points: 5, details: `${results.titleLength || 0} chars (need 30-65)` },
+      { name: 'Valid Internal Links', passed: results.validInternalLinks, points: 5, details: results.validInternalLinks ? 'Valid' : 'Invalid paths' },
+      { name: 'Adult Content Indicator', passed: results.hasAdultContentIndicator, points: 5, details: results.hasAdultContentIndicator ? '18+' : 'Missing' },
+      { name: 'Heading Hierarchy', passed: results.hasProperHeadingHierarchy, points: 3, details: `${results.h3Count} H3s` },
+    ];
+    
+    // Sort: Failed rules first, then by points (highest first)
+    return rules.sort((a, b) => {
+      if (a.passed !== b.passed) return a.passed ? 1 : -1;
+      return b.points - a.points;
+    });
   };
 
   return (
@@ -660,57 +709,78 @@ export default function AdminBlogGenerator() {
         <div>
           {generatedBlog ? (
             <div className="space-y-4">
-              {/* SEO Score Card */}
+              {/* SEO Score Card with Validation Details */}
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
                       <BarChart3 className="w-5 h-5" />
-                      SEO Score
+                      SEO Validation ({generatedBlog.seoScore}/100)
                     </CardTitle>
                     <Badge variant={getScoreBadgeVariant(generatedBlog.seoScore)} className="text-lg px-3 py-1">
                       {generatedBlog.seoScore}/100
                     </Badge>
                   </div>
+                  <CardDescription>
+                    {getValidationRules(generatedBlog.validationResults).filter(r => !r.passed).length > 0
+                      ? `${getValidationRules(generatedBlog.validationResults).filter(r => !r.passed).length} rules failed`
+                      : "All rules passed!"}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Word Count</span>
-                      <span className={generatedBlog.validationResults.wordCountValid ? "text-green-500" : "text-red-500"}>
-                        {generatedBlog.wordCount} words
-                        {generatedBlog.validationResults.wordCountValid ? " ✓" : " ✗"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Meta Description</span>
-                      <span className={generatedBlog.validationResults.metaDescriptionValid ? "text-green-500" : "text-red-500"}>
-                        {generatedBlog.metaDescription.length} chars
-                        {generatedBlog.validationResults.metaDescriptionValid ? " ✓" : " ✗"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>H1 Tags</span>
-                      <span className={generatedBlog.validationResults.h1Count === 1 ? "text-green-500" : "text-red-500"}>
-                        {generatedBlog.validationResults.h1Count}
-                        {generatedBlog.validationResults.h1Count === 1 ? " ✓" : " ✗"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Internal Links</span>
-                      <span className={generatedBlog.validationResults.internalLinkCount >= 4 ? "text-green-500" : "text-yellow-500"}>
-                        {generatedBlog.validationResults.internalLinkCount}
-                        {generatedBlog.validationResults.internalLinkCount >= 4 ? " ✓" : " ⚠"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>External Links</span>
-                      <span className={generatedBlog.validationResults.externalLinkCount >= 3 ? "text-green-500" : "text-yellow-500"}>
-                        {generatedBlog.validationResults.externalLinkCount}
-                        {generatedBlog.validationResults.externalLinkCount >= 3 ? " ✓" : " ⚠"}
-                      </span>
-                    </div>
+                  <div className="space-y-2 max-h-96 overflow-y-auto">
+                    {getValidationRules(generatedBlog.validationResults).map((rule, idx) => (
+                      <div 
+                        key={idx}
+                        className={`p-2 rounded border ${
+                          rule.passed 
+                            ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-900' 
+                            : 'bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-900'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex items-start gap-2 flex-1">
+                            {rule.passed ? (
+                              <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                            ) : (
+                              <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <div className={`text-sm font-medium ${rule.passed ? 'text-green-900 dark:text-green-100' : 'text-red-900 dark:text-red-100'}`}>
+                                {rule.name}
+                              </div>
+                              <div className={`text-xs ${rule.passed ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+                                {rule.details}
+                              </div>
+                            </div>
+                          </div>
+                          <Badge 
+                            variant={rule.passed ? "outline" : "destructive"}
+                            className="text-xs flex-shrink-0"
+                          >
+                            {rule.passed ? `+${rule.points}` : `-${rule.points}`}
+                          </Badge>
+                        </div>
+                      </div>
+                    ))}
                   </div>
+                </CardContent>
+              </Card>
+
+              {/* Blog Content Preview */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="w-5 h-5" />
+                    Blog Content Preview
+                  </CardTitle>
+                  <CardDescription>{generatedBlog.wordCount} words</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div 
+                    className="prose dark:prose-invert max-w-none max-h-96 overflow-y-auto p-4 bg-muted/30 rounded-lg text-sm"
+                    dangerouslySetInnerHTML={{ __html: generatedBlog.content }}
+                  />
                 </CardContent>
               </Card>
 
