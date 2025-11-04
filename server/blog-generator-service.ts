@@ -1328,10 +1328,18 @@ OUTPUT JSON:
   ],
   "totalWordBudget": 2000,
   "requirements": {
-    "internalLinks": ["Must link to: /services, /request-appointment, and 2 others (e.g., /emdr-therapy, /depression-counseling)"],
-    "externalLinks": ["Must link to 3+ authoritative sources (NIMH, APA, SAMHSA, WHO, CDC)"],
+    "internalLinks": [
+      "MUST include 4-6 internal links to:",
+      "- /services (anchor: 'psychiatric services' or 'mental health services')",
+      "- /request-appointment (anchor: 'schedule consultation' or 'book appointment')",
+      "- Service pages: /emdr-therapy, /cbt-therapy, /depression-counseling, /anxiety-therapy, /telehealth-psychiatry",
+      "- Location pages: /locations/psychiatrist-orlando, /locations/psychiatrist-winter-park",
+      "- Related blog posts (use [See also: Title](/blog/slug) format)",
+      "ALL anchor text must be unique and contextually relevant"
+    ],
+    "externalLinks": ["Must link to 3+ authoritative sources (NIMH, APA, SAMHSA, WHO, CDC, Mayo Clinic)"],
     "localSEO": ["Orlando 2x", "Winter Park 1x", "adults/18+ 1x"],
-    "uniqueAnchors": ["All link anchor texts must be unique - no duplicates"]
+    "uniqueAnchors": ["All link anchor texts must be unique - no 'click here', 'learn more' duplicates"]
   }
 }
 
@@ -1447,8 +1455,8 @@ IMPORTANT RULES (Medium Penalties):
 7. ✅ Unique Anchor Text (-10 pts): All link text must be unique (no "learn more" twice)
 8. ✅ Keyword in Title (-8 pts): Primary keyword must appear in title
 9. ✅ Keyword in Meta (-8 pts): Primary keyword must appear in meta description
-10. ✅ Internal Links (-8 pts): At least 4 links to /services, /team, /request-appointment, etc.
-11. ✅ External Links (-8 pts): At least 3 authoritative external links
+10. ✅ Internal Links (-8 pts): At least 4 contextual links to service pages (/services, /emdr-therapy, /cbt-therapy, /depression-counseling, /anxiety-therapy, /telehealth-psychiatry), location pages, or /request-appointment
+11. ✅ External Links (-8 pts): At least 3 authoritative external links (NIMH.gov, APA.org, SAMHSA.gov)
 12. ✅ CTA (-8 pts): Include call-to-action ("contact us", "schedule", "get help")
 13. ✅ Keyword Density (-7 pts): 0.5-3% of total words
 

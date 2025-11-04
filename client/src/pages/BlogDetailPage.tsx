@@ -10,6 +10,7 @@ import type { BlogPost } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
+import FAQSchema from "@/components/FAQSchema";
 import forestBg from "@assets/stock_images/misty_forest_morning_c7552d0a.jpg";
 
 function renderTextWithLinks(text: string) {
@@ -78,6 +79,50 @@ function renderTextWithBold(text: string) {
   return parts.length > 0 ? parts : [text];
 }
 
+function extractFAQs(content: string): Array<{ question: string; answer: string }> {
+  const faqs: Array<{ question: string; answer: string }> = [];
+  const lines = content.split('\n');
+  
+  let currentQuestion = '';
+  let currentAnswer: string[] = [];
+  let inFAQSection = false;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    
+    if (line.match(/^##\s*(FAQ|Frequently Asked Questions|Common Questions)/i)) {
+      inFAQSection = true;
+      continue;
+    }
+    
+    if (inFAQSection) {
+      if (line.startsWith('###')) {
+        if (currentQuestion && currentAnswer.length > 0) {
+          faqs.push({
+            question: currentQuestion,
+            answer: currentAnswer.join(' ').replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+          });
+        }
+        currentQuestion = line.replace(/^###\s*/, '').replace(/[*#]/g, '').trim();
+        currentAnswer = [];
+      } else if (line && !line.startsWith('#')) {
+        currentAnswer.push(line);
+      } else if (line.startsWith('##') && currentQuestion) {
+        break;
+      }
+    }
+  }
+  
+  if (currentQuestion && currentAnswer.length > 0) {
+    faqs.push({
+      question: currentQuestion,
+      answer: currentAnswer.join(' ').replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    });
+  }
+  
+  return faqs;
+}
+
 export default function BlogDetailPage() {
   const [, params] = useRoute("/blog/:slug");
   const slug = params?.slug || "";
@@ -95,6 +140,8 @@ export default function BlogDetailPage() {
   const relatedPosts = allPostsResponse?.posts
     ?.filter(post => post.slug !== slug && post.category === blogPost?.category)
     .slice(0, 3) || [];
+
+  const detectedFAQs = blogPost ? extractFAQs(blogPost.content) : [];
 
   useEffect(() => {
     if (blogPost) {
@@ -224,6 +271,7 @@ export default function BlogDetailPage() {
         modifiedDate={blogPost.lastUpdated || blogPost.publishedDate}
         author={blogPost.author}
       />
+      {detectedFAQs.length > 0 && <FAQSchema faqs={detectedFAQs} />}
       <SiteHeader />
       <main className="flex-1">
         <div className="relative py-16 px-4">
