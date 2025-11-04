@@ -4,6 +4,7 @@ import { CheckCircle2, Home, Phone } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
+import SEOFooterText from "@/components/SEOFooterText";
 import { trackEvent } from "@/lib/analytics";
 
 export default function ThankYou() {
@@ -97,6 +98,11 @@ export default function ThankYou() {
           </Button>
         </div>
       </main>
+      <SEOFooterText>
+        <p>
+          Thank you for choosing Empathy Health Clinic for your mental health care needs. Our psychiatric and therapy services serve patients throughout Winter Park, Orlando, Altamonte Springs, Maitland, and surrounding Central Florida communities. We specialize in comprehensive mental health treatment including psychiatry, medication management, psychotherapy, and counseling for conditions such as depression, anxiety disorders, ADHD, bipolar disorder, and trauma-related conditions. Our experienced team of board-certified psychiatrists and licensed therapists provides personalized, evidence-based care with a focus on understanding each patient's unique needs and goals. We offer flexible scheduling with same-week appointments available, accept most major insurance providers, and provide both in-person and secure telehealth options to ensure accessible mental health care for all Florida residents.
+        </p>
+      </SEOFooterText>
       <SiteFooter />
     </div>
   );

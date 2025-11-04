@@ -1,6 +1,7 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
+import SEOFooterText from "@/components/SEOFooterText";
 import LongContactForm from "@/components/LongContactForm";
 import OfficeMap from "@/components/OfficeMap";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
@@ -97,6 +98,11 @@ export default function RequestAppointment() {
           </div>
         </div>
       </main>
+      <SEOFooterText>
+        <p>
+          Empathy Health Clinic provides comprehensive mental health services in Winter Park and Orlando, Florida. Our team of board-certified psychiatrists and licensed therapists specializes in treating anxiety, depression, ADHD, bipolar disorder, PTSD, and other mental health conditions. We offer both in-person appointments at our Winter Park office and secure telehealth sessions throughout Florida. Same-week appointments are available for new patients, and we accept most major insurance plans including Aetna, BlueCross BlueShield, Cigna, and UnitedHealthcare. Our psychiatrists provide medication management and psychiatric evaluations, while our therapists offer evidence-based counseling including cognitive behavioral therapy (CBT), dialectical behavior therapy (DBT), and EMDR trauma therapy. Schedule your confidential consultation today by completing the form above or calling our office directly.
+        </p>
+      </SEOFooterText>
       <SiteFooter />
     </div>
   );

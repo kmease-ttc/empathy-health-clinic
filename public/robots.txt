@@ -1,30 +1,16 @@
-# Robots.txt for Empathy Health Clinic
-# Allow all search engines to crawl the site
-
 User-agent: *
-Allow: /
-
-# Block admin pages from search engines
-Disallow: /admin
-Disallow: /admin/
-
-# Block legacy WordPress URLs (site migrated from WordPress)
-Disallow: /wp-content/
-Disallow: /wp-includes/
 Disallow: /wp-admin/
-Disallow: /wp-login.php
-Disallow: /wp-*.php
-
-# Allow crawling of all assets and analytics
-Allow: /attached_assets/
-Allow: /*.css$
+Allow: /wp-admin/admin-ajax.php
+Allow: /js/
+Allow: /css/
+Allow: /images/
+Allow: /fonts/
+Allow: /static/
 Allow: /*.js$
+Allow: /*.css$
 Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.jpeg$
-Allow: /*.gif$
+Allow: /*.svg$
 Allow: /*.webp$
-Allow: /analytics.ahrefs.com/
-
-# Sitemap location
 Sitemap: https://empathyhealthclinic.com/sitemap.xml
