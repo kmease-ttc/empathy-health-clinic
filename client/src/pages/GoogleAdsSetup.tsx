@@ -323,7 +323,7 @@ export default function GoogleAdsSetup() {
                     </AlertDescription>
                   </Alert>
 
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 flex-wrap">
                     <Button
                       onClick={testConnection}
                       disabled={testingConnection}
@@ -341,12 +341,40 @@ export default function GoogleAdsSetup() {
                     </Button>
 
                     <Button
+                      onClick={startOAuth}
+                      disabled={loading}
+                      variant="outline"
+                      data-testid="button-reconnect-oauth"
+                    >
+                      {loading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Reconnecting...
+                        </>
+                      ) : (
+                        <>
+                          <ExternalLink className="mr-2 h-4 w-4" />
+                          Reconnect Account
+                        </>
+                      )}
+                    </Button>
+
+                    <Button
                       onClick={() => setLocation('/admin/analytics')}
                       data-testid="button-view-analytics"
                     >
                       View Analytics Dashboard
                     </Button>
                   </div>
+
+                  {status.connectionTest && !status.connectionTest.success && (
+                    <Alert variant="destructive">
+                      <XCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        <strong>Connection test failed.</strong> Your refresh token may be expired. Click "Reconnect Account" above to generate a new token.
+                      </AlertDescription>
+                    </Alert>
+                  )}
                 </CardContent>
               </Card>
             )}
