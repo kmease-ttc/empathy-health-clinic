@@ -50,13 +50,18 @@ export default function HeroSection() {
             />
           </div>
           
-          {/* Heading */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-medium text-white mb-2 drop-shadow-lg">
-            {title}
+          {/* SEO-Optimized H1 */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-4 drop-shadow-lg max-w-5xl mx-auto leading-tight">
+            Empathy Health Clinic – Psychiatry, Therapy & Counseling in Winter Park, FL
           </h1>
           
+          {/* Tagline */}
+          <p className="text-2xl md:text-3xl lg:text-4xl font-sans font-light text-white/95 mb-2 drop-shadow-lg">
+            {title}
+          </p>
+          
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-white/95 mb-10 drop-shadow font-light max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-white/90 mb-10 drop-shadow font-light max-w-3xl mx-auto">
             {subtitle}
           </p>
           
