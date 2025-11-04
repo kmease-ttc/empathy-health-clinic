@@ -23,8 +23,11 @@ import {
   insertAnalyticsEventSchema,
   insertWebVitalSchema,
 } from "@shared/schema";
+import { setupAuth } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Setup authentication routes (/api/register, /api/login, /api/logout, /api/user)
+  setupAuth(app);
   // Specific treatment redirects (must come BEFORE catch-all)
   app.get("/treatments/psychiatric-services", (req, res) => {
     res.redirect(301, "/services");

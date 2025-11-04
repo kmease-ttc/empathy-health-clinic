@@ -38,8 +38,15 @@ import { randomUUID } from "crypto";
 import blogPostsData from "./blog-posts-data.json";
 import { db } from "./db";
 import { eq, sql, and, or, gte, lte, desc } from "drizzle-orm";
+import session from "express-session";
+import createMemoryStore from "memorystore";
+
+const MemoryStore = createMemoryStore(session);
 
 export interface IStorage {
+  // Session store for authentication
+  sessionStore: session.Store;
+
   // User methods
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
@@ -151,6 +158,7 @@ export interface IStorage {
 }
 
 export class MemStorage implements IStorage {
+  public sessionStore: session.Store;
   private users: Map<string, User>;
   private siteContent: SiteContent | undefined;
   private treatments: Map<string, Treatment>;
@@ -168,6 +176,9 @@ export class MemStorage implements IStorage {
   private webVitals: WebVital[];
 
   constructor() {
+    this.sessionStore = new MemoryStore({
+      checkPeriod: 86400000, // Prune expired entries every 24h
+    });
     this.users = new Map();
     this.treatments = new Map();
     this.teamMembers = new Map();

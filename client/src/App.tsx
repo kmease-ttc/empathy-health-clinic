@@ -6,6 +6,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { Loader2 } from "lucide-react";
+import { AuthProvider } from "@/hooks/use-auth";
+import { ProtectedRoute } from "@/lib/protected-route";
 
 // Only load Home page immediately for fast initial render
 import Home from "@/pages/Home";
@@ -30,6 +32,9 @@ const ThankYou = lazy(() => import("@/pages/ThankYou"));
 const LocationDetail = lazy(() => import("@/pages/LocationDetail"));
 const PageBySlug = lazy(() => import("@/pages/PageBySlug"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Auth page
+const AuthPage = lazy(() => import("@/pages/AuthPage"));
 
 // Admin pages
 const Admin = lazy(() => import("@/pages/Admin"));
@@ -67,41 +72,46 @@ function Router() {
     <>
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="/admin">
+        <Route path="/auth">
+          <Suspense fallback={<LoadingFallback />}>
+            <AuthPage />
+          </Suspense>
+        </Route>
+        <ProtectedRoute path="/admin" component={() => (
           <Suspense fallback={<LoadingFallback />}>
             <Admin />
           </Suspense>
-        </Route>
-        <Route path="/admin/analytics">
+        )} />
+        <ProtectedRoute path="/admin/analytics" component={() => (
           <Suspense fallback={<LoadingFallback />}>
             <AnalyticsDashboard />
           </Suspense>
-        </Route>
-        <Route path="/admin/seo">
+        )} />
+        <ProtectedRoute path="/admin/seo" component={() => (
           <Suspense fallback={<LoadingFallback />}>
             <SEOOptimization />
           </Suspense>
-        </Route>
-        <Route path="/admin/google-ads">
+        )} />
+        <ProtectedRoute path="/admin/google-ads" component={() => (
           <Suspense fallback={<LoadingFallback />}>
             <GoogleAdsPerformance />
           </Suspense>
-        </Route>
-        <Route path="/admin/google-ads-setup">
+        )} />
+        <ProtectedRoute path="/admin/google-ads-setup" component={() => (
           <Suspense fallback={<LoadingFallback />}>
             <GoogleAdsSetup />
           </Suspense>
-        </Route>
-        <Route path="/admin/lead-insights">
+        )} />
+        <ProtectedRoute path="/admin/lead-insights" component={() => (
           <Suspense fallback={<LoadingFallback />}>
             <LeadInsights />
           </Suspense>
-        </Route>
-        <Route path="/admin/blog">
+        )} />
+        <ProtectedRoute path="/admin/blog" component={() => (
           <Suspense fallback={<LoadingFallback />}>
             <AdminBlogGenerator />
           </Suspense>
-        </Route>
+        )} />
         <Route path="/insurance">
           <Suspense fallback={<LoadingFallback />}>
             <Insurance />
@@ -291,10 +301,12 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
