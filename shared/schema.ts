@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -229,6 +229,7 @@ export const blogPosts = pgTable("blog_posts", {
   publishedDate: text("published_date").notNull(),
   category: text("category").notNull().default("Mental Health"),
   featuredImage: text("featured_image"),
+  isFeatured: boolean("is_featured").notNull().default(false),
   // SEO fields
   metaTitle: text("meta_title"),
   metaDescription: text("meta_description"),

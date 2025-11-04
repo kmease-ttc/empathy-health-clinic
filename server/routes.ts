@@ -1138,9 +1138,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Filter for featured posts if requested
       if (featured) {
-        // Return only the 2 most recent posts for featured section
-        blogPosts = blogPosts.slice(0, 2);
-        return res.json({ posts: blogPosts, total: blogPosts.length, page: 1, pageSize: 2 });
+        // Return only posts marked as featured
+        blogPosts = blogPosts.filter(post => post.isFeatured === true);
+        return res.json({ posts: blogPosts, total: blogPosts.length, page: 1, pageSize: blogPosts.length });
       }
       
       // Apply offset (useful for skipping featured posts in latest section)
@@ -1452,6 +1452,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const blogData = req.body;
 
       // Create blog post with all the generated content
+      // Mark new blogs as featured by default
       const blogPost = await storage.createBlogPost({
         title: blogData.title,
         slug: blogData.slug,
@@ -1461,6 +1462,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         publishedDate: new Date().toISOString(),
         category: "Mental Health",
         featuredImage: blogData.featuredImage,
+        isFeatured: true, // Mark new blogs as featured
         metaTitle: blogData.title,
         metaDescription: blogData.metaDescription,
         keywords: blogData.keywords || [],
