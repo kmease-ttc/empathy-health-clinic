@@ -262,9 +262,8 @@ export default function WinterPark() {
               </Button>
               <Button 
                 asChild
-                variant="outline"
                 size="lg"
-                className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20"
+                className="bg-green-600 hover:bg-green-700 text-white border-green-600"
                 data-testid="button-request-appointment-hero"
               >
                 <Link href="/request-appointment">
@@ -679,8 +678,8 @@ export default function WinterPark() {
 
               <Button 
                 asChild
-                variant="outline"
                 size="lg"
+                className="bg-green-600 hover:bg-green-700 text-white border-green-600"
                 data-testid="button-request-appointment"
               >
                 <Link href="/request-appointment">
