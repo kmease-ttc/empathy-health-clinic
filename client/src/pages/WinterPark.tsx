@@ -110,7 +110,7 @@ function WinterParkTestimonialsSection() {
     <section className="py-12 md:py-16 lg:py-20 bg-background">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold text-center mb-3">
-          What Our Patients Say
+          Our Testimonials
         </h2>
         <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-10">
           Real reviews from patients who've received care at Empathy Health Clinic
