@@ -36,6 +36,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, "/services");
   });
   
+  app.get("/treatments/medication-management", (req, res) => {
+    res.redirect(301, "/medication-management");
+  });
+  app.get("/treatments/medication-management/", (req, res) => {
+    res.redirect(301, "/medication-management");
+  });
+  
   // Legacy URL redirects for SEO (catch-all patterns - MOVED to end of file to avoid overriding specific redirects)
   
   // WordPress URL redirects
