@@ -9,6 +9,8 @@ import ShortContactForm from "@/components/ShortContactForm";
 import forestBg from "@assets/stock_images/peaceful_green_fores_8b0bc1d4.jpg";
 import SEOHead from "@/components/SEOHead";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import OfficeMap from "@/components/OfficeMap";
+import FAQSchema from "@/components/FAQSchema";
 
 export default function LocationDetail() {
   const [, params] = useRoute("/locations/:slug");
@@ -84,6 +86,7 @@ export default function LocationDetail() {
         description={location.metaDescription}
         slug={location.slug}
       />
+      {faqs.length > 0 && <FAQSchema faqs={faqs} />}
       <SiteHeader />
       <main className="flex-1">
         <div className="relative py-16 px-4">
@@ -115,7 +118,48 @@ export default function LocationDetail() {
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-12 max-w-6xl">
+        <div className="container mx-auto px-4 py-8 max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-6 mb-12 bg-card border rounded-lg p-6">
+            <div className="space-y-4">
+              <h2 className="text-2xl font-sans font-bold text-foreground">Visit Our Office in {location.city}</h2>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-foreground">
+                  <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">Empathy Health Clinic</p>
+                    <p className="text-sm text-muted-foreground">1751 W State Road 434, Longwood, FL 32750</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 text-foreground">
+                  <Phone className="h-5 w-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">Call Us Today</p>
+                    <a href="tel:3868488751" className="text-primary hover:underline font-semibold text-lg" data-testid="link-phone-hero">
+                      (386) 848-8751
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 text-foreground">
+                  <Clock className="h-5 w-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">Office Hours</p>
+                    <p className="text-sm text-muted-foreground">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                  </div>
+                </div>
+              </div>
+              <Button size="lg" className="w-full gap-2 mt-4" asChild data-testid="button-schedule-hero">
+                <Link href="/request-appointment">
+                  Schedule Your Appointment
+                </Link>
+              </Button>
+            </div>
+            <div className="h-[300px] md:h-auto">
+              <OfficeMap />
+            </div>
+          </div>
+        </div>
+
+        <div className="container mx-auto px-4 pb-12 max-w-6xl">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-8">
               <section>
