@@ -97,7 +97,7 @@ export default function SiteFooter() {
                 <Mail className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <a 
                   href={`mailto:${emailAddress}`} 
-                  className="text-base text-foreground hover:text-primary"
+                  className="text-base text-foreground hover:text-primary break-all"
                   data-testid="link-footer-email"
                 >
                   {emailAddress}

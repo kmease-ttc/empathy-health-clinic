@@ -13,6 +13,57 @@ import SEOHead from "@/components/SEOHead";
 import FAQSchema from "@/components/FAQSchema";
 import forestBg from "@assets/stock_images/misty_forest_morning_c7552d0a.jpg";
 
+function stripHtmlTags(text: string): string {
+  let cleaned = text;
+  
+  // Remove GPT response artifacts (meta-commentary about the content)
+  cleaned = cleaned.replace(/^Here is.*?:[\s\n]*/i, '');
+  cleaned = cleaned.replace(/^The updated.*?:[\s\n]*/i, '');
+  cleaned = cleaned.replace(/^I've.*?:[\s\n]*/i, '');
+  cleaned = cleaned.replace(/^Below is.*?:[\s\n]*/i, '');
+  
+  // Remove code fences (```html, ```, etc.)
+  cleaned = cleaned.replace(/```html[\s\n]*/gi, '');
+  cleaned = cleaned.replace(/```[\s\n]*/g, '');
+  
+  // Convert HTML tags to markdown
+  cleaned = cleaned
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n\n')
+    .replace(/<p[^>]*>/gi, '')
+    .replace(/<strong[^>]*>/gi, '**')
+    .replace(/<\/strong>/gi, '**')
+    .replace(/<b[^>]*>/gi, '**')
+    .replace(/<\/b>/gi, '**')
+    .replace(/<em[^>]*>/gi, '_')
+    .replace(/<\/em>/gi, '_')
+    .replace(/<i[^>]*>/gi, '_')
+    .replace(/<\/i>/gi, '_')
+    .replace(/<a[^>]*href=["']([^"']*)["'][^>]*>(.*?)<\/a>/gi, '[$2]($1)')
+    .replace(/<h1[^>]*>/gi, '# ')
+    .replace(/<\/h1>/gi, '\n')
+    .replace(/<h2[^>]*>/gi, '## ')
+    .replace(/<\/h2>/gi, '\n')
+    .replace(/<h3[^>]*>/gi, '### ')
+    .replace(/<\/h3>/gi, '\n')
+    .replace(/<li[^>]*>/gi, '- ')
+    .replace(/<\/li>/gi, '\n')
+    .replace(/<ul[^>]*>|<\/ul>|<ol[^>]*>|<\/ol>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'");
+  
+  // Clean up excessive newlines
+  cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+  cleaned = cleaned.trim();
+  
+  return cleaned;
+}
+
 function renderTextWithLinks(text: string) {
   const parts: (string | JSX.Element)[] = [];
   let lastIndex = 0;
@@ -384,7 +435,8 @@ export default function BlogDetailPage() {
                 data-testid="article-content"
               >
                 {(() => {
-                  const lines = blogPost.content.split('\n');
+                  const cleanedContent = stripHtmlTags(blogPost.content);
+                  const lines = cleanedContent.split('\n');
                   const elements: JSX.Element[] = [];
                   let currentParagraph: string[] = [];
                   let inList = false;
