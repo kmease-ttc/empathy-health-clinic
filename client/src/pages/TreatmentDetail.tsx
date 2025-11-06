@@ -11,6 +11,7 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import ShortContactForm from "@/components/ShortContactForm";
 import forestBg from "@assets/stock_images/calm_forest_trees_me_62fae749.jpg";
+import darkTherapyBg from "@assets/stock_images/calm_peaceful_therap_b118766b.jpg";
 import HeroBackground from "@/components/HeroBackground";
 import SEOHead from "@/components/SEOHead";
 import FAQSchema from "@/components/FAQSchema";
@@ -139,6 +140,9 @@ export default function TreatmentDetail() {
     "medicalSpecialty": "Psychiatry"
   };
 
+  // Use darker background for ADHD page for better text contrast
+  const heroBackgroundImage = treatment.slug === 'adhd-treatment' ? darkTherapyBg : forestBg;
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
@@ -151,7 +155,7 @@ export default function TreatmentDetail() {
       <FAQSchema faqs={parsedFaqs} />
       <SiteHeader />
       <main className="flex-1">
-        <HeroBackground imageSrc={forestBg}>
+        <HeroBackground imageSrc={heroBackgroundImage}>
           <Link 
             href="/#treatments" 
             className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors" 
