@@ -113,8 +113,7 @@ export default function ProviderCoverage() {
             </Button>
             <Button 
               size="lg" 
-              variant="outline" 
-              className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 text-white hover:text-white"
+              className="bg-green-600 hover:bg-green-700 text-white"
               asChild 
               data-testid="button-hero-call"
               onClick={() => trackEvent('phone_click', 'conversion', `${provider.name} Insurance Page - Hero CTA`)}
