@@ -12,7 +12,7 @@ export default function InsuranceSection() {
   const totalCount = providers?.length || 0;
 
   return (
-    <section className="py-12 md:py-16 bg-background">
+    <section className="py-8 md:py-10 bg-background">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-8">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-sans font-medium mb-3">

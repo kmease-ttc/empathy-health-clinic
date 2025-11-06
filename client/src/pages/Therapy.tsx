@@ -171,7 +171,9 @@ export default function TherapyPage() {
       {/* Insurance Section */}
       <InsuranceSection />
 
-      <div className="container mx-auto px-4 py-16 max-w-6xl">
+      <div className="border-t" />
+
+      <div className="container mx-auto px-4 py-10 max-w-6xl">
 
         <div className="max-w-4xl mx-auto mb-16">
           <div className="prose prose-lg max-w-none">
