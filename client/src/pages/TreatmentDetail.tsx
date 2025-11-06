@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link } from "wouter";
-import { Loader2, ArrowLeft, Phone, Mail, CheckCircle2, Users, Clock, Shield, Calendar, Video } from "lucide-react";
+import { Loader2, ArrowLeft, Phone, Mail, CheckCircle2, Users, Clock, Shield, Calendar, Video, Star, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Treatment } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import TrustFactors from "@/components/TrustFactors";
+import InsuranceSection from "@/components/InsuranceSection";
+import ReviewsAndBadges from "@/components/ReviewsAndBadges";
+import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import ShortContactForm from "@/components/ShortContactForm";
 import forestBg from "@assets/stock_images/calm_forest_trees_me_62fae749.jpg";
 import HeroBackground from "@/components/HeroBackground";
@@ -165,8 +168,8 @@ export default function TreatmentDetail() {
           </p>
           <div className="flex flex-wrap gap-4">
             <Button 
-              variant="default" 
               size="lg" 
+              className="bg-green-600 hover:bg-green-700 text-white"
               onClick={() => {
                 trackEvent(`${treatment.slug}_hero_cta`, 'conversion', `${treatment.title} Page`);
                 const form = document.querySelector('#contact-form');
