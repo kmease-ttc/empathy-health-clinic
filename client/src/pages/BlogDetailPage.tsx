@@ -145,6 +145,7 @@ export default function BlogDetailPage() {
 
   useEffect(() => {
     if (blogPost) {
+      const canonicalSlug = blogPost.canonicalSlug || blogPost.slug;
       const jsonLd = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -173,7 +174,7 @@ export default function BlogDetailPage() {
         "description": blogPost.metaDescription || blogPost.excerpt,
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": `${window.location.origin}/blog/${blogPost.slug}`
+          "@id": `${window.location.origin}/blog/${canonicalSlug}`
         }
       };
 
