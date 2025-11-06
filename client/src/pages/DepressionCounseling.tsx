@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { CheckCircle2, Heart, Shield, Calendar, Brain } from "lucide-react";
+import { CheckCircle2, Heart, Shield, Calendar, Brain, Star, CheckCircle } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import TrustFactors from "@/components/TrustFactors";
+import InsuranceSection from "@/components/InsuranceSection";
+import ReviewsAndBadges from "@/components/ReviewsAndBadges";
+import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import heroImage from "@assets/stock_images/calm_peaceful_therap_ae20056a.jpg";
 import { trackEvent } from "@/lib/analytics";
@@ -85,9 +88,9 @@ export default function DepressionCounseling() {
           </p>
           <div className="flex flex-wrap gap-4">
             <Button 
-              variant="default" 
               size="lg" 
               asChild 
+              className="bg-green-600 hover:bg-green-700 text-white"
               data-testid="button-hero-cta"
               onClick={() => trackEvent('depression_hero_cta', 'conversion', 'Depression Page')}
             >
@@ -106,14 +109,32 @@ export default function DepressionCounseling() {
           </div>
         </HeroBackground>
 
-        <div className="bg-primary text-primary-foreground py-3">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <div className="flex items-center justify-center gap-2 text-sm md:text-base font-medium">
-              <Heart className="h-5 w-5" />
-              <span>Same-Week Appointments | Most Insurance Accepted | In-Person & Telehealth Options</span>
+        {/* Key Benefits Bar */}
+        <section className="py-8 bg-card border-b">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 flex-wrap">
+              <div className="flex items-center gap-2">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <span className="text-lg font-semibold text-foreground">4.8</span>
+                <span className="text-sm text-muted-foreground">Google Reviews</span>
+              </div>
+              <div className="hidden lg:block h-6 w-px bg-border" />
+              <VerifiedOnBadge />
+              <div className="hidden lg:block h-6 w-px bg-border" />
+              <div className="flex items-center gap-2 text-sm text-foreground">
+                <CheckCircle className="h-4 w-4 text-primary" />
+                <span>Same-Week Appointments Available</span>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Insurance Section */}
+        <InsuranceSection />
 
         <div className="container mx-auto px-4 py-12 max-w-4xl">
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -350,6 +371,9 @@ export default function DepressionCounseling() {
             <TrustFactors variant="compact" limit={4} />
           </div>
         </div>
+
+        {/* Trust Badges */}
+        <ReviewsAndBadges />
       </main>
       <SiteFooter />
     </div>
