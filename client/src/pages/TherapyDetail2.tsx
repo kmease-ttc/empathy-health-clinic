@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import type { Therapy } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import TrustFactors from "@/components/TrustFactors";
 import InsuranceSection from "@/components/InsuranceSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
@@ -286,10 +285,6 @@ export default function TherapyDetail() {
                   </div>
                 </div>
               </section>
-            </div>
-
-            <div className="md:col-span-1">
-              <LeadCaptureForm therapyName={therapy.title} />
             </div>
           </div>
 

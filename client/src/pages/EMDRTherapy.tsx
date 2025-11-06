@@ -4,7 +4,6 @@ import { ArrowLeft, CheckCircle2, Brain, Shield, Calendar, Award, Star, CheckCir
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
-import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import TrustFactors from "@/components/TrustFactors";
 import InsuranceSection from "@/components/InsuranceSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
@@ -259,9 +258,6 @@ export default function EMDRTherapy() {
             </div>
 
             <div className="md:col-span-1 space-y-6">
-              <div id="contact-form">
-                <LeadCaptureForm therapyName="EMDR Therapy" />
-              </div>
 
               <div className="bg-card border border-border rounded-lg p-6">
                 <h3 className="text-lg font-semibold text-foreground mb-4">

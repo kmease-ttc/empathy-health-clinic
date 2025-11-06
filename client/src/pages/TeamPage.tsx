@@ -7,7 +7,6 @@ import type { TeamMember } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
-import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import forestBg from "@assets/stock_images/misty_forest_morning_dffbe3b2.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -147,9 +146,6 @@ export default function TeamPage() {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div id="contact-form">
-                <LeadCaptureForm therapyName="Team Consultation" />
               </div>
             </div>
           </div>

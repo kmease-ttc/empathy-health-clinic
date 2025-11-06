@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import SEOHead from "@/components/SEOHead";
 import type { TeamMember, InsuranceProvider, Testimonial } from "@shared/schema";
 
@@ -185,7 +184,6 @@ export default function PsychotherapistOrlando() {
                 <h3 className="text-xl font-bold text-foreground mb-4 text-center">
                   Request Your First Appointment
                 </h3>
-                <LeadCaptureForm therapyName="Psychotherapy (Orlando)" />
                 <p className="text-xs text-muted-foreground text-center mt-3">
                   Most new patients seen within 2-3 days • Free insurance verification
                 </p>
@@ -535,7 +533,6 @@ export default function PsychotherapistOrlando() {
               </div>
 
               <div>
-                <LeadCaptureForm therapyName="Psychotherapy - Orlando" />
               </div>
             </div>
           </div>

@@ -4,7 +4,6 @@ import { CheckCircle2, Heart, Shield, Calendar, Brain, Star, CheckCircle } from 
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
-import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import TrustFactors from "@/components/TrustFactors";
 import InsuranceSection from "@/components/InsuranceSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
@@ -317,9 +316,6 @@ export default function DepressionCounseling() {
             </div>
 
             <div className="md:col-span-1 space-y-6">
-              <div id="contact-form">
-                <LeadCaptureForm therapyName="Depression Counseling" />
-              </div>
 
               <div className="bg-card border border-border rounded-lg p-6">
                 <h3 className="text-lg font-semibold text-foreground mb-4">
