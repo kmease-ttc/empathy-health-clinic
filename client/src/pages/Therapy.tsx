@@ -2,12 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, CheckCircle2, MapPin, Phone, Clock } from "lucide-react";
+import { Loader2, CheckCircle2, MapPin, Phone, Clock, Star, CheckCircle, Mail } from "lucide-react";
 import * as Icons from "lucide-react";
 import type { Therapy } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
+import InsuranceSection from "@/components/InsuranceSection";
+import ReviewsAndBadges from "@/components/ReviewsAndBadges";
+import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import ShortContactForm from "@/components/ShortContactForm";
 import { trackEvent } from "@/lib/analytics";
 import therapyImage from "@assets/stock_images/professional_therapy_f11c950a.jpg";
@@ -38,36 +41,73 @@ export default function TherapyPage() {
       <SiteHeader />
       
       {/* Hero Section with Image */}
-      <div className="relative bg-background overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src={therapyImage} 
-            alt="Professional therapy session at Empathy Health Clinic"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/70" />
+      <div className="relative py-20 px-4">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${therapyImage})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
         </div>
         
-        <div className="relative container mx-auto px-4 py-16 md:py-24">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-foreground mb-6">
-              Therapist in Winter Park & Orlando, FL
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
-              Licensed therapists providing CBT, DBT, EMDR, trauma therapy, and couples counseling in Winter Park and Orlando. Evidence-based care tailored to your needs with flexible in-person and telehealth appointments.
-            </p>
+        <div className="container mx-auto max-w-6xl relative z-10 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white" data-testid="text-page-title">
+            Therapist in Winter Park & Orlando, FL
+          </h1>
+          <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
+            Licensed therapists providing CBT, DBT, EMDR, trauma therapy, and couples counseling in Winter Park and Orlando. Evidence-based care tailored to your needs with flexible in-person and telehealth appointments.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <Button 
-              variant="default" 
               size="lg" 
+              className="bg-green-600 hover:bg-green-700 text-white"
               asChild 
-              data-testid="button-hero-cta"
-              onClick={() => trackEvent('therapy_hero_cta', 'conversion', 'Therapy Page')}
+              data-testid="button-hero-request-appointment"
+              onClick={() => trackEvent('appointment_request', 'conversion', 'Therapy Page - Hero CTA')}
             >
-              <a href="#contact-form">Schedule Your Consultation</a>
+              <Link href="/request-appointment" className="flex items-center justify-center gap-2">
+                <Mail className="h-5 w-5" />
+                Request Appointment
+              </Link>
+            </Button>
+            <Button 
+              size="lg" 
+              className="bg-green-600 hover:bg-green-700 text-white"
+              asChild 
+              data-testid="button-hero-call"
+              onClick={() => trackEvent('phone_click', 'conversion', 'Therapy Page - Hero CTA')}
+            >
+              <a href="tel:3868488751" className="flex items-center justify-center gap-2">
+                <Phone className="h-5 w-5" />
+                Call (386) 848-8751
+              </a>
             </Button>
           </div>
         </div>
       </div>
+
+      {/* Key Benefits Bar */}
+      <section className="py-8 bg-card border-b">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-6 flex-wrap">
+            <div className="flex items-center gap-2">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-lg font-semibold text-foreground">4.8</span>
+              <span className="text-sm text-muted-foreground">Google Reviews</span>
+            </div>
+            <div className="hidden lg:block h-6 w-px bg-border" />
+            <VerifiedOnBadge />
+            <div className="hidden lg:block h-6 w-px bg-border" />
+            <div className="flex items-center gap-2 text-sm text-foreground">
+              <CheckCircle className="h-4 w-4 text-primary" />
+              <span>Same-Week Appointments Available</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Location & Contact Banner - Optimized for "therapist near me" */}
       <section className="py-8 bg-primary/5 border-y">
@@ -115,7 +155,7 @@ export default function TherapyPage() {
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Office Hours</h3>
                 <p className="text-sm text-muted-foreground">
-                  Mon-Fri: 9:00 AM - 6:00 PM<br />
+                  Mon-Sat: 9:00 AM - 6:00 PM<br />
                   Telehealth available
                 </p>
                 <p className="text-sm text-primary mt-1 font-medium">
@@ -127,6 +167,9 @@ export default function TherapyPage() {
           </div>
         </div>
       </section>
+
+      {/* Insurance Section */}
+      <InsuranceSection />
 
       <div className="container mx-auto px-4 py-16 max-w-6xl">
 
@@ -282,6 +325,10 @@ export default function TherapyPage() {
           </div>
         </div>
       </div>
+
+      {/* Trust Badges */}
+      <ReviewsAndBadges />
+      
       <SiteFooter />
     </div>
   );
