@@ -53,7 +53,7 @@ export default function ReviewsAndBadges() {
                 key={platform.name}
                 className={
                   platform.name === "Healthgrades"
-                    ? "h-16 w-32 md:h-20 md:w-40 flex items-center justify-center transition-all opacity-100 hover:opacity-70"
+                    ? "h-24 w-48 md:h-30 md:w-60 flex items-center justify-center transition-all opacity-100 hover:opacity-70"
                     : "h-12 w-24 md:h-14 md:w-28 flex items-center justify-center transition-all opacity-100 hover:opacity-70"
                 }
                 data-testid={`badge-${platform.name.toLowerCase()}`}

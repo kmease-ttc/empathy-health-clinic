@@ -39,13 +39,13 @@ export default function VerifiedOnBadge() {
               alt={platform.alt}
               className={`object-contain opacity-90 ${
                 platform.name === "Healthgrades" 
-                  ? "h-10" 
+                  ? "h-15" 
                   : platform.name === "Zocdoc"
                   ? "h-5"
                   : "h-4"
               }`}
               style={{ 
-                maxHeight: platform.name === "Healthgrades" ? "40px" : platform.name === "Google" ? "16px" : "20px",
+                maxHeight: platform.name === "Healthgrades" ? "60px" : platform.name === "Google" ? "16px" : "20px",
                 width: "auto"
               }}
             />
