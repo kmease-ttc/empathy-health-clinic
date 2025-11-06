@@ -27,17 +27,27 @@ export default function VerifiedOnBadge() {
       <span className="text-sm font-semibold text-foreground whitespace-nowrap">
         Verified On
       </span>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         {VERIFICATION_BADGES.map((platform) => (
           <div
             key={platform.name}
-            className="h-5 w-16 flex items-center justify-center"
+            className={`flex items-center justify-center ${
+              platform.name === "Google" ? "h-4 w-auto" : "h-5 w-auto"
+            }`}
             data-testid={`verified-badge-${platform.name.toLowerCase()}`}
           >
             <img 
               src={platform.logo} 
               alt={platform.alt}
-              className="max-h-full max-w-full object-contain opacity-90"
+              className={`object-contain opacity-90 ${
+                platform.name === "Healthgrades" || platform.name === "Zocdoc" 
+                  ? "h-5" 
+                  : "h-4"
+              }`}
+              style={{ 
+                maxHeight: platform.name === "Google" ? "16px" : "20px",
+                width: "auto"
+              }}
             />
           </div>
         ))}

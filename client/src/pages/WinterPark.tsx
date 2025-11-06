@@ -278,7 +278,7 @@ export default function WinterPark() {
         {/* Key Benefits Bar */}
         <section className="py-8 bg-card border-b">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 flex-wrap">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 flex-wrap">
               <div className="flex items-center gap-2">
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
@@ -288,12 +288,14 @@ export default function WinterPark() {
                 <span className="text-lg font-semibold text-foreground">4.8</span>
                 <span className="text-sm text-muted-foreground">Google Reviews</span>
               </div>
-              <div className="hidden sm:block h-6 w-px bg-border" />
+              <div className="hidden lg:block h-6 w-px bg-border" />
+              <VerifiedOnBadge />
+              <div className="hidden lg:block h-6 w-px bg-border" />
               <div className="flex items-center gap-2 text-sm text-foreground">
                 <CheckCircle className="h-4 w-4 text-primary" />
                 <span>Same-Week Appointments Available</span>
               </div>
-              <div className="hidden sm:block h-6 w-px bg-border" />
+              <div className="hidden lg:block h-6 w-px bg-border" />
               <div className="flex items-center gap-2 text-sm text-foreground">
                 <Shield className="h-4 w-4 text-primary" />
                 <span>HIPAA Compliant & Confidential</span>
@@ -684,14 +686,9 @@ export default function WinterPark() {
               <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
                 Visit Our Winter Park Office
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Conveniently located in the heart of Winter Park, serving the greater Orlando area
               </p>
-              
-              {/* Verified On Badge */}
-              <div className="flex justify-center">
-                <VerifiedOnBadge />
-              </div>
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg max-w-5xl mx-auto">
               <iframe
