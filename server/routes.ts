@@ -2034,6 +2034,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Sitemap Index (points to main sitemap)
+  app.get("/sitemap_index.xml", (_req, res) => {
+    const baseUrl = "https://empathyhealthclinic.com";
+    
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${baseUrl}/sitemap.xml</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+  </sitemap>
+</sitemapindex>`;
+
+    res.header('Content-Type', 'application/xml');
+    res.send(xml);
+  });
+
   // Robots.txt
   app.get("/robots.txt", (_req, res) => {
     // Always use production domain for robots.txt (required for Google Search Console)
@@ -2043,7 +2059,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 Allow: /
 Disallow: /admin
 
-Sitemap: ${baseUrl}/sitemap.xml
+Sitemap: ${baseUrl}/sitemap_index.xml
 `;
 
     res.header('Content-Type', 'text/plain');
