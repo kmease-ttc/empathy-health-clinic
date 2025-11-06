@@ -1,6 +1,8 @@
+import { Suspense, lazy } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
-import { CheckCircle2, Monitor, Shield, Calendar, Clock, Video, Loader2 } from "lucide-react";
+import { CheckCircle2, Monitor, Shield, Calendar, Clock, Video, Loader2, Phone, Star, CheckCircle, Users, Brain, Stethoscope } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useQuery } from "@tanstack/react-query";
 import type { TeamMember } from "@shared/schema";
@@ -8,17 +10,32 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import TrustFactors from "@/components/TrustFactors";
-import HeroBackground from "@/components/HeroBackground";
+import InsuranceSection from "@/components/InsuranceSection";
+import VerifiedOnBadge from "@/components/VerifiedOnBadge";
+import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
+
+const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
 
 export default function VirtualTherapy() {
   const { data: allTeamMembers, isLoading: loadingTeam } = useQuery<TeamMember[]>({
     queryKey: ["/api/team-members"],
   });
 
+  const { data: testimonials } = useQuery<{ id: string; name: string; rating: number; text: string; date: string; verified: boolean; }[]>({
+    queryKey: ["/api/testimonials"],
+  });
+
   // Filter out Dr. Glenn from virtual visits
   const teamMembers = allTeamMembers?.filter(member => member.slug !== 'dr-robert-glenn');
+  const featuredMembers = teamMembers?.slice(0, 4);
+  const featuredTestimonials = testimonials?.slice(0, 3);
+
+  const handlePhoneClick = () => {
+    trackEvent('phone_click', 'conversion', 'Virtual Therapy Page', '386-848-8751');
+  };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
@@ -29,10 +46,10 @@ export default function VirtualTherapy() {
       "name": "Empathy Health Clinic",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "2153 Park Center Drive",
+        "streetAddress": "2281 Lee Rd Suite 102",
         "addressLocality": "Winter Park",
         "addressRegion": "FL",
-        "postalCode": "32792"
+        "postalCode": "32810"
       },
       "telephone": "386-848-8751"
     },
@@ -46,52 +63,212 @@ export default function VirtualTherapy() {
         description="Online psychiatry and therapy throughout Florida. Secure telehealth appointments for medication management, counseling, and mental health treatment. Same-week availability. Most insurance accepted."
         keywords={["virtual psychiatry Florida", "telehealth psychiatry", "online therapy Florida", "virtual mental health", "telepsychiatry Orlando", "online psychiatrist Florida", "blue cross blue shield telehealth psychiatry", "cigna therapy online", "virtual EMDR therapy"]}
         canonicalPath="/virtual-therapy"
-        jsonLd={jsonLd}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <SiteHeader />
       <main className="flex-1">
-        <HeroBackground imageSrc={heroImage}>
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Virtual Psychiatry & Therapy Across Florida
-          </h1>
-          <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
-            Get professional mental health care from home. Secure, convenient telehealth appointments with licensed psychiatrists and therapists throughout Florida.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Button 
-              variant="default" 
-              size="lg" 
-              asChild 
-              data-testid="button-hero-cta"
-              onClick={() => trackEvent('virtual_therapy_hero_cta', 'conversion', 'Virtual Therapy Page')}
-            >
-              <a href="#contact-form">Schedule Virtual Appointment</a>
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              asChild 
-              className="bg-background/20 backdrop-blur-sm border-white/30 text-white hover:bg-background/30"
-              data-testid="button-hero-phone"
-              onClick={() => trackEvent('phone_click', 'conversion', 'Virtual Therapy Page - Hero')}
-            >
-              <a href="tel:386-848-8751">Call 386-848-8751</a>
-            </Button>
+        {/* Hero Section */}
+        <div className="relative py-20 px-4">
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
           </div>
-        </HeroBackground>
-
-        <div className="bg-primary text-primary-foreground py-3">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <div className="flex items-center justify-center gap-2 text-sm md:text-base font-medium">
-              <Monitor className="h-5 w-5" />
-              <span>Serving All of Florida | Most Insurance Accepted | HIPAA-Secure Platform</span>
+          <div className="container mx-auto max-w-6xl relative z-10 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/90 mb-4">
+              <Monitor className="h-8 w-8 text-primary" />
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white" data-testid="text-page-title">
+              Virtual Psychiatry & Therapy Across Florida
+            </h1>
+            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
+              Get professional mental health care from home. Secure, convenient telehealth appointments with licensed psychiatrists and therapists throughout Florida.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                asChild
+                size="lg"
+                data-testid="button-call-now-hero"
+              >
+                <a href="tel:3868488751" onClick={handlePhoneClick}>
+                  <Phone className="h-5 w-5 mr-2" />
+                  Call 386-848-8751
+                </a>
+              </Button>
+              <Button 
+                asChild
+                size="lg"
+                className="bg-green-600 hover:bg-green-700 text-white border-green-600"
+                data-testid="button-request-appointment-hero"
+              >
+                <Link href="/request-appointment">
+                  Request Appointment
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-12 max-w-4xl">
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="md:col-span-2 space-y-8">
+        {/* Key Benefits Bar */}
+        <section className="py-8 bg-card border-b">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 flex-wrap">
+              <div className="flex items-center gap-2">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <span className="text-lg font-semibold text-foreground">4.8</span>
+                <span className="text-sm text-muted-foreground">Google Reviews</span>
+              </div>
+              <div className="hidden lg:block h-6 w-px bg-border" />
+              <VerifiedOnBadge />
+              <div className="hidden lg:block h-6 w-px bg-border" />
+              <div className="flex items-center gap-2 text-sm text-foreground">
+                <CheckCircle className="h-4 w-4 text-primary" />
+                <span>Serving All of Florida</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Insurance Section */}
+        <InsuranceSection />
+
+        {/* Services Section */}
+        <section className="py-16 md:py-20 bg-card border-y">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
+                Comprehensive Virtual Mental Health Services
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Expert psychiatric and therapy services from the comfort of your home
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Card>
+                <CardHeader>
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Stethoscope className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Virtual Psychiatry</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Psychiatric evaluations online</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Medication management & monitoring</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Depression & anxiety treatment</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>ADHD diagnosis & management</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Brain className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Online Therapy</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Cognitive Behavioral Therapy (CBT)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>EMDR for trauma & PTSD</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Stress & anxiety management</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Grief & loss counseling</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Users className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Telehealth Benefits</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>HIPAA-secure video platform</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Evening & weekend appointments</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>No travel required</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Same-week availability</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center mt-12">
+              <Button 
+                asChild
+                size="lg"
+                data-testid="button-view-all-services"
+              >
+                <Link href="/services">
+                  View All Services
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="py-16 md:py-20 bg-background">
+          <div className="max-w-5xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
+                How Virtual Appointments Work
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Simple, secure, and effective telehealth in four easy steps
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-4">
               <section>
                 <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   Professional Mental Health Care from Anywhere in Florida
