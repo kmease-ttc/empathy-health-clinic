@@ -48,6 +48,13 @@ export default function Admin() {
           </Button>
           <Button
             variant="outline"
+            onClick={() => setLocation("/admin/link-monitor")}
+            data-testid="button-link-monitor"
+          >
+            Link & Performance Monitor
+          </Button>
+          <Button
+            variant="outline"
             onClick={() => setLocation("/admin/seo")}
             data-testid="button-seo-optimization"
           >
