@@ -71,12 +71,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/virtual-visit/", (req, res) => {
     res.redirect(301, "/virtual-therapy");
   });
-
-  // CRITICAL: Remove trailing slashes from all blog post URLs to prevent duplicate content
-  // Google sees /blog/slug and /blog/slug/ as different URLs
-  app.get("/blog/:slug/", (req, res) => {
-    res.redirect(301, `/blog/${req.params.slug}`);
-  });
   
   // Legacy URL redirects for SEO (catch-all patterns - MOVED to end of file to avoid overriding specific redirects)
   

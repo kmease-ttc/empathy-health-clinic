@@ -39,6 +39,28 @@ app.use((req, res, next) => {
   next();
 });
 
+// 301 Redirect: Remove trailing slashes (fixes "Alternate page with proper canonical tag" in GSC)
+// Google prefers 301 redirects over canonical tags for duplicate URLs
+app.use((req, res, next) => {
+  // Only redirect if:
+  // 1. Path ends with a trailing slash
+  // 2. Path is not just "/" (homepage)
+  // 3. Path is not an API route (they're fine with trailing slashes)
+  if (req.path !== '/' && req.path.endsWith('/') && !req.path.startsWith('/api/')) {
+    // Remove trailing slash
+    const pathWithoutSlash = req.path.slice(0, -1);
+    
+    // Preserve query string if present
+    const query = req.url.slice(req.path.length);
+    const newUrl = pathWithoutSlash + query;
+    
+    // Send 301 permanent redirect
+    return res.redirect(301, newUrl);
+  }
+  
+  next();
+});
+
 // 410 Gone: Legacy WordPress URLs that no longer exist
 app.use((req, res, next) => {
   // Block old WordPress admin, login, and content URLs with 410 Gone
