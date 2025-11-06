@@ -19,7 +19,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **SEO Features:** Comprehensive SEO implementation including unique meta tags, canonical tags, 100% structured data coverage (Organization/LocalBusiness, Article/BlogPosting, Physician, automatic FAQ schema detection), auto-generated XML sitemap, robots.txt, llms.txt, SEO-friendly URLs, rich content optimization, mobile-first design, image alt text, and strategic internal linking.
 - **Google Maps Integration:** Embedded map on the homepage for local SEO.
 - **Blog System:** Comprehensive blog with listing and individual post pages, SEO metadata, Article/BlogPosting schema, automatic FAQ schema detection, related articles, author bios, social sharing, category filtering, and Markdown link support.
-- **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
+- **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, Microsoft Clarity (heatmaps & session recordings), page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
 - **SEO Optimization Dashboard:** Strategic SEO tools at `/admin/seo` for Search Console guidance, content gap analysis, and internal linking recommendations.
 - **Performance Optimizations:** Mobile-first approach with code splitting, analytics deferral, resource hints, script optimization, and hero image preloading.
 - **Email Deliverability:** SendGrid sender configuration with comprehensive DNS authentication guidance.

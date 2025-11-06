@@ -370,6 +370,120 @@ export default function AnalyticsDashboard() {
           </CardContent>
         </Card>
 
+        {/* Microsoft Clarity - Heatmaps & Session Recordings */}
+        <Card data-testid="card-clarity-status" className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-2">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Eye className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              Microsoft Clarity - Behavior Analytics
+            </CardTitle>
+            <CardDescription>
+              Understand why visitors drop off with heatmaps, session recordings, and scroll maps
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                {import.meta.env.VITE_CLARITY_PROJECT_ID ? (
+                  <CheckCircle2 className="h-6 w-6 text-green-500" data-testid="icon-clarity-active" />
+                ) : (
+                  <AlertCircle className="h-6 w-6 text-yellow-500" data-testid="icon-clarity-inactive" />
+                )}
+                <div>
+                  <p className="font-medium" data-testid="text-clarity-status">
+                    {import.meta.env.VITE_CLARITY_PROJECT_ID 
+                      ? 'Active & Recording Sessions' 
+                      : 'Not Configured - Setup Recommended'
+                    }
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {import.meta.env.VITE_CLARITY_PROJECT_ID 
+                      ? `Project ID: ${import.meta.env.VITE_CLARITY_PROJECT_ID.substring(0, 8)}...` 
+                      : '100% free - no traffic limits, unlimited recordings'
+                    }
+                  </p>
+                </div>
+              </div>
+              {import.meta.env.VITE_CLARITY_PROJECT_ID && (
+                <Button 
+                  variant="outline" 
+                  onClick={() => window.open('https://clarity.microsoft.com/', '_blank')}
+                  data-testid="button-open-clarity"
+                >
+                  Open Clarity Dashboard
+                </Button>
+              )}
+            </div>
+            
+            {import.meta.env.VITE_CLARITY_PROJECT_ID ? (
+              <div className="bg-card p-4 rounded-md border space-y-3">
+                <p className="font-medium text-sm">What You Can See in Clarity:</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium">Heatmaps</p>
+                      <p className="text-muted-foreground">See exactly where visitors click most</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium">Session Recordings</p>
+                      <p className="text-muted-foreground">Watch visitor journeys from start to finish</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium">Scroll Maps</p>
+                      <p className="text-muted-foreground">Identify where people stop scrolling</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium">Rage Clicks</p>
+                      <p className="text-muted-foreground">Find broken buttons causing frustration</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium">Dead Clicks</p>
+                      <p className="text-muted-foreground">Discover non-clickable elements users try to click</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium">Form Analytics</p>
+                      <p className="text-muted-foreground">See which form fields cause drop-offs</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-muted p-4 rounded-md space-y-3">
+                <p className="font-medium text-sm">Setup Microsoft Clarity (Free Forever):</p>
+                <ol className="list-decimal list-inside space-y-2 text-xs text-muted-foreground">
+                  <li>Visit <a href="https://clarity.microsoft.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">clarity.microsoft.com</a> and sign in with Microsoft account</li>
+                  <li>Click "Add New Project" and enter your website details</li>
+                  <li>Copy your Project ID (looks like: "abc123def456")</li>
+                  <li>Add it to Replit Secrets as <code className="bg-background px-1 py-0.5 rounded">VITE_CLARITY_PROJECT_ID</code></li>
+                  <li>Refresh this page - Clarity will start recording sessions immediately</li>
+                </ol>
+                <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+                  <p className="text-xs font-medium text-blue-900 dark:text-blue-100">💡 Pro Tip:</p>
+                  <p className="text-xs text-blue-800 dark:text-blue-200 mt-1">
+                    Filter Clarity sessions by "Rage Clicks" to instantly see what's frustrating your visitors. This is the #1 way to find broken CTAs and confusing navigation.
+                  </p>
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Paid vs Organic Conversions */}
         <Card data-testid="card-conversion-sources">
           <CardHeader>

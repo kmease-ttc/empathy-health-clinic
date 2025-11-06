@@ -264,6 +264,7 @@ function App() {
       ]).then(([analytics, webVitals, utm]) => {
         analytics.initGA();
         analytics.initFacebookPixel();
+        analytics.initMicrosoftClarity();
         webVitals.initWebVitals();
         utm.initUTMTracking();
       }).catch((error) => {

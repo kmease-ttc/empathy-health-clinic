@@ -5,6 +5,7 @@ declare global {
     gtagReady?: Promise<void>;
     fbq: (...args: any[]) => void;
     _fbq: any;
+    clarity: (...args: any[]) => void;
   }
 }
 
@@ -14,6 +15,31 @@ if (typeof window !== 'undefined') {
     gtagReadyResolve = resolve;
   });
 }
+
+export const initMicrosoftClarity = () => {
+  const clarityId = import.meta.env.VITE_CLARITY_PROJECT_ID;
+  
+  if (!clarityId) {
+    console.warn('⚠️ Microsoft Clarity: Missing VITE_CLARITY_PROJECT_ID environment variable');
+    return;
+  }
+
+  console.log('✅ Microsoft Clarity: Initializing with Project ID:', clarityId.substring(0, 8) + '...');
+
+  // Load Microsoft Clarity script
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.textContent = `
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "${clarityId}");
+  `;
+  document.head.appendChild(script);
+
+  console.log('✅ Microsoft Clarity: Heatmaps and session recording initialized');
+};
 
 export const initFacebookPixel = () => {
   const pixelId = import.meta.env.VITE_FACEBOOK_PIXEL_ID;
