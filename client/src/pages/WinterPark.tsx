@@ -302,9 +302,6 @@ export default function WinterPark() {
         {/* Insurance Section */}
         <InsuranceSection />
 
-        {/* Trust Badges */}
-        <ReviewsAndBadges />
-
         {/* Location & Contact Info */}
         <section className="py-16 md:py-20 bg-background">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -527,6 +524,9 @@ export default function WinterPark() {
             <TrustFactors />
           </div>
         </section>
+
+        {/* Trust Badges */}
+        <ReviewsAndBadges />
 
         {/* Why Choose Us Section */}
         <section className="py-16 md:py-20 bg-background">
