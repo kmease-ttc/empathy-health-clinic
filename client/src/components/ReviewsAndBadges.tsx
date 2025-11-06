@@ -51,7 +51,11 @@ export default function ReviewsAndBadges() {
             {PLATFORM_BADGES.map((platform) => (
               <div
                 key={platform.name}
-                className="h-12 w-24 md:h-14 md:w-28 flex items-center justify-center transition-all opacity-100 hover:opacity-70"
+                className={
+                  platform.name === "Healthgrades"
+                    ? "h-16 w-32 md:h-20 md:w-40 flex items-center justify-center transition-all opacity-100 hover:opacity-70"
+                    : "h-12 w-24 md:h-14 md:w-28 flex items-center justify-center transition-all opacity-100 hover:opacity-70"
+                }
                 data-testid={`badge-${platform.name.toLowerCase()}`}
               >
                 <img 
