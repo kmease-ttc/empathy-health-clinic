@@ -41,9 +41,27 @@ const longFormSchema = z.object({
   lastName: z.string().min(1, "Last name is required"),
   phone: z.string().min(10, "Valid phone number is required"),
   email: z.string().email("Valid email is required"),
-  insuranceProvider: z.string().optional(),
-  insuredDob: z.string().optional(),
+  insuranceProvider: z.string().optional().default(""),
+  insuredDob: z.string().optional().default(""),
   memberId: z.string().optional(),
+}).superRefine((data, ctx) => {
+  // Only require insurance fields when payment method is insurance
+  if (data.paymentMethod === "insurance") {
+    if (!data.insuranceProvider || data.insuranceProvider.trim() === "") {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Insurance provider is required",
+        path: ["insuranceProvider"],
+      });
+    }
+    if (!data.insuredDob || data.insuredDob.trim() === "") {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Date of birth is required",
+        path: ["insuredDob"],
+      });
+    }
+  }
 });
 
 type LongFormValues = z.infer<typeof longFormSchema>;
@@ -161,7 +179,18 @@ export default function LongContactForm() {
   };
 
   const nextStep = async () => {
-    const fields = step === 1 ? ["firstName", "lastName", "email", "phone", "service"] : step === 2 ? ["paymentMethod"] : [];
+    let fields: string[] = [];
+    
+    if (step === 1) {
+      fields = ["firstName", "lastName", "email", "phone", "service"];
+    } else if (step === 2) {
+      fields = ["paymentMethod"];
+      // If using insurance, also validate insurance fields
+      if (form.getValues("paymentMethod") === "insurance") {
+        fields.push("insuranceProvider", "insuredDob");
+      }
+    }
+    
     const isValid = await form.trigger(fields as any);
     if (isValid) {
       // Track form started only when user advances from Step 1 to Step 2
@@ -515,7 +544,7 @@ export default function LongContactForm() {
                     name="insuranceProvider"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Insurance Provider (Optional)</FormLabel>
+                        <FormLabel>Insurance Provider *</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-insurance-provider">
@@ -534,6 +563,7 @@ export default function LongContactForm() {
                             ))}
                           </SelectContent>
                         </Select>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -544,10 +574,11 @@ export default function LongContactForm() {
                       name="insuredDob"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Date of Birth (Optional)</FormLabel>
+                          <FormLabel>Date of Birth *</FormLabel>
                           <FormControl>
                             <Input type="date" {...field} data-testid="input-insured-dob" />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
