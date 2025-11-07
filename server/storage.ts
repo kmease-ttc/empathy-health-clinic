@@ -401,7 +401,7 @@ export class MemStorage implements IStorage {
       {
         name: "Melissa DiPaolis",
         credentials: "MSN, APRN, FNP-BC",
-        image: "/attached_assets/image_1761612547677.png",
+        image: "/attached_assets/image_1761612547677.webp",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "melissa-dipaolis",
         pageTitle: "Melissa DiPaolis, MSN, APRN, FNP-BC | Family Nurse Practitioner | Winter Park, FL",
@@ -414,7 +414,7 @@ export class MemStorage implements IStorage {
       {
         name: "Marjorie Felix",
         credentials: "MSN, APRN, PMHNP-BC",
-        image: "/attached_assets/image_1761613541242.png",
+        image: "/attached_assets/image_1761613541242.webp",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "marjorie-felix",
         pageTitle: "Marjorie Felix, MSN, APRN, PMHNP-BC | Psychiatric Nurse Practitioner | Winter Park, FL",
@@ -427,7 +427,7 @@ export class MemStorage implements IStorage {
       {
         name: "Marsha D. Hassell",
         credentials: "MS, PLMHC",
-        image: "/attached_assets/image_1761613347362.png",
+        image: "/attached_assets/image_1761613347362.webp",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "marsha-hassell",
         pageTitle: "Marsha D. Hassell, MS, PLMHC | Licensed Mental Health Counselor | Winter Park, FL",
@@ -440,7 +440,7 @@ export class MemStorage implements IStorage {
       {
         name: "Alex Regan",
         credentials: "Psychiatric PA-C, Medical Director",
-        image: "/attached_assets/image_1761612254512.png",
+        image: "/attached_assets/image_1761612254512.webp",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "alex-regan",
         pageTitle: "Alex Regan, PA-C, Medical Director | Psychiatric Physician Assistant | Winter Park, FL",
@@ -453,7 +453,7 @@ export class MemStorage implements IStorage {
       {
         name: "Dr. Robert Glenn",
         credentials: "MD, Supervising Physician",
-        image: "/attached_assets/dr_glenn_headshot_square_1761613083513.png",
+        image: "/attached_assets/dr_glenn_headshot_square_1761613083513.webp",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "dr-robert-glenn",
         pageTitle: "Dr. Robert Glenn, MD | Supervising Physician | Winter Park, FL",
@@ -466,7 +466,7 @@ export class MemStorage implements IStorage {
       {
         name: "Karla McLeod",
         credentials: "Licensed Mental Health Counselor",
-        image: "/attached_assets/carla_headshot_square_v2_1761619702991.png",
+        image: "/attached_assets/carla_headshot_square_v2_1761619702991.webp",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "karla-mcleod",
         pageTitle: "Karla McLeod, LMHC | Licensed Mental Health Counselor | Winter Park, FL",
@@ -479,7 +479,7 @@ export class MemStorage implements IStorage {
       {
         name: "Christine Orr",
         credentials: "LCSW",
-        image: "/attached_assets/image_1761614480890.png",
+        image: "/attached_assets/image_1761614480890.webp",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "christine-orr",
         pageTitle: "Christine Orr, LCSW | Licensed Clinical Social Worker | Winter Park, FL",
@@ -492,7 +492,7 @@ export class MemStorage implements IStorage {
       {
         name: "Monique Walen",
         credentials: "MSN, APRN, PMHNP-BC",
-        image: "/attached_assets/image_1761603840896.png",
+        image: "/attached_assets/image_1761603840896.webp",
         doxyUrl: "https://doxy.me/empathy1",
         slug: "monique-walen",
         pageTitle: "Monique Walen, MSN, APRN, PMHNP-BC | Psychiatric Nurse Practitioner | Winter Park, FL",
