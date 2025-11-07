@@ -9,7 +9,8 @@ interface ClarityCache {
   timestamp: number;
 }
 
-let cache: ClarityCache | null = null;
+// Cache keyed by endpoint to prevent different API calls from overwriting each other
+const cacheStore: Map<string, ClarityCache> = new Map();
 
 /**
  * Fetch data from Microsoft Clarity API with intelligent caching
@@ -21,11 +22,12 @@ export async function fetchClarityData(endpoint: string): Promise<any> {
   }
 
   const cacheKey = `clarity_${endpoint}`;
+  const cached = cacheStore.get(cacheKey);
   
   // Check if cached data is still valid
-  if (cache && cache.timestamp && Date.now() - cache.timestamp < CACHE_DURATION_MS) {
-    console.log(`[Clarity API] Using cached data (age: ${Math.round((Date.now() - cache.timestamp) / 1000 / 60)} minutes)`);
-    return cache.data;
+  if (cached && cached.timestamp && Date.now() - cached.timestamp < CACHE_DURATION_MS) {
+    console.log(`[Clarity API] Using cached data for ${endpoint} (age: ${Math.round((Date.now() - cached.timestamp) / 1000 / 60)} minutes)`);
+    return cached.data;
   }
 
   console.log(`[Clarity API] Fetching fresh data from endpoint: ${endpoint}`);
@@ -48,13 +50,13 @@ export async function fetchClarityData(endpoint: string): Promise<any> {
 
     const data = await response.json();
     
-    // Update cache
-    cache = {
+    // Update cache for this specific endpoint
+    cacheStore.set(cacheKey, {
       data,
       timestamp: Date.now(),
-    };
+    });
 
-    console.log(`[Clarity API] Data fetched and cached successfully`);
+    console.log(`[Clarity API] Data fetched and cached successfully for ${endpoint}`);
     return data;
   } catch (error) {
     console.error('[Clarity API] Error fetching data:', error);
@@ -94,19 +96,28 @@ export async function getClarityPageMetrics(): Promise<any> {
  * Force clear the cache (for testing or manual refresh)
  */
 export function clearClarityCache(): void {
-  cache = null;
-  console.log('[Clarity API] Cache cleared');
+  cacheStore.clear();
+  console.log('[Clarity API] All cache cleared');
 }
 
 /**
- * Get cache status
+ * Get cache status - checks if any endpoint has cached data
  */
 export function getCacheStatus(): { cached: boolean; age?: number } {
-  if (!cache || !cache.timestamp) {
+  // Check if we have any cached data
+  let oldestCache: ClarityCache | null = null;
+  
+  for (const cache of cacheStore.values()) {
+    if (!oldestCache || cache.timestamp < oldestCache.timestamp) {
+      oldestCache = cache;
+    }
+  }
+  
+  if (!oldestCache) {
     return { cached: false };
   }
   
-  const ageMinutes = Math.round((Date.now() - cache.timestamp) / 1000 / 60);
+  const ageMinutes = Math.round((Date.now() - oldestCache.timestamp) / 1000 / 60);
   return {
     cached: true,
     age: ageMinutes,

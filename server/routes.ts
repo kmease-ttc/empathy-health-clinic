@@ -1960,15 +1960,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
       clearClarityCache();
       const metrics = await getClarityPageMetrics();
       
-      res.json({
-        success: true,
-        message: 'Clarity data refreshed successfully',
-        data: metrics,
-      });
+      if (metrics) {
+        res.json({
+          success: true,
+          message: 'Clarity data refreshed successfully',
+          data: metrics,
+        });
+      } else {
+        // Clarity API failed but we handle it gracefully
+        res.json({
+          success: false,
+          message: 'Clarity API is currently unavailable. Bounce rate data is still available from local analytics.',
+          warning: 'The Clarity API endpoints may require configuration or may not be accessible with the current token. Check server logs for details.'
+        });
+      }
     } catch (error: any) {
-      res.status(500).json({ 
+      // Don't fail hard - just inform the user
+      console.error('[Link Monitor] Clarity API error:', error.message);
+      res.json({ 
         success: false,
-        error: error.message 
+        message: 'Clarity API is currently unavailable. Bounce rate data is still available from local analytics.',
+        error: error.message,
+        warning: 'The Microsoft Clarity API integration requires valid API credentials and proper endpoint configuration. Your local bounce rate tracking is working correctly.'
       });
     }
   });

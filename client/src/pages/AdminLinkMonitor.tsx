@@ -34,8 +34,11 @@ export default function AdminLinkMonitor() {
     mutationFn: async () => {
       return apiRequest("POST", "/api/analytics/clarity/refresh", {});
     },
-    onSuccess: () => {
+    onSuccess: (response: any) => {
       queryClient.invalidateQueries({ queryKey: ["/api/analytics/link-monitor"] });
+      if (!response.success && response.warning) {
+        console.warn('[Clarity API]', response.warning);
+      }
     },
   });
 
@@ -98,7 +101,12 @@ export default function AdminLinkMonitor() {
               <Alert>
                 <AlertTriangle className="h-4 w-4" />
                 <AlertDescription>
-                  No Clarity data cached yet. Click "Refresh Data" to fetch (uses 1 of 10 daily API calls).
+                  <div className="space-y-2">
+                    <p>Clarity API integration is optional. Local bounce rate tracking is active and working.</p>
+                    <p className="text-sm text-muted-foreground">
+                      To enable Clarity API features, ensure valid CLARITY_API_TOKEN is configured and API endpoints are accessible.
+                    </p>
+                  </div>
                 </AlertDescription>
               </Alert>
             )}
@@ -122,7 +130,7 @@ export default function AdminLinkMonitor() {
             ) : highBouncePages.length === 0 ? (
               <Alert>
                 <AlertDescription>
-                  No pages with high bounce rates detected. Great job! 🎉
+                  No pages with high bounce rates detected. Your content is performing well.
                 </AlertDescription>
               </Alert>
             ) : (
