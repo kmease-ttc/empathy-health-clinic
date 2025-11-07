@@ -1,7 +1,7 @@
-import zocdocLogo from "@assets/logo_lockup_positive_rgb_1761921702261.png";
+import zocdocLogo from "@assets/logo_lockup_positive_rgb_1761921702261.webp";
 import googleLogo from "@assets/google-wordmark.webp";
-import healthgradesLogo from "@assets/healthgrades-logo.png";
-import yelpLogo from "@assets/image_1761925935867.png";
+import healthgradesLogo from "@assets/healthgrades-logo.webp";
+import yelpLogo from "@assets/image_1761925935867.webp";
 import goodTherapyLogo from "@assets/image_1761927553793.webp";
 import scoreMyReviewsLogo from "@assets/image_1761927693804.webp";
 
