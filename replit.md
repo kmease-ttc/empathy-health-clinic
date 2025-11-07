@@ -20,6 +20,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Google Maps Integration:** Embedded map on the homepage for local SEO.
 - **Blog System:** Comprehensive blog with listing and individual post pages, SEO metadata, Article/BlogPosting schema, automatic FAQ schema detection, related articles, author bios, social sharing, category filtering, and Markdown link support. Blog content rendering includes automatic HTML-to-markdown conversion and GPT artifact removal to ensure clean, professional display of AI-generated content.
 - **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, Microsoft Clarity (heatmaps & session recordings), page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
+- **Link & Performance Monitor (`/admin/link-monitor`):** Comprehensive bounce rate tracking dashboard with Microsoft Clarity API integration (10 calls/day limit, 24-hour caching). Displays high bounce rate pages (70%+) and medium bounce rate pages (40-70%) with actionable recommendations. Includes graceful fallback to local analytics when Clarity API unavailable. Features per-endpoint cache isolation to prevent data corruption across different API surfaces.
 - **SEO Optimization Dashboard:** Strategic SEO tools at `/admin/seo` for Search Console guidance, content gap analysis, and internal linking recommendations.
 - **Performance Optimizations:** Mobile-first approach with code splitting, analytics deferral, resource hints, script optimization, and hero image preloading.
 - **Email Deliverability:** SendGrid sender configuration with comprehensive DNS authentication guidance.
@@ -36,6 +37,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Team Page:** Displays staff bios and credentials.
 - **Admin Panel:** CMS for content and lead management.
 - **Analytics Dashboard:** Monitors key performance metrics.
+- **Link & Performance Monitor:** Dashboard at `/admin/link-monitor` tracking bounce rates and identifying problematic pages. Color-coded badges (red for high bounce, secondary for medium), external tool links, and comprehensive recommendations for improving page performance.
 - **Google Ads Setup:** OAuth setup page for Google Ads account connection.
 - **Competitive Comparison Section:** Homepage section highlighting differentiators.
 - **Homepage About Section:** Keyword-rich "About" section for improved SEO.
@@ -64,3 +66,4 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **OpenAI GPT-4o:** For AI blog generation.
 - **PostgreSQL:** Database for analytics and leads.
 - **Unsplash API:** For professional stock images.
+- **Microsoft Clarity API:** Optional integration for enhanced link monitoring and dead link detection (rate limited to 10 calls/day).
