@@ -86,6 +86,10 @@ app.use((req, res, next) => {
 // 301 Redirects: Old WordPress URLs to preserve backlink SEO value
 app.use((req, res, next) => {
   const redirectMap: Record<string, string> = {
+    // Therapy page redirect → in-person therapy page
+    '/therapy/in-person-therapy': '/in-person-therapy',
+    '/therapy/in-person-therapy/': '/in-person-therapy',
+    
     // Grief self-care article → existing grief counseling post
     '/blog/finding-comfort-self-care-tips-for-those-who-are-grieving': '/blog/the-power-of-grief-counseling-in-healing-the-heart-2',
     '/blog/finding-comfort-self-care-tips-for-those-who-are-grieving/': '/blog/the-power-of-grief-counseling-in-healing-the-heart-2',
