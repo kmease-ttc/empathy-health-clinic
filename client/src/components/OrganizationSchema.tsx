@@ -6,7 +6,7 @@ export default function OrganizationSchema() {
     
     const organizationSchema = {
       "@context": "https://schema.org",
-      "@type": ["MedicalOrganization", "LocalBusiness"],
+      "@type": ["MedicalOrganization", "MedicalClinic", "Psychiatrist"],
       "name": "Empathy Health Clinic",
       "description": "Compassionate mental health care and psychiatric services in Florida. Expert treatment for anxiety, depression, and other mental health conditions.",
       "url": baseUrl,
@@ -16,17 +16,51 @@ export default function OrganizationSchema() {
       "email": "providers@empathyhealthclinic.com",
       "address": {
         "@type": "PostalAddress",
-        "addressCountry": "US",
-        "addressRegion": "FL"
+        "streetAddress": "2281 Lee Rd Suite 102",
+        "addressLocality": "Winter Park",
+        "addressRegion": "FL",
+        "postalCode": "32789",
+        "addressCountry": "US"
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "addressCountry": "US"
+        "latitude": "28.6000",
+        "longitude": "-81.3392"
       },
-      "areaServed": {
-        "@type": "State",
-        "name": "Florida"
-      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Winter Park",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Florida"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Orlando",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Florida"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Lake Mary",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Florida"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Altamonte Springs",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Florida"
+          }
+        }
+      ],
       "priceRange": "$$",
       "currenciesAccepted": "USD",
       "paymentAccepted": "Insurance, Credit Card",
@@ -38,7 +72,8 @@ export default function OrganizationSchema() {
             "Tuesday",
             "Wednesday",
             "Thursday",
-            "Friday"
+            "Friday",
+            "Saturday"
           ],
           "opens": "09:00",
           "closes": "17:00"
@@ -83,7 +118,14 @@ export default function OrganizationSchema() {
           }
         ]
       },
-      "sameAs": []
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=100083226165903",
+        "https://x.com/clinicempathy12",
+        "https://www.instagram.com/empathyhealthfl/?hl=en",
+        "https://www.tiktok.com/@empathy.health.cl",
+        "https://www.linkedin.com/company/empathy-health-clinic/",
+        "https://www.youtube.com/@EmpathyHealthClinic"
+      ]
     };
 
     let script = document.querySelector('script[type="application/ld+json"][data-schema="organization"]');

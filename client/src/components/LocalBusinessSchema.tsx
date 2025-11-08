@@ -20,7 +20,7 @@ export default function LocalBusinessSchema({
     
     const localBusinessSchema = {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": ["MedicalClinic", "Psychiatrist"],
       "@id": `${baseUrl}/locations/${slug}`,
       "name": `Empathy Health Clinic - ${city}`,
       "description": description,
@@ -176,8 +176,12 @@ export default function LocalBusinessSchema({
         "Counseling"
       ],
       "sameAs": [
-        "https://www.facebook.com/empathyhealthclinic",
-        "https://www.instagram.com/empathyhealthclinic"
+        "https://www.facebook.com/profile.php?id=100083226165903",
+        "https://x.com/clinicempathy12",
+        "https://www.instagram.com/empathyhealthfl/?hl=en",
+        "https://www.tiktok.com/@empathy.health.cl",
+        "https://www.linkedin.com/company/empathy-health-clinic/",
+        "https://www.youtube.com/@EmpathyHealthClinic"
       ]
     };
 

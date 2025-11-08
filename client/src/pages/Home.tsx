@@ -29,7 +29,7 @@ export default function Home() {
         canonicalPath="/"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
+          "@type": ["MedicalClinic", "Psychiatrist", "LocalBusiness"],
           "@id": "https://empathyhealthclinic.com/#organization",
           "name": "Empathy Health Clinic",
           "alternateName": "Empathy Health",
@@ -54,26 +54,45 @@ export default function Home() {
           "openingHoursSpecification": [
             {
               "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
               "opens": "09:00",
               "closes": "17:00"
-            },
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": "Saturday",
-              "opens": "00:00",
-              "closes": "00:00",
-              "description": "By Appointment"
             }
           ],
-          "areaServed": {
-            "@type": "City",
-            "name": "Winter Park",
-            "containedIn": {
-              "@type": "State",
-              "name": "Florida"
+          "areaServed": [
+            {
+              "@type": "City",
+              "name": "Winter Park",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Florida"
+              }
+            },
+            {
+              "@type": "City",
+              "name": "Orlando",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Florida"
+              }
+            },
+            {
+              "@type": "City",
+              "name": "Lake Mary",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Florida"
+              }
+            },
+            {
+              "@type": "City",
+              "name": "Altamonte Springs",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Florida"
+              }
             }
-          },
+          ],
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Mental Health Services",
@@ -100,7 +119,15 @@ export default function Home() {
                 }
               }
             ]
-          }
+          },
+          "sameAs": [
+            "https://www.facebook.com/profile.php?id=100083226165903",
+            "https://x.com/clinicempathy12",
+            "https://www.instagram.com/empathyhealthfl/?hl=en",
+            "https://www.tiktok.com/@empathy.health.cl",
+            "https://www.linkedin.com/company/empathy-health-clinic/",
+            "https://www.youtube.com/@EmpathyHealthClinic"
+          ]
         }}
       />
       <OrganizationSchema />
