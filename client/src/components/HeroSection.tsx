@@ -4,7 +4,7 @@ import type { SiteContent, InsuranceProvider } from "@shared/schema";
 import heroImage from "@assets/image_1761934471053.webp";
 import empathyLogo from "@assets/empathy-logo-optimized.webp";
 import HeroLeadForm from "@/components/HeroLeadForm";
-import zocdocLogo from "@assets/logo_lockup_positive_rgb_1761921702261.webp";
+import zocdocLogo from "@assets/zocdoc-optimized.webp";
 import googleLogo from "@assets/google-wordmark.webp";
 import healthgradesLogo from "@assets/healthgrades-logo-opt.webp";
 import yelpLogo from "@assets/yelp-logo-opt.webp";
