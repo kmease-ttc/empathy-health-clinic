@@ -546,7 +546,7 @@ export class MemStorage implements IStorage {
     const defaultInsurance: InsertInsuranceProvider[] = [
       { 
         name: "Blue Cross Blue Shield", 
-        logo: "/attached_assets/image_1761605756361.png",
+        logo: "/attached_assets/BlueCross-optimized.webp",
         slug: "blue-cross-blue-shield-blue-cross-blue-shield-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Blue Cross Blue Shield",
         heroTitle: "Find a Psychiatrist That Accepts Blue Cross Blue Shield",
@@ -658,7 +658,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Oscar Health", 
-        logo: "/attached_assets/oscar-logo-1_1761610777161.png",
+        logo: "/attached_assets/Oscar-optimized.webp",
         slug: "oscar-health-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Oscar Health",
         heroTitle: "Find a Psychiatrist That Accepts Oscar Health",
@@ -690,7 +690,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Medicare", 
-        logo: "/attached_assets/Medicare-Logo-1536x864_1761603097276.png",
+        logo: "/attached_assets/Medicare-optimized.webp",
         slug: "medicare-medicare-coverage",
         pageTitle: "We Accept Medicare - Mental Health Services in Winter Park FL",
         heroTitle: "We Accept Medicare",
