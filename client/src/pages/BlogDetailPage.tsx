@@ -383,7 +383,7 @@ export default function BlogDetailPage() {
             className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: 'brightness(1.3)' }}
             loading="eager"
-            fetchpriority="high"
+            fetchPriority="high"
             decoding="async"
             width={1200}
             height={600}
@@ -399,18 +399,20 @@ export default function BlogDetailPage() {
               Back to Blog
             </Link>
             <div className="mb-4">
-              <Badge variant="secondary" className="bg-white/20 text-white border-white/30" data-testid="badge-category">
-                {blogPost.category}
-              </Badge>
+              <Link href={`/blog?category=${encodeURIComponent(blogPost.category)}`} data-testid="link-category">
+                <Badge variant="secondary" className="bg-white/20 text-white border-white/30 cursor-pointer hover:bg-white/30 transition-colors" data-testid="badge-category">
+                  {blogPost.category}
+                </Badge>
+              </Link>
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold mb-6 text-white" data-testid="text-blog-title">
               {blogPost.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-white/90">
-              <div className="flex items-center gap-2" data-testid="text-blog-author">
+              <Link href="/team" className="flex items-center gap-2 hover:text-white transition-colors" data-testid="link-blog-author">
                 <User className="h-5 w-5" />
                 <span>{blogPost.author}</span>
-              </div>
+              </Link>
               <div className="flex items-center gap-2" data-testid="text-blog-date">
                 <Calendar className="h-5 w-5" />
                 <span>{new Date(blogPost.publishedDate).toLocaleDateString('en-US', { 
@@ -687,7 +689,7 @@ export default function BlogDetailPage() {
                     <CardTitle className="text-xl font-sans">About the Author</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center gap-3">
+                    <Link href="/team" className="flex items-center gap-3 hover-elevate rounded-lg p-2 -m-2 transition-colors" data-testid="link-author-bio">
                       <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
                         <User className="h-6 w-6 text-primary" />
                       </div>
@@ -695,7 +697,7 @@ export default function BlogDetailPage() {
                         <p className="font-semibold text-foreground">{blogPost.author}</p>
                         <p className="text-sm text-muted-foreground">Mental Health Expert</p>
                       </div>
-                    </div>
+                    </Link>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       Our team of licensed mental health professionals brings years of clinical experience 
                       in psychiatry, psychotherapy, and counseling. We're dedicated to providing evidence-based 
