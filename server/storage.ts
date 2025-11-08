@@ -562,7 +562,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Aetna", 
-        logo: "/attached_assets/Aetna-Logo-1024x640_1761603073153.png",
+        logo: "/attached_assets/Aetna-Logo-optimized.webp",
         slug: "aetna-aetna-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Aetna",
         heroTitle: "Find a Psychiatrist That Accepts Aetna",
@@ -594,7 +594,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "Cigna", 
-        logo: "/attached_assets/Cigna-Logo-1024x576_1761603078566.png",
+        logo: "/attached_assets/Cigna-Logo-optimized.webp",
         slug: "cigna-coverage",
         pageTitle: "Find a Psychiatrist That Accepts Cigna",
         heroTitle: "Find a Psychiatrist That Accepts Cigna",
@@ -610,7 +610,7 @@ export class MemStorage implements IStorage {
       },
       { 
         name: "AdventHealth", 
-        logo: "/attached_assets/AdventHealth_Logo.svg_1761603073152.png",
+        logo: "/attached_assets/AdventHealth-Logo-optimized.webp",
         slug: "adventhealth-coverage",
         pageTitle: "Find a Psychiatrist That Accepts AdventHealth",
         heroTitle: "Find a Psychiatrist That Accepts AdventHealth",

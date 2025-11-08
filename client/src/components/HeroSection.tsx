@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent, InsuranceProvider } from "@shared/schema";
 import heroImage from "@assets/image_1761934471053.webp";
-import empathyLogo from "@assets/image_1761934454982.png";
+import empathyLogo from "@assets/empathy-logo-optimized.webp";
 import HeroLeadForm from "@/components/HeroLeadForm";
 import zocdocLogo from "@assets/logo_lockup_positive_rgb_1761921702261.png";
 import googleLogo from "@assets/google-wordmark.webp";
