@@ -12,7 +12,7 @@ import { ProtectedRoute } from "@/lib/protected-route";
 // Only load Home page immediately for fast initial render
 import Home from "@/pages/Home";
 
-// Lazy load all other pages for optimal performance
+// Lazy load all public pages for optimal performance
 const Insurance = lazy(() => import("@/pages/Insurance"));
 const Therapy = lazy(() => import("@/pages/Therapy"));
 const TeamPage = lazy(() => import("@/pages/TeamPage"));
