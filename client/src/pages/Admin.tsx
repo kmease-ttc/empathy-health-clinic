@@ -62,6 +62,13 @@ export default function Admin() {
           </Button>
           <Button
             variant="outline"
+            onClick={() => setLocation("/admin/blog-seo")}
+            data-testid="button-blog-seo"
+          >
+            Blog SEO Optimizer
+          </Button>
+          <Button
+            variant="outline"
             onClick={() => setLocation("/admin/google-ads")}
             data-testid="button-google-ads"
           >
