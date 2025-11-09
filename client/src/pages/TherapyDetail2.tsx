@@ -344,6 +344,62 @@ export default function TherapyDetail() {
             </div>
             <TrustFactors variant="compact" limit={4} />
           </div>
+
+          <div className="mt-16 pt-16 border-t">
+            <h2 className="text-2xl md:text-3xl font-sans font-bold text-foreground mb-8 text-center">
+              Explore Our Services
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <Link href="/services" className="p-6 border rounded-lg hover-elevate cursor-pointer group">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  All Services
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Browse our complete range of mental health services
+                </p>
+              </Link>
+              <Link href="/therapy" className="p-6 border rounded-lg hover-elevate cursor-pointer group">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  Therapy Services
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Individual, group, and family therapy options
+                </p>
+              </Link>
+              <Link href="/team" className="p-6 border rounded-lg hover-elevate cursor-pointer group">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  Meet Our Team
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Experienced, licensed mental health professionals
+                </p>
+              </Link>
+              <Link href="/blog" className="p-6 border rounded-lg hover-elevate cursor-pointer group">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  Mental Health Resources
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Educational articles and guides on mental health topics
+                </p>
+              </Link>
+              <Link href="/virtual-therapy" className="p-6 border rounded-lg hover-elevate cursor-pointer group">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  Virtual Therapy
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Convenient telehealth sessions from home
+                </p>
+              </Link>
+              <Link href="/request-appointment" className="p-6 border rounded-lg hover-elevate cursor-pointer group">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  Request Appointment
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Schedule your first consultation today
+                </p>
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Trust Badges */}

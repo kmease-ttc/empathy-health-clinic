@@ -2201,8 +2201,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const baseUrl = "https://empathyhealthclinic.com";
 
     const robotsTxt = `User-agent: *
-Allow: /
-Disallow: /admin
+Disallow: /admin/
 
 Sitemap: ${baseUrl}/sitemap_index.xml
 `;
