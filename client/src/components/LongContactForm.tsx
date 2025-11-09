@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useLocation } from "wouter";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -93,6 +94,7 @@ export default function LongContactForm() {
   const [step, setStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const formStartedTracked = useRef(false);
   
   const { data: insuranceProviders } = useQuery<InsuranceProvider[]>({
@@ -162,8 +164,7 @@ export default function LongContactForm() {
     },
     onSuccess: () => {
       trackEvent('form_submission', 'conversion', 'Long Contact Form', 'long');
-      // Redirect to thank you page
-      window.location.href = '/thank-you';
+      setLocation('/thank-you');
     },
     onError: () => {
       toast({
