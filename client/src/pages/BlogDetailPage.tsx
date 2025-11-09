@@ -206,7 +206,7 @@ export default function BlogDetailPage() {
   useEffect(() => {
     if (blogPost) {
       const canonicalSlug = blogPost.canonicalSlug || blogPost.slug;
-      const jsonLd = {
+      const jsonLd: any = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": blogPost.metaTitle || blogPost.title,
@@ -237,6 +237,16 @@ export default function BlogDetailPage() {
           "@id": `${window.location.origin}/blog/${canonicalSlug}`
         }
       };
+
+      if (blogPost.averageRating && blogPost.ratingCount) {
+        jsonLd.aggregateRating = {
+          "@type": "AggregateRating",
+          "ratingValue": blogPost.averageRating,
+          "ratingCount": blogPost.ratingCount,
+          "bestRating": blogPost.bestRating || 5,
+          "worstRating": blogPost.worstRating || 1
+        };
+      }
 
       const script = document.createElement("script");
       script.type = "application/ld+json";

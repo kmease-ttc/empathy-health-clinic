@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, boolean, real } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -237,6 +237,11 @@ export const blogPosts = pgTable("blog_posts", {
   ogImage: text("og_image"),
   canonicalSlug: text("canonical_slug"),
   lastUpdated: text("last_updated"),
+  // AggregateRating fields for SERP features (optional)
+  averageRating: real("average_rating"), // e.g., 4.8 out of 5
+  ratingCount: integer("rating_count"), // Number of ratings
+  bestRating: integer("best_rating"), // Typically 5
+  worstRating: integer("worst_rating"), // Typically 1
   order: integer("order").notNull().default(0),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
