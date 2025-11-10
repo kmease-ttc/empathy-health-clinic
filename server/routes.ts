@@ -1168,9 +1168,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
         );
       });
       
-      // If duplicate found, return success but don't create new lead
+      // If duplicate found, send notification about resubmission but don't create new lead
       if (recentDuplicate) {
-        console.log(`🔄 Duplicate lead submission prevented: ${validated.email} (${validated.phone}) - Returning existing lead ID: ${recentDuplicate.id}`);
+        console.log(`🔄 Duplicate lead submission detected: ${validated.email} (${validated.phone}) - Returning existing lead ID: ${recentDuplicate.id}`);
+        
+        // Send duplicate notification email (not for phone clicks)
+        if (validated.formType !== 'phone_click') {
+          console.log(`📧 Sending DUPLICATE notification for: ${validated.email} (user resubmitted within 5 minutes)`);
+          sendLeadNotification({
+            firstName: validated.firstName,
+            lastName: validated.lastName,
+            email: validated.email,
+            phone: validated.phone,
+            smsOptIn: validated.smsOptIn,
+            service: validated.service,
+            formType: `${validated.formType} (DUPLICATE RESUBMISSION)`,
+            conditions: validated.conditions,
+            symptoms: validated.symptoms,
+            medications: validated.medications,
+            preferredDay: validated.preferredDay,
+            paymentMethod: validated.paymentMethod,
+            insuranceProvider: validated.insuranceProvider,
+            insuredName: validated.insuredName,
+            insuredDob: validated.insuredDob,
+            memberId: validated.memberId,
+          }).then(() => {
+            console.log(`✅ Duplicate notification sent for: ${validated.email}`);
+          }).catch(error => {
+            console.error(`❌ FAILED to send duplicate notification for ${validated.email}:`, error);
+          });
+        }
+        
         return res.json(recentDuplicate);
       }
       
