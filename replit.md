@@ -38,7 +38,23 @@ The system uses an in-memory storage solution for simplified deployment, with da
 
 ### SEMrush Audit Issues Resolved
 
-**1. Duplicate H1 and Title Tags (50+ pages) - FIXED ✅ (November 10, 2025)**
+**1. Low Word Count Pages (27 pages) - FIXED ✅ (November 10, 2025)**
+- **Root Cause:** 9 treatments (50-90 words), 15 therapies (55-64 words), and 4 conditions (78-91 words) fell below Google's 300-word minimum recommendation, triggering SEO penalties and reducing search visibility
+- **Solution:** Built automated AI content expansion system using OpenAI GPT-4o:
+  1. Created `scripts/expand-content.ts` to generate SEO-optimized descriptions
+  2. Created `scripts/apply-expanded-content.ts` to programmatically update server/storage.ts
+  3. Created `scripts/expand-condition-descriptions.ts` for condition fullDescription fields
+  4. Batch-generated 400-word descriptions maintaining clinical accuracy, empathetic tone, and SEO optimization
+- **Implementation:**
+  - Treatments expanded from 50-90 words to 322-424 words (9 items)
+  - Therapies expanded from 55-64 words to 366-413 words (15 items)
+  - Conditions expanded from 78-91 words to 485-518 words (4 items, 7 already sufficient)
+  - All content includes strategic keywords (Winter Park, mental health, treatment), patient benefits, and clinical details
+  - Maintained professional medical tone with second-person engagement ("you", "your")
+- **Impact:** Eliminated low-word-count SEO penalty for 27 pages, improved search rankings potential for treatment/therapy/condition landing pages
+- **Scripts:** Reusable automation for future content expansion needs (`scripts/expand-content.ts`, `scripts/apply-expanded-content.ts`, `scripts/expand-condition-descriptions.ts`)
+
+**2. Duplicate H1 and Title Tags (50+ pages) - FIXED ✅ (November 10, 2025)**
 - **Root Cause:** Blog publishing logic set metaTitle identical to H1 (title field), triggering 15-point SEO penalty per page
 - **Solution:** Implemented comprehensive 3-case safeguard in blog publishing logic (`server/routes.ts`):
   1. **Base case:** Title without suffix → append " | Empathy Health Clinic"
