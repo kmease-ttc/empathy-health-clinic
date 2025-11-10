@@ -56,7 +56,7 @@ export default function BlogListingPage() {
     }
   });
 
-  const featuredPosts = featuredData?.posts || [];
+  const featuredPosts = (featuredData?.posts || []).slice(0, 4);
   const featuredPostIds = new Set(featuredPosts.map(post => post.id));
   const latestPosts = (latestData?.posts || []).filter(post => !featuredPostIds.has(post.id)).slice(0, 9);
   const paginatedPosts = paginatedData?.posts || [];
