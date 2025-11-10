@@ -53,6 +53,8 @@ export const contentRedirectMap: Record<string, string> = {
   // Condition redirects
   '/treatments/conditions-we-treat': '/conditions',
   '/treatments/medical-services': '/services',
+  '/bipolar-disorder': '/bipolar-disorder-treatment',
+  '/depression': '/depression-treatment',
   
   // Old WordPress category/service pages
   '/therapy/in-person-therapy': '/in-person-therapy',
