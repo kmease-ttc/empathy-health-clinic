@@ -44,6 +44,7 @@ interface PageOptimization {
   priority: number;
   issues: string[];
   optimizationScore: number;
+  hasDuplicateH1Title?: boolean;
 }
 
 function calculateOptimizationScore(post: BlogPost, targetKeyword: string): number {
@@ -53,11 +54,18 @@ function calculateOptimizationScore(post: BlogPost, targetKeyword: string): numb
   const content = post.content.toLowerCase();
   const keyword = targetKeyword.toLowerCase();
   
+  const h1Match = content.match(/^#\s+(.+)$/m);
+  const h1 = h1Match ? h1Match[1] : '';
+  
+  const actualTitle = (post.metaTitle || post.title).trim();
+  const actualH1 = h1.trim();
+  if (actualH1 && actualTitle.toLowerCase() === actualH1.toLowerCase()) {
+    score -= 15;
+  }
+  
   if (!title.includes(keyword)) score -= 25;
   
-  const h1Match = content.match(/^#\s+(.+)$/m);
-  const h1 = h1Match ? h1Match[1].toLowerCase() : '';
-  if (!h1.includes(keyword)) score -= 20;
+  if (!h1.toLowerCase().includes(keyword)) score -= 20;
   
   if (!post.metaDescription || post.metaDescription.length < 120) score -= 15;
   if (!post.metaDescription?.toLowerCase().includes(keyword)) score -= 15;
@@ -76,6 +84,7 @@ export default function SEMrushOptimizer() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<"priority" | "score">("priority");
+  const [filterDuplicateH1, setFilterDuplicateH1] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [editedPost, setEditedPost] = useState<Partial<BlogPost>>({});
 
@@ -165,6 +174,10 @@ export default function SEMrushOptimizer() {
 
       const h1Match = post.content.match(/^#\s+(.+)$/m);
       const h1 = h1Match ? h1Match[1] : '';
+      
+      const actualTitle = (post.metaTitle || post.title).trim();
+      const actualH1 = h1.trim();
+      const hasDuplicateH1Title = Boolean(actualH1 && actualTitle.toLowerCase() === actualH1.toLowerCase());
 
       return {
         url: issue.url,
@@ -176,8 +189,9 @@ export default function SEMrushOptimizer() {
         currentKeywords: post.keywords || [],
         targetKeywords: data.keywords,
         priority: issue.priority,
-        issues: issue.issues,
-        optimizationScore: calculateOptimizationScore(post, data.keywords[0] || '')
+        issues: hasDuplicateH1Title ? [...issue.issues, "Duplicate H1 And Title"] : issue.issues,
+        optimizationScore: calculateOptimizationScore(post, data.keywords[0] || ''),
+        hasDuplicateH1Title
       };
     });
     
@@ -193,13 +207,19 @@ export default function SEMrushOptimizer() {
   }, [posts, semrushData, searchQuery]);
 
   const sortedOptimizations = useMemo(() => {
-    return [...pageOptimizations].sort((a, b) => {
+    let filtered = [...pageOptimizations];
+    
+    if (filterDuplicateH1) {
+      filtered = filtered.filter(opt => opt.hasDuplicateH1Title);
+    }
+    
+    return filtered.sort((a, b) => {
       if (sortBy === "priority") {
         return b.priority - a.priority;
       }
       return a.optimizationScore - b.optimizationScore;
     });
-  }, [pageOptimizations, sortBy]);
+  }, [pageOptimizations, sortBy, filterDuplicateH1]);
 
   const selectedOptimization = selectedUrl ? pageOptimizations.find(o => o.url === selectedUrl) : null;
   const selectedPost = selectedOptimization ? posts.find(p => p.slug === selectedOptimization.slug) : null;
@@ -270,13 +290,15 @@ export default function SEMrushOptimizer() {
       highBounceRate: 0,
       lowTimeOnPage: 0,
       missingLinks: 0,
-      poorOptimization: 0
+      poorOptimization: 0,
+      duplicateH1Title: 0
     };
     
     pageOptimizations.forEach(opt => {
       if (opt.issues.includes("High bounce rate")) issues.highBounceRate++;
       if (opt.issues.includes("Low time on page")) issues.lowTimeOnPage++;
       if (opt.issues.includes("Missing internal links")) issues.missingLinks++;
+      if (opt.issues.includes("Duplicate H1 And Title")) issues.duplicateH1Title++;
       if (opt.optimizationScore < 60) issues.poorOptimization++;
     });
     
@@ -573,6 +595,15 @@ export default function SEMrushOptimizer() {
             >
               <AlertCircle className="w-4 h-4 mr-2" />
               Score
+            </Button>
+            <Button
+              variant={filterDuplicateH1 ? "default" : "outline"}
+              size="sm"
+              onClick={() => setFilterDuplicateH1(!filterDuplicateH1)}
+              data-testid="button-filter-duplicate-h1"
+            >
+              <AlertCircle className="w-4 h-4 mr-2" />
+              {filterDuplicateH1 ? "Show All" : "H1=Title Only"}
             </Button>
           </div>
         </div>
