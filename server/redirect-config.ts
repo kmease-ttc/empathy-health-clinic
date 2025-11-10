@@ -79,14 +79,21 @@ export const contentRedirectMap: Record<string, string> = {
   '/best-jobs-for-people-with-depression': '/blog/best-jobs-for-people-with-depression',
   '/bipolar-psychosis-symptoms-treatment-recovery': '/blog/bipolar-psychosis-symptoms-treatment-recovery',
   '/best-dental-implants-kingston-smiles-ny': '/blog/best-dental-implants-kingston-smiles-ny',
-  '/blog-wellness-guide-for-counselors': '/blog/blog-wellness-guide-for-counselors',
+  '/blog-wellness-guide-for-counselors': '/blog/wellness-guide-for-counselors',
   
   // SEMrush orphaned pages - Old treatment pages
   '/anxiety-treatment': '/anxiety-therapy',
   '/anxiety': '/anxiety-therapy',
+  '/treatments/therapy-treatment': '/therapy',
+  '/treatments/concentration-and-focus': '/adhd-treatment',
+  '/concentration-and-focus': '/adhd-treatment',
   
   // SEMrush orphaned pages - Insurance pages
   '/adventhealth-adventhealth-coverage': '/insurance',
+  
+  // Google Search Console - Legacy URLs (November 2025)
+  '/therapy-services-orlando-mental-health-support': '/therapy-services-orlando',
+  '/hm05': '/services',
 };
 
 /**
