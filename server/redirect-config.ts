@@ -79,8 +79,8 @@ export const contentRedirectMap: Record<string, string> = {
   
   // SEMrush orphaned pages - Old treatment pages
   '/anxiety-treatment': '/anxiety-therapy',
-  '/adhd-treatment': '/adhd-assessment-page',
   '/anxiety': '/anxiety-therapy',
+  '/adhd-assessment-page': '/adhd-treatment',
   
   // SEMrush orphaned pages - Insurance pages
   '/adventhealth-adventhealth-coverage': '/insurance',

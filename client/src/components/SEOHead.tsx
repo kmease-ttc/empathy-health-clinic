@@ -34,6 +34,7 @@ export default function SEOHead({
 
     /**
      * Normalize path for canonical URL:
+     * - Handles absolute URLs by extracting pathname
      * - Strips tracking parameters (fbclid, utm_*, hsa_*, etc.)
      * - Normalizes slashes and trailing slashes
      * - Handles malformed URLs gracefully
@@ -42,8 +43,22 @@ export default function SEOHead({
       if (!path) return '/';
       
       try {
-        // Strip query parameters entirely from canonical URLs
-        let cleanPath = path.split('?')[0].split('#')[0];
+        let cleanPath = path;
+        
+        // If absolute URL, extract pathname only
+        if (path.startsWith('http://') || path.startsWith('https://')) {
+          try {
+            const url = new URL(path);
+            cleanPath = url.pathname;
+          } catch {
+            // Malformed absolute URL - fallback to root
+            console.warn('SEO: Malformed absolute URL:', path);
+            return '/';
+          }
+        }
+        
+        // Strip query parameters and fragments entirely from canonical URLs
+        cleanPath = cleanPath.split('?')[0].split('#')[0];
         
         // Normalize multiple slashes
         cleanPath = cleanPath.replace(/\/+/g, '/');
