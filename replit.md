@@ -97,6 +97,22 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **Files Updated:** PhysicianSchema.tsx, OrganizationSchema.tsx, LocalBusinessSchema.tsx
 - **Impact:** Resolved Schema.org validation errors, improves eligibility for Google rich snippets
 
+**7. Dynamic Blog Redirect System - Google Search Console Fix - COMPLETED ✅**
+- **Issue:** 21 URLs flagged as "Crawled - currently not indexed" in GSC (14 blog posts + 7 other pages)
+- **Root Cause:** Legacy blog URLs (/{slug}) not redirecting to new canonical format (/blog/{slug})
+- **Solution:** Implemented in-memory blog slug cache with O(1) lookup performance
+- **Technical Implementation:**
+  - Boot-time cache initialization loads 180 blog slugs from database
+  - Storage hooks (create/update/delete) keep cache synchronized with blog mutations
+  - Callback pattern integrates blog slug checker into canonicalization middleware
+  - Single-segment path guard prevents false matches on multi-segment URLs
+  - Early-stage redirect handling (before route processing) for optimal SEO
+- **Files Modified:** server/storage.ts, server/redirect-config.ts, server/routes.ts
+- **Results:** All 21 problematic GSC URLs now redirect correctly (301 status)
+  - 14 blog posts: /{slug} → /blog/{slug}
+  - 7 other pages: treatments/therapy-treatment → /therapy, /hm05/ → /services, etc.
+- **Impact:** Eliminates duplicate content penalties, consolidates SEO authority to canonical URLs
+
 ### Testing & QA
 
 **Regression Test Plan Created:**
