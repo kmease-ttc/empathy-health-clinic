@@ -69,6 +69,13 @@ export default function Admin() {
           </Button>
           <Button
             variant="outline"
+            onClick={() => setLocation("/admin/semrush")}
+            data-testid="button-semrush"
+          >
+            SEMrush Keyword Optimizer
+          </Button>
+          <Button
+            variant="outline"
             onClick={() => setLocation("/admin/google-ads")}
             data-testid="button-google-ads"
           >

@@ -1257,6 +1257,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // SEMrush data route
+  app.get("/api/semrush-data", async (_req, res) => {
+    try {
+      const fs = await import('fs/promises');
+      const path = await import('path');
+      const filePath = path.join(process.cwd(), 'server', 'semrush-data.json');
+      const data = await fs.readFile(filePath, 'utf-8');
+      const semrushData = JSON.parse(data);
+      res.json({ data: semrushData });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message, data: [] });
+    }
+  });
+
   // Blog post routes
   app.get("/api/blog-posts", async (req, res) => {
     try {
