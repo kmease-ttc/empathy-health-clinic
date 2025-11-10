@@ -12,7 +12,7 @@ import { trackEvent } from "@/lib/analytics";
 export default function CrisisTherapy() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": ["MedicalClinic", "EmergencyService"],
+    "@type": ["MedicalClinic", "EmergencyService", "LocalBusiness"],
     "name": "Empathy Health Clinic - Crisis Counseling & Urgent Mental Health Care",
     "description": "Urgent mental health support and crisis counseling in Winter Park, FL. Same-day appointments available for mental health emergencies, suicidal thoughts, panic attacks, and acute distress.",
     "address": {
@@ -25,6 +25,26 @@ export default function CrisisTherapy() {
     },
     "telephone": "+1-386-848-8751",
     "url": window.location.origin,
+    "priceRange": "$$",
+    "image": `${window.location.origin}/images/clinic-exterior.jpg`,
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "28.5983",
+      "longitude": "-81.3492"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "17:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/empathyhealthclinic",
+      "https://www.instagram.com/empathyhealthclinic",
+      "https://www.linkedin.com/company/empathyhealthclinic"
+    ],
     "serviceType": "Crisis Mental Health Counseling",
     "areaServed": ["Orlando", "Winter Park", "Altamonte Springs", "Maitland", "Central Florida"]
   };

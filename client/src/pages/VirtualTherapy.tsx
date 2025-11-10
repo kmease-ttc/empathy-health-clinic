@@ -38,7 +38,7 @@ export default function VirtualTherapy() {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": ["MedicalClinic", "MedicalBusiness"],
+    "@type": ["MedicalClinic", "MedicalBusiness", "LocalBusiness"],
     "name": "Empathy Health Clinic - Virtual Psychiatry & Therapy Services",
     "description": "Online psychiatry and therapy services throughout Florida. Secure telehealth appointments for medication management, therapy, and mental health treatment.",
     "address": {
@@ -51,6 +51,26 @@ export default function VirtualTherapy() {
     },
     "telephone": "+1-386-848-8751",
     "url": window.location.origin,
+    "priceRange": "$$",
+    "image": `${window.location.origin}/images/clinic-exterior.jpg`,
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "28.5983",
+      "longitude": "-81.3492"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "17:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/empathyhealthclinic",
+      "https://www.instagram.com/empathyhealthclinic",
+      "https://www.linkedin.com/company/empathyhealthclinic"
+    ],
     "availableService": {
       "@type": "MedicalTherapy",
       "name": "Virtual Psychiatry and Therapy"

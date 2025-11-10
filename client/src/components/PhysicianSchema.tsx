@@ -27,10 +27,30 @@ export default function PhysicianSchema({ teamMember }: PhysicianSchemaProps) {
       "description": teamMember.bio,
       "medicalSpecialty": teamMember.specialties.split(',').map(s => s.trim()),
       "affiliation": {
-        "@type": "MedicalOrganization",
+        "@type": ["MedicalOrganization", "LocalBusiness"],
         "name": "Empathy Health Clinic",
         "url": baseUrl,
         "telephone": "+1-386-848-8751",
+        "priceRange": "$$",
+        "image": `${baseUrl}/images/clinic-exterior.jpg`,
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "28.5983",
+          "longitude": "-81.3492"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "17:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/empathyhealthclinic",
+          "https://www.instagram.com/empathyhealthclinic",
+          "https://www.linkedin.com/company/empathyhealthclinic"
+        ],
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "2281 Lee Rd Suite 102",
