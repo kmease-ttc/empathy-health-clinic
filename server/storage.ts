@@ -1897,6 +1897,8 @@ export class MemStorage implements IStorage {
 
   async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
     const [newPost] = await db.insert(blogPosts).values(post).returning();
+    // Update blog slug cache
+    addBlogSlugToCache(newPost.slug);
     return newPost;
   }
 
@@ -1904,6 +1906,13 @@ export class MemStorage implements IStorage {
     id: string,
     post: Partial<InsertBlogPost>
   ): Promise<BlogPost> {
+    // Get old slug if the slug is being updated
+    let oldSlug: string | undefined;
+    if (post.slug) {
+      const [existing] = await db.select({ slug: blogPosts.slug }).from(blogPosts).where(eq(blogPosts.id, id));
+      oldSlug = existing?.slug;
+    }
+    
     const [updated] = await db
       .update(blogPosts)
       .set(post)
@@ -1911,11 +1920,25 @@ export class MemStorage implements IStorage {
       .returning();
     
     if (!updated) throw new Error("Blog post not found");
+    
+    // Update blog slug cache if slug changed
+    if (oldSlug && post.slug && oldSlug !== post.slug) {
+      updateBlogSlugInCache(oldSlug, post.slug);
+    }
+    
     return updated;
   }
 
   async deleteBlogPost(id: string): Promise<void> {
+    // Get the slug before deleting
+    const [existing] = await db.select({ slug: blogPosts.slug }).from(blogPosts).where(eq(blogPosts.id, id));
+    
     await db.delete(blogPosts).where(eq(blogPosts.id, id));
+    
+    // Remove from blog slug cache
+    if (existing?.slug) {
+      removeBlogSlugFromCache(existing.slug);
+    }
   }
 
   // Newsletter subscriber methods
@@ -2344,3 +2367,55 @@ export class MemStorage implements IStorage {
 }
 
 export const storage = new MemStorage();
+
+// Blog slug cache for fast redirect lookups
+// This cache is loaded at startup and kept in sync with storage operations
+const blogSlugCache = new Set<string>();
+
+/**
+ * Initialize the blog slug cache by loading all blog post slugs from the database
+ * Call this at application startup
+ */
+export async function initBlogSlugCache(): Promise<void> {
+  try {
+    const posts = await db.select({ slug: blogPosts.slug }).from(blogPosts);
+    blogSlugCache.clear();
+    posts.forEach(post => blogSlugCache.add(post.slug));
+    console.log(`[Blog Slug Cache] Loaded ${blogSlugCache.size} blog slugs`);
+  } catch (error) {
+    console.error('[Blog Slug Cache] Failed to initialize:', error);
+  }
+}
+
+/**
+ * Check if a slug exists in the blog post cache
+ * Returns true if the slug matches a blog post
+ */
+export function isBlogPostSlug(slug: string): boolean {
+  return blogSlugCache.has(slug);
+}
+
+/**
+ * Add a blog slug to the cache
+ * Called after creating a new blog post
+ */
+export function addBlogSlugToCache(slug: string): void {
+  blogSlugCache.add(slug);
+}
+
+/**
+ * Update a blog slug in the cache
+ * Called when updating a blog post's slug
+ */
+export function updateBlogSlugInCache(oldSlug: string, newSlug: string): void {
+  blogSlugCache.delete(oldSlug);
+  blogSlugCache.add(newSlug);
+}
+
+/**
+ * Remove a blog slug from the cache
+ * Called when deleting a blog post
+ */
+export function removeBlogSlugFromCache(slug: string): void {
+  blogSlugCache.delete(slug);
+}

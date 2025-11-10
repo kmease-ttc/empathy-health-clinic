@@ -1,13 +1,13 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { storage, initBlogSlugCache, isBlogPostSlug } from "./storage";
 import { sendLeadNotification } from "./email";
 import * as googleAdsService from "./google-ads-service";
 import { blogGeneratorService } from "./blog-generator-service";
 import { ContentAnalyzerService } from "./content-analyzer-service";
 import { db } from "./db";
 import { sql } from "drizzle-orm";
-import { contentRedirectMap } from './redirect-config';
+import { contentRedirectMap, normalizePath } from './redirect-config';
 import {
   insertSiteContentSchema,
   insertTreatmentSchema,
@@ -27,6 +27,9 @@ import {
 import { setupAuth } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize blog slug cache at startup
+  await initBlogSlugCache();
+  
   // Setup authentication routes (/api/register, /api/login, /api/logout, /api/user)
   setupAuth(app);
   // Specific treatment redirects (must come BEFORE catch-all)
@@ -100,43 +103,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect(301, "/insurance");
   });
   
-  // Blog post redirects for WordPress guest posts (accessed without /blog/ prefix)
-  const guestPostSlugs = [
-    '8-physical-signs-stress-is-impacting-your-body',
-    'it-service-providers-driving-healthcare-innovation-2025',
-    'bbp-certification-worker-safety',
-    'how-psychiatry-clinics-improve-revenue',
-    'balancing-career-growth-with-a-busy-life-a-guide-for-working-nurses',
-    'wellness-guide-for-counselors',
-    'finding-comfort-self-care-tips-for-those-who-are-grieving',
-    'ltr-relationship-meaning-guide',
-    'hidden-anxiety-treatment-dbt-skills-you-can-use-at-home',
-    'how-to-improve-concentration-and-focus-expert-tips',
-    'top-10-best-low-stress-jobs',
-    'how-long-does-it-take-to-fall-in-love-timelines-what-to-expect',
-    'what-is-a-short-term-relationship',
-    'how-introverts-with-adhd-can-excel-in-the-workplace',
-    'how-to-be-productive',
-    'petulant-bpd-symptoms-and-treatment',
-    'how-to-get-wife-more-intimate',
-    'how-bipolar-disorder-impacts-interpersonal-dynamics',
-    'cbt-therapy-improving-mental-health-in-winter-park',
-    'signs-guy-pretending-straight',
-    'dating-someone-with-bpd',
-    'what-is-love-bombing',
-    'signs-of-attention-seeking-behavior',
-    'understanding-social-exhaustion-adhd-brain',
-    'who-cheats-more-men-or-women'
-  ];
-  
-  guestPostSlugs.forEach(slug => {
-    app.get(`/${slug}`, (req, res) => {
-      res.redirect(301, `/blog/${slug}`);
-    });
-    app.get(`/${slug}/`, (req, res) => {
-      res.redirect(301, `/blog/${slug}`);
-    });
-  });
+  // NOTE: Blog post redirects (/{slug} → /blog/{slug}) are now handled by the 
+  // dynamic catch-all handler at the end of this file. This uses an in-memory 
+  // cache of all blog slugs for fast lookups without hardcoding individual redirects.
 
   // Old blog post feed URLs - redirect to main blog
   app.get("/mindful-dating-a-guide-to-building-strong-connections/feed/", (req, res) => {
@@ -2314,6 +2283,50 @@ Sitemap: ${baseUrl}/sitemap_index.xml
 
     res.header('Content-Type', 'text/plain');
     res.send(robotsTxt);
+  });
+
+  // Dynamic catch-all blog redirect handler
+  // This must come AFTER all specific redirects but BEFORE the SPA fallback
+  // Redirects /{slug} to /blog/{slug} if the slug exists in the blog post database
+  app.get("/:slug", (req, res, next) => {
+    const rawPath = req.path;
+    const normalizedPath = normalizePath(rawPath);
+    
+    // Guard 1: Skip if path has multiple segments (e.g., /foo/bar)
+    const segments = normalizedPath.split('/').filter(s => s.length > 0);
+    if (segments.length !== 1) {
+      return next();
+    }
+    
+    const slug = segments[0];
+    
+    // Guard 2: Skip if this path is already handled by contentRedirectMap
+    if (contentRedirectMap[normalizedPath]) {
+      return next(); // Let the canonicalization middleware handle it
+    }
+    
+    // Guard 3: Skip reserved top-level routes to avoid conflicts
+    const reservedRoutes = new Set([
+      'api', 'admin', 'blog', 'services', 'therapy', 'insurance', 
+      'conditions', 'locations', 'team', 'about', 'contact', 'sitemap.xml',
+      'robots.txt', 'attached_assets', 'virtual-therapy', 'in-person-therapy',
+      'anxiety-therapy', 'adhd-treatment', 'depression-treatment', 
+      'bipolar-disorder-treatment', 'medication-management', 'psychiatric-evaluation',
+      'intimacy-therapy', 'couples-therapy', 'cognitive-behavioral-therapy',
+      'psychotherapy', 'request-appointment'
+    ]);
+    
+    if (reservedRoutes.has(slug)) {
+      return next();
+    }
+    
+    // Check if this slug matches a blog post
+    if (isBlogPostSlug(slug)) {
+      return res.redirect(301, `/blog/${slug}`);
+    }
+    
+    // Not a blog post - let it fall through to 404/SPA fallback
+    next();
   });
 
   const httpServer = createServer(app);
