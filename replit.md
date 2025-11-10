@@ -16,7 +16,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Backend:** Express.js REST API with hybrid storage (in-memory for content, PostgreSQL for analytics/leads) and Zod for validation.
 - **Content Management:** Full CRUD operations via an admin panel for various content types (treatments, therapies, conditions, team, testimonials, insurance, blog, leads).
 - **Email Notifications:** SendGrid integration for lead notification emails.
-- **SEO Features:** Comprehensive SEO implementation including unique meta tags, canonical tags, 100% structured data coverage (Organization/LocalBusiness, Article/BlogPosting, Physician, automatic FAQ schema detection), auto-generated XML sitemap, robots.txt, llms.txt, SEO-friendly URLs, rich content optimization, mobile-first design, image alt text, and strategic internal linking.
+- **SEO Features:** Comprehensive SEO implementation including unique meta tags, canonical tags, 100% structured data coverage (Organization/LocalBusiness, Article/BlogPosting, Physician, automatic FAQ schema detection), auto-generated XML sitemap with redirect filtering, robots.txt, llms.txt, SEO-friendly URLs, rich content optimization, mobile-first design, image alt text, and strategic internal linking.
 - **Google Maps Integration:** Embedded map on the homepage for local SEO.
 - **Blog System:** Comprehensive blog with listing and individual post pages, SEO metadata, Article/BlogPosting schema with conditional AggregateRating support, automatic FAQ schema detection, related articles, author bios, social sharing, category filtering, and Markdown link support.
 - **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, Microsoft Clarity, page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
@@ -26,7 +26,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Performance Optimizations:** Mobile-first approach with code splitting, analytics deferral, resource hints, script optimization, and hero image preloading.
 - **Email Deliverability:** SendGrid sender configuration with comprehensive DNS authentication guidance.
 - **Google Indexing Strategy:** Implemented comprehensive action plan to address unindexed URLs and soft 404 errors through 301 redirects, enhanced internal linking, and improved site structure.
-- **URL Redirects:** Comprehensive 301 permanent redirects for domain consistency, old WordPress URLs, legacy location patterns, and deprecated treatment URLs.
+- **URL Redirects & Canonicalization:** Unified canonicalization middleware that combines www removal, trailing slash normalization, and content redirects into a single 301 response to eliminate redirect chains. Centralized redirect configuration in `server/redirect-config.ts` serves as single source of truth for both middleware and sitemap generation.
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, and conditions.
@@ -50,6 +50,36 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 
 ### System Design Choices
 The system uses an in-memory storage solution for simplified deployment, with data resetting on server restarts. The project structure is modular, separating client, server, and shared concerns. Content types are rigorously defined to support detailed and SEO-rich pages.
+
+## Recent SEO Fixes (November 2025)
+
+### SEMrush Audit Issues Resolved
+**1. Redirect Chains (6 errors) - FIXED ✅**
+- **Root Cause:** Sequential middleware creating multi-hop redirect chains (HTTP→HTTPS, www→non-www, trailing slash removal, content redirects)
+- **Solution:** Implemented unified canonicalization middleware (`server/canonicalization-middleware.ts`) that combines all URL normalization into a single 301 redirect
+- **Implementation:** Centralized redirect configuration in `server/redirect-config.ts` serves as single source of truth
+- **Impact:** Improved crawl efficiency, reduced server load, better SEO performance
+
+**2. Incorrect Pages in Sitemap (3 errors) - FIXED ✅**
+- **Root Cause:** Sitemap included URLs that redirected to other pages (e.g., `/treatments/psychiatric-services` → `/services`)
+- **Solution:** Updated sitemap generation to filter out all URLs present in `contentRedirectMap` before inclusion
+- **Implementation:** Added `isRedirectingUrl()` helper function that checks each URL against redirect map
+- **Impact:** Sitemap now contains only canonical, 200-status URLs as per Google best practices
+
+**3. Low Text-to-HTML Ratio (115 pages) - NO ACTION NEEDED ℹ️**
+- **Finding:** This is NOT a Google ranking factor (confirmed by John Mueller)
+- **Analysis:** Low ratios are expected for modern React SPAs due to:
+  - Large JavaScript bundles (React, Vite, component libraries)
+  - Multiple analytics scripts (GA4, Clarity, Google Ads, Facebook Pixel)
+  - UI framework overhead (Shadcn, Tailwind CSS)
+  - Component-based architecture
+- **Recommendation:** Focus on Core Web Vitals (LCP <2.5s, FCP <1.8s) instead of text-to-HTML ratio
+- **Decision:** No changes needed unless page speed metrics decline
+
+### Technical Notes
+- **Redirect Architecture:** `server/redirect-config.ts` is the single source of truth for both canonicalization middleware and sitemap filtering
+- **SEMrush Crawl Delay:** Changes may take 1-7 days to reflect in SEMrush audit results
+- **Future Recommendation:** Add automated regression test to ensure sitemap URLs don't appear in redirect map
 
 ## External Dependencies
 - **React:** Frontend library.
