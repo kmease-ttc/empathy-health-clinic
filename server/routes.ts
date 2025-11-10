@@ -1604,6 +1604,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Create blog post with all the generated content
       // Mark new blogs as featured by default
+      
+      // SEO Fix: Ensure metaTitle is always different from H1 (title) to avoid 15-point penalty
+      // If metaTitle is missing or identical to title, append unique suffix
+      let finalMetaTitle = blogData.metaTitle;
+      if (!finalMetaTitle || finalMetaTitle === blogData.title) {
+        const suffix = " | Empathy Health Clinic";
+        const mentalHealthTag = " - Mental Health";
+        const fullPattern = `${mentalHealthTag}${suffix}`;
+        
+        // Case 1: Title already has full pattern (e.g., "Title - Mental Health | Empathy Health Clinic")
+        // Add year to ensure uniqueness
+        if (blogData.title.endsWith(fullPattern)) {
+          const currentYear = new Date().getFullYear();
+          const baseTitle = blogData.title.slice(0, -fullPattern.length).trim();
+          finalMetaTitle = `${baseTitle} ${currentYear}${fullPattern}`;
+        }
+        // Case 2: Title ends with clinic suffix only (e.g., "Title | Empathy Health Clinic")
+        // Add mental health tag
+        else if (blogData.title.endsWith(suffix)) {
+          const baseTitle = blogData.title.slice(0, -suffix.length).trim();
+          finalMetaTitle = `${baseTitle}${mentalHealthTag}${suffix}`;
+        }
+        // Case 3: Title has no suffix
+        // Add clinic suffix
+        else {
+          finalMetaTitle = `${blogData.title}${suffix}`;
+        }
+      }
+      
       const blogPost = await storage.createBlogPost({
         title: blogData.title,
         slug: blogData.slug,
@@ -1614,7 +1643,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         category: "Mental Health",
         featuredImage: blogData.featuredImage,
         isFeatured: true, // Mark new blogs as featured
-        metaTitle: blogData.title,
+        metaTitle: finalMetaTitle,
         metaDescription: blogData.metaDescription,
         keywords: blogData.keywords || [],
         order: 0,
