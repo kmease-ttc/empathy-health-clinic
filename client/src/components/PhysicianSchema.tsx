@@ -32,7 +32,7 @@ export default function PhysicianSchema({ teamMember }: PhysicianSchemaProps) {
         "url": baseUrl,
         "telephone": "+1-386-848-8751",
         "priceRange": "$$",
-        "image": `${baseUrl}/images/clinic-exterior.jpg`,
+        "image": `${baseUrl}/attached_assets/stock_images/peaceful_green_fores_98e1a8d8.jpg`,
         "geo": {
           "@type": "GeoCoordinates",
           "latitude": "28.5983",
