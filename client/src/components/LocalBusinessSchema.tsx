@@ -167,14 +167,7 @@ export default function LocalBusinessSchema({
           }
         ]
       },
-      "medicalSpecialty": serviceType === "psychiatry" ? [
-        "Psychiatry",
-        "MentalHealth"
-      ] : [
-        "Psychology",
-        "MentalHealth",
-        "Counseling"
-      ],
+      "medicalSpecialty": "Psychiatric",
       "sameAs": [
         "https://www.facebook.com/profile.php?id=100083226165903",
         "https://x.com/clinicempathy12",

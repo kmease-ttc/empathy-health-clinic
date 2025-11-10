@@ -80,11 +80,7 @@ export default function OrganizationSchema() {
           "closes": "17:00"
         }
       ],
-      "medicalSpecialty": [
-        "Psychiatry",
-        "Psychology",
-        "MentalHealth"
-      ],
+      "medicalSpecialty": "Psychiatric",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Mental Health Services",
