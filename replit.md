@@ -95,6 +95,21 @@ The system uses an in-memory storage solution for simplified deployment, with da
   3. Auto-focus on error field for immediate correction (with safety check for focusable elements)
 - **Result:** Users now receive clear, immediate feedback when clicking "Next" with incomplete fields, eliminating confusion and reducing form abandonment
 
+**Phone Link "Dead Click" on Therapy Pages - FIXED ✅ (November 10, 2025)**
+- **Root Cause:** Microsoft Clarity session (user 1mkblpl, 10:15 AM EST) revealed "dead click" on therapy page phone number - user clicked but phone dialer didn't open on Mobile Safari
+- **Impact:** Critical conversion blocker - Google Ads traffic unable to call clinic, losing paid leads
+- **Analysis:**
+  - User from Google Ads search ("therapy mental near me") landed on `/therapy` page
+  - Clicked phone number at 00:13, triggering Contact Us event
+  - "Dead click" recorded - phone dialer failed to open
+  - Root cause: `onClick` handler on `Button` component (when using `asChild`) created race condition blocking `tel:` link navigation on mobile
+- **Solution:** Moved `onClick` tracking from Button component to nested `<a>` tag in `TherapyDetail2.tsx` (lines 158-161, 318-320)
+- **Technical Details:**
+  - **Before:** `<Button onClick={...} asChild><a href="tel:...">`
+  - **After:** `<Button asChild><a href="tel:..." onClick={...}>`
+  - This ensures phone dialer opens immediately while analytics tracking fires asynchronously without blocking
+- **Impact:** All therapy page phone links now work reliably on mobile devices, preventing future lost conversions from Google Ads traffic
+
 **Missing Lead Submission Issue - UNDER INVESTIGATION ⚠️ (November 10, 2025)**
 - **Root Cause:** Microsoft Clarity session (user 1ma58rp, 10:53-11:07 AM EST) reached /thank-you page but NO lead was created in database and NO email was sent
 - **Impact:** Critical data loss - users completing forms but clinic not receiving their information

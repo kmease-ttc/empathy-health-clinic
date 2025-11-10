@@ -151,9 +151,12 @@ export default function TherapyDetail() {
                 className="bg-green-600 hover:bg-green-700 text-white"
                 asChild 
                 data-testid="button-hero-call"
-                onClick={() => trackEvent('phone_click', 'conversion', `${therapy.title} Page - Hero CTA`)}
               >
-                <a href="tel:3868488751" className="flex items-center justify-center gap-2">
+                <a 
+                  href="tel:3868488751" 
+                  className="flex items-center justify-center gap-2"
+                  onClick={() => trackEvent('phone_click', 'conversion', `${therapy.title} Page - Hero CTA`)}
+                >
                   <Phone className="h-5 w-5" />
                   Call (386) 848-8751
                 </a>
@@ -309,7 +312,10 @@ export default function TherapyDetail() {
                     </Link>
                   </Button>
                   <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white gap-2" asChild data-testid="button-call-now">
-                    <a href="tel:3868488751">
+                    <a 
+                      href="tel:3868488751"
+                      onClick={() => trackEvent('phone_click', 'conversion', `${therapy.title} Page - CTA`)}
+                    >
                       <Phone className="h-5 w-5" />
                       Call (386) 848-8751
                     </a>
