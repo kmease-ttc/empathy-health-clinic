@@ -1,14 +1,14 @@
 # Empathy Health Clinic - Content Management System
 
 ## Overview
-This project delivers a modern, high-performance CMS and website for Empathy Health Clinic. Its primary goals are to streamline content management, enhance site performance, provide SEO-optimized landing pages for healthcare services and conditions, and offer a high-converting user experience to improve online visibility and patient acquisition. The business vision is to improve patient acquisition and establish Empathy Health Clinic as a leading provider of mental health services.
+This project delivers a modern, high-performance CMS and website for Empathy Health Clinic, aiming to streamline content management, enhance site performance, and provide SEO-optimized landing pages. The primary purpose is to improve online visibility and patient acquisition for mental health services, establishing the clinic as a leading provider.
 
 ## User Preferences
 I want the agent to prioritize high-level features and architectural decisions. Please do not delve into granular implementation details unless specifically asked. I prefer a concise communication style. When making changes, focus on the most impactful elements first.
 
 ## System Architecture
 ### UI/UX Decisions
-The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and Shadcn UI, featuring a professional healthcare design, full dark mode support, and the Inter font. Key UI/UX decisions include aggressive cross-linking, prominent trust factors, and high-conversion lead capture forms.
+The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and Shadcn UI. It features a professional healthcare design, full dark mode support, the Inter font, aggressive cross-linking, prominent trust factors, and high-conversion lead capture forms.
 
 ### Technical Implementations
 - **Frontend:** React SPA with TypeScript, Tailwind CSS, Shadcn UI, TanStack Query, and Wouter for routing.
@@ -19,13 +19,13 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, Microsoft Clarity, page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
 - **Admin Dashboards:** Includes a Link & Performance Monitor, SEO Optimization Dashboard, Blog SEO Optimizer, and SEMrush Keyword Optimizer.
 - **Performance Optimizations:** Mobile-first approach with code splitting, analytics deferral, resource hints, script optimization, and hero image preloading.
-- **URL Management:** Unified canonicalization middleware combines www removal, trailing slash normalization, and content redirects.
+- **URL Management:** Unified canonicalization middleware combines www removal, trailing slash normalization, and content redirects, with a dynamic blog redirect system for legacy URLs.
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, and conditions, including Google Ads and city-specific landing pages.
 - **Blog Section:** Over 170 SEO-optimized articles, with an AI Blog Generator in the admin panel.
 - **Admin Panel:** CMS for content and lead management, analytics dashboard, link and performance monitoring, and Google Ads setup.
-- **Lead Capture:** High-converting forms with automated email notifications and backend deduplication.
+- **Lead Capture:** High-converting forms with automated email notifications, backend deduplication, and email failure tracking.
 - **Trust Factors:** Integration of HIPAA compliance and other credibility indicators.
 - **Accessibility:** Mobile responsiveness and dark mode.
 
@@ -49,127 +49,3 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **PostgreSQL:** Database for analytics and leads.
 - **Unsplash API:** For professional stock images.
 - **Microsoft Clarity API:** Optional integration for enhanced link monitoring and dead link detection.
-
-## Recent Updates & Fixes
-
-### Legal Pages & Footer SEO Enhancement (November 11, 2025)
-
-**New Pages Created with "Psychiatrist Orlando" SEO:**
-- ✅ About Us Page (/about)
-  - Title: "About Us | Psychiatrist Orlando FL | Empathy Health Clinic"
-  - Comprehensive practice information with Orlando location emphasis
-  - Keywords: "psychiatrist in Orlando, FL", "board-certified psychiatrists"
-  - CTAs: Request Appointment, Meet Our Psychiatrists
-  
-- ✅ Privacy Policy Page (/privacy-policy)
-  - Title: "Privacy Policy | Psychiatrist Orlando FL | Empathy Health Clinic"
-  - HIPAA compliance and patient confidentiality details
-  - Keywords: "psychiatry practice serving Orlando, FL", "Orlando psychiatrists"
-  - Contact information and patient rights
-  
-- ✅ Medical Disclaimer Page (/medical-disclaimer)
-  - Title: "Medical Disclaimer | Psychiatrist Orlando FL | Empathy Health Clinic"
-  - Important legal disclaimers with emergency resources
-  - Keywords: "psychiatry practice in Orlando, FL", "board-certified psychiatrists in Orlando"
-  - Crisis resources (911, 988 suicide prevention line)
-
-**Footer Enhancements:**
-- ✅ Added Legal & Info section with links to new pages
-- ✅ Added "Psychiatrist Orlando FL" to footer copyright area
-- ✅ Improved footer SEO signals for local search
-
-**Impact:** Strengthens site structure, improves legal compliance, and adds 3 new pages with local SEO keywords targeting "psychiatrist Orlando" searches.
-
-### Critical UX Fixes - Microsoft Clarity Analysis (November 10, 2025)
-
-**1. Form Validation "Dead Click" - FIXED ✅**
-- **Issue:** Multi-step form "Next" button appeared broken (silent validation failure)
-- **User Impact:** Form abandonment, lost conversions
-- **Fix:** Enhanced `LongContactForm.tsx` with toast notification, auto-scroll, and focus on error fields
-- **Result:** Users receive immediate, clear feedback when validation fails
-
-**2. Phone Link "Dead Click" on Therapy Pages - FIXED ✅**
-- **Issue:** Phone number clicks failed to open dialer on Mobile Safari (Google Ads traffic)
-- **Root Cause:** onClick handler on Button component created race condition
-- **Fix:** Moved onClick from Button to anchor tag in `TherapyDetail2.tsx`
-- **Result:** Phone links work reliably on mobile, preventing lost paid conversions
-
-**3. Team Member "Dead Click" on Virtual Therapy - FIXED ✅**
-- **Issue:** Provider names had hover effects but weren't clickable
-- **User Impact:** Users couldn't research providers before booking
-- **Fix:** Wrapped team member cards in Link components in `VirtualTherapy.tsx`
-- **Result:** Users can now click providers to view full bios and credentials
-
-**4. Duplicate Lead Notification - FIXED ✅**
-- **Issue:** Duplicate submissions (within 5 minutes) returned silently without admin notification
-- **User Impact:** Admins unaware when users resubmit forms (possible data loss scenario)
-- **Fix:** Modified deduplication logic in `server/routes.ts` to send admin email even for duplicates
-- **Technical:** Email subject includes "(DUPLICATE RESUBMISSION)" flag
-- **Result:** Admin notified of ALL form submissions, including resubmissions
-
-**5. SEO Content Expansion - COMPLETED ✅**
-- **Goal:** Expand 38 pages from 50-112 words to 300+ words (Google SEO requirement)
-- **Method:** OpenAI GPT-4o automated expansion with clinical accuracy
-- **Results:** 
-  - 9 treatments: 322-424 words
-  - 15 therapies: 363-420 words  
-  - 4 conditions: 485-518 words
-  - 11 location pages: 300-343 words (avg: 320 words)
-  - Spot-check confirms clinically accurate, empathetic tone
-- **Impact:** All pages now meet Google's content depth requirements
-
-**6. Structured Data Validation Fixes - COMPLETED ✅**
-- **Issue:** 10 structured data errors flagged by SEMrush
-- **Geographic Coordinates:** Fixed latitude/longitude data types (string → number) in PhysicianSchema.tsx
-- **Medical Specialty:** Changed invalid enum values to official "Psychiatric" (Schema.org standard)
-- **Files Updated:** PhysicianSchema.tsx, OrganizationSchema.tsx, LocalBusinessSchema.tsx
-- **Impact:** Resolved Schema.org validation errors, improves eligibility for Google rich snippets
-
-**7. Dynamic Blog Redirect System - Google Search Console Fix - COMPLETED ✅**
-- **Issue:** 21 URLs flagged as "Crawled - currently not indexed" in GSC (14 blog posts + 7 other pages)
-- **Root Cause:** Legacy blog URLs (/{slug}) not redirecting to new canonical format (/blog/{slug})
-- **Solution:** Implemented in-memory blog slug cache with O(1) lookup performance
-- **Technical Implementation:**
-  - Boot-time cache initialization loads 180 blog slugs from database
-  - Storage hooks (create/update/delete) keep cache synchronized with blog mutations
-  - Callback pattern integrates blog slug checker into canonicalization middleware
-  - Single-segment path guard prevents false matches on multi-segment URLs
-  - Early-stage redirect handling (before route processing) for optimal SEO
-- **Files Modified:** server/storage.ts, server/redirect-config.ts, server/routes.ts
-- **Results:** All 21 problematic GSC URLs now redirect correctly (301 status)
-  - 14 blog posts: /{slug} → /blog/{slug}
-  - 7 other pages: treatments/therapy-treatment → /therapy, /hm05/ → /services, etc.
-- **Impact:** Eliminates duplicate content penalties, consolidates SEO authority to canonical URLs
-
-### Testing & QA
-
-**Regression Test Plan Created:**
-- Multi-step form submission flow
-- Lead creation and database persistence
-- Deduplication behavior verification
-- Form validation error handling
-- Email notification triggers
-
-**Note:** Automated Playwright tests blocked by browser environment issue. Manual test plan available for QA execution until infrastructure resolved.
-
-### Google Search Console Structured Data Fixes (November 11, 2025)
-
-**8. Invalid "itemReviewed" Structured Data Error - FIXED ✅**
-- **Issue:** 4 blog posts flagged with "Invalid object type for field 'itemReviewed'" error in Google Search Console
-- **Affected URLs:**
-  - /blog/top-10-best-low-stress-jobs
-  - /blog/deciphering-the-differences-therapy-vs-counseling
-  - /blog/bipolar-psychosis-symptoms-treatment-recovery
-  - /blog/petulant-bpd-symptoms-and-treatment
-- **Root Cause:** BlogPosting schema included `aggregateRating` field, which is invalid per Schema.org standards
-- **Fix:** Removed aggregateRating block from BlogDetailPage.tsx (lines 253-261)
-- **Technical Details:**
-  - BlogPosting schema doesn't support aggregateRating without Review wrapper
-  - Google expected Review schema with itemReviewed field when seeing ratings
-  - Rating data preserved in database for potential future Review schema implementation
-- **Validation:** Automated Playwright test confirmed fix on 3 affected URLs:
-  - All pages load successfully with valid BlogPosting structured data
-  - No aggregateRating field present in JSON-LD
-  - All required Schema.org fields present (headline, author, publisher, etc.)
-- **Next Steps:** Request revalidation in Google Search Console after Google re-crawls pages
-- **Impact:** Eliminates structured data errors, improves rich snippet eligibility
