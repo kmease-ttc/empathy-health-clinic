@@ -17,6 +17,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **SEO Features:** Comprehensive SEO implementation including unique meta tags, canonical tags, structured data, auto-generated XML sitemap, robots.txt, SEO-friendly URLs, and strategic internal linking.
 - **Blog System:** Comprehensive blog with listing and individual post pages, SEO metadata, and AI Blog Generation.
 - **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, Microsoft Clarity, page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
+- **SERP Ranking Analysis:** Real-time Google ranking tracker using Serper.dev API with 15-minute caching (40x performance improvement), URL normalization to prevent false "wrong URL" flags, competitor position tracking (healingpsychiatryflorida.com, mymindcarecenter.com, orlandohealth.com), and SEO task enrichment combining GSC impressions with live SERP positions.
 - **Admin Dashboards:** Includes a Link & Performance Monitor, SEO Optimization Dashboard, Blog SEO Optimizer, and SEMrush Keyword Optimizer.
 - **Performance Optimizations:** Mobile-first approach with code splitting, analytics deferral, resource hints, script optimization, and hero image preloading.
 - **URL Management:** Unified canonicalization middleware combines www removal, trailing slash normalization, and content redirects, with a dynamic blog redirect system for legacy URLs.
@@ -43,6 +44,7 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **Zod:** Schema validation.
 - **SendGrid:** Email delivery service.
 - **Google Ads API:** Paid conversion tracking and ROI analytics.
+- **Serper.dev API:** Real-time SERP ranking checks for Orlando keywords.
 - **web-vitals:** Core Web Vitals measurement.
 - **Lucide-react:** Icon library.
 - **OpenAI GPT-4o:** For AI blog generation.
