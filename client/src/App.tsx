@@ -69,7 +69,6 @@ const ChildPsychiatristOrlando = lazy(() => import("@/pages/ChildPsychiatristOrl
 const MedicationManagementOrlando = lazy(() => import("@/pages/MedicationManagementOrlando"));
 const TelepsychiatryOrlando = lazy(() => import("@/pages/TelepsychiatryOrlando"));
 const SameDayPsychiatristOrlando = lazy(() => import("@/pages/SameDayPsychiatristOrlando"));
-const PsychiatryOrlando = lazy(() => import("@/pages/PsychiatryOrlando"));
 
 // Legal & Info Pages
 const About = lazy(() => import("@/pages/About"));
@@ -305,11 +304,6 @@ function Router() {
         <Route path="/same-day-psychiatrist-orlando">
           <Suspense fallback={<LoadingFallback />}>
             <SameDayPsychiatristOrlando />
-          </Suspense>
-        </Route>
-        <Route path="/psychiatry-orlando">
-          <Suspense fallback={<LoadingFallback />}>
-            <PsychiatryOrlando />
           </Suspense>
         </Route>
         <Route path="/about">

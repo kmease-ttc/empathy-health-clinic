@@ -76,9 +76,41 @@ export default function SiteFooter() {
     { label: "View All Locations", href: "/services" }
   ];
 
+  const orlandoServicesLinks = [
+    { label: "Psychiatrist Orlando", href: "/psychiatrist-orlando" },
+    { label: "ADHD Psychiatrist", href: "/adhd-psychiatrist-orlando" },
+    { label: "Anxiety Psychiatrist", href: "/anxiety-psychiatrist-orlando" },
+    { label: "Child Psychiatrist", href: "/child-psychiatrist-orlando" },
+    { label: "Bipolar Psychiatrist", href: "/bipolar-psychiatrist-orlando" },
+    { label: "Medication Management", href: "/medication-management-orlando" },
+    { label: "Telepsychiatry", href: "/telepsychiatry-orlando" },
+    { label: "Same-Day Psychiatrist", href: "/same-day-psychiatrist-orlando" }
+  ];
+
   return (
     <footer className="bg-card border-t border-card-border">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-20">
+        {/* Orlando Psychiatry Services Band */}
+        <div className="mb-12 pb-12 border-b border-card-border">
+          <h3 className="text-2xl font-sans font-semibold mb-6 text-foreground text-center">
+            Orlando Psychiatry Services
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {orlandoServicesLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                className="px-4 py-3 bg-background border border-muted rounded-md text-sm text-foreground hover:bg-primary/5 hover:border-primary transition-colors text-center hover-elevate"
+                data-testid={`link-footer-orlando-${index}`}
+                aria-label={`${link.label} in Orlando Florida`}
+                onClick={() => trackEvent('orlando_service_click', 'conversion', `Footer Orlando - ${link.label}`)}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           <div>
             <h3 className="text-xl font-sans font-medium mb-4 text-foreground">

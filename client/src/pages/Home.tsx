@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/SiteHeader";
 import HeroSection from "@/components/HeroSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
@@ -135,6 +136,119 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
+
+        {/* Orlando Psychiatry Specialists Section */}
+        <section className="py-16 bg-muted">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
+                Orlando Psychiatry Specialists
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Board-certified psychiatrists serving Orlando, Winter Park, Altamonte Springs, Lake Mary, and Maitland. Same-week appointments available.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <Link href="/psychiatrist-orlando" className="group" data-testid="link-orlando-psychiatrist">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-psychiatrist">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Psychiatrist Orlando
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Expert medication management & psychiatric evaluations
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/adhd-psychiatrist-orlando" className="group" data-testid="link-orlando-adhd">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-adhd">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    ADHD Psychiatrist
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Adult & child ADHD diagnosis and treatment
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/anxiety-psychiatrist-orlando" className="group" data-testid="link-orlando-anxiety">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-anxiety">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Anxiety Psychiatrist
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Comprehensive anxiety & panic disorder treatment
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/child-psychiatrist-orlando" className="group" data-testid="link-orlando-child">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-child">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Child Psychiatrist
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Specialized pediatric mental health care
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/bipolar-psychiatrist-orlando" className="group" data-testid="link-orlando-bipolar">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-bipolar">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Bipolar Psychiatrist
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Expert mood stabilization & bipolar treatment
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/medication-management-orlando" className="group" data-testid="link-orlando-medication">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-medication">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Medication Management
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Ongoing psychiatric medication optimization
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/telepsychiatry-orlando" className="group" data-testid="link-orlando-telepsychiatry">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-telepsychiatry">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Telepsychiatry
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Convenient online psychiatry appointments
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/same-day-psychiatrist-orlando" className="group" data-testid="link-orlando-same-day">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-same-day">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Same-Day Psychiatrist
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Urgent psychiatric care when you need it
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="text-center">
+              <Link href="/psychiatrist-orlando">
+                <Button size="lg" data-testid="button-view-all-orlando">
+                  View All Orlando Services
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <InsuranceSection />
         <section className="py-12 md:py-16 bg-card border-y">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
