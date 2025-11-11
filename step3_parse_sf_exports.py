@@ -1,8 +1,9 @@
+import os
 import pandas as pd
 from caas_jupyter_tools import display_dataframe_to_user
 
-# Path to your uploaded Screaming Frog export
-CSV_PATH = "attached_assets/internal_all_1762887563969.csv"
+# Path to Screaming Frog export (fetched from iCloud or manually uploaded)
+CSV_PATH = "internal_all.csv" if os.path.exists("internal_all.csv") else "attached_assets/internal_all_1762887563969.csv"
 
 # Read the CSV
 df = pd.read_csv(CSV_PATH)

@@ -52,10 +52,26 @@ if os.path.exists("step2_serp_update_tasks.py"):
 else:
     print("⚠️ step2_serp_update_tasks.py not found, skipping SERP update")
 
+# 2.5) Fetch latest Screaming Frog crawl from iCloud
+print("\nStep 2.5: Fetching latest Screaming Frog crawl from iCloud...")
+if os.path.exists("fetch_sf_crawl.py"):
+    if run(["python3", "fetch_sf_crawl.py"]):
+        print("✅ Fresh Screaming Frog data downloaded")
+    else:
+        print("⚠️ iCloud fetch failed, will use existing data if available")
+else:
+    print("⚠️ fetch_sf_crawl.py not found, skipping iCloud download")
+
 # 3) Parse Screaming Frog export OR run tech audit
 print("\nStep 3: Analyzing technical SEO signals...")
-if os.path.exists("attached_assets/internal_all_1762887563969.csv"):
-    # Use Screaming Frog export if available
+if os.path.exists("internal_all.csv"):
+    # Use freshly downloaded or existing Screaming Frog export
+    if os.path.exists("step3_parse_sf_exports.py"):
+        run(["python3", "step3_parse_sf_exports.py"])
+    else:
+        print("⚠️ step3_parse_sf_exports.py not found")
+elif os.path.exists("attached_assets/internal_all_1762887563969.csv"):
+    # Fallback to old uploaded export
     if os.path.exists("step3_parse_sf_exports.py"):
         run(["python3", "step3_parse_sf_exports.py"])
     else:
