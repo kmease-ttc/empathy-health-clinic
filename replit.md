@@ -151,3 +151,25 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - Email notification triggers
 
 **Note:** Automated Playwright tests blocked by browser environment issue. Manual test plan available for QA execution until infrastructure resolved.
+
+### Google Search Console Structured Data Fixes (November 11, 2025)
+
+**8. Invalid "itemReviewed" Structured Data Error - FIXED ✅**
+- **Issue:** 4 blog posts flagged with "Invalid object type for field 'itemReviewed'" error in Google Search Console
+- **Affected URLs:**
+  - /blog/top-10-best-low-stress-jobs
+  - /blog/deciphering-the-differences-therapy-vs-counseling
+  - /blog/bipolar-psychosis-symptoms-treatment-recovery
+  - /blog/petulant-bpd-symptoms-and-treatment
+- **Root Cause:** BlogPosting schema included `aggregateRating` field, which is invalid per Schema.org standards
+- **Fix:** Removed aggregateRating block from BlogDetailPage.tsx (lines 253-261)
+- **Technical Details:**
+  - BlogPosting schema doesn't support aggregateRating without Review wrapper
+  - Google expected Review schema with itemReviewed field when seeing ratings
+  - Rating data preserved in database for potential future Review schema implementation
+- **Validation:** Automated Playwright test confirmed fix on 3 affected URLs:
+  - All pages load successfully with valid BlogPosting structured data
+  - No aggregateRating field present in JSON-LD
+  - All required Schema.org fields present (headline, author, publisher, etc.)
+- **Next Steps:** Request revalidation in Google Search Console after Google re-crawls pages
+- **Impact:** Eliminates structured data errors, improves rich snippet eligibility
