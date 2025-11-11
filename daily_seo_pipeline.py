@@ -133,103 +133,192 @@ else:
 
 # 5) Build summary message
 print("\nStep 5: Building summary report...")
-summary = []
+
+# Load current and previous SERP data for delta calculation
+current_serps = {row['target_query']: row.get('serp_position', 'Not in top 20') 
+                 for row in safe_read_csv("serp_ranks.csv")}
+prev_serps = {row['target_query']: row.get('serp_position', 'Not in top 20') 
+              for row in safe_read_csv("serp_ranks_prev.csv")} if os.path.exists("serp_ranks_prev.csv") else {}
+
+# Save current as previous for next run
+if os.path.exists("serp_ranks.csv"):
+    import shutil
+    shutil.copy("serp_ranks.csv", "serp_ranks_prev.csv")
+
 top_tasks = safe_read_csv("tasks_final.csv")[:10]
 
-if top_tasks:
-    summary.append("📊 TOP 10 PRIORITY TASKS")
-    summary.append("=" * 80)
-    summary.append("")
-    
-    for i, task in enumerate(top_tasks, 1):
-        score = task.get('priority_score', '0')
-        action = task.get('action', 'unknown')
-        query = task.get('target_query', '')
-        pos = task.get('serp_position', '-')
-        issues = task.get('tech_issues', 'none')
-        
-        summary.append(f"{i}. [{score:>5}] {action:<20} | {query[:40]:<40}")
-        summary.append(f"   Position: {pos:<10} | Issues: {issues}")
-        summary.append("")
-else:
-    summary.append("⚠️ No tasks generated.")
+# Calculate summary stats
+ranking_count = sum(1 for pos in current_serps.values() if pos != 'Not in top 20' and pos != '-')
+total_keywords = len(current_serps)
+improved_count = 0
 
-# Add file status
-summary.append("")
-summary.append("📁 FILES GENERATED")
-summary.append("=" * 80)
-for f in ["tasks.csv", "tasks_enriched.csv", "serp_ranks.csv", "tech_audit.csv", "tasks_final.csv"]:
-    if os.path.exists(f):
-        rows = len(safe_read_csv(f))
-        summary.append(f"✓ {f:<30} ({rows} rows)")
-    else:
-        summary.append(f"✗ {f:<30} (not found)")
+for query, current_pos in current_serps.items():
+    if query in prev_serps and current_pos != 'Not in top 20' and prev_serps[query] != 'Not in top 20':
+        try:
+            if int(current_pos) < int(prev_serps[query]):
+                improved_count += 1
+        except:
+            pass
 
-msg_text = "\n".join(summary)
+msg_text = f"""Top {len(top_tasks)} Priority Keywords
+
+Currently tracking: {total_keywords} keywords
+Ranking in top 20: {ranking_count}/{total_keywords}
+Improved positions: {improved_count}
+"""
+
 print("\n" + msg_text)
 
 # 6) Send email notification via SendGrid
 print("\nStep 6: Sending email notification...")
 if SENDGRID_API_KEY and EMAIL_TO:
     try:
-        # Add autonomous implementation summary to email
+        # Build keyword table rows
+        keyword_rows = ""
+        for i, task in enumerate(top_tasks, 1):
+            query = task.get('target_query', '')
+            current_pos = task.get('serp_position', 'Not in top 20')
+            action = task.get('action', 'unknown')
+            
+            # Calculate delta
+            delta_html = "—"
+            if query in prev_serps and current_pos != 'Not in top 20' and prev_serps[query] != 'Not in top 20':
+                try:
+                    delta = int(prev_serps[query]) - int(current_pos)
+                    if delta > 0:
+                        delta_html = f'<span style="color: #10b981;">▲ +{delta}</span>'
+                    elif delta < 0:
+                        delta_html = f'<span style="color: #ef4444;">▼ {delta}</span>'
+                    else:
+                        delta_html = "—"
+                except:
+                    pass
+            
+            # Map action to next step
+            next_action = {
+                'improve-landing': f'Optimize title tag and meta description; add internal links.',
+                'create-landing': f'Create new landing page with "{query}" headline and localized schema.',
+                'supporting-blog': f'Create supporting blog optimized for "{query}" intent.',
+                'fix-tech-issue': f'Fix technical issues: {task.get("tech_issues", "unknown")}'
+            }.get(action, 'Review and optimize content.')
+            
+            # Format current rank display
+            rank_display = current_pos if current_pos != 'Not in top 20' else '— (not top 20)'
+            
+            keyword_rows += f"""
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px 8px; text-align: center; color: #6b7280;">{i}</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">{query}</td>
+                    <td style="padding: 12px 8px; text-align: center;">{rank_display}</td>
+                    <td style="padding: 12px 8px; text-align: center;">{delta_html}</td>
+                    <td style="padding: 12px 8px; color: #6b7280; font-size: 13px;">{next_action}</td>
+                </tr>
+            """
+        
+        # Build autonomous implementation section
         auto_impl_section = ""
-        if implementation_summary:
+        if implementation_summary and implementation_summary.get('implemented', 0) > 0:
+            impl_details = implementation_summary.get('details', {})
+            impl_list = ""
+            for task in impl_details.get('implemented', []):
+                impl_list += f"<li style='margin-bottom: 8px;'><strong>{task.get('action', 'unknown')}:</strong> {task.get('query', 'N/A')}</li>"
+            
+            git_diff_preview = implementation_summary.get('git_diff', '')[:2000]
+            
             auto_impl_section = f"""
-                <h2 style="color: #2563eb; margin-top: 30px;">🤖 Autonomous Implementation</h2>
-                <div style="background: #f0f9ff; padding: 15px; border-radius: 5px; border-left: 4px solid #2563eb;">
-                    <p><strong>Implemented:</strong> {implementation_summary.get('implemented', 0)}</p>
-                    <p><strong>Failed:</strong> {implementation_summary.get('failed', 0)}</p>
-                    <p><strong>Skipped:</strong> {implementation_summary.get('skipped', 0)}</p>
-                    
-                    {f'''
-                    <h3 style="margin-top: 20px;">✅ Successfully Implemented:</h3>
-                    <ul>
-                        {"".join(f"<li>{task.get('action')}: {task.get('query')}</li>" for task in implementation_summary.get('details', {}).get('implemented', []))}
+                <div style="margin: 30px 0; padding: 20px; background: #f0fdf4; border-left: 4px solid #10b981; border-radius: 5px;">
+                    <h2 style="color: #10b981; margin-top: 0;">🤖 Autonomous Implementation Results</h2>
+                    <p style="margin: 10px 0;"><strong>Tasks Implemented:</strong> {implementation_summary.get('implemented', 0)}</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        {impl_list}
                     </ul>
-                    ''' if implementation_summary.get('details', {}).get('implemented') else ''}
-                    
-                    {f'''
-                    <h3 style="margin-top: 20px;">❌ Failed to Implement:</h3>
-                    <ul>
-                        {"".join(f"<li>{task.get('action')}: {task.get('query')}</li>" for task in implementation_summary.get('details', {}).get('failed', []))}
-                    </ul>
-                    ''' if implementation_summary.get('details', {}).get('failed') else ''}
-                    
-                    {f'''
-                    <h3 style="margin-top: 20px;">📝 Git Changes:</h3>
-                    <pre style="background: #1f2937; color: #10b981; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 11px; max-height: 400px;">{implementation_summary.get('git_diff', 'No changes')[:3000]}</pre>
-                    <p style="color: #666; font-size: 12px;">
-                        🔄 Rollback: <code>git reset --hard HEAD~1</code>
+                    <details style="margin-top: 20px;">
+                        <summary style="cursor: pointer; color: #2563eb; font-weight: 500;">View Git Diff</summary>
+                        <pre style="margin-top: 10px; background: #1f2937; color: #10b981; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 11px; max-height: 400px;">{git_diff_preview}</pre>
+                    </details>
+                    <p style="margin-top: 15px; color: #6b7280; font-size: 13px;">
+                        🔄 To rollback these changes: <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">git reset --hard HEAD~1</code>
                     </p>
-                    ''' if implementation_summary.get('git_diff') else ''}
                 </div>
             """
         
-        subject = f"Empathy Health SEO Daily Report - {datetime.utcnow().strftime('%Y-%m-%d')}"
+        # Build files generated section
+        files_section = ""
+        for f in ["tasks.csv", "tasks_enriched.csv", "serp_ranks.csv", "tech_audit.csv", "tasks_final.csv"]:
+            status = "✅" if os.path.exists(f) else "❌"
+            rows = len(safe_read_csv(f)) if os.path.exists(f) else 0
+            warning = " (0 rows — no technical issues found)" if f == "tech_audit.csv" and rows == 0 else ""
+            files_section += f"<li>{status} <strong>{f}</strong> ({rows} rows){warning}</li>"
+        
+        subject = f"Empathy Health Clinic – SEO Daily Report ({datetime.utcnow().strftime('%b %d, %Y')})"
         if implementation_summary.get('implemented', 0) > 0:
             subject += f" [{implementation_summary.get('implemented')} tasks implemented]"
         
         # Build HTML email
         html_content = f"""
         <html>
-        <body style="font-family: monospace; background-color: #f5f5f5; padding: 20px;">
-            <div style="max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 5px;">
-                <h1 style="color: #2563eb;">Empathy Health Clinic - SEO Daily Report</h1>
-                <p style="color: #666;">Generated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}</p>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f9fafb; margin: 0; padding: 20px;">
+            <div style="max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                
+                <h1 style="color: #111827; font-size: 24px; margin: 0 0 10px 0;">Empathy Health Clinic – SEO Daily Report</h1>
+                <p style="color: #6b7280; margin: 0 0 30px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 20px;">
+                    Generated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}
+                </p>
                 
                 {auto_impl_section}
                 
-                <h2 style="color: #2563eb; margin-top: 30px;">📊 Recommended Tasks</h2>
-                <pre style="background: #f8f9fa; padding: 20px; border-radius: 5px; overflow-x: auto;">
-{msg_text}
-                </pre>
+                <div style="margin: 30px 0;">
+                    <h2 style="color: #111827; font-size: 20px; margin: 0 0 15px 0;">📊 SEO Performance Overview</h2>
+                    <div style="background: #f9fafb; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                        <p style="margin: 5px 0; color: #374151;"><strong>Currently tracking:</strong> {total_keywords} keywords</p>
+                        <p style="margin: 5px 0; color: #374151;"><strong>Ranking in top 20:</strong> {ranking_count}/{total_keywords}</p>
+                        <p style="margin: 5px 0; color: #374151;"><strong>Improved positions:</strong> {improved_count}</p>
+                    </div>
+                </div>
                 
-                <hr style="margin: 30px 0;">
-                <p style="color: #666; font-size: 12px;">
+                <div style="margin: 30px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
+                    <h3 style="color: #111827; font-size: 18px; margin: 0;">Top {len(top_tasks)} Priority Keywords</h3>
+                </div>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px;">
+                    <thead>
+                        <tr style="background: #f3f4f6; border-bottom: 2px solid #d1d5db;">
+                            <th style="padding: 12px 8px; text-align: center; color: #374151; font-weight: 600;">#</th>
+                            <th style="padding: 12px 8px; text-align: left; color: #374151; font-weight: 600;">Keyword</th>
+                            <th style="padding: 12px 8px; text-align: center; color: #374151; font-weight: 600;">Current Rank</th>
+                            <th style="padding: 12px 8px; text-align: center; color: #374151; font-weight: 600;">Δ (vs. Yesterday)</th>
+                            <th style="padding: 12px 8px; text-align: left; color: #374151; font-weight: 600;">Next Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {keyword_rows}
+                    </tbody>
+                </table>
+                
+                <div style="margin: 30px 0; padding: 20px; background: #f9fafb; border-radius: 5px; border-bottom: 2px solid #e5e7eb;">
+                    <h3 style="color: #111827; margin: 0 0 15px 0;">📂 Files Generated</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        {files_section}
+                    </ul>
+                </div>
+                
+                <div style="margin: 30px 0; padding: 20px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 5px;">
+                    <h3 style="color: #92400e; margin: 0 0 10px 0;">🧩 Summary</h3>
+                    <p style="color: #78350f; margin: 5px 0; line-height: 1.6;">
+                        {'Rankings improved for several keywords. ' if improved_count > 0 else ''}
+                        Focus on creating new service pages for keywords not yet ranking and enhancing insurance-related SEO through schema markup, internal linking, and stronger meta optimization.
+                    </p>
+                </div>
+                
+                <hr style="margin: 40px 0; border: none; border-top: 1px solid #e5e7eb;">
+                
+                <p style="color: #9ca3af; font-size: 12px; margin: 0; text-align: center;">
                     Automated by Replit SEO Pipeline<br>
-                    Site: {SITE_URL}<br>
-                    Target City: {CITY}
+                    Site: {SITE_URL} | Target City: {CITY}
                 </p>
             </div>
         </body>
