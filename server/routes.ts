@@ -1355,6 +1355,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // SERP API routes - Real-time ranking checks
+  app.get("/api/serp/ranking", async (req, res) => {
+    try {
+      const query = req.query.q as string;
+      if (!query) {
+        return res.status(400).json({ success: false, error: 'Query parameter "q" is required' });
+      }
+      
+      const { getGoogleRanking } = await import('./serp-service');
+      const result = await getGoogleRanking(query);
+      res.json({ success: true, query, ...result });
+    } catch (error: any) {
+      console.error('❌ SERP Ranking Error:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/serp/orlando-keywords", async (_req, res) => {
+    try {
+      const { checkOrlandoKeywordRankings } = await import('./serp-service');
+      const result = await checkOrlandoKeywordRankings();
+      res.json(result);
+    } catch (error: any) {
+      console.error('❌ SERP Orlando Keywords Error:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // SEMrush data route
   app.get("/api/semrush-data", async (_req, res) => {
     try {
