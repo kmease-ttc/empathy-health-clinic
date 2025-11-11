@@ -24,11 +24,11 @@ export default function AdminEmailFailures() {
   const { toast } = useToast();
 
   const { data: unresolvedFailures = [], isLoading: loadingUnresolved } = useQuery<EmailFailure[]>({
-    queryKey: ["/api/email-failures?resolved=false"],
+    queryKey: ["/api/email-failures", { resolved: false }],
   });
 
   const { data: resolvedFailures = [], isLoading: loadingResolved } = useQuery<EmailFailure[]>({
-    queryKey: ["/api/email-failures?resolved=true"],
+    queryKey: ["/api/email-failures", { resolved: true }],
   });
 
   const retryMutation = useMutation({
