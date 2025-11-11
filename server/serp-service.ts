@@ -135,12 +135,23 @@ export async function getGoogleRanking(query: string, useCache = true): Promise<
 
 export async function checkOrlandoKeywordRankings() {
   const targetKeywords = [
-    'psychiatry orlando fl',
+    // Core service keywords (high priority)
     'psychiatrist orlando',
-    'adhd evaluation near me',
-    'anxiety psychiatrist orlando',
+    'psychiatry orlando',
     'child psychiatrist orlando',
+    'adhd psychiatrist orlando',
+    'anxiety psychiatrist orlando',
+    'bipolar psychiatrist orlando',
+    
+    // Service modifiers
+    'medication management orlando',
     'telepsychiatry orlando',
+    'same day psychiatrist orlando',
+    
+    // Insurance-specific (currently ranking)
+    'psychiatrist orlando accepts cigna',
+    'psychiatrist orlando accepts bcbs',
+    'psychiatrist orlando accepts umr',
   ];
   
   const results = [];
