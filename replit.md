@@ -24,6 +24,17 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, and conditions, including Google Ads and city-specific landing pages.
+- **Orlando Landing Pages (November 2025):** 8 SEO-optimized Orlando-specific psychiatry landing pages (1,000-1,400 words each) with LocalBusiness/MedicalBusiness schema, Orlando location data (2281 Lee Rd Suite 102, Winter Park, FL 32810), and strategic internal linking:
+  - /psychiatrist-orlando (general psychiatry)
+  - /adhd-psychiatrist-orlando (ADHD diagnosis & treatment)
+  - /anxiety-psychiatrist-orlando (anxiety disorder treatment)
+  - /child-psychiatrist-orlando (pediatric psychiatry)
+  - /bipolar-psychiatrist-orlando (bipolar disorder treatment)
+  - /medication-management-orlando (psychiatric medication management)
+  - /telepsychiatry-orlando (online psychiatry)
+  - /same-day-psychiatrist-orlando (urgent psychiatric care)
+  
+  Internal linking: Homepage "Orlando Psychiatry Specialists" section (8 CTA cards) + Footer "Orlando Psychiatry Services" band (2×4 grid). Analytics tracking: orlando_service_click events.
 - **Blog Section:** Over 170 SEO-optimized articles, with an AI Blog Generator in the admin panel.
 - **Admin Panel:** CMS for content and lead management, analytics dashboard, link and performance monitoring, and Google Ads setup.
 - **Lead Capture:** High-converting forms with automated email notifications, backend deduplication, and email failure tracking.
