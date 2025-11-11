@@ -1327,6 +1327,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Google Search Console routes
+  app.get("/api/gsc/orlando-analysis", async (_req, res) => {
+    try {
+      const { runOrlandoSEOAnalysis } = await import('./gsc-service');
+      const result = await runOrlandoSEOAnalysis();
+      res.json(result);
+    } catch (error: any) {
+      console.error('❌ GSC Orlando Analysis Error:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/gsc/test", async (_req, res) => {
+    try {
+      const { fetchGSCData } = await import('./gsc-service');
+      const data = await fetchGSCData(7, 0);
+      res.json({ 
+        success: true, 
+        message: 'Successfully connected to Google Search Console',
+        sampleData: data.slice(0, 10),
+        totalRows: data.length 
+      });
+    } catch (error: any) {
+      console.error('❌ GSC Test Error:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // SEMrush data route
   app.get("/api/semrush-data", async (_req, res) => {
     try {

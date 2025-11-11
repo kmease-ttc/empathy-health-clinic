@@ -1,0 +1,225 @@
+import { google } from 'googleapis';
+
+interface GSCRow {
+  query: string;
+  page: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+
+interface SEOTask {
+  type: 'create-landing' | 'improve-landing' | 'supporting-blog';
+  target_query: string;
+  suggested_url?: string;
+  rationale: string;
+  current_position?: number;
+  current_ctr?: number;
+  impressions?: number;
+}
+
+const ORLANDO_TARGETS = [
+  "psychiatrist orlando",
+  "psychiatry orlando",
+  "child psychiatrist orlando",
+  "adhd psychiatrist orlando",
+  "anxiety psychiatrist orlando",
+  "medication management orlando",
+  "telepsychiatry orlando",
+  "same day psychiatrist orlando",
+  "psychiatrist orlando accepts cigna",
+  "psychiatrist orlando accepts bcbs",
+  "psychiatrist orlando accepts umr",
+  "adhd evaluation near me",
+  "adhd evaluation orlando",
+  "psychiatrist near me",
+  "therapy orlando",
+];
+
+export async function fetchGSCData(startDays = 28, endDays = 0): Promise<GSCRow[]> {
+  try {
+    const serviceAccountJson = process.env.GOOGLE_SEARCH_CONSOLE_SERVICE_ACCOUNT_JSON;
+    
+    if (!serviceAccountJson) {
+      throw new Error('GOOGLE_SEARCH_CONSOLE_SERVICE_ACCOUNT_JSON not found');
+    }
+    
+    const credentials = JSON.parse(serviceAccountJson);
+    
+    const auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
+    });
+    
+    const authClient = await auth.getClient();
+    const searchconsole = google.searchconsole({
+      version: 'v1',
+      auth: authClient as any,
+    });
+    
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() - endDays);
+    
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - startDays);
+    
+    const siteUrl = 'sc-domain:empathyhealthclinic.com';
+    const response = await searchconsole.searchanalytics.query({
+      siteUrl,
+      requestBody: {
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0],
+        dimensions: ['query', 'page'],
+        rowLimit: 25000,
+        dimensionFilterGroups: [
+          {
+            filters: [
+              {
+                dimension: 'country',
+                operator: 'equals',
+                expression: 'usa',
+              },
+            ],
+          },
+        ],
+      },
+    });
+    
+    const rows: GSCRow[] = [];
+    if (response.data.rows) {
+      for (const row of response.data.rows) {
+        const [query, page] = row.keys || [];
+        rows.push({
+          query: query || '',
+          page: page || '',
+          clicks: row.clicks || 0,
+          impressions: row.impressions || 0,
+          ctr: row.ctr || 0,
+          position: row.position || 0,
+        });
+      }
+    }
+    
+    return rows;
+  } catch (error: any) {
+    console.error('GSC Data Fetch Error:', error);
+    throw new Error(`Failed to fetch GSC data: ${error.message}`);
+  }
+}
+
+export function generateSEOTasks(gscData: GSCRow[]): SEOTask[] {
+  const tasks: SEOTask[] = [];
+  
+  for (const targetQuery of ORLANDO_TARGETS) {
+    const queryRows = gscData.filter((row) =>
+      row.query.toLowerCase().includes(targetQuery.toLowerCase())
+    );
+    
+    if (queryRows.length === 0) {
+      tasks.push({
+        type: 'create-landing',
+        target_query: targetQuery,
+        rationale: 'No visibility in GSC; create dedicated Orlando landing page',
+      });
+      continue;
+    }
+    
+    const pageAggregates = new Map<string, {
+      impressions: number;
+      clicks: number;
+      position: number[];
+      ctr: number[];
+    }>();
+    
+    for (const row of queryRows) {
+      if (!pageAggregates.has(row.page)) {
+        pageAggregates.set(row.page, {
+          impressions: 0,
+          clicks: 0,
+          position: [],
+          ctr: [],
+        });
+      }
+      
+      const agg = pageAggregates.get(row.page)!;
+      agg.impressions += row.impressions;
+      agg.clicks += row.clicks;
+      agg.position.push(row.position);
+      agg.ctr.push(row.ctr);
+    }
+    
+    const topPages = Array.from(pageAggregates.entries())
+      .map(([page, agg]) => ({
+        page,
+        impressions: agg.impressions,
+        clicks: agg.clicks,
+        position: agg.position.reduce((a, b) => a + b, 0) / agg.position.length,
+        ctr: agg.ctr.reduce((a, b) => a + b, 0) / agg.ctr.length,
+      }))
+      .sort((a, b) => b.impressions - a.impressions);
+    
+    const topPage = topPages[0];
+    
+    if (topPage.position <= 10 && topPage.ctr < 0.04) {
+      tasks.push({
+        type: 'improve-landing',
+        target_query: targetQuery,
+        suggested_url: topPage.page,
+        current_position: Math.round(topPage.position * 10) / 10,
+        current_ctr: Math.round(topPage.ctr * 1000) / 10,
+        impressions: topPage.impressions,
+        rationale: `Position ${Math.round(topPage.position)} but CTR ${(topPage.ctr * 100).toFixed(1)}% <4% → rewrite title/H1/meta, add local proof & sticky CTA`,
+      });
+    } else if (topPage.position > 20) {
+      tasks.push({
+        type: 'create-landing',
+        target_query: targetQuery,
+        current_position: Math.round(topPage.position * 10) / 10,
+        impressions: topPage.impressions,
+        rationale: `Position ${Math.round(topPage.position)} >20 → need focused Orlando landing page`,
+      });
+    } else {
+      tasks.push({
+        type: 'supporting-blog',
+        target_query: targetQuery,
+        suggested_url: topPage.page,
+        current_position: Math.round(topPage.position * 10) / 10,
+        current_ctr: Math.round(topPage.ctr * 1000) / 10,
+        impressions: topPage.impressions,
+        rationale: `Position ${Math.round(topPage.position)} (11-20) → publish FAQ/blog + internal links to push into top 10`,
+      });
+    }
+  }
+  
+  return tasks.sort((a, b) => {
+    const order = { 'improve-landing': 1, 'supporting-blog': 2, 'create-landing': 3 };
+    return (order[a.type] || 4) - (order[b.type] || 4);
+  });
+}
+
+export async function runOrlandoSEOAnalysis() {
+  try {
+    const gscData = await fetchGSCData(28, 0);
+    const tasks = generateSEOTasks(gscData);
+    
+    return {
+      success: true,
+      data: {
+        totalQueries: gscData.length,
+        analyzedTargets: ORLANDO_TARGETS.length,
+        tasks,
+        dataRange: {
+          start: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          end: new Date().toISOString().split('T')[0],
+        },
+      },
+    };
+  } catch (error: any) {
+    console.error('Orlando SEO Analysis Error:', error);
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+}
