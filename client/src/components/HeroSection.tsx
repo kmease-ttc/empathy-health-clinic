@@ -19,7 +19,7 @@ export default function HeroSection() {
   });
 
   const title = content?.heroTitle || "Healing Begins with Empathy";
-  const subtitle = content?.heroSubtitle || "Psychiatry, Psychotherapy & Counseling Clinic in Winter Park, Orlando, Florida";
+  const subtitle = content?.heroSubtitle || "Psychiatry, Psychotherapy & Counseling Clinic Serving Orlando and Winter Park, Florida";
   const reviewCount = content?.reviewCount || 65;
   const reviewRating = content?.reviewRating || "EXCELLENT";
 
@@ -56,7 +56,7 @@ export default function HeroSection() {
           
           {/* SEO-Optimized H1 */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-4 drop-shadow-lg max-w-5xl mx-auto leading-tight">
-            Psychiatry, Therapy & Counseling in Winter Park, FL
+            Psychiatry, Therapy & Counseling in Orlando & Winter Park, FL
           </h1>
           
           {/* Tagline */}

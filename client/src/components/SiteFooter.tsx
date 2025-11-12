@@ -145,7 +145,8 @@ export default function SiteFooter() {
                 <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <div className="text-base text-foreground">
                   <p>{address}</p>
-                  <p className="text-sm text-muted-foreground mt-1">Orlando, FL 32810</p>
+                  <p className="text-sm text-primary/90 font-medium mt-1">Serving Orlando and Winter Park</p>
+                  <p className="text-sm text-muted-foreground">Orlando, FL 32810</p>
                 </div>
               </div>
             </div>

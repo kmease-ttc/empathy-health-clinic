@@ -220,14 +220,14 @@ export class MemStorage implements IStorage {
     this.siteContent = {
       id: randomUUID(),
       heroTitle: "Healing Begins with Empathy",
-      heroSubtitle: "Psychiatry, Psychotherapy & Counseling Clinic in Winter Park, Orlando, Florida",
+      heroSubtitle: "Psychiatry, Psychotherapy & Counseling Clinic Serving Orlando and Winter Park, Florida",
       heroImage: "/attached_assets/stock_images/professional_therapi_f037aa5d.jpg",
       reviewCount: 65,
       reviewRating: "EXCELLENT",
       footerPhone: "386-848-8751",
       footerEmail: "providers@empathyhealthclinic.com",
       footerAddress: "2281 Lee Rd Suite 102, Winter Park FL",
-      aboutText: "At Empathy Health Clinic, our mission is to serve the community of Orlando, FL, with a range of affordable mental health services. Whether you need to speak with a professional or seek more comprehensive treatment, we can guide you toward the best solution for your needs and well-being.",
+      aboutText: "At Empathy Health Clinic, our mission is to serve the communities of Orlando and Winter Park, FL, with a range of affordable mental health services. Whether you need to speak with a professional or seek more comprehensive treatment, we can guide you toward the best solution for your needs and well-being.",
     };
 
     // Initialize default treatments

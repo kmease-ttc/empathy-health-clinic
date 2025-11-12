@@ -25,9 +25,9 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead
-        title="Empathy Health Clinic | Psychiatry, Therapy & Counseling in Winter Park FL"
-        description="Expert psychiatry & therapy in Winter Park, FL serving Orlando, Lake Mary & Altamonte Springs. Same-week appointments, medication management & counseling. Most insurance accepted."
-        keywords={["psychiatrist Winter Park", "mental health Winter Park FL", "therapy Winter Park", "psychiatric services Florida", "anxiety treatment Orlando", "depression treatment Florida"]}
+        title="Empathy Health Clinic | Psychiatry, Therapy & Counseling in Orlando & Winter Park FL"
+        description="Expert psychiatry & therapy serving Orlando and Winter Park, FL. Same-week appointments, medication management & counseling. Licensed Florida clinicians. Most insurance accepted including Medicare."
+        keywords={["psychiatrist Orlando", "psychiatrist Winter Park", "mental health Orlando FL", "therapy Orlando", "psychiatric services Florida", "anxiety treatment Orlando", "depression treatment Winter Park"]}
         canonicalPath="/"
         jsonLd={{
           "@context": "https://schema.org",
@@ -35,7 +35,7 @@ export default function Home() {
           "@id": "https://empathyhealthclinic.com/#organization",
           "name": "Empathy Health Clinic",
           "alternateName": "Empathy Health",
-          "description": "Mental health clinic providing psychiatric services, therapy, and medication management in Winter Park, Florida.",
+          "description": "Mental health clinic providing psychiatric services, therapy, and medication management serving Orlando and Winter Park, Florida.",
           "url": "https://empathyhealthclinic.com",
           "telephone": "+13868488751",
           "email": "providers@empathyhealthclinic.com",
