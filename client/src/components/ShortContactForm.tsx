@@ -256,35 +256,34 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
                   </FormItem>
                 )}
               />
+
+              <div className="sticky bottom-0 bg-card border-t p-5 -mx-6 -mb-6 mt-4">
+                <div className="mb-4 flex items-center justify-center gap-4 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Lock className="h-3 w-3" />
+                    <span>HIPAA Compliant</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Shield className="h-3 w-3" />
+                    <span>100% Confidential</span>
+                  </div>
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full text-lg font-semibold" 
+                  size="lg"
+                  disabled={submitLead.isPending}
+                  data-testid="button-submit-form"
+                >
+                  {submitLead.isPending ? "Submitting..." : "Get Scheduled Today"}
+                </Button>
+                <p className="text-center text-xs text-muted-foreground mt-3 flex items-center justify-center gap-1">
+                  <Clock className="h-3 w-3" />
+                  <span>Response within 24 hours • Same-day scheduling available</span>
+                </p>
+              </div>
             </form>
           </Form>
-        </div>
-        
-        <div className="sticky bottom-0 bg-card border-t p-5">
-          <div className="mb-4 flex items-center justify-center gap-4 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <Lock className="h-3 w-3" />
-              <span>HIPAA Compliant</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Shield className="h-3 w-3" />
-              <span>100% Confidential</span>
-            </div>
-          </div>
-          <Button 
-            type="submit" 
-            className="w-full text-lg font-semibold" 
-            size="lg"
-            disabled={submitLead.isPending}
-            data-testid="button-submit-form"
-            onClick={form.handleSubmit(onSubmit)}
-          >
-            {submitLead.isPending ? "Submitting..." : "Get Scheduled Today"}
-          </Button>
-          <p className="text-center text-xs text-muted-foreground mt-3 flex items-center justify-center gap-1">
-            <Clock className="h-3 w-3" />
-            <span>Response within 24 hours • Same-day scheduling available</span>
-          </p>
         </div>
       </div>
     </div>
