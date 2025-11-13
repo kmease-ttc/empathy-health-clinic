@@ -232,6 +232,10 @@ export const blogPosts = pgTable("blog_posts", {
   category: text("category").notNull().default("Mental Health"),
   featuredImage: text("featured_image"),
   isFeatured: boolean("is_featured").notNull().default(false),
+  // Scheduled publishing fields
+  status: text("status").notNull().default("published"), // draft|scheduled|published
+  scheduledPublishAt: text("scheduled_publish_at"), // When to auto-publish (nullable)
+  publishedAt: text("published_at"), // Actual publish timestamp (nullable)
   // SEO fields
   metaTitle: text("meta_title"),
   metaDescription: text("meta_description"),
