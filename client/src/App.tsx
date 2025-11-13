@@ -70,6 +70,17 @@ const MedicationManagementOrlando = lazy(() => import("@/pages/MedicationManagem
 const TelepsychiatryOrlando = lazy(() => import("@/pages/TelepsychiatryOrlando"));
 const SameDayPsychiatristOrlando = lazy(() => import("@/pages/SameDayPsychiatristOrlando"));
 
+// New Google Ads Landing Pages (Template-based)
+const PsychiatricEvaluationOrlando = lazy(() => import("@/pages/PsychiatricEvaluationOrlando"));
+const TherapistOrlando = lazy(() => import("@/pages/TherapistOrlando"));
+const MentalHealthClinicOrlando = lazy(() => import("@/pages/MentalHealthClinicOrlando"));
+const MedicareTherapyOrlando = lazy(() => import("@/pages/MedicareTherapyOrlando"));
+const MedicarePsychiatristOrlando = lazy(() => import("@/pages/MedicarePsychiatristOrlando"));
+const PsychologistOrlando = lazy(() => import("@/pages/PsychologistOrlando"));
+const TherapistAcceptsUMR = lazy(() => import("@/pages/TherapistAcceptsUMR"));
+const TherapistAcceptsOscarHealth = lazy(() => import("@/pages/TherapistAcceptsOscarHealth"));
+const SunshineHealthTherapy = lazy(() => import("@/pages/SunshineHealthTherapy"));
+
 // Legal & Info Pages
 const About = lazy(() => import("@/pages/About"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
@@ -304,6 +315,51 @@ function Router() {
         <Route path="/same-day-psychiatrist-orlando">
           <Suspense fallback={<LoadingFallback />}>
             <SameDayPsychiatristOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatric-evaluation-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatricEvaluationOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/therapist-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <TherapistOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/mental-health-clinic-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <MentalHealthClinicOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/medicare-therapy-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <MedicareTherapyOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/medicare-psychiatrist-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <MedicarePsychiatristOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/psychologist-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychologistOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/therapist-accepts-umr">
+          <Suspense fallback={<LoadingFallback />}>
+            <TherapistAcceptsUMR />
+          </Suspense>
+        </Route>
+        <Route path="/therapist-accepts-oscar-health">
+          <Suspense fallback={<LoadingFallback />}>
+            <TherapistAcceptsOscarHealth />
+          </Suspense>
+        </Route>
+        <Route path="/sunshine-health-therapy">
+          <Suspense fallback={<LoadingFallback />}>
+            <SunshineHealthTherapy />
           </Suspense>
         </Route>
         <Route path="/about">
