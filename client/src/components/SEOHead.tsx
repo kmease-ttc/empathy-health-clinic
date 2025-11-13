@@ -155,7 +155,7 @@ export default function SEOHead({
     }
     canonicalLink.setAttribute("href", currentUrl);
 
-    // Preload critical LCP image for better performance
+    // Preload critical LCP image for better performance with responsive images
     let preloadLink = document.querySelector('link[rel="preload"][data-seo-head="true"]');
     if (preloadImage) {
       if (!preloadLink) {
@@ -167,6 +167,15 @@ export default function SEOHead({
         document.head.appendChild(preloadLink);
       }
       preloadLink.setAttribute("href", preloadImage);
+      
+      // Add responsive image hints for better performance on mobile
+      if (preloadImage.includes('unsplash.com')) {
+        // Match the optimized sizes from BlogDetailPage for consistency
+        const mobileImage = preloadImage.replace(/w=\d+&h=\d+&q=\d+/, 'w=640&h=400&q=70');
+        const tabletImage = preloadImage.replace(/w=\d+&h=\d+&q=\d+/, 'w=1024&h=500&q=72');
+        preloadLink.setAttribute("imagesrcset", `${mobileImage} 640w, ${tabletImage} 1024w, ${preloadImage} 1200w`);
+        preloadLink.setAttribute("imagesizes", "(max-width: 768px) 640px, (max-width: 1024px) 1024px, 1200px");
+      }
     } else if (preloadLink) {
       preloadLink.remove();
       preloadLink = null;

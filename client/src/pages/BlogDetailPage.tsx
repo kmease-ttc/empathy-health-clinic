@@ -13,13 +13,14 @@ import SEOHead from "@/components/SEOHead";
 import FAQSchema from "@/components/FAQSchema";
 import forestBg from "@assets/stock_images/misty_forest_morning_c7552d0a.jpg";
 
-function optimizeUnsplashUrl(url: string, width: number, height: number): string {
+function optimizeUnsplashUrl(url: string, width: number, height: number, quality: number = 75): string {
   if (!url || !url.includes('unsplash.com')) {
     return url;
   }
   
   const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}w=${width}&h=${height}&q=80&fm=webp&fit=crop&auto=format`;
+  // Optimized for faster loading: lower quality (75 vs 80), webp format, aggressive compression
+  return `${url}${separator}w=${width}&h=${height}&q=${quality}&fm=webp&fit=crop&auto=format&dpr=1`;
 }
 
 function stripHtmlTags(text: string): string {
@@ -367,8 +368,20 @@ export default function BlogDetailPage() {
 
   const showLastUpdated = blogPost.lastUpdated && blogPost.lastUpdated !== blogPost.publishedDate;
 
+  // Aggressive image optimization for faster LCP
+  // Mobile: 640px width, quality 70 (smallest file size)
+  // Tablet: 1024px width, quality 72 (balanced)
+  // Desktop: 1200px width, quality 75 (best quality)
+  const heroImageMobile = blogPost.featuredImage 
+    ? optimizeUnsplashUrl(blogPost.featuredImage, 640, 400, 70)
+    : forestBg;
+  
+  const heroImageTablet = blogPost.featuredImage 
+    ? optimizeUnsplashUrl(blogPost.featuredImage, 1024, 500, 72)
+    : forestBg;
+  
   const optimizedHeroImage = blogPost.featuredImage 
-    ? optimizeUnsplashUrl(blogPost.featuredImage, 1200, 600)
+    ? optimizeUnsplashUrl(blogPost.featuredImage, 1200, 600, 75)
     : forestBg;
 
   return (
@@ -391,6 +404,8 @@ export default function BlogDetailPage() {
         <div className="relative py-16 px-4 min-h-[400px] overflow-hidden">
           <img
             src={optimizedHeroImage}
+            srcSet={`${heroImageMobile} 640w, ${heroImageTablet} 1024w, ${optimizedHeroImage} 1200w`}
+            sizes="(max-width: 768px) 640px, (max-width: 1024px) 1024px, 1200px"
             alt={blogPost.title}
             className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: 'brightness(1.3)' }}
