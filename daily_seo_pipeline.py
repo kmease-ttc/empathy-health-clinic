@@ -135,9 +135,9 @@ else:
 print("\nStep 5: Building summary report...")
 
 # Load current and previous SERP data for delta calculation
-current_serps = {row['target_query']: row.get('serp_position', 'Not in top 20') 
+current_serps = {row['keyword']: row.get('position', 'Not in top 20') 
                  for row in safe_read_csv("serp_ranks.csv")}
-prev_serps = {row['target_query']: row.get('serp_position', 'Not in top 20') 
+prev_serps = {row['keyword']: row.get('position', 'Not in top 20') 
               for row in safe_read_csv("serp_ranks_prev.csv")} if os.path.exists("serp_ranks_prev.csv") else {}
 
 # Save current as previous for next run
