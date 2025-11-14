@@ -257,7 +257,7 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
                 )}
               />
 
-              <div className="sticky bottom-0 bg-card border-t p-5 -mx-6 -mb-6 mt-4">
+              <div className="sticky bottom-0 left-0 right-0 bg-card border-t p-5 mt-4" style={{ zIndex: 60, paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}>
                 <div className="mb-4 flex items-center justify-center gap-4 text-xs text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Lock className="h-3 w-3" />
@@ -270,7 +270,7 @@ export default function ShortContactForm({ service, className = "" }: ShortConta
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full text-lg font-semibold" 
+                  className="w-full text-lg font-semibold min-h-11" 
                   size="lg"
                   disabled={submitLead.isPending}
                   data-testid="button-submit-form"
