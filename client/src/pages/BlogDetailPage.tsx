@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import type { BlogPost } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -201,20 +201,180 @@ export default function BlogDetailPage() {
   const slug = params?.slug || "";
   const { toast } = useToast();
 
-  const { data: blogPost, isLoading, error } = useQuery<BlogPost>({
+  // Single optimized query with related posts from server
+  const { data, isLoading, error } = useQuery<{ post: BlogPost; relatedPosts: BlogPost[] }>({
     queryKey: [`/api/blog-posts/slug/${slug}`],
     enabled: !!slug,
   });
 
-  const { data: allPostsResponse } = useQuery<{ posts: BlogPost[] }>({
-    queryKey: ["/api/blog-posts"],
-  });
+  const blogPost = data?.post;
+  const relatedPosts = data?.relatedPosts || [];
 
-  const relatedPosts = allPostsResponse?.posts
-    ?.filter(post => post.slug !== slug && post.category === blogPost?.category)
-    .slice(0, 3) || [];
+  // Memoize expensive text processing to prevent re-computation on every render
+  const detectedFAQs = useMemo(() => 
+    blogPost ? extractFAQs(blogPost.content) : [],
+    [blogPost?.content]
+  );
 
-  const detectedFAQs = blogPost ? extractFAQs(blogPost.content) : [];
+  // Memoize the entire content rendering - this is a MASSIVE performance optimization
+  // Processing thousands of lines on every render was causing the 16s LCP
+  const renderedContent = useMemo(() => {
+    if (!blogPost) return null;
+    
+    const cleanedContent = stripHtmlTags(blogPost.content);
+    const lines = cleanedContent.split('\n');
+    const elements: JSX.Element[] = [];
+    let currentParagraph: string[] = [];
+    let inList = false;
+    let listItems: JSX.Element[] = [];
+    let paragraphCount = 0;
+    let h2Count = 0;
+    
+    const flushParagraph = (index: number) => {
+      if (currentParagraph.length > 0) {
+        const text = currentParagraph.join(' ');
+        elements.push(
+          <p key={`p-${index}`} className="text-foreground leading-relaxed my-4">
+            {renderTextWithLinks(text)}
+          </p>
+        );
+        paragraphCount++;
+        
+        // Inline CTA after 3-4 paragraphs
+        if (paragraphCount === 3) {
+          elements.push(
+            <div key="inline-cta" className="my-8 p-4 bg-muted/50 border-l-4 border-primary rounded-r-lg" data-testid="inline-cta">
+              <p className="text-foreground mb-2">
+                <strong className="text-primary">Did you know?</strong> Evidence-based therapy can significantly improve symptoms of anxiety, depression, and stress.
+              </p>
+              <Link href="/cognitive-behavioral-therapy" className="text-primary hover:text-primary/80 underline font-medium">
+                Learn more about CBT therapy →
+              </Link>
+            </div>
+          );
+        }
+        
+        currentParagraph = [];
+      }
+    };
+    
+    const flushList = (index: number) => {
+      if (listItems.length > 0) {
+        elements.push(
+          <ul key={`ul-${index}`} className="list-disc pl-6 space-y-2 my-4">
+            {listItems}
+          </ul>
+        );
+        listItems = [];
+        inList = false;
+      }
+    };
+
+    lines.forEach((line, index) => {
+      const trimmed = line.trim();
+      
+      // Skip empty lines
+      if (!trimmed) {
+        flushParagraph(index);
+        flushList(index);
+        return;
+      }
+      
+      // H1 Headings (skip, already in hero)
+      if (trimmed.match(/^#\s+/)) {
+        flushParagraph(index);
+        flushList(index);
+        return;
+      }
+      
+      // H2 Headings
+      if (trimmed.match(/^##\s+/)) {
+        flushParagraph(index);
+        flushList(index);
+        const heading = trimmed.replace(/^##\s+/, '');
+        elements.push(
+          <h2 key={`h2-${index}`} className="text-2xl font-sans font-bold mt-8 mb-4 text-foreground">
+            {renderTextWithLinks(heading)}
+          </h2>
+        );
+        h2Count++;
+        
+        // Mid-page conversion CTA after 3rd H2 section (~60% through)
+        if (h2Count === 3) {
+          elements.push(
+            <div key="mid-cta" className="my-12 p-10 bg-gradient-to-br from-green-600 to-green-700 rounded-xl text-center shadow-lg" data-testid="mid-page-cta">
+              <h3 className="text-3xl font-bold mb-4 text-white">Ready to Start Therapy?</h3>
+              <p className="text-lg mb-8 text-white/95 max-w-2xl mx-auto">
+                Take the first step toward feeling better. Our Orlando therapists specialize in evidence-based treatment for anxiety, depression, and more.
+              </p>
+              <Button asChild size="lg" className="bg-white text-green-700 hover:bg-white/95 font-semibold shadow-md" data-testid="button-mid-cta">
+                <Link href="/request-appointment">Schedule Your Appointment</Link>
+              </Button>
+              <div className="mt-8 flex flex-wrap justify-center gap-8 text-sm text-white/95">
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                  Licensed Therapists
+                </span>
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                  HIPAA Secure
+                </span>
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                  Insurance Accepted
+                </span>
+              </div>
+            </div>
+          );
+        }
+        
+        return;
+      }
+      
+      // H3 Headings
+      if (trimmed.match(/^###\s+/)) {
+        flushParagraph(index);
+        flushList(index);
+        const heading = trimmed.replace(/^###\s+/, '');
+        elements.push(
+          <h3 key={`h3-${index}`} className="text-xl font-sans font-semibold mt-6 mb-3 text-foreground">
+            {renderTextWithLinks(heading)}
+          </h3>
+        );
+        return;
+      }
+
+      // List items
+      if (trimmed.match(/^-\s+/)) {
+        flushParagraph(index);
+        inList = true;
+        // Remove list marker and checkbox syntax
+        let text = trimmed.replace(/^-\s*/, '').replace(/^\[\s*\]\s*/, '').replace(/^\[x\]\s*/i, '');
+        if (text) {
+          listItems.push(
+            <li key={`li-${index}`} className="text-foreground">
+              {renderTextWithLinks(text)}
+            </li>
+          );
+        }
+        return;
+      }
+
+      // Regular text - accumulate into paragraph
+      if (!inList) {
+        currentParagraph.push(trimmed);
+      } else {
+        flushList(index);
+        currentParagraph.push(trimmed);
+      }
+    });
+    
+    // Flush any remaining content
+    flushParagraph(lines.length);
+    flushList(lines.length);
+    
+    return elements;
+  }, [blogPost?.content]);
 
   useEffect(() => {
     if (blogPost) {
@@ -493,161 +653,7 @@ export default function BlogDetailPage() {
                 className="prose prose-lg max-w-none prose-headings:font-sans prose-headings:font-bold prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
                 data-testid="article-content"
               >
-                {(() => {
-                  const cleanedContent = stripHtmlTags(blogPost.content);
-                  const lines = cleanedContent.split('\n');
-                  const elements: JSX.Element[] = [];
-                  let currentParagraph: string[] = [];
-                  let inList = false;
-                  let listItems: JSX.Element[] = [];
-                  let paragraphCount = 0;
-                  let h2Count = 0;
-                  
-                  const flushParagraph = (index: number) => {
-                    if (currentParagraph.length > 0) {
-                      const text = currentParagraph.join(' ');
-                      elements.push(
-                        <p key={`p-${index}`} className="text-foreground leading-relaxed my-4">
-                          {renderTextWithLinks(text)}
-                        </p>
-                      );
-                      paragraphCount++;
-                      
-                      // Inline CTA after 3-4 paragraphs
-                      if (paragraphCount === 3) {
-                        elements.push(
-                          <div key="inline-cta" className="my-8 p-4 bg-muted/50 border-l-4 border-primary rounded-r-lg" data-testid="inline-cta">
-                            <p className="text-foreground mb-2">
-                              <strong className="text-primary">Did you know?</strong> Evidence-based therapy can significantly improve symptoms of anxiety, depression, and stress.
-                            </p>
-                            <Link href="/cognitive-behavioral-therapy" className="text-primary hover:text-primary/80 underline font-medium">
-                              Learn more about CBT therapy →
-                            </Link>
-                          </div>
-                        );
-                      }
-                      
-                      currentParagraph = [];
-                    }
-                  };
-                  
-                  const flushList = (index: number) => {
-                    if (listItems.length > 0) {
-                      elements.push(
-                        <ul key={`ul-${index}`} className="list-disc pl-6 space-y-2 my-4">
-                          {listItems}
-                        </ul>
-                      );
-                      listItems = [];
-                      inList = false;
-                    }
-                  };
-
-                  lines.forEach((line, index) => {
-                    const trimmed = line.trim();
-                    
-                    // Skip empty lines
-                    if (!trimmed) {
-                      flushParagraph(index);
-                      flushList(index);
-                      return;
-                    }
-                    
-                    // H1 Headings (skip, already in hero)
-                    if (trimmed.match(/^#\s+/)) {
-                      flushParagraph(index);
-                      flushList(index);
-                      return;
-                    }
-                    
-                    // H2 Headings
-                    if (trimmed.match(/^##\s+/)) {
-                      flushParagraph(index);
-                      flushList(index);
-                      const heading = trimmed.replace(/^##\s+/, '');
-                      elements.push(
-                        <h2 key={`h2-${index}`} className="text-2xl font-sans font-bold mt-8 mb-4 text-foreground">
-                          {renderTextWithLinks(heading)}
-                        </h2>
-                      );
-                      h2Count++;
-                      
-                      // Mid-page conversion CTA after 3rd H2 section (~60% through)
-                      if (h2Count === 3) {
-                        elements.push(
-                          <div key="mid-cta" className="my-12 p-10 bg-gradient-to-br from-green-600 to-green-700 rounded-xl text-center shadow-lg" data-testid="mid-page-cta">
-                            <h3 className="text-3xl font-bold mb-4 text-white">Ready to Start Therapy?</h3>
-                            <p className="text-lg mb-8 text-white/95 max-w-2xl mx-auto">
-                              Take the first step toward feeling better. Our Orlando therapists specialize in evidence-based treatment for anxiety, depression, and more.
-                            </p>
-                            <Button asChild size="lg" className="bg-white text-green-700 hover:bg-white/95 font-semibold shadow-md" data-testid="button-mid-cta">
-                              <Link href="/request-appointment">Schedule Your Appointment</Link>
-                            </Button>
-                            <div className="mt-8 flex flex-wrap justify-center gap-8 text-sm text-white/95">
-                              <span className="flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                                Licensed Therapists
-                              </span>
-                              <span className="flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                                HIPAA Secure
-                              </span>
-                              <span className="flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                                Insurance Accepted
-                              </span>
-                            </div>
-                          </div>
-                        );
-                      }
-                      
-                      return;
-                    }
-                    
-                    // H3 Headings
-                    if (trimmed.match(/^###\s+/)) {
-                      flushParagraph(index);
-                      flushList(index);
-                      const heading = trimmed.replace(/^###\s+/, '');
-                      elements.push(
-                        <h3 key={`h3-${index}`} className="text-xl font-sans font-semibold mt-6 mb-3 text-foreground">
-                          {renderTextWithLinks(heading)}
-                        </h3>
-                      );
-                      return;
-                    }
-
-                    // List items
-                    if (trimmed.match(/^-\s+/)) {
-                      flushParagraph(index);
-                      inList = true;
-                      // Remove list marker and checkbox syntax
-                      let text = trimmed.replace(/^-\s*/, '').replace(/^\[\s*\]\s*/, '').replace(/^\[x\]\s*/i, '');
-                      if (text) {
-                        listItems.push(
-                          <li key={`li-${index}`} className="text-foreground">
-                            {renderTextWithLinks(text)}
-                          </li>
-                        );
-                      }
-                      return;
-                    }
-
-                    // Regular text - accumulate into paragraph
-                    if (!inList) {
-                      currentParagraph.push(trimmed);
-                    } else {
-                      flushList(index);
-                      currentParagraph.push(trimmed);
-                    }
-                  });
-                  
-                  // Flush any remaining content
-                  flushParagraph(lines.length);
-                  flushList(lines.length);
-                  
-                  return elements;
-                })()}
+                {renderedContent}
               </article>
 
               {/* Testimonial Block - Trust & Social Proof */}

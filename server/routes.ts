@@ -1476,7 +1476,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!blogPost) {
         return res.status(404).json({ error: "Blog post not found" });
       }
-      res.json(blogPost);
+      
+      // Get related posts server-side for better performance
+      const allPosts = await storage.getAllBlogPosts();
+      const relatedPosts = allPosts
+        .filter(post => post.slug !== req.params.slug && post.category === blogPost.category)
+        .sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime())
+        .slice(0, 3);
+      
+      res.json({
+        post: blogPost,
+        relatedPosts
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
