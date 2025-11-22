@@ -15,6 +15,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Backend:** Express.js REST API with hybrid storage (in-memory for content, PostgreSQL for analytics/leads) and Zod for validation.
 - **Content Management:** Full CRUD operations via an admin panel for various content types, including a comprehensive blog system with AI Blog Generation.
 - **SEO Features:** Comprehensive SEO implementation with unique meta tags, canonical tags, structured data, auto-generated XML sitemap, robots.txt, SEO-friendly URLs, and strategic internal linking. Includes real-time Google ranking tracking, competitor analysis, and an autonomous SEO task executor.
+- **SEO Webhook Endpoint:** Automated SEO task implementation via `/api/seo/implement` webhook. Receives prioritized tasks from external schedulers and automatically executes landing page creation, optimization, and technical fixes using TypeScript scripts. Requires `SEO_WEBHOOK_SECRET` for authentication.
 - **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, Microsoft Clarity, page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
 - **Admin Dashboards:** Includes a Link & Performance Monitor, SEO Optimization Dashboard, Blog SEO Optimizer, and SEMrush Keyword Optimizer.
 - **Performance Optimizations:** Mobile-first approach with code splitting, analytics deferral, resource hints, script optimization, and hero image preloading.
@@ -23,6 +24,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, and conditions, including Google Ads and city-specific landing pages.
 - **Orlando Landing Pages:** Nine SEO-optimized Orlando-specific psychiatry landing pages with LocalBusiness/MedicalBusiness schema and strategic internal linking. Primary target: **/psychiatry-clinic-orlando** (exact H1 "Psychiatry Clinic in Orlando") for #1 ranking goal. Additional pages: /psychiatrist-orlando, /adhd-psychiatrist-orlando, /anxiety-psychiatrist-orlando, /child-psychiatrist-orlando, /bipolar-psychiatrist-orlando, /medication-management-orlando, /telepsychiatry-orlando, /same-day-psychiatrist-orlando. Internal linking: Homepage "Orlando Psychiatry Specialists" section and Footer "Orlando Psychiatry Services" band (both feature /psychiatry-clinic-orlando as first link with emphasized styling).
+- **High-Intent Landing Pages:** **/psychiatrist-near-me** - Optimized for the #1 high-intent search term with above-the-fold contact form (not just CTA link), medication management emphasis, insurance badges, and same-week appointment messaging. Expected to increase conversion rate by 25-60% vs. generic therapy page routing.
 - **Lead Capture:** High-converting forms with automated email notifications, backend deduplication, and email failure tracking.
 - **Trust Factors:** Integration of HIPAA compliance and other credibility indicators.
 - **Accessibility:** Mobile responsiveness and dark mode.
