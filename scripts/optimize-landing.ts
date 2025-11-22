@@ -3,13 +3,16 @@
  * Optimize Existing Landing Page
  * 
  * Automatically improves existing pages based on SERP analysis.
- * Uses GPT-4o to enhance content, titles, and meta descriptions.
+ * Uses GPT-5 to enhance content, titles, and meta descriptions.
+ * 
+ * Uses Replit AI Integrations for OpenAI access (no API key required)
  */
 
 import { parseArgs } from "node:util";
 import fs from "fs/promises";
 import path from "path";
 import { glob } from "glob";
+import OpenAI from "openai";
 
 interface OptimizationSuggestions {
   improvedTitle: string;
@@ -20,11 +23,11 @@ interface OptimizationSuggestions {
 }
 
 async function generateOptimizations(url: string, query: string, position: number): Promise<OptimizationSuggestions> {
-  const openaiKey = process.env.OPENAI_API_KEY;
-  
-  if (!openaiKey) {
-    throw new Error("OPENAI_API_KEY environment variable not set");
-  }
+  // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+  const openai = new OpenAI({
+    baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+    apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY
+  });
 
   const prompt = `Optimize a landing page currently ranking #${position} for "${query}":
 
@@ -47,29 +50,17 @@ Return as JSON:
   "h2Suggestions": ["heading 1", "heading 2", ...]
 }`;
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${openaiKey}`
-    },
-    body: JSON.stringify({
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: "You are an expert SEO specialist focused on ranking improvements." },
-        { role: "user", content: prompt }
-      ],
-      temperature: 0.7,
-      response_format: { type: "json_object" }
-    })
+  const response = await openai.chat.completions.create({
+    model: "gpt-5",
+    messages: [
+      { role: "system", content: "You are an expert SEO specialist focused on ranking improvements." },
+      { role: "user", content: prompt }
+    ],
+    max_completion_tokens: 8192,
+    response_format: { type: "json_object" }
   });
 
-  if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.statusText}`);
-  }
-
-  const data = await response.json();
-  return JSON.parse(data.choices[0].message.content);
+  return JSON.parse(response.choices[0]?.message?.content || '{}');
 }
 
 async function findPageFile(url: string): Promise<string | null> {

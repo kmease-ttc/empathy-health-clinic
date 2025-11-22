@@ -3,12 +3,15 @@
  * Create Insurance Provider Landing Page
  * 
  * Automatically generates Orlando insurance landing pages based on
- * existing templates. Uses GPT-4o to create SEO-optimized content.
+ * existing templates. Uses GPT-5 to create SEO-optimized content.
+ * 
+ * Uses Replit AI Integrations for OpenAI access (no API key required)
  */
 
 import { parseArgs } from "node:util";
 import fs from "fs/promises";
 import path from "path";
+import OpenAI from "openai";
 
 interface PageData {
   provider: string;
@@ -22,12 +25,11 @@ interface PageData {
 async function generateInsuranceLandingContent(provider: string): Promise<PageData> {
   const slug = `psychiatrist-orlando-takes-${provider.toLowerCase().replace(/\s+/g, '-')}`;
   
-  // Use GPT-4o to generate SEO-optimized content
-  const openaiKey = process.env.OPENAI_API_KEY;
-  
-  if (!openaiKey) {
-    throw new Error("OPENAI_API_KEY environment variable not set");
-  }
+  // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+  const openai = new OpenAI({
+    baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+    apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY
+  });
 
   const prompt = `Create SEO-optimized content for a landing page:
 
@@ -58,29 +60,17 @@ Format as JSON:
 
 Use professional, empathetic tone. Include keywords naturally. Focus on patient benefits.`;
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${openaiKey}`
-    },
-    body: JSON.stringify({
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: "You are an expert SEO content writer specializing in healthcare marketing." },
-        { role: "user", content: prompt }
-      ],
-      temperature: 0.7,
-      response_format: { type: "json_object" }
-    })
+  const response = await openai.chat.completions.create({
+    model: "gpt-5",
+    messages: [
+      { role: "system", content: "You are an expert SEO content writer specializing in healthcare marketing." },
+      { role: "user", content: prompt }
+    ],
+    max_completion_tokens: 8192,
+    response_format: { type: "json_object" }
   });
 
-  if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.statusText}`);
-  }
-
-  const data = await response.json();
-  const contentJson = JSON.parse(data.choices[0].message.content);
+  const contentJson = JSON.parse(response.choices[0]?.message?.content || '{}');
 
   return {
     provider,
