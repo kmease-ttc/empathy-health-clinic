@@ -55,6 +55,7 @@ const BlogDetailPage = lazy(() => import("@/pages/BlogDetailPage"));
 
 // Google Ads Landing Pages
 const EMDRTherapy = lazy(() => import("@/pages/EMDRTherapy"));
+const TMSTreatment = lazy(() => import("@/pages/TMSTreatment"));
 const VirtualTherapy = lazy(() => import("@/pages/VirtualTherapy"));
 const CrisisTherapy = lazy(() => import("@/pages/CrisisTherapy"));
 const DepressionCounseling = lazy(() => import("@/pages/DepressionCounseling"));
@@ -264,6 +265,11 @@ function Router() {
         <Route path="/emdr-therapy">
           <Suspense fallback={<LoadingFallback />}>
             <EMDRTherapy />
+          </Suspense>
+        </Route>
+        <Route path="/tms-treatment">
+          <Suspense fallback={<LoadingFallback />}>
+            <TMSTreatment />
           </Suspense>
         </Route>
         <Route path="/virtual-therapy">
