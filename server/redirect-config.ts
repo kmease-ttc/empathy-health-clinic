@@ -203,6 +203,77 @@ export const contentRedirectMap: Record<string, string> = {
   // Google Search Console - Canonical tag issues (November 2025)
   // Blog post doesn't exist in system, redirect to blog listing
   '/blog/varicose-veins-and-mental-health': '/blog',
+  
+  // Google Search Console - Soft 404 Fixes (November 23, 2025)
+  // LGBT/Therapy Services
+  '/lgbt-therapy-services': '/therapy',
+  '/treatments/lgbt-therapy-services': '/therapy',
+  '/orlando-couples-therapy': '/couples-therapy',
+  
+  // Location pages - redirect to main therapy services
+  '/locations': '/services',
+  '/locations/therapy-services-orlando-2': '/therapy-services-orlando',
+  '/locations/therapy-services-wekiwa-springs': '/therapy-services-orlando',
+  '/locations/therapy-services-aloma': '/therapy-services-orlando',
+  '/locations/therapy-services-shores': '/therapy-services-orlando',
+  '/locations/psychiatrist-winter-park': '/locations/psychiatrist-winter-park',
+  '/therapy-services-orlando': '/therapy-services-orlando',
+  
+  // Therapy modality pages
+  '/therapy/in-person-therapy-2': '/in-person-therapy',
+  '/therapy/emdr': '/emdr-therapy',
+  '/therapy/dialectical-behavioral-therapy': '/therapy',
+  '/therapy/therapy-approaches': '/therapy',
+  '/therapy/toxic-relationship-therapy': '/couples-therapy',
+  '/cbt-therapy': '/therapy',
+  
+  // Condition pages
+  '/ptsd': '/anxiety-therapy',
+  '/post-traumatic-stress-disorder-ptsd': '/anxiety-therapy',
+  '/conditions/post-traumatic-stress-disorder-ptsd': '/anxiety-therapy',
+  '/ocd': '/anxiety-therapy',
+  '/relationship-issues': '/couples-therapy',
+  '/conditions/relationship-issues': '/couples-therapy',
+  '/conditions': '/services',
+  
+  // Treatment pages
+  '/treatments': '/services',
+  '/telehealth-psychiatry': '/virtual-therapy',
+  '/intensive-outpatient': '/services',
+  '/family-therapy': '/therapy',
+  '/crisis-support': '/services',
+  '/intimacy-therapy-sexual-wellness': '/couples-therapy',
+  '/orlando-marriage-counseling-services': '/couples-therapy',
+  
+  // Insurance provider pages - redirect to main insurance page
+  '/find-a-psychiatrist-that-takes-blue-cross-blue-shield-bcbs-coverage': '/insurance',
+  '/find-a-psychiatrist-that-takes-curative-health-insurance-curative-coverage': '/insurance',
+  '/find-a-psychiatrist-that-takes-adventhealth-adventhealth-coverage': '/insurance',
+  '/find-a-psychiatrist-that-takes-optum-optum-coverage': '/insurance',
+  '/find-a-psychiatrist-that-takes-aetna-aetna-coverage': '/insurance',
+  '/find-a-psychiatrist-that-takes-first-health-network-first-health-coverage': '/insurance',
+  '/find-a-psychiatrist-that-takes-cigna-healthcare-cigna-coverage': '/insurance',
+  
+  // Blog posts (redirecting to correct /blog/ prefix)
+  '/when-anxiety-hurts-your-love-life-how-emdr-and-dbt-can-rebuild-confidence': '/blog/when-anxiety-hurts-your-love-life-how-emdr-and-dbt-can-rebuild-confidence',
+  '/mindful-dating-a-guide-to-building-strong-connections': '/blog/mindful-dating-a-guide-to-building-strong-connections',
+  '/from-heartbreak-to-healing-emdr-strategies-for-moving-on-after-a-breakup': '/blog/from-heartbreak-to-healing-emdr-strategies-for-moving-on-after-a-breakup',
+  '/grief-self-care-tips-for-grieving': '/blog/grief-self-care-tips-for-grieving',
+  '/dbt-skills-for-healthy-communication-and-conflict-resolution-in-dating': '/blog/dbt-skills-for-healthy-communication-and-conflict-resolution-in-dating',
+  '/borderline-personality-disorder-key-facts-care': '/blog/borderline-personality-disorder-key-facts-care',
+  '/emdr-therapy-a-guide-to-healing-from-past-relationship-trauma': '/blog/emdr-therapy-a-guide-to-healing-from-past-relationship-trauma',
+  
+  // Old treatment structure redirects
+  '/treatments/[bipolar](/bipolar-disorder': '/bipolar-disorder-treatment',
+  '/treatments/bipolar-disorder-therapy/photo-by-transly-translation-agency': '/bipolar-disorder-treatment',
+  
+  // WordPress/legacy pages
+  '/health-wellness-blog': '/blog',
+  '/hipaa': '/privacy-policy',
+  '/blog/narcissistic-personality-disorder-treatment': '/blog',
+  
+  // ESA letter page
+  '/florida-esa-letter-get-your-emotional-support-animal-letter-empathy-health-clinic-2': '/services',
 };
 
 /**
