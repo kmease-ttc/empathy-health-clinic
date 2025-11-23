@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { 
   Heart, 
@@ -14,219 +13,214 @@ import {
   Phone
 } from "lucide-react";
 import { Link } from "wouter";
-import { InsuranceSection } from "@/components/InsuranceSection";
-import { ShortContactForm } from "@/components/ShortContactForm";
-import { VerifiedOnBadge } from "@/components/VerifiedOnBadge";
+import SEOHead from "@/components/SEOHead";
+import InsuranceSection from "@/components/InsuranceSection";
+import ShortContactForm from "@/components/ShortContactForm";
+import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import { trackEvent } from "@/lib/analytics";
 
 export default function FemaleTherapistOrlando() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://empathyhealthclinic.com/#website",
+        "url": "https://empathyhealthclinic.com/",
+        "name": "Empathy Health Clinic",
+        "description": "Mental Health & Psychiatry Services in Orlando",
+        "publisher": {
+          "@id": "https://empathyhealthclinic.com/#organization"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://empathyhealthclinic.com/female-therapist-orlando#webpage",
+        "url": "https://empathyhealthclinic.com/female-therapist-orlando",
+        "name": "Female Therapist Orlando | Women's Mental Health Specialists",
+        "isPartOf": {
+          "@id": "https://empathyhealthclinic.com/#website"
+        },
+        "about": {
+          "@id": "https://empathyhealthclinic.com/#organization"
+        },
+        "description": "Find a compassionate female therapist in Orlando specializing in women's mental health. Board-certified therapists offering anxiety, depression, trauma, and relationship therapy."
+      },
+      {
+        "@type": ["Physician", "MedicalBusiness"],
+        "@id": "https://empathyhealthclinic.com/#organization",
+        "name": "Empathy Health Clinic",
+        "image": "https://empathyhealthclinic.com/logo.png",
+        "url": "https://empathyhealthclinic.com/female-therapist-orlando",
+        "telephone": "+1-386-848-8751",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1000 W Broadway St Suite 103",
+          "addressLocality": "Oviedo",
+          "addressRegion": "FL",
+          "postalCode": "32765",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 28.6697,
+          "longitude": -81.2084
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/empathyhealthclinic",
+          "https://www.instagram.com/empathyhealthclinic"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127"
+        },
+        "medicalSpecialty": ["Psychiatry", "Psychotherapy", "Mental Health Counseling"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Female Therapist Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "MedicalTherapy",
+                "name": "Women's Mental Health Therapy",
+                "description": "Therapy services provided by female therapists specializing in women's mental health issues"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "MedicalTherapy",
+                "name": "Anxiety Treatment for Women",
+                "description": "Evidence-based anxiety treatment with female therapists"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "MedicalTherapy",
+                "name": "Depression Therapy for Women",
+                "description": "Depression treatment with female mental health specialists"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "MedicalTherapy",
+                "name": "Trauma Therapy for Women",
+                "description": "Trauma-focused therapy with female trauma specialists"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "MedicalTherapy",
+                "name": "Postpartum Support",
+                "description": "Specialized support for postpartum depression and anxiety"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why choose a female therapist?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Many women feel more comfortable discussing sensitive topics with a female therapist, especially issues related to reproductive health, relationships, trauma, or women's health. Female therapists often bring lived experience understanding women's unique challenges including hormonal changes, pregnancy, motherhood, and societal pressures that affect mental health."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What issues do your female therapists specialize in?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our female therapists specialize in anxiety, depression, trauma and PTSD, relationship issues, postpartum depression and anxiety, women's life transitions, body image and eating concerns, work-life balance, and stress management. They use evidence-based approaches tailored to women's mental health needs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you offer telehealth appointments with female therapists?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. All of our female therapists offer both in-person sessions at our Orlando-area office and secure telehealth appointments. This gives you the flexibility to choose the format that works best for your schedule and comfort level."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How quickly can I see a female therapist?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We typically offer same-week appointments with our female therapists. During your initial call, we'll match you with a therapist whose expertise aligns with your needs and schedule your first appointment as soon as possible."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you accept insurance for therapy with female therapists?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We accept most major insurance plans for therapy services. Our team will verify your insurance coverage and explain your benefits before your first appointment. We also offer self-pay options with competitive rates."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should I expect in my first session?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your first session is a safe space to share your concerns and goals. Your female therapist will ask questions to understand your history, current challenges, and what you hope to achieve in therapy. Together, you'll create a personalized treatment plan that respects your pace and preferences."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are your female therapists licensed and experienced?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. All of our female therapists are fully licensed mental health professionals with advanced degrees and specialized training in evidence-based therapies. They maintain active licenses in Florida and engage in ongoing professional development to provide the highest quality care."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I request a specific female therapist?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We'll work with you to find the best match based on your preferences, needs, and the therapist's areas of expertise. If you have specific requirements or preferences, let us know during your initial contact and we'll accommodate your request whenever possible."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
   return (
     <>
-      <Helmet>
-        <title>Female Therapist Orlando | Women's Mental Health Specialists</title>
-        <meta 
-          name="description" 
-          content="Find a compassionate female therapist in Orlando specializing in women's mental health. Board-certified therapists offering anxiety, depression, trauma, and relationship therapy. Same-week appointments available." 
-        />
-        <meta 
-          name="keywords" 
-          content="female therapist Orlando, women therapist Orlando, female counselor Orlando, women's mental health Orlando, female psychologist Orlando, therapy for women Orlando, Orlando female therapist" 
-        />
-        <link rel="canonical" href="https://empathyhealthclinic.com/female-therapist-orlando" />
-        
-        {/* Open Graph */}
-        <meta property="og:title" content="Female Therapist Orlando | Women's Mental Health Specialists" />
-        <meta property="og:description" content="Find a compassionate female therapist in Orlando specializing in women's mental health. Board-certified therapists offering anxiety, depression, trauma, and relationship therapy." />
-        <meta property="og:url" content="https://empathyhealthclinic.com/female-therapist-orlando" />
-        <meta property="og:type" content="website" />
-        
-        {/* Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "WebSite",
-                "@id": "https://empathyhealthclinic.com/#website",
-                "url": "https://empathyhealthclinic.com/",
-                "name": "Empathy Health Clinic",
-                "description": "Mental Health & Psychiatry Services in Orlando",
-                "publisher": {
-                  "@id": "https://empathyhealthclinic.com/#organization"
-                }
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://empathyhealthclinic.com/female-therapist-orlando#webpage",
-                "url": "https://empathyhealthclinic.com/female-therapist-orlando",
-                "name": "Female Therapist Orlando | Women's Mental Health Specialists",
-                "isPartOf": {
-                  "@id": "https://empathyhealthclinic.com/#website"
-                },
-                "about": {
-                  "@id": "https://empathyhealthclinic.com/#organization"
-                },
-                "description": "Find a compassionate female therapist in Orlando specializing in women's mental health. Board-certified therapists offering anxiety, depression, trauma, and relationship therapy."
-              },
-              {
-                "@type": ["Physician", "MedicalBusiness"],
-                "@id": "https://empathyhealthclinic.com/#organization",
-                "name": "Empathy Health Clinic",
-                "image": "https://empathyhealthclinic.com/logo.png",
-                "url": "https://empathyhealthclinic.com/female-therapist-orlando",
-                "telephone": "+1-386-848-8751",
-                "priceRange": "$$",
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "1000 W Broadway St Suite 103",
-                  "addressLocality": "Oviedo",
-                  "addressRegion": "FL",
-                  "postalCode": "32765",
-                  "addressCountry": "US"
-                },
-                "geo": {
-                  "@type": "GeoCoordinates",
-                  "latitude": 28.6697,
-                  "longitude": -81.2084
-                },
-                "openingHoursSpecification": [
-                  {
-                    "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                    "opens": "08:00",
-                    "closes": "18:00"
-                  }
-                ],
-                "sameAs": [
-                  "https://www.facebook.com/empathyhealthclinic",
-                  "https://www.instagram.com/empathyhealthclinic"
-                ],
-                "aggregateRating": {
-                  "@type": "AggregateRating",
-                  "ratingValue": "4.8",
-                  "reviewCount": "127"
-                },
-                "medicalSpecialty": ["Psychiatry", "Psychotherapy", "Mental Health Counseling"],
-                "hasOfferCatalog": {
-                  "@type": "OfferCatalog",
-                  "name": "Female Therapist Services",
-                  "itemListElement": [
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "MedicalTherapy",
-                        "name": "Women's Mental Health Therapy",
-                        "description": "Therapy services provided by female therapists specializing in women's mental health issues"
-                      }
-                    },
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "MedicalTherapy",
-                        "name": "Anxiety Treatment for Women",
-                        "description": "Evidence-based anxiety treatment with female therapists"
-                      }
-                    },
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "MedicalTherapy",
-                        "name": "Depression Therapy for Women",
-                        "description": "Depression treatment with female mental health specialists"
-                      }
-                    },
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "MedicalTherapy",
-                        "name": "Trauma Therapy for Women",
-                        "description": "Trauma-focused therapy with female trauma specialists"
-                      }
-                    },
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "MedicalTherapy",
-                        "name": "Postpartum Support",
-                        "description": "Specialized support for postpartum depression and anxiety"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "@type": "FAQPage",
-                "mainEntity": [
-                  {
-                    "@type": "Question",
-                    "name": "Why choose a female therapist?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Many women feel more comfortable discussing sensitive topics with a female therapist, especially issues related to reproductive health, relationships, trauma, or women's health. Female therapists often bring lived experience understanding women's unique challenges including hormonal changes, pregnancy, motherhood, and societal pressures that affect mental health."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "What issues do your female therapists specialize in?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Our female therapists specialize in anxiety, depression, trauma and PTSD, relationship issues, postpartum depression and anxiety, women's life transitions, body image and eating concerns, work-life balance, and stress management. They use evidence-based approaches tailored to women's mental health needs."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Do you offer telehealth appointments with female therapists?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Yes. All of our female therapists offer both in-person sessions at our Orlando-area office and secure telehealth appointments. This gives you the flexibility to choose the format that works best for your schedule and comfort level."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "How quickly can I see a female therapist?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "We typically offer same-week appointments with our female therapists. During your initial call, we'll match you with a therapist whose expertise aligns with your needs and schedule your first appointment as soon as possible."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Do you accept insurance for therapy with female therapists?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Yes. We accept most major insurance plans for therapy services. Our team will verify your insurance coverage and explain your benefits before your first appointment. We also offer self-pay options with competitive rates."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "What should I expect in my first session?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Your first session is a safe space to share your concerns and goals. Your female therapist will ask questions to understand your history, current challenges, and what you hope to achieve in therapy. Together, you'll create a personalized treatment plan that respects your pace and preferences."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Are your female therapists licensed and experienced?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Yes. All of our female therapists are fully licensed mental health professionals with advanced degrees and specialized training in evidence-based therapies. They maintain active licenses in Florida and engage in ongoing professional development to provide the highest quality care."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Can I request a specific female therapist?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "Yes. We'll work with you to find the best match based on your preferences, needs, and the therapist's areas of expertise. If you have specific requirements or preferences, let us know during your initial contact and we'll accommodate your request whenever possible."
-                    }
-                  }
-                ]
-              }
-            ]
-          })}
-        </script>
-      </Helmet>
+      <SEOHead
+        title="Female Therapist Orlando | Women's Mental Health Specialists"
+        description="Find a compassionate female therapist in Orlando specializing in women's mental health. Board-certified therapists offering anxiety, depression, trauma, and relationship therapy. Same-week appointments available."
+        keywords={[
+          "female therapist Orlando",
+          "women therapist Orlando",
+          "female counselor Orlando",
+          "women's mental health Orlando",
+          "female psychologist Orlando",
+          "therapy for women Orlando",
+          "Orlando female therapist"
+        ]}
+        canonicalPath="/female-therapist-orlando"
+        jsonLd={jsonLd}
+      />
 
       <div className="min-h-screen">
         {/* Hero Section */}
