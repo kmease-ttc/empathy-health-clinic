@@ -26,6 +26,7 @@ const StressManagement = lazy(() => import("@/pages/StressManagement"));
 const AltamonteSprings = lazy(() => import("@/pages/AltamonteSprings"));
 const WinterPark = lazy(() => import("@/pages/WinterPark"));
 const Orlando = lazy(() => import("@/pages/Orlando"));
+const Kissimmee = lazy(() => import("@/pages/Kissimmee"));
 const PsychotherapistOrlando = lazy(() => import("@/pages/PsychotherapistOrlando"));
 const ThankYou = lazy(() => import("@/pages/ThankYou"));
 const LocationDetail = lazy(() => import("@/pages/LocationDetail"));
@@ -249,6 +250,11 @@ function Router() {
         <Route path="/locations/orlando">
           <Suspense fallback={<LoadingFallback />}>
             <Orlando />
+          </Suspense>
+        </Route>
+        <Route path="/locations/kissimmee">
+          <Suspense fallback={<LoadingFallback />}>
+            <Kissimmee />
           </Suspense>
         </Route>
         <Route path="/thank-you">
