@@ -1,4 +1,4 @@
-import { LandingPageTemplate } from "@/components/LandingPageTemplate";
+import LandingPageTemplate from "@/components/LandingPageTemplate";
 import { bipolarPsychiatristOrlandoConfig } from "@/config/landingPageConfigs";
 
 export default function BipolarPsychiatristOrlando() {

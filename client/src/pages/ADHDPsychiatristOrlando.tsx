@@ -1,4 +1,4 @@
-import { LandingPageTemplate } from "@/components/LandingPageTemplate";
+import LandingPageTemplate from "@/components/LandingPageTemplate";
 import { adhdPsychiatristOrlandoConfig } from "@/config/landingPageConfigs";
 
 export default function ADHDPsychiatristOrlando() {
