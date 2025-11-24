@@ -13,13 +13,13 @@ import SEOHead from "@/components/SEOHead";
 import FAQSchema from "@/components/FAQSchema";
 import forestBg from "@assets/stock_images/misty_forest_morning_c7552d0a.jpg";
 
-function optimizeUnsplashUrl(url: string, width: number, height: number, quality: number = 75): string {
+function optimizeUnsplashUrl(url: string, width: number, height: number, quality: number = 60): string {
   if (!url || !url.includes('unsplash.com')) {
     return url;
   }
   
   const separator = url.includes('?') ? '&' : '?';
-  // Optimized for faster loading: lower quality (75 vs 80), webp format, aggressive compression
+  // ULTRA-AGGRESSIVE COMPRESSION: quality 60 for sub-2.5s LCP, webp format, aggressive compression
   return `${url}${separator}w=${width}&h=${height}&q=${quality}&fm=webp&fit=crop&auto=format&dpr=1`;
 }
 
@@ -528,20 +528,20 @@ export default function BlogDetailPage() {
 
   const showLastUpdated = blogPost.lastUpdated && blogPost.lastUpdated !== blogPost.publishedDate;
 
-  // ULTRA-AGGRESSIVE image optimization for fastest LCP
-  // Mobile: 640px width, 300px height, quality 65 (maximum compression)
-  // Tablet: 1024px width, 400px height, quality 70 (balanced)
-  // Desktop: 1200px width, 500px height, quality 72 (good quality)
+  // ULTRA-AGGRESSIVE image optimization for sub-2.5s LCP target
+  // Mobile: 640px width, 300px height, quality 55 (maximum compression for mobile)
+  // Tablet: 1024px width, 400px height, quality 58 (balanced for tablet)
+  // Desktop: 1200px width, 500px height, quality 60 (webp allows excellent quality at 60)
   const heroImageMobile = blogPost.featuredImage 
-    ? optimizeUnsplashUrl(blogPost.featuredImage, 640, 300, 65)
+    ? optimizeUnsplashUrl(blogPost.featuredImage, 640, 300, 55)
     : forestBg;
   
   const heroImageTablet = blogPost.featuredImage 
-    ? optimizeUnsplashUrl(blogPost.featuredImage, 1024, 400, 70)
+    ? optimizeUnsplashUrl(blogPost.featuredImage, 1024, 400, 58)
     : forestBg;
   
   const optimizedHeroImage = blogPost.featuredImage 
-    ? optimizeUnsplashUrl(blogPost.featuredImage, 1200, 500, 72)
+    ? optimizeUnsplashUrl(blogPost.featuredImage, 1200, 500, 60)
     : forestBg;
 
   return (
