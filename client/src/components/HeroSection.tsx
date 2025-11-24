@@ -45,14 +45,14 @@ export default function HeroSection() {
       
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 -mt-8 pb-20">
         <div className="max-w-6xl mx-auto text-center">
-          {/* Logo */}
+          {/* Logo - Optimized size for faster LCP */}
           <div className="flex justify-center">
             <img 
               src={empathyLogo} 
               alt="Empathy Health Clinic" 
-              className="h-64 md:h-80 w-auto drop-shadow-lg -mb-20"
-              width={800}
-              height={320}
+              className="h-48 md:h-56 w-auto drop-shadow-lg -mb-16"
+              width={560}
+              height={224}
               loading="eager"
               decoding="sync"
             />
