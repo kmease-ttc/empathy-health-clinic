@@ -91,6 +91,7 @@ const TherapistAcceptsUMR = lazy(() => import("@/pages/TherapistAcceptsUMR"));
 const TherapistAcceptsOscarHealth = lazy(() => import("@/pages/TherapistAcceptsOscarHealth"));
 const SunshineHealthTherapy = lazy(() => import("@/pages/SunshineHealthTherapy"));
 const PsychiatristOrlandoAcceptsBCBS = lazy(() => import("@/pages/PsychiatristOrlandoAcceptsBCBS"));
+const PsychiatryOrlando = lazy(() => import("@/pages/PsychiatryOrlando"));
 
 // Location Pages
 const PsychiatristAltamonteSprings = lazy(() => import("@/pages/locations/AltamonteSprings"));
@@ -428,6 +429,11 @@ function Router() {
         <Route path="/psychiatrist-orlando-accepts-bcbs">
           <Suspense fallback={<LoadingFallback />}>
             <PsychiatristOrlandoAcceptsBCBS />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatry-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatryOrlando />
           </Suspense>
         </Route>
         <Route path="/sunshine-health-therapy">

@@ -1291,3 +1291,159 @@ export const bcbsPsychiatristOrlandoConfig: LandingPageConfig = {
     conversionCategory: "bcbs_psychiatrist",
   },
 };
+
+// Psychiatry Orlando - General psychiatry services page
+export const psychiatryOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Psychiatry Orlando FL | Board-Certified Psychiatric Services | Same-Week Appointments",
+    description: "Comprehensive psychiatry services in Orlando, FL. Board-certified psychiatrists providing medication management, psychiatric evaluations, and mental health treatment for anxiety, depression, ADHD, bipolar disorder. Same-week appointments. Most insurance accepted. Call 386-848-8751.",
+    keywords: ["psychiatry orlando", "psychiatry orlando fl", "psychiatric services orlando", "orlando psychiatry", "psychiatry clinic orlando", "psychiatric care orlando", "mental health psychiatry orlando"],
+    canonicalPath: "/psychiatry-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
+    "name": "Psychiatry Orlando FL - Empathy Health Clinic",
+    "description": "Comprehensive psychiatry services in Orlando, FL including medication management, psychiatric evaluations, and expert mental health treatment.",
+    "url": "https://empathyhealthclinic.com/psychiatry-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Orlando",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.59544,
+      "longitude": -81.36537
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Orlando" },
+      { "@type": "City", "name": "Winter Park" },
+      { "@type": "City", "name": "Altamonte Springs" },
+      { "@type": "City", "name": "Lake Mary" },
+      { "@type": "City", "name": "Maitland" }
+    ],
+    "medicalSpecialty": "Psychiatry"
+  },
+  hero: {
+    title: "Psychiatry Orlando | Comprehensive Psychiatric Services in Orlando, FL",
+    subtitle: "Board-certified psychiatrists providing expert mental health care in Orlando. Medication management, psychiatric evaluations, and treatment for anxiety, depression, ADHD, bipolar disorder, and more. Same-week appointments available with in-person and telehealth options.",
+    ctaPrimary: "Schedule Appointment",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Board-Certified Psychiatrists", "Same-Week Appointments", "Most Insurance Accepted"],
+  },
+  location: {
+    title: "Orlando Psychiatry Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Psychiatry Orlando: Expert Mental Health Treatment",
+    introduction: [
+      "Empathy Health Clinic provides comprehensive psychiatry services in Orlando, FL with board-certified psychiatrists who specialize in diagnosing and treating mental health conditions. Our psychiatric care combines expert medication management, thorough evaluations, and personalized treatment plans to help you achieve lasting mental wellness.",
+      "Whether you're seeking treatment for anxiety, depression, ADHD, bipolar disorder, or other mental health concerns, our Orlando psychiatry team offers evidence-based care with same-week appointments, flexible scheduling, and both in-person and telehealth options.",
+    ],
+    conditionsHeading: "Mental Health Conditions We Treat",
+    conditions: [
+      { name: "Anxiety Disorders & Panic Attacks" },
+      { name: "Depression & Mood Disorders" },
+      { name: "ADHD (Adults & Adolescents)" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD & Related Disorders" },
+      { name: "PTSD & Trauma" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Schizophrenia & Psychotic Disorders" },
+    ],
+    servicesHeading: "Comprehensive Psychiatry Services in Orlando",
+    services: [
+      {
+        title: "Psychiatric Evaluations",
+        description: "Comprehensive mental health assessments to accurately diagnose conditions and create personalized treatment plans. Our psychiatrists conduct thorough evaluations considering your symptoms, medical history, and life circumstances."
+      },
+      {
+        title: "Medication Management",
+        description: "Expert psychiatric medication prescribing and monitoring. Our board-certified psychiatrists help you find the right medication and dosage to effectively manage your symptoms while minimizing side effects."
+      },
+      {
+        title: "ADHD Psychiatry",
+        description: "Specialized ADHD diagnosis and treatment for adults, adolescents, and children. Stimulant and non-stimulant medication options with ongoing monitoring and adjustment for optimal symptom control."
+      },
+      {
+        title: "Anxiety & Depression Treatment",
+        description: "Evidence-based psychiatric treatment for all types of anxiety disorders and depression. Medication options including SSRIs, SNRIs, and other effective treatments tailored to your specific condition."
+      },
+      {
+        title: "Bipolar Disorder Management",
+        description: "Specialized care for bipolar I, bipolar II, and cyclothymic disorder. Mood stabilization medication management and ongoing monitoring to prevent manic and depressive episodes."
+      },
+      {
+        title: "Telepsychiatry Services",
+        description: "Convenient virtual psychiatry appointments from home. Same quality care as in-person visits with added flexibility and convenience. Most insurance plans cover telepsychiatry at the same rate as office visits."
+      },
+    ],
+    faqHeading: "Psychiatry Orlando FAQs",
+    faqs: [
+      {
+        question: "What is the difference between psychiatry and therapy?",
+        answer: "Psychiatrists are medical doctors (MDs or DOs) who can prescribe medication and provide medical treatment for mental health conditions. Psychiatry focuses on the biological and medical aspects of mental health, including medication management. Therapists (like psychologists, counselors, or social workers) provide talk therapy and counseling but cannot prescribe medication in most states. At Empathy Health Clinic, we offer both psychiatry and therapy services."
+      },
+      {
+        question: "Do I need a referral to see a psychiatrist in Orlando?",
+        answer: "It depends on your insurance plan. Most PPO plans do not require a referral to see a psychiatrist. HMO and some other plans may require a referral from your primary care physician. Call us at 386-848-8751 and we'll help you determine if you need a referral based on your specific insurance plan."
+      },
+      {
+        question: "What can I expect at my first psychiatry appointment?",
+        answer: "Your first appointment (typically 60 minutes) includes a comprehensive psychiatric evaluation where your psychiatrist will discuss your symptoms, medical history, current medications, and life circumstances. They'll work with you to develop a personalized treatment plan which may include medication, therapy referrals, or other interventions. Follow-up medication management appointments are typically 15-30 minutes."
+      },
+      {
+        question: "How quickly can I see a psychiatrist in Orlando?",
+        answer: "We offer same-week appointments for new patients at our Orlando psychiatry clinic. Many patients can be seen within 3-5 business days. We understand that mental health concerns are urgent, and we prioritize getting you in quickly. Call 386-848-8751 to schedule your first appointment."
+      },
+      {
+        question: "Does insurance cover psychiatry services?",
+        answer: "Yes, most health insurance plans cover psychiatry services including psychiatric evaluations and medication management appointments. We accept most major insurance plans including Blue Cross Blue Shield, UMR, Medicare, Aetna, Cigna, and many others. Call our office at 386-848-8751 to verify your specific insurance coverage before your appointment."
+      },
+      {
+        question: "Do you offer telepsychiatry (virtual appointments)?",
+        answer: "Yes, we offer telepsychiatry appointments for Orlando patients who prefer virtual care. Telepsychiatry provides the same quality psychiatric care as in-person visits but from the convenience of your home. Most insurance plans cover telepsychiatry at the same rate as office visits. Both initial evaluations and follow-up medication management can be conducted via secure video."
+      },
+      {
+        question: "What areas of Orlando do you serve?",
+        answer: "Our Orlando psychiatry clinic is located in Winter Park and serves patients throughout the Greater Orlando area including Orlando, Winter Park, Altamonte Springs, Maitland, Lake Mary, Casselberry, Oviedo, and surrounding communities. We also offer telepsychiatry for patients anywhere in Florida."
+      },
+      {
+        question: "Are your psychiatrists board-certified?",
+        answer: "Yes, all psychiatrists at Empathy Health Clinic are board-certified by the American Board of Psychiatry and Neurology. Our providers have extensive training and experience in diagnosing and treating the full spectrum of mental health conditions with evidence-based psychiatric care."
+      },
+    ],
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/psychiatric-evaluation-orlando", label: "Psychiatric Evaluation" },
+    ],
+  },
+  analytics: {
+    pageName: "Psychiatry Orlando Page",
+    conversionCategory: "psychiatry_orlando",
+  },
+};
