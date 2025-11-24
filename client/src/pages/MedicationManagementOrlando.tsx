@@ -57,9 +57,9 @@ export default function MedicationManagementOrlando() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Medication Management Orlando FL | Psychiatric Medication Specialists"
-        description="Expert psychiatric medication management in Orlando, FL. Board-certified psychiatrists specializing in medication prescribing and monitoring for depression, anxiety, ADHD, bipolar disorder. Call 386-848-8751."
-        keywords={["medication management orlando", "psychiatric medication orlando", "medication management orlando fl", "psychiatrist medication orlando", "psych meds orlando", "medication prescribing orlando", "mental health medication orlando"]}
+        title="Medication Management Orlando FL | Board-Certified Psychiatrists"
+        description="Expert psychiatric medication management in Orlando, FL. Board-certified psychiatrists for medication prescribing, monitoring, and optimization. Anxiety, depression, ADHD, bipolar disorder treatment. Same-week appointments. Most insurance accepted. Call 386-848-8751."
+        keywords={["medication management orlando", "medication management orlando fl", "psychiatric medication orlando", "psychiatrist medication orlando", "psych meds orlando", "medication prescribing orlando", "mental health medication orlando"]}
         canonicalPath="/medication-management-orlando"
         jsonLd={jsonLd}
       />

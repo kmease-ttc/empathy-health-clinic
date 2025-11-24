@@ -57,9 +57,9 @@ export default function AnxietyPsychiatristOrlando() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Anxiety Psychiatrist Orlando FL | Expert Anxiety Treatment | Empathy Health"
-        description="Top-rated anxiety psychiatrists in Orlando, FL. Expert treatment for panic disorder, social anxiety, GAD, phobias. Medication management and therapy. Same-week appointments. Call 386-848-8751."
-        keywords={["anxiety psychiatrist orlando", "anxiety doctor orlando", "anxiety psychiatrist orlando fl", "orlando anxiety psychiatrist", "panic disorder orlando", "social anxiety orlando", "GAD treatment orlando", "anxiety medication orlando"]}
+        title="Anxiety Psychiatrist Orlando FL | Board-Certified | Same-Week Appointments"
+        description="Board-certified anxiety psychiatrists in Orlando, FL. Expert treatment for panic disorder, social anxiety, GAD, OCD, phobias. Medication management + therapy. Same-week appointments available. Most insurance accepted. Call 386-848-8751."
+        keywords={["anxiety psychiatrist orlando", "anxiety psychiatrist orlando fl", "anxiety doctor orlando", "orlando anxiety psychiatrist", "panic disorder orlando", "social anxiety orlando", "GAD treatment orlando", "anxiety medication orlando", "OCD psychiatrist orlando"]}
         canonicalPath="/anxiety-psychiatrist-orlando"
         jsonLd={jsonLd}
       />

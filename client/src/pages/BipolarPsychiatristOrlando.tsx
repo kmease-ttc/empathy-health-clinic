@@ -57,9 +57,9 @@ export default function BipolarPsychiatristOrlando() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Bipolar Psychiatrist Orlando FL | Bipolar Disorder Treatment Specialist"
-        description="Expert bipolar disorder psychiatrists in Orlando, FL. Specialized treatment for bipolar I, bipolar II, mood stabilization, and mania/depression management. Same-week appointments. Call 386-848-8751."
-        keywords={["bipolar psychiatrist orlando", "bipolar disorder orlando", "bipolar psychiatrist orlando fl", "orlando bipolar doctor", "mood stabilization orlando", "bipolar medication orlando", "manic depression orlando", "bipolar specialist orlando"]}
+        title="Bipolar Psychiatrist Orlando FL | Board-Certified | Mood Stabilization"
+        description="Board-certified bipolar disorder psychiatrists in Orlando, FL. Expert treatment for bipolar I, bipolar II, cyclothymia. Mood stabilization medication management, mania/depression control. Same-week appointments. Most insurance accepted. Call 386-848-8751."
+        keywords={["bipolar psychiatrist orlando", "bipolar psychiatrist orlando fl", "bipolar disorder orlando", "orlando bipolar doctor", "mood stabilization orlando", "bipolar medication orlando", "manic depression orlando", "bipolar specialist orlando"]}
         canonicalPath="/bipolar-psychiatrist-orlando"
         jsonLd={jsonLd}
       />

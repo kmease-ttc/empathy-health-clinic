@@ -140,7 +140,7 @@ export default function PsychiatristOrlando() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Board-Certified Psychiatrists in Orlando, FL
+            Psychiatrist Orlando | Board-Certified Psychiatrists in Orlando, FL
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
             Expert psychiatric care for adults and adolescents in Orlando. Medication management, psychiatric evaluations, and comprehensive mental health treatment. Same-week appointments available, telehealth options, and most insurance accepted.

@@ -57,9 +57,9 @@ export default function ADHDPsychiatristOrlando() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="ADHD Psychiatrist Orlando FL | Adult & Child ADHD Specialists"
-        description="Top-rated ADHD psychiatrists in Orlando, FL. Expert diagnosis, medication management, and comprehensive ADHD treatment for adults and children. Same-week appointments. Call 386-848-8751."
-        keywords={["adhd psychiatrist orlando", "adhd doctor orlando", "adhd psychiatrist orlando fl", "orlando adhd psychiatrist", "adult adhd orlando", "child adhd orlando fl", "adhd specialist orlando", "add doctor orlando"]}
+        title="ADHD Psychiatrist Orlando FL | Board-Certified | Same-Week Appointments"
+        description="Board-certified ADHD psychiatrists in Orlando, FL. Expert ADHD diagnosis, medication management for adults, adolescents, and children. Stimulant and non-stimulant options. Same-week appointments available. Most insurance accepted. Call 386-848-8751."
+        keywords={["adhd psychiatrist orlando", "adhd psychiatrist orlando fl", "adhd doctor orlando", "orlando adhd psychiatrist", "adult adhd orlando", "child adhd orlando fl", "adhd specialist orlando", "add doctor orlando"]}
         canonicalPath="/adhd-psychiatrist-orlando"
         jsonLd={jsonLd}
       />

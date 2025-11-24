@@ -988,11 +988,147 @@ function createInsuranceTherapyConfig(
   };
 }
 
-// UMR Therapy Orlando
-export const umrTherapyOrlandoConfig: LandingPageConfig = createInsuranceTherapyConfig(
-  "UMR",
-  "therapist-accepts-umr"
-);
+// UMR Psychiatry Orlando - Optimized for "psychiatrist orlando accepts umr" (Rank 6)
+export const umrTherapyOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Psychiatrist Orlando Accepts UMR | UMR Insurance | Same-Week Appointments",
+    description: "Board-certified psychiatrists in Orlando, FL accepting UMR insurance. In-network UMR providers for medication management, psychiatric evaluations, ADHD, anxiety, depression treatment. Same-week appointments available. Call 386-848-8751 to verify UMR coverage.",
+    keywords: ["psychiatrist orlando accepts umr", "umr psychiatrist orlando", "psychiatrist takes umr orlando fl", "umr mental health orlando", "in-network psychiatrist umr orlando"],
+    canonicalPath: "/therapist-accepts-umr",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
+    "name": "UMR Psychiatrist Orlando FL - Empathy Health Clinic",
+    "description": "Board-certified psychiatrists in Orlando accepting UMR insurance for medication management and psychiatric care.",
+    "url": "https://empathyhealthclinic.com/therapist-accepts-umr",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Orlando",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.59544,
+      "longitude": -81.36537
+    },
+    "medicalSpecialty": "Psychiatry",
+    "insuranceAccepted": "UMR"
+  },
+  hero: {
+    title: "Psychiatrists Accepting UMR in Orlando, FL",
+    subtitle: "Board-certified psychiatrists in-network with UMR insurance. Expert medication management for anxiety, depression, ADHD, bipolar disorder. Same-week psychiatric appointments available in Orlando.",
+    ctaPrimary: "Verify UMR Coverage",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["UMR In-Network", "Board-Certified Psychiatrists", "Same-Week Appointments"],
+  },
+  location: {
+    title: "Orlando UMR Psychiatry Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nUMR appointments available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Board-Certified Psychiatrists Accepting UMR in Orlando",
+    introduction: [
+      "Finding a qualified psychiatrist who accepts your UMR insurance doesn't have to be complicated. At Empathy Health Clinic, our board-certified psychiatrists are in-network providers for UMR plans, making expert psychiatric care accessible and affordable in Orlando, FL.",
+      "We provide comprehensive psychiatric services covered by UMR including medication management, psychiatric evaluations, and treatment for anxiety, depression, ADHD, bipolar disorder, and more. Our psychiatrists understand UMR benefits and will help you maximize your insurance coverage for mental health treatment.",
+    ],
+    conditionsHeading: "Psychiatric Conditions We Treat with UMR Coverage",
+    conditions: [
+      { name: "Anxiety & Panic Disorders" },
+      { name: "Depression & Mood Disorders" },
+      { name: "ADHD (Adults & Adolescents)" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD & Related Disorders" },
+      { name: "PTSD & Trauma" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Medication Management" },
+    ],
+    servicesHeading: "UMR-Covered Psychiatric Services in Orlando",
+    services: [
+      {
+        title: "Psychiatric Evaluations",
+        description: "Comprehensive mental health assessments to diagnose conditions and create treatment plans. UMR typically covers initial psychiatric evaluations with minimal copay or coinsurance."
+      },
+      {
+        title: "Medication Management",
+        description: "Expert psychiatric medication prescribing and monitoring. UMR covers ongoing medication management appointments for anxiety, depression, ADHD, bipolar disorder, and other conditions."
+      },
+      {
+        title: "ADHD Treatment",
+        description: "Complete ADHD evaluations, stimulant and non-stimulant medication management. UMR covers ADHD psychiatric care for adults and adolescents in Orlando."
+      },
+      {
+        title: "Anxiety & Depression Treatment",
+        description: "Medication-based treatment for anxiety disorders, panic disorder, GAD, social anxiety, and major depression. Covered by most UMR plans."
+      },
+      {
+        title: "Bipolar Disorder Management",
+        description: "Specialized psychiatric care for bipolar I, bipolar II, and mood stabilization. UMR typically covers mood disorder treatment with board-certified psychiatrists."
+      },
+      {
+        title: "Telepsychiatry Options",
+        description: "Virtual psychiatry appointments covered by UMR. See your Orlando psychiatrist online from home with the same insurance benefits as in-person visits."
+      },
+    ],
+    faqHeading: "UMR Psychiatry Insurance FAQs",
+    faqs: [
+      {
+        question: "Does Empathy Health Clinic accept UMR insurance?",
+        answer: "Yes, our board-certified psychiatrists in Orlando are in-network providers for UMR insurance plans. We accept UMR PPO, HMO, and other UMR plans. Call 386-848-8751 to verify your specific UMR plan coverage before your appointment."
+      },
+      {
+        question: "What does UMR cover for psychiatric services?",
+        answer: "UMR typically covers psychiatric evaluations, medication management appointments, and mental health treatment. Coverage varies by your specific UMR plan, but most plans cover 80-100% of psychiatric services after your deductible is met. Copays typically range from $10-50 per visit depending on your plan."
+      },
+      {
+        question: "Do I need a referral from my primary care doctor to see a psychiatrist with UMR?",
+        answer: "It depends on your UMR plan type. UMR PPO plans typically do not require a referral to see a psychiatrist. UMR HMO plans may require a referral from your primary care physician. Check your UMR benefits or call us at 386-848-8751 and we'll help you determine if a referral is needed."
+      },
+      {
+        question: "How do I verify my UMR coverage for psychiatry?",
+        answer: "Call our office at 386-848-8751 with your UMR member ID number and we'll verify your benefits before your first appointment. Our team will check your deductible status, copay amount, and confirm psychiatry coverage under your specific UMR plan."
+      },
+      {
+        question: "Does UMR cover telepsychiatry (virtual psychiatrist appointments)?",
+        answer: "Yes, most UMR plans cover telepsychiatry appointments at the same rate as in-person visits. Virtual psychiatry allows you to see your Orlando psychiatrist from home via secure video, fully covered by your UMR insurance benefits."
+      },
+      {
+        question: "How quickly can I see a UMR psychiatrist in Orlando?",
+        answer: "We offer same-week appointments for UMR patients. Many patients are able to see one of our board-certified psychiatrists within 3-5 business days. Call 386-848-8751 to schedule your first UMR-covered appointment."
+      },
+    ],
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/insurance", label: "Insurance Information" },
+    ],
+  },
+  analytics: {
+    pageName: "UMR Psychiatrist Orlando Page",
+    conversionCategory: "umr_psychiatrist",
+  },
+};
 
 // Oscar Health Therapy Orlando  
 export const oscarHealthTherapyOrlandoConfig: LandingPageConfig = createInsuranceTherapyConfig(
@@ -1005,3 +1141,153 @@ export const sunshineHealthTherapyOrlandoConfig: LandingPageConfig = createInsur
   "Sunshine Health",
   "sunshine-health-therapy"
 );
+
+// BCBS Psychiatrist Orlando - Insurance-focused psychiatry page
+export const bcbsPsychiatristOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Psychiatrist Orlando Accepts BCBS | Blue Cross Blue Shield | Same-Week Appointments",
+    description: "Board-certified psychiatrists in Orlando, FL accepting Blue Cross Blue Shield (BCBS) insurance. In-network BCBS providers for medication management, psychiatric evaluations, anxiety, depression, ADHD treatment. Same-week appointments. Call 386-848-8751 to verify BCBS coverage.",
+    keywords: ["psychiatrist orlando accepts bcbs", "bcbs psychiatrist orlando", "blue cross blue shield psychiatrist orlando", "psychiatrist takes bcbs orlando fl", "bcbs mental health orlando", "in-network psychiatrist bcbs orlando"],
+    canonicalPath: "/psychiatrist-orlando-accepts-bcbs",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
+    "name": "BCBS Psychiatrist Orlando FL - Empathy Health Clinic",
+    "description": "Board-certified psychiatrists in Orlando accepting Blue Cross Blue Shield (BCBS) insurance for medication management and psychiatric care.",
+    "url": "https://empathyhealthclinic.com/psychiatrist-orlando-accepts-bcbs",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Orlando",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.59544,
+      "longitude": -81.36537
+    },
+    "medicalSpecialty": "Psychiatry",
+    "insuranceAccepted": "Blue Cross Blue Shield (BCBS)"
+  },
+  hero: {
+    title: "Psychiatrists Accepting BCBS in Orlando, FL",
+    subtitle: "Board-certified psychiatrists in-network with Blue Cross Blue Shield (BCBS) insurance. Expert medication management for anxiety, depression, ADHD, bipolar disorder. Same-week appointments available in Orlando.",
+    ctaPrimary: "Verify BCBS Coverage",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["BCBS In-Network", "Board-Certified Psychiatrists", "Same-Week Appointments"],
+  },
+  location: {
+    title: "Orlando BCBS Psychiatry Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nBCBS appointments available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Board-Certified Psychiatrists Accepting BCBS in Orlando",
+    introduction: [
+      "Finding a qualified psychiatrist who accepts your Blue Cross Blue Shield (BCBS) insurance can be frustrating. At Empathy Health Clinic, our board-certified psychiatrists are in-network providers for BCBS plans, making expert psychiatric care accessible and affordable in Orlando, FL.",
+      "We provide comprehensive psychiatric services covered by BCBS including medication management, psychiatric evaluations, and treatment for anxiety, depression, ADHD, bipolar disorder, and more. Our psychiatrists understand BCBS benefits and will help you maximize your insurance coverage for mental health treatment.",
+    ],
+    conditionsHeading: "Psychiatric Conditions We Treat with BCBS Coverage",
+    conditions: [
+      { name: "Anxiety & Panic Disorders" },
+      { name: "Depression & Mood Disorders" },
+      { name: "ADHD (Adults & Adolescents)" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD & Related Disorders" },
+      { name: "PTSD & Trauma" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Medication Management" },
+    ],
+    servicesHeading: "BCBS-Covered Psychiatric Services in Orlando",
+    services: [
+      {
+        title: "Psychiatric Evaluations",
+        description: "Comprehensive mental health assessments to diagnose conditions and create treatment plans. BCBS typically covers initial psychiatric evaluations with minimal copay or coinsurance."
+      },
+      {
+        title: "Medication Management",
+        description: "Expert psychiatric medication prescribing and monitoring. BCBS covers ongoing medication management appointments for anxiety, depression, ADHD, bipolar disorder, and other conditions."
+      },
+      {
+        title: "ADHD Treatment",
+        description: "Complete ADHD evaluations, stimulant and non-stimulant medication management. BCBS covers ADHD psychiatric care for adults and adolescents in Orlando."
+      },
+      {
+        title: "Anxiety & Depression Treatment",
+        description: "Medication-based treatment for anxiety disorders, panic disorder, GAD, social anxiety, and major depression. Covered by most BCBS plans."
+      },
+      {
+        title: "Bipolar Disorder Management",
+        description: "Specialized psychiatric care for bipolar I, bipolar II, and mood stabilization. BCBS typically covers mood disorder treatment with board-certified psychiatrists."
+      },
+      {
+        title: "Telepsychiatry Options",
+        description: "Virtual psychiatry appointments covered by BCBS. See your Orlando psychiatrist online from home with the same insurance benefits as in-person visits."
+      },
+    ],
+    faqHeading: "BCBS Psychiatry Insurance FAQs",
+    faqs: [
+      {
+        question: "Does Empathy Health Clinic accept Blue Cross Blue Shield (BCBS) insurance?",
+        answer: "Yes, our board-certified psychiatrists in Orlando are in-network providers for Blue Cross Blue Shield (BCBS) insurance plans. We accept most BCBS plans including PPO, HMO, and EPO options. Call 386-848-8751 to verify your specific BCBS plan coverage before your appointment."
+      },
+      {
+        question: "What does BCBS cover for psychiatric services?",
+        answer: "BCBS typically covers psychiatric evaluations, medication management appointments, and mental health treatment. Coverage varies by your specific BCBS plan, but most plans cover 80-100% of psychiatric services after your deductible is met. Copays range from $10-50 per visit depending on your plan."
+      },
+      {
+        question: "Do I need a referral from my primary care doctor to see a psychiatrist with BCBS?",
+        answer: "It depends on your BCBS plan type. PPO plans typically do not require a referral to see a psychiatrist. HMO and EPO plans may require a referral from your primary care physician. Check your BCBS benefits or call us at 386-848-8751 and we'll help you determine if a referral is needed."
+      },
+      {
+        question: "How do I verify my BCBS coverage for psychiatry?",
+        answer: "Call our office at 386-848-8751 with your BCBS member ID number and we'll verify your benefits before your first appointment. Our team will check your deductible status, copay amount, and confirm psychiatry coverage under your specific BCBS plan."
+      },
+      {
+        question: "Does BCBS cover telepsychiatry (virtual psychiatrist appointments)?",
+        answer: "Yes, most BCBS plans cover telepsychiatry appointments at the same rate as in-person visits. Virtual psychiatry allows you to see your Orlando psychiatrist from home via secure video, fully covered by your BCBS insurance benefits."
+      },
+      {
+        question: "What BCBS plans do you accept in Orlando?",
+        answer: "We accept most Blue Cross Blue Shield plans including BCBS Florida, Anthem BCBS, and national BCBS PPO plans. We are in-network providers for BCBS PPO, HMO, and EPO plans. Call 386-848-8751 to confirm we accept your specific BCBS plan."
+      },
+      {
+        question: "How quickly can I see a BCBS psychiatrist in Orlando?",
+        answer: "We offer same-week appointments for BCBS patients. Many patients are able to see one of our board-certified psychiatrists within 3-5 business days. Call 386-848-8751 to schedule your first BCBS-covered appointment."
+      },
+      {
+        question: "What should I bring to my first appointment with BCBS insurance?",
+        answer: "Please bring your BCBS insurance card, a valid photo ID, and any referral documentation if required by your plan. We'll handle BCBS billing and claims directly so you only pay your copay or coinsurance at the time of service."
+      },
+    ],
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/insurance", label: "Insurance Information" },
+    ],
+  },
+  analytics: {
+    pageName: "BCBS Psychiatrist Orlando Page",
+    conversionCategory: "bcbs_psychiatrist",
+  },
+};
