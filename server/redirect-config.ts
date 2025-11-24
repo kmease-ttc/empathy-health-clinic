@@ -75,6 +75,7 @@ export const contentRedirectMap: Record<string, string> = {
   
   // SEMrush orphaned pages (November 2025) - About/Info pages
   '/about-us': '/',
+  '/about': '/',
   '/affordable-care': '/insurance',
   '/affordable-emotional-support-letter-online': '/services',
   
@@ -242,6 +243,8 @@ export const contentRedirectMap: Record<string, string> = {
   '/telehealth-psychiatry': '/virtual-therapy',
   '/intensive-outpatient': '/services',
   '/family-therapy': '/therapy',
+  '/group-therapy': '/therapy',
+  '/therapy-services': '/therapy',
   '/crisis-support': '/services',
   '/intimacy-therapy-sexual-wellness': '/couples-therapy',
   '/orlando-marriage-counseling-services': '/couples-therapy',
@@ -275,6 +278,14 @@ export const contentRedirectMap: Record<string, string> = {
   
   // ESA letter page
   '/florida-esa-letter-get-your-emotional-support-animal-letter-empathy-health-clinic-2': '/services',
+  
+  // Google Search Console - Crawled but not indexed (November 2025)
+  // Malformed URL redirects
+  '/how-[emdr](/emdr-therapy': '/emdr-therapy',
+  
+  // Blog feed URLs that should not exist
+  '/top-5-ai-scribes-psychiatrists-are-actually-using-in-2025/feed': '/blog',
+  '/blog/acls-discount-codes-foreign-trained-healthcare-workers': '/blog',
 };
 
 /**
