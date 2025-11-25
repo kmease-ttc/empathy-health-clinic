@@ -85,7 +85,10 @@ export default function SiteFooter() {
     { label: "Bipolar Psychiatrist", href: "/bipolar-psychiatrist-orlando" },
     { label: "Medication Management", href: "/medication-management-orlando" },
     { label: "Telepsychiatry", href: "/telepsychiatry-orlando" },
-    { label: "Same-Day Psychiatrist", href: "/same-day-psychiatrist-orlando" }
+    { label: "Same-Day Psychiatrist", href: "/same-day-psychiatrist-orlando" },
+    { label: "Accepts Cigna", href: "/psychiatrist-orlando-accepts-cigna" },
+    { label: "Accepts Aetna", href: "/psychiatrist-orlando-accepts-aetna" },
+    { label: "Accepts UMR", href: "/therapist-accepts-umr" }
   ];
 
   return (

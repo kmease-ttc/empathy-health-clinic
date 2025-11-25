@@ -988,12 +988,12 @@ function createInsuranceTherapyConfig(
   };
 }
 
-// UMR Psychiatry Orlando - Optimized for "psychiatrist orlando accepts umr" (Rank 6)
+// UMR Psychiatry Orlando - Optimized for "psychiatrist orlando accepts umr" (Rank 7)
 export const umrTherapyOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatrist Orlando Accepts UMR | UMR Insurance | Same-Week Appointments",
-    description: "Board-certified psychiatrists in Orlando, FL accepting UMR insurance. In-network UMR providers for medication management, psychiatric evaluations, ADHD, anxiety, depression treatment. Same-week appointments available. Call 386-848-8751 to verify UMR coverage.",
-    keywords: ["psychiatrist orlando accepts umr", "umr psychiatrist orlando", "psychiatrist takes umr orlando fl", "umr mental health orlando", "in-network psychiatrist umr orlando"],
+    title: "Psychiatrist Orlando Accepts UMR | In-Network UMR Provider | Book Today",
+    description: "UMR-accepted psychiatrists in Orlando, FL. In-network provider for anxiety, depression, ADHD & bipolar treatment. Low copays, same-week appointments. Verify your UMR coverage now. Call (386) 848-8751.",
+    keywords: ["psychiatrist orlando accepts umr", "umr psychiatrist orlando", "psychiatrist takes umr orlando fl", "umr mental health orlando", "in-network psychiatrist umr orlando", "umr covered psychiatrist orlando", "psychiatrist near me umr insurance"],
     canonicalPath: "/therapist-accepts-umr",
   },
   jsonLd: {
@@ -1141,6 +1141,254 @@ export const sunshineHealthTherapyOrlandoConfig: LandingPageConfig = createInsur
   "Sunshine Health",
   "sunshine-health-therapy"
 );
+
+// Cigna Psychiatrist Orlando - Optimized for "psychiatrist orlando accepts cigna" (Rank 8)
+export const cignaPsychiatristOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Cigna Psychiatrist Orlando | In-Network Provider",
+    description: "Cigna-accepted psychiatrists in Orlando, FL. In-network for anxiety, ADHD, depression. Same-week appointments. Call (386) 848-8751.",
+    keywords: ["psychiatrist orlando accepts cigna", "cigna psychiatrist orlando", "psychiatrist takes cigna orlando fl", "cigna mental health orlando", "in-network psychiatrist cigna orlando", "cigna covered psychiatrist orlando"],
+    canonicalPath: "/psychiatrist-orlando-accepts-cigna",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
+    "name": "Cigna Psychiatrist Orlando FL - Empathy Health Clinic",
+    "description": "Board-certified psychiatrists in Orlando accepting Cigna insurance for medication management and psychiatric care.",
+    "url": "https://empathyhealthclinic.com/psychiatrist-orlando-accepts-cigna",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Orlando",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.59544,
+      "longitude": -81.36537
+    },
+    "medicalSpecialty": "Psychiatry",
+    "insuranceAccepted": "Cigna"
+  },
+  hero: {
+    title: "Psychiatrists Accepting Cigna in Orlando, FL",
+    subtitle: "Board-certified psychiatrists in-network with Cigna insurance. Expert medication management for anxiety, depression, ADHD, bipolar disorder. Same-week appointments available in Orlando.",
+    ctaPrimary: "Verify Cigna Coverage",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Cigna In-Network", "Board-Certified Psychiatrists", "Same-Week Appointments"],
+  },
+  location: {
+    title: "Orlando Cigna Psychiatry Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nCigna appointments available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Board-Certified Psychiatrists Accepting Cigna in Orlando",
+    introduction: [
+      "Looking for a psychiatrist in Orlando who accepts Cigna insurance? Empathy Health Clinic's board-certified psychiatrists are in-network Cigna providers, making quality psychiatric care affordable and accessible.",
+      "We provide comprehensive psychiatric services covered by Cigna including medication management, psychiatric evaluations, and treatment for anxiety, depression, ADHD, bipolar disorder, and more. Our team understands Cigna benefits and will help you maximize your insurance coverage.",
+    ],
+    conditionsHeading: "Psychiatric Conditions We Treat with Cigna Coverage",
+    conditions: [
+      { name: "Anxiety & Panic Disorders" },
+      { name: "Depression & Mood Disorders" },
+      { name: "ADHD (Adults & Adolescents)" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD & Related Disorders" },
+      { name: "PTSD & Trauma" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Medication Management" },
+    ],
+    servicesHeading: "Cigna-Covered Psychiatric Services",
+    services: [
+      {
+        title: "Psychiatric Evaluations",
+        description: "Comprehensive mental health assessments covered by Cigna with minimal copay. Get an accurate diagnosis and personalized treatment plan."
+      },
+      {
+        title: "Medication Management",
+        description: "Ongoing psychiatric medication management for anxiety, depression, ADHD, and bipolar disorder. Cigna typically covers follow-up appointments."
+      },
+      {
+        title: "ADHD Treatment",
+        description: "Complete ADHD evaluations and medication management covered by most Cigna plans for adults and adolescents."
+      },
+      {
+        title: "Telepsychiatry Options",
+        description: "Virtual psychiatry appointments covered by Cigna at the same rate as in-person visits. See your psychiatrist from home."
+      },
+    ],
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/insurance", label: "Insurance Information" },
+    ],
+  },
+  faqs: [
+    {
+      question: "Does Empathy Health Clinic accept Cigna insurance?",
+      answer: "Yes, our board-certified psychiatrists are in-network providers for Cigna insurance plans. We accept Cigna PPO, HMO, and other Cigna plans. Call 386-848-8751 to verify your specific plan coverage."
+    },
+    {
+      question: "What does Cigna cover for psychiatric services?",
+      answer: "Cigna typically covers psychiatric evaluations, medication management, and mental health treatment. Coverage varies by plan, but most Cigna plans cover 80-100% of psychiatric services after deductible. Copays typically range from $10-50 per visit."
+    },
+    {
+      question: "Do I need a referral to see a psychiatrist with Cigna?",
+      answer: "It depends on your Cigna plan type. Cigna PPO plans typically do not require a referral. Cigna HMO plans may require a referral from your primary care physician. Call us at 386-848-8751 to help determine if you need a referral."
+    },
+    {
+      question: "How quickly can I see a Cigna psychiatrist in Orlando?",
+      answer: "We offer same-week appointments for Cigna patients. Most patients can be seen within 3-5 business days. Call 386-848-8751 to schedule your Cigna-covered appointment."
+    },
+  ],
+  analytics: {
+    pageName: "Cigna Psychiatrist Orlando Page",
+    conversionCategory: "cigna_psychiatrist",
+  },
+};
+
+// Aetna Psychiatrist Orlando - Optimized for "psychiatrist orlando accepts aetna" (Rank 6)
+export const aetnaPsychiatristOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Aetna Psychiatrist Orlando | In-Network Provider",
+    description: "Aetna-accepted psychiatrists in Orlando, FL. In-network for anxiety, ADHD, depression. Same-week appointments. Call (386) 848-8751.",
+    keywords: ["psychiatrist orlando accepts aetna", "aetna psychiatrist orlando", "psychiatrist takes aetna orlando fl", "aetna mental health orlando", "in-network psychiatrist aetna orlando", "aetna covered psychiatrist orlando"],
+    canonicalPath: "/psychiatrist-orlando-accepts-aetna",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
+    "name": "Aetna Psychiatrist Orlando FL - Empathy Health Clinic",
+    "description": "Board-certified psychiatrists in Orlando accepting Aetna insurance for medication management and psychiatric care.",
+    "url": "https://empathyhealthclinic.com/psychiatrist-orlando-accepts-aetna",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Orlando",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.59544,
+      "longitude": -81.36537
+    },
+    "medicalSpecialty": "Psychiatry",
+    "insuranceAccepted": "Aetna"
+  },
+  hero: {
+    title: "Psychiatrists Accepting Aetna in Orlando, FL",
+    subtitle: "Board-certified psychiatrists in-network with Aetna insurance. Expert medication management for anxiety, depression, ADHD, bipolar disorder. Same-week appointments available in Orlando.",
+    ctaPrimary: "Verify Aetna Coverage",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Aetna In-Network", "Board-Certified Psychiatrists", "Same-Week Appointments"],
+  },
+  location: {
+    title: "Orlando Aetna Psychiatry Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nAetna appointments available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Board-Certified Psychiatrists Accepting Aetna in Orlando",
+    introduction: [
+      "Need a psychiatrist in Orlando who accepts Aetna insurance? Empathy Health Clinic's board-certified psychiatrists are in-network Aetna providers, making quality psychiatric care affordable and accessible.",
+      "We provide comprehensive psychiatric services covered by Aetna including medication management, psychiatric evaluations, and treatment for anxiety, depression, ADHD, bipolar disorder, and more. Our team understands Aetna benefits and will help you maximize your insurance coverage.",
+    ],
+    conditionsHeading: "Psychiatric Conditions We Treat with Aetna Coverage",
+    conditions: [
+      { name: "Anxiety & Panic Disorders" },
+      { name: "Depression & Mood Disorders" },
+      { name: "ADHD (Adults & Adolescents)" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD & Related Disorders" },
+      { name: "PTSD & Trauma" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Medication Management" },
+    ],
+    servicesHeading: "Aetna-Covered Psychiatric Services",
+    services: [
+      {
+        title: "Psychiatric Evaluations",
+        description: "Comprehensive mental health assessments covered by Aetna with minimal copay. Get an accurate diagnosis and personalized treatment plan."
+      },
+      {
+        title: "Medication Management",
+        description: "Ongoing psychiatric medication management for anxiety, depression, ADHD, and bipolar disorder. Aetna typically covers follow-up appointments."
+      },
+      {
+        title: "ADHD Treatment",
+        description: "Complete ADHD evaluations and medication management covered by most Aetna plans for adults and adolescents."
+      },
+      {
+        title: "Telepsychiatry Options",
+        description: "Virtual psychiatry appointments covered by Aetna at the same rate as in-person visits. See your psychiatrist from home."
+      },
+    ],
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/insurance", label: "Insurance Information" },
+    ],
+  },
+  faqs: [
+    {
+      question: "Does Empathy Health Clinic accept Aetna insurance?",
+      answer: "Yes, our board-certified psychiatrists are in-network providers for Aetna insurance plans. We accept Aetna PPO, HMO, and other Aetna plans. Call 386-848-8751 to verify your specific plan coverage."
+    },
+    {
+      question: "What does Aetna cover for psychiatric services?",
+      answer: "Aetna typically covers psychiatric evaluations, medication management, and mental health treatment. Coverage varies by plan, but most Aetna plans cover 80-100% of psychiatric services after deductible. Copays typically range from $10-50 per visit."
+    },
+    {
+      question: "Do I need a referral to see a psychiatrist with Aetna?",
+      answer: "It depends on your Aetna plan type. Aetna PPO plans typically do not require a referral. Aetna HMO plans may require a referral from your primary care physician. Call us at 386-848-8751 to help determine if you need a referral."
+    },
+    {
+      question: "How quickly can I see an Aetna psychiatrist in Orlando?",
+      answer: "We offer same-week appointments for Aetna patients. Most patients can be seen within 3-5 business days. Call 386-848-8751 to schedule your Aetna-covered appointment."
+    },
+  ],
+  analytics: {
+    pageName: "Aetna Psychiatrist Orlando Page",
+    conversionCategory: "aetna_psychiatrist",
+  },
+};
 
 // BCBS Psychiatrist Orlando - Insurance-focused psychiatry page
 export const bcbsPsychiatristOrlandoConfig: LandingPageConfig = {
@@ -1292,12 +1540,12 @@ export const bcbsPsychiatristOrlandoConfig: LandingPageConfig = {
   },
 };
 
-// Psychiatry Orlando - General psychiatry services page
+// Psychiatry Orlando - Optimized for "psychiatry orlando" (not in top 20)
 export const psychiatryOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatry Orlando FL | Board-Certified Psychiatric Services | Same-Week Appointments",
-    description: "Comprehensive psychiatry services in Orlando, FL. Board-certified psychiatrists providing medication management, psychiatric evaluations, and mental health treatment for anxiety, depression, ADHD, bipolar disorder. Same-week appointments. Most insurance accepted. Call 386-848-8751.",
-    keywords: ["psychiatry orlando", "psychiatry orlando fl", "psychiatric services orlando", "orlando psychiatry", "psychiatry clinic orlando", "psychiatric care orlando", "mental health psychiatry orlando"],
+    title: "Psychiatry Orlando FL | Expert Psychiatric Care | Book Your Appointment Today",
+    description: "Premier psychiatry services in Orlando, FL. Board-certified psychiatrists, 4.8-star rating. ADHD, anxiety, depression, bipolar treatment. Same-week appointments, insurance accepted. Call (386) 848-8751.",
+    keywords: ["psychiatry orlando", "psychiatry orlando fl", "psychiatric services orlando", "orlando psychiatry", "psychiatry clinic orlando", "psychiatric care orlando", "mental health psychiatry orlando", "best psychiatry orlando", "psychiatry near me orlando", "orlando psychiatric services"],
     canonicalPath: "/psychiatry-orlando",
   },
   jsonLd: {
@@ -1493,12 +1741,12 @@ export const psychiatryOrlandoConfig: LandingPageConfig = {
   },
 };
 
-// Psychiatrist Orlando - Individual psychiatrist focus
+// Psychiatrist Orlando - Optimized for "psychiatrist orlando" (not in top 20)
 export const psychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatrist Orlando FL | Board-Certified Psychiatrists | Same-Week Appointments",
-    description: "Find experienced board-certified psychiatrists in Orlando, FL. Expert mental health treatment including medication management, ADHD, anxiety, depression, bipolar disorder. Same-week appointments available. Most insurance accepted. Call 386-848-8751.",
-    keywords: ["psychiatrist orlando", "psychiatrist orlando fl", "orlando psychiatrist", "psychiatrists in orlando", "find psychiatrist orlando", "best psychiatrist orlando", "board certified psychiatrist orlando"],
+    title: "Psychiatrist Orlando FL | Top-Rated Psychiatrists | Book Same-Week Appointment",
+    description: "Find the best psychiatrists in Orlando, FL. Board-certified specialists for anxiety, depression, ADHD, bipolar. 4.8-star rating, same-week appointments, most insurance accepted. Call (386) 848-8751 today.",
+    keywords: ["psychiatrist orlando", "psychiatrist orlando fl", "orlando psychiatrist", "psychiatrists in orlando", "find psychiatrist orlando", "best psychiatrist orlando", "board certified psychiatrist orlando", "top psychiatrist orlando", "psychiatrist near me orlando", "orlando fl psychiatrist"],
     canonicalPath: "/psychiatrist-orlando",
   },
   jsonLd: {
@@ -1659,12 +1907,12 @@ export const psychiatristOrlandoConfig: LandingPageConfig = {
   },
 };
 
-// ADHD Psychiatrist Orlando
+// ADHD Psychiatrist Orlando - Optimized for "adhd psychiatrist orlando" (not in top 20)
 export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "ADHD Psychiatrist Orlando FL | Adult & Child ADHD Treatment | Same-Week Appointments",
-    description: "Expert ADHD psychiatrists in Orlando, FL specializing in ADHD diagnosis and treatment for adults, teens, and children. Medication management, comprehensive evaluations, stimulant and non-stimulant options. Same-week appointments. Most insurance accepted. Call 386-848-8751.",
-    keywords: ["adhd psychiatrist orlando", "adhd doctor orlando", "adhd specialist orlando", "adult adhd orlando", "child adhd psychiatrist orlando", "add doctor orlando", "adhd medication management orlando"],
+    title: "ADHD Psychiatrist Orlando FL | #1 ADHD Specialists | Get Diagnosed This Week",
+    description: "Orlando's top-rated ADHD psychiatrists. Fast diagnosis for adults & children. Adderall, Vyvanse, non-stimulant options. Same-week appointments, most insurance accepted. Call (386) 848-8751 today.",
+    keywords: ["adhd psychiatrist orlando", "adhd psychiatrist orlando fl", "adhd doctor orlando", "adhd specialist orlando", "adult adhd psychiatrist orlando", "child adhd psychiatrist orlando", "add doctor orlando", "adhd medication management orlando", "adhd diagnosis orlando", "best adhd psychiatrist orlando"],
     canonicalPath: "/adhd-psychiatrist-orlando",
   },
   jsonLd: {
@@ -1823,12 +2071,12 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
   },
 };
 
-// Bipolar Psychiatrist Orlando
+// Bipolar Psychiatrist Orlando - Optimized for "bipolar psychiatrist orlando" (not in top 20)
 export const bipolarPsychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Bipolar Psychiatrist Orlando FL | Bipolar Disorder Treatment | Same-Week Appointments",
-    description: "Expert bipolar disorder treatment in Orlando, FL by board-certified psychiatrists. Mood stabilization, medication management for bipolar I, bipolar II, and cyclothymia. Same-week appointments available. Most insurance accepted. Call 386-848-8751.",
-    keywords: ["bipolar psychiatrist orlando", "bipolar disorder treatment orlando", "bipolar doctor orlando", "mood disorder specialist orlando", "bipolar medication management orlando", "manic depression orlando"],
+    title: "Bipolar Psychiatrist Orlando FL | Mood Disorder Experts | Same-Week Care",
+    description: "Orlando's leading bipolar disorder specialists. Expert mood stabilization for Bipolar I, II & cyclothymia. Lithium, Lamictal, Seroquel management. Same-week appointments. Call (386) 848-8751.",
+    keywords: ["bipolar psychiatrist orlando", "bipolar psychiatrist orlando fl", "bipolar disorder treatment orlando", "bipolar doctor orlando", "mood disorder specialist orlando", "bipolar medication management orlando", "manic depression treatment orlando", "bipolar 2 psychiatrist orlando", "best bipolar psychiatrist orlando"],
     canonicalPath: "/bipolar-psychiatrist-orlando",
   },
   jsonLd: {

@@ -94,6 +94,8 @@ const TherapistAcceptsUMR = lazy(() => import("@/pages/TherapistAcceptsUMR"));
 const TherapistAcceptsOscarHealth = lazy(() => import("@/pages/TherapistAcceptsOscarHealth"));
 const SunshineHealthTherapy = lazy(() => import("@/pages/SunshineHealthTherapy"));
 const PsychiatristOrlandoAcceptsBCBS = lazy(() => import("@/pages/PsychiatristOrlandoAcceptsBCBS"));
+const PsychiatristOrlandoAcceptsCigna = lazy(() => import("@/pages/PsychiatristOrlandoAcceptsCigna"));
+const PsychiatristOrlandoAcceptsAetna = lazy(() => import("@/pages/PsychiatristOrlandoAcceptsAetna"));
 const PsychiatryOrlando = lazy(() => import("@/pages/PsychiatryOrlando"));
 
 // Location Pages
@@ -464,6 +466,16 @@ function Router() {
         <Route path="/psychiatrist-orlando-accepts-bcbs">
           <Suspense fallback={<LoadingFallback />}>
             <PsychiatristOrlandoAcceptsBCBS />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-orlando-accepts-cigna">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristOrlandoAcceptsCigna />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-orlando-accepts-aetna">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristOrlandoAcceptsAetna />
           </Suspense>
         </Route>
         <Route path="/psychiatry-orlando">
