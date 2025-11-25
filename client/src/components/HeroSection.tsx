@@ -16,7 +16,6 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { InsuranceProvider } from "@shared/schema";
 import heroImage from "@assets/hero-sunset-florida.png";
-import empathyLogo from "@assets/image_1764033287919.png";
 
 export { heroImage };
 
@@ -116,19 +115,6 @@ export default function HeroSection() {
           
           {/* Left Side - Text Content */}
           <div className="flex-1 text-center lg:text-left">
-            {/* Logo - All screen sizes */}
-            <div className="flex justify-center lg:justify-start mb-6">
-              <img 
-                src={empathyLogo} 
-                alt="Empathy Health Clinic" 
-                className="h-40 w-auto drop-shadow-lg"
-                width={400}
-                height={160}
-                loading="eager"
-                decoding="sync"
-              />
-            </div>
-            
             {/* Main Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-2 drop-shadow-lg leading-tight">
               <span className="block">Psychiatry, Therapy</span>
