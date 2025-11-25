@@ -445,8 +445,8 @@ export const mentalHealthClinicConfig: LandingPageConfig = {
 // Medicare Therapy Orlando
 export const medicareTherapyOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Medicare Therapy Orlando FL | Therapist Accepting Medicare Part B | Same-Week Appointments",
-    description: "Therapy services in Orlando, FL accepting Medicare Part B. Licensed therapists provide CBT, EMDR, trauma therapy, and more. Same-week appointments, in-person and telehealth. Call 386-848-8751 to verify Medicare coverage.",
+    title: "Medicare Therapy Orlando FL | Part B Therapists",
+    description: "Orlando therapists accepting Medicare Part B. CBT, EMDR, trauma therapy. Same-week appointments, in-person & telehealth. Call 386-848-8751.",
     keywords: ["medicare therapy orlando", "therapist accepts medicare orlando", "medicare counseling orlando", "medicare part b therapy orlando", "medicare mental health orlando"],
     canonicalPath: "/medicare-therapy-orlando",
   },
@@ -581,8 +581,8 @@ export const medicareTherapyOrlandoConfig: LandingPageConfig = {
 // Medicare Psychiatrist Orlando
 export const medicarePsychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Medicare Psychiatrist Orlando FL | Psychiatry Accepting Medicare Part B | Medication Management",
-    description: "Board-certified psychiatrists in Orlando accepting Medicare Part B. Psychiatric evaluations, medication management, and mental health treatment for seniors. Same-week appointments. Call 386-848-8751 to verify Medicare coverage.",
+    title: "Medicare Psychiatrist Orlando FL | Part B Accepted",
+    description: "Orlando psychiatrists accepting Medicare Part B. Psychiatric evaluations, medication management. Same-week appointments. Call 386-848-8751.",
     keywords: ["medicare psychiatrist orlando", "psychiatrist accepts medicare orlando", "medicare mental health orlando", "medicare medication management orlando"],
     canonicalPath: "/medicare-psychiatrist-orlando",
   },
@@ -1004,8 +1004,8 @@ function createInsuranceTherapyConfig(
 // UMR Psychiatry Orlando - Optimized for "psychiatrist orlando accepts umr" (Rank 7)
 export const umrTherapyOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatrist Orlando Accepts UMR | In-Network UMR Provider | Book Today",
-    description: "UMR-accepted psychiatrists in Orlando, FL. In-network provider for anxiety, depression, ADHD & bipolar treatment. Low copays, same-week appointments. Verify your UMR coverage now. Call (386) 848-8751.",
+    title: "UMR Psychiatrist Orlando | In-Network Provider",
+    description: "UMR-accepted psychiatrists in Orlando, FL. In-network for anxiety, depression, ADHD, bipolar. Same-week appointments. Call (386) 848-8751.",
     keywords: ["psychiatrist orlando accepts umr", "umr psychiatrist orlando", "psychiatrist takes umr orlando fl", "umr mental health orlando", "in-network psychiatrist umr orlando", "umr covered psychiatrist orlando", "psychiatrist near me umr insurance"],
     canonicalPath: "/therapist-accepts-umr",
   },
@@ -2429,8 +2429,8 @@ export const medicationManagementOrlandoConfig: LandingPageConfig = {
 
 export const cognitiveBehavioralTherapyConfig: LandingPageConfig = {
   seo: {
-    title: "CBT Therapy Orlando FL | Cognitive Behavioral Therapy | Licensed Therapists",
-    description: "Expert cognitive behavioral therapy (CBT) in Orlando, FL. Evidence-based treatment for anxiety, depression, OCD, PTSD, and more. Licensed therapists, same-week appointments, in-person & telehealth. Most insurance accepted. Call 386-848-8751.",
+    title: "CBT Therapy Orlando FL | Cognitive Behavioral Therapy",
+    description: "Expert CBT therapy in Orlando, FL. Evidence-based treatment for anxiety, depression, OCD, PTSD. Same-week appointments. Call 386-848-8751.",
     keywords: ["cbt therapy orlando", "cognitive behavioral therapy orlando", "cbt therapy near me", "cognitive behavioral counseling", "cbt therapist orlando", "cognitive therapy orlando", "behavioral therapy orlando fl", "cbt mental health therapy"],
     canonicalPath: "/cognitive-behavioral-therapy",
   },
