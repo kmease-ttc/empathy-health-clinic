@@ -1,128 +1,259 @@
+import { useState } from "react";
 import { Star } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import type { SiteContent, InsuranceProvider } from "@shared/schema";
-import heroImage from "@assets/image_1761934471053.webp";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import type { InsuranceProvider } from "@shared/schema";
+import heroImage from "@assets/stock_images/golden_sunset_over_c_a1f38159.jpg";
 import empathyLogo from "@assets/empathy-logo-optimized.webp";
-import HeroLeadForm from "@/components/HeroLeadForm";
-import zocdocLogo from "@assets/zocdoc-optimized.webp";
-import googleLogo from "@assets/google-wordmark.webp";
-import healthgradesLogo from "@assets/healthgrades-logo-opt.webp";
-import yelpLogo from "@assets/yelp-logo-opt.webp";
 
-// Export hero image for preloading in SEOHead
 export { heroImage };
 
 export default function HeroSection() {
-  const { data: content } = useQuery<SiteContent>({
-    queryKey: ["/api/site-content"],
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   const { data: insuranceProviders } = useQuery<InsuranceProvider[]>({
     queryKey: ["/api/insurance-providers"],
   });
 
-  const title = content?.heroTitle || "Healing Begins with Empathy";
-  const subtitle = content?.heroSubtitle || "Psychiatry, Psychotherapy & Counseling Clinic Serving Orlando and Winter Park, Florida";
-  const reviewCount = content?.reviewCount || 65;
-  const reviewRating = content?.reviewRating || "EXCELLENT";
+  const submitLead = useMutation({
+    mutationFn: async () => {
+      const nameParts = name.trim().split(" ");
+      const firstName = nameParts[0] || "";
+      const lastName = nameParts.slice(1).join(" ") || "";
+
+      return apiRequest("POST", "/api/leads", {
+        firstName,
+        lastName,
+        email: email.trim(),
+        phone: phone.trim(),
+        service: "General Inquiry",
+        formType: "hero",
+        source: window.location.pathname,
+        smsOptIn: "false",
+      });
+    },
+    onSuccess: () => {
+      setLocation('/thank-you');
+    },
+    onError: () => {
+      toast({
+        title: "Submission Failed",
+        description: "Please try again or call us at (386) 848-8751.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!name.trim() || !email.trim() || !phone.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in your name, email, and phone number.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    submitLead.mutate();
+  };
+
+  const topInsurance = insuranceProviders?.slice(0, 3) || [];
 
   return (
-    <section className="relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-start overflow-hidden">
+    <section className="relative min-h-[100svh] md:min-h-[90vh] flex items-center overflow-hidden">
+      {/* Background Image */}
       <div className="absolute inset-0 overflow-hidden">
         <img
           src={heroImage}
-          alt="Empathy Health Clinic - Peaceful healing environment"
+          alt="Empathy Health Clinic - Peaceful sunset over calm water"
           className="w-full h-full object-cover"
           width={1920}
-          height={800}
+          height={1080}
           loading="eager"
           fetchpriority="high"
           decoding="sync"
-          style={{ backgroundColor: '#2d5f4a', objectPosition: '75% center' }}
+          style={{ backgroundColor: '#f5a26b', objectPosition: 'center center' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
+        {/* Subtle overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/10" />
       </div>
       
-      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 -mt-8 pb-20">
-        <div className="max-w-6xl mx-auto text-center">
-          {/* Logo - Optimized size for faster LCP */}
-          <div className="flex justify-center">
-            <img 
-              src={empathyLogo} 
-              alt="Empathy Health Clinic" 
-              className="h-48 md:h-56 w-auto drop-shadow-lg -mb-16"
-              width={560}
-              height={224}
-              loading="eager"
-              decoding="sync"
-            />
-          </div>
+      {/* Content Container */}
+      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-16">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-12">
           
-          {/* SEO-Optimized H1 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-4 drop-shadow-lg max-w-5xl mx-auto leading-tight">
-            Psychiatry, Therapy & Counseling in Orlando, FL
-          </h1>
-          
-          {/* Tagline */}
-          <p className="text-2xl md:text-3xl lg:text-4xl font-sans font-light text-white/95 mb-10 drop-shadow-lg">
-            {title}
-          </p>
-          
-          {/* Lead Form */}
-          <div className="mb-10 w-full max-w-5xl mx-auto">
-            <HeroLeadForm />
-          </div>
-          
-          {/* Trust Factors */}
-          <div className="flex flex-wrap justify-center items-center gap-6 mb-8 text-white">
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-white" />
-              <span className="text-sm md:text-base font-medium drop-shadow">Licensed Florida Clinicians</span>
+          {/* Left Side - Text Content */}
+          <div className="flex-1 text-center lg:text-left">
+            {/* Logo - Mobile only, centered */}
+            <div className="flex justify-center lg:hidden mb-6">
+              <img 
+                src={empathyLogo} 
+                alt="Empathy Health Clinic" 
+                className="h-20 w-auto drop-shadow-lg"
+                width={200}
+                height={80}
+                loading="eager"
+                decoding="sync"
+              />
             </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-white" />
-              <span className="text-sm md:text-base font-medium drop-shadow">In-Person & Telehealth</span>
+            
+            {/* Main Heading */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-2 drop-shadow-lg leading-tight">
+              <span className="block">Psychiatry, Therapy</span>
+              <span className="block">& Counseling</span>
+            </h1>
+            
+            {/* Location Subheading */}
+            <p className="text-2xl md:text-3xl lg:text-4xl font-sans font-light text-white/90 mb-8 drop-shadow-md">
+              in Orlando, FL
+            </p>
+
+            {/* Mobile CTA Button */}
+            <div className="lg:hidden mb-8">
+              <a href="#contact-form">
+                <Button
+                  size="lg"
+                  className="h-14 px-10 bg-[#e07a4d] hover:bg-[#d16a3d] text-white border-0 rounded-xl text-lg font-semibold shadow-lg"
+                  data-testid="button-hero-mobile-cta"
+                >
+                  Book Appointment
+                </Button>
+              </a>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-white" />
-              <span className="text-sm md:text-base font-medium drop-shadow">Same-Week Appointments</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-white" />
-              <span className="text-sm md:text-base font-medium drop-shadow">Most Insurance Accepted</span>
-            </div>
-          </div>
-          
-          {/* Rating and Insurance Cards */}
-          <div className="flex flex-wrap justify-center items-center gap-4">
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg px-6 py-3 shadow-md">
-              <div className="flex items-center justify-center gap-3">
+
+            {/* Mobile Trust Indicators */}
+            <div className="lg:hidden space-y-4">
+              {/* Rating */}
+              <div className="flex items-center justify-center gap-3 text-white">
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-black stroke-[1.5]" />
+                    <Star 
+                      key={i} 
+                      className={`w-5 h-5 ${i < 4 ? 'fill-yellow-400 text-yellow-400' : 'fill-yellow-400/60 text-yellow-400/60'}`} 
+                    />
                   ))}
                 </div>
-                <span className="text-foreground font-semibold text-sm">4.8 EXCELLENT</span>
-                <img src={googleLogo} alt="Google" className="h-3 w-auto object-contain" width={52} height={18} data-testid="badge-google" style={{ filter: 'saturate(1.3) contrast(1.1)' }} />
+                <span className="font-semibold text-lg">4.8</span>
+                <span className="font-medium">Google</span>
               </div>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg px-6 py-3 shadow-md">
-              <div className="flex items-center gap-3">
-                <span className="text-foreground font-semibold text-sm">Most Insurances Accepted</span>
-                <div className="flex items-center gap-3 min-w-[240px]">
-                  {insuranceProviders?.slice(0, 3).map((provider) => (
+
+              {/* Insurance Logos */}
+              <div className="flex items-center justify-center gap-4 flex-wrap">
+                {topInsurance.map((provider) => (
+                  <div 
+                    key={provider.id}
+                    className="h-8 w-20 flex items-center justify-center"
+                  >
                     <img
-                      key={provider.id}
                       src={provider.logo}
                       alt={provider.name}
-                      className="h-6 w-20 object-contain"
+                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-90"
                       width={80}
+                      height={32}
+                      loading="eager"
+                      decoding="sync"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side - Contact Form Card (Desktop only) */}
+          <div className="hidden lg:block w-full max-w-md" id="contact-form">
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
+                Book an Appointment
+              </h2>
+              
+              <form onSubmit={handleSubmit} className="space-y-4" data-testid="form-hero-lead">
+                <Input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  autoComplete="name"
+                  className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                  data-testid="input-hero-name"
+                  required
+                />
+                
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
+                  className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                  data-testid="input-hero-email"
+                  required
+                />
+                
+                <Input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  autoComplete="tel"
+                  className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                  data-testid="input-hero-phone"
+                  required
+                />
+                
+                <Button
+                  type="submit"
+                  disabled={submitLead.isPending}
+                  className="w-full h-12 bg-[#e07a4d] hover:bg-[#d16a3d] text-white border-0 rounded-lg text-base font-semibold"
+                  data-testid="button-hero-submit"
+                >
+                  {submitLead.isPending ? "Submitting..." : "Submit"}
+                </Button>
+              </form>
+
+              {/* Rating */}
+              <div className="flex items-center justify-center gap-2 mt-6">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className={`w-4 h-4 ${i < 4 ? 'fill-yellow-400 text-yellow-400' : 'fill-yellow-400/60 text-yellow-400/60'}`} 
+                    />
+                  ))}
+                </div>
+                <span className="font-semibold text-gray-700">4.8</span>
+              </div>
+
+              {/* Insurance Logos */}
+              <div className="flex items-center justify-center gap-4 mt-4 flex-wrap">
+                {topInsurance.map((provider) => (
+                  <div 
+                    key={provider.id}
+                    className="h-6 w-16 flex items-center justify-center"
+                  >
+                    <img
+                      src={provider.logo}
+                      alt={provider.name}
+                      className="max-h-full max-w-full object-contain grayscale opacity-70"
+                      width={64}
                       height={24}
                       loading="eager"
                       decoding="sync"
                     />
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
