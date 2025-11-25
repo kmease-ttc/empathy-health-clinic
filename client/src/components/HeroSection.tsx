@@ -16,7 +16,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { InsuranceProvider } from "@shared/schema";
 import heroImage from "@assets/hero-sunset-florida.png";
-import empathyLogo from "@assets/empathy-logo-optimized.webp";
+import empathyLogo from "@assets/image_1764033287919.png";
 
 export { heroImage };
 
