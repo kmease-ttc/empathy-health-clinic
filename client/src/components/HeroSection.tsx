@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Star } from "lucide-react";
+import { SiGoogle } from "react-icons/si";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -115,8 +116,8 @@ export default function HeroSection() {
           
           {/* Left Side - Text Content */}
           <div className="flex-1 text-center lg:text-left">
-            {/* Logo - Mobile only, centered */}
-            <div className="flex justify-center lg:hidden mb-6">
+            {/* Logo - All screen sizes */}
+            <div className="flex justify-center lg:justify-start mb-6">
               <img 
                 src={empathyLogo} 
                 alt="Empathy Health Clinic" 
@@ -143,6 +144,7 @@ export default function HeroSection() {
             <div className="lg:hidden space-y-4 mb-8">
               {/* Rating */}
               <div className="flex items-center justify-center gap-3 text-white">
+                <SiGoogle className="w-5 h-5 text-white" />
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star 
@@ -152,7 +154,6 @@ export default function HeroSection() {
                   ))}
                 </div>
                 <span className="font-semibold text-lg">4.8</span>
-                <span className="font-medium">Google</span>
               </div>
 
               {/* Insurance Logos */}
@@ -321,6 +322,7 @@ export default function HeroSection() {
 
               {/* Rating */}
               <div className="flex items-center justify-center gap-2 mt-6">
+                <SiGoogle className="w-5 h-5 text-[#4285F4]" />
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star 
