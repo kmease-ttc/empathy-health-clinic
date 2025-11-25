@@ -120,9 +120,9 @@ export default function HeroSection() {
               <img 
                 src={empathyLogo} 
                 alt="Empathy Health Clinic" 
-                className="h-20 w-auto drop-shadow-lg"
-                width={200}
-                height={80}
+                className="h-40 w-auto drop-shadow-lg"
+                width={400}
+                height={160}
                 loading="eager"
                 decoding="sync"
               />
