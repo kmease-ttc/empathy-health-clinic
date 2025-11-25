@@ -1135,6 +1135,9 @@ export const umrTherapyOrlandoConfig: LandingPageConfig = {
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
       { href: "/insurance", label: "Insurance Information" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
     ],
   },
   analytics: {
@@ -1253,6 +1256,8 @@ export const cignaPsychiatristOrlandoConfig: LandingPageConfig = {
       { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
       { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
       { href: "/insurance", label: "Insurance Information" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
     ],
   },
   faqs: [
@@ -1377,6 +1382,8 @@ export const aetnaPsychiatristOrlandoConfig: LandingPageConfig = {
       { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
       { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
       { href: "/insurance", label: "Insurance Information" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
     ],
   },
   faqs: [
@@ -1545,6 +1552,8 @@ export const bcbsPsychiatristOrlandoConfig: LandingPageConfig = {
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
       { href: "/insurance", label: "Insurance Information" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
     ],
   },
   analytics: {
@@ -1746,6 +1755,9 @@ export const psychiatryOrlandoConfig: LandingPageConfig = {
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
       { href: "/psychiatric-evaluation-orlando", label: "Psychiatric Evaluation" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
     ],
   },
   analytics: {
@@ -2615,6 +2627,9 @@ export const cognitiveBehavioralTherapyConfig: LandingPageConfig = {
       { href: "/therapy", label: "All Therapy Services" },
       { href: "/ptsd-trauma", label: "PTSD & Trauma Therapy" },
       { href: "/virtual-therapy", label: "Online Therapy" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
     ],
   },
   analytics: {
