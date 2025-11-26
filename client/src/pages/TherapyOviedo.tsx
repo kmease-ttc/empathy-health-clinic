@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import LeadCaptureForm from "@/components/LeadCaptureForm";
+import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import {
   Accordion,
   AccordionContent,
@@ -210,10 +210,7 @@ export default function TherapyOviedo() {
               <div className="bg-white rounded-2xl p-8 shadow-2xl">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Start Therapy Today</h2>
                 <p className="text-gray-600 mb-6">Request an appointment - we serve Oviedo residents.</p>
-                <LeadCaptureForm 
-                  source="therapy-oviedo-hero"
-                  buttonText="Request Appointment"
-                />
+                <LeadCaptureForm therapyName="Therapy Oviedo" />
               </div>
             </div>
           </div>
