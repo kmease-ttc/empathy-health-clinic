@@ -352,6 +352,32 @@ export const trackEvent = (
 ) => {
   if (typeof window === 'undefined') return;
   
+  // Push to dataLayer for GTM (Google Tag Manager)
+  // This is critical for GTM tags to fire
+  window.dataLayer = window.dataLayer || [];
+  const dataLayerEvent: Record<string, unknown> = {
+    event: action,
+    event_category: category,
+    event_label: label,
+    event_value: value,
+    page_path: window.location.pathname,
+  };
+  
+  // Add specific GTM event names for form tracking
+  if (action === 'form_started') {
+    dataLayerEvent.event = 'webform_started';
+    dataLayerEvent.form_type = value; // 'short', 'long', 'hero'
+    dataLayerEvent.form_name = label;
+    console.log('📊 GTM dataLayer: webform_started', dataLayerEvent);
+  } else if (action === 'form_submission') {
+    dataLayerEvent.event = 'form_submission';
+    dataLayerEvent.form_type = value;
+    dataLayerEvent.form_name = label;
+    console.log('📊 GTM dataLayer: form_submission', dataLayerEvent);
+  }
+  
+  window.dataLayer.push(dataLayerEvent);
+  
   // Track to Google Analytics
   if (window.gtag) {
     window.gtag('event', action, {

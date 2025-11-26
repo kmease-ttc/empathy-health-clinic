@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useLocation } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,6 +36,14 @@ interface LeadCaptureFormProps {
 export function LeadCaptureForm({ therapyName }: LeadCaptureFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [, setLocation] = useLocation();
+  const formStartedTracked = useRef(false);
+
+  const handleFormStarted = () => {
+    if (!formStartedTracked.current) {
+      formStartedTracked.current = true;
+      trackEvent('form_started', 'engagement', 'Lead Capture Form', 'short');
+    }
+  };
 
   const form = useForm<LeadFormData>({
     resolver: zodResolver(leadFormSchema),
@@ -193,6 +201,7 @@ export function LeadCaptureForm({ therapyName }: LeadCaptureFormProps) {
                     {...field}
                     autoComplete="name"
                     className="bg-white dark:bg-background"
+                    onFocus={handleFormStarted}
                     data-testid="input-lead-name"
                   />
                 </FormControl>
@@ -214,6 +223,7 @@ export function LeadCaptureForm({ therapyName }: LeadCaptureFormProps) {
                     {...field}
                     autoComplete="email"
                     className="bg-white dark:bg-background"
+                    onFocus={handleFormStarted}
                     data-testid="input-lead-email"
                   />
                 </FormControl>
@@ -235,6 +245,7 @@ export function LeadCaptureForm({ therapyName }: LeadCaptureFormProps) {
                     {...field}
                     autoComplete="tel"
                     className="bg-white dark:bg-background"
+                    onFocus={handleFormStarted}
                     data-testid="input-lead-phone"
                   />
                 </FormControl>
@@ -257,6 +268,7 @@ export function LeadCaptureForm({ therapyName }: LeadCaptureFormProps) {
                     className="resize-none bg-white dark:bg-background min-h-[80px]"
                     {...field}
                     value={field.value || ""}
+                    onFocus={handleFormStarted}
                     data-testid="input-lead-message"
                   />
                 </FormControl>
