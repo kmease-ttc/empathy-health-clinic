@@ -108,8 +108,8 @@ export default function PsychotherapistOrlando() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Psychotherapist Orlando FL | Licensed Therapy & Counseling"
-        description="Top-rated psychotherapists in Orlando, FL. Licensed therapists accepting insurance. Anxiety, depression, PTSD, relationships. In-person & virtual. Call 386-848-8751 today."
+        title="Psychotherapist Orlando | Licensed Therapy | Same-Week Apts"
+        description="Psychotherapist in Orlando accepting new patients. Licensed therapists for anxiety, depression & trauma. Insurance accepted. Same-week apts. 386-848-8751."
         keywords={[
           "psychotherapist orlando",
           "psychotherapist orlando fl",
@@ -145,11 +145,11 @@ export default function PsychotherapistOrlando() {
               </Badge>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6" data-testid="text-hero-title">
-                Licensed Psychotherapist in Orlando, FL
+                Psychotherapist in Orlando
               </h1>
               
               <p className="text-xl md:text-2xl text-muted-foreground mb-6" data-testid="text-hero-subtitle">
-                Compassionate, Evidence-Based Psychotherapy for Anxiety, Depression, Trauma & More
+                Need a psychotherapist in Orlando? Our licensed therapists provide evidence-based care for anxiety, depression, trauma & relationships. Same-week appointments available.
               </p>
               
               <div className="flex flex-wrap justify-center gap-4 mb-8">

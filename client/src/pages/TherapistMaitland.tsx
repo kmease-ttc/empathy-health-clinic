@@ -202,11 +202,11 @@ export default function TherapistMaitland() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Therapist in Maitland, FL | Licensed Counselors & Therapy | Empathy Health Clinic"
-        description="Expert therapists serving Maitland, FL. Licensed counselors specializing in anxiety, depression, trauma, relationship therapy, family counseling. Same-week appointments. Most insurance accepted. Call 386-848-8751."
+        title="Maitland Therapist | Licensed Counselors | Same-Week Apts"
+        description="Maitland therapist accepting new patients. Licensed counselors for anxiety, depression & trauma. 5 min from Maitland. Same-week appointments. 386-848-8751."
         keywords={[
-          "therapist maitland",
           "maitland therapist",
+          "therapist maitland",
           "therapist in maitland fl",
           "maitland fl therapist",
           "counselor maitland",
@@ -222,10 +222,10 @@ export default function TherapistMaitland() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Therapist in Maitland, FL
+            Maitland Therapist
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
-            Compassionate, licensed therapists serving Maitland and surrounding communities. Our experienced counselors provide evidence-based therapy for anxiety, depression, trauma, relationship issues, and life challenges. Start your healing journey today.
+            Looking for a Maitland therapist? Our licensed counselors are just 5 minutes from Maitland City Center. We provide evidence-based therapy for anxiety, depression, trauma, and relationship issues. Same-week appointments available—most Maitland residents see a therapist within days.
           </p>
           <div className="flex flex-wrap gap-4">
             <Button 
@@ -462,10 +462,10 @@ export default function TherapistMaitland() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl md:text-4xl font-sans font-bold mb-6">
-                  Why Choose Our Maitland Therapists?
+                  Why Maitland Residents Choose Us
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Our licensed mental health professionals are dedicated to providing compassionate, effective therapy that helps you achieve lasting change.
+                  Maitland families and professionals trust our licensed therapists for compassionate, effective care—just minutes from downtown Maitland, Lake Lily, and I-4.
                 </p>
 
                 <div className="space-y-6">

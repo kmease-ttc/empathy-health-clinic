@@ -34,9 +34,9 @@ export default function PsychiatricEvaluation() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Psychiatric Evaluation Near Me | Mental Health Assessment in Winter Park & Orlando FL"
-        description="Expert psychiatric evaluations near you in Winter Park & Orlando. Comprehensive mental health assessments by board-certified psychiatrists. Accurate diagnosis, personalized treatment planning. Same-week appointments, telehealth available. Most insurance accepted. Call 386-848-8751."
-        keywords={["psychiatric evaluation near me", "psych evaluation near me", "mental health evaluation", "psychiatric assessment orlando", "psychiatric evaluation orlando fl", "mental health assessment near me", "psychiatrist evaluation"]}
+        title="Psych Evaluation Orlando | Same-Week Appointments"
+        description="Psych evaluation in Orlando by board-certified psychiatrists. Mental health assessment for ADHD, anxiety, depression. Same-week appointments. 386-848-8751."
+        keywords={["psych evaluation", "psych evaluation near me", "psychiatric evaluation near me", "mental health evaluation", "psychiatric assessment orlando", "psychiatric evaluation orlando fl", "mental health assessment near me", "psychiatrist evaluation"]}
         canonicalPath="/psychiatric-evaluation"
         jsonLd={jsonLd}
       />
@@ -48,10 +48,10 @@ export default function PsychiatricEvaluation() {
           <div className="container mx-auto px-4 py-12 md:py-16">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-6" data-testid="text-page-title">
-                Comprehensive Psychiatric Evaluation Near You
+                Psych Evaluation in Orlando
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
-                Get an accurate mental health diagnosis with a comprehensive psychiatric evaluation in Winter Park & Orlando. Our board-certified psychiatrists conduct thorough assessments to understand your symptoms, identify conditions, and create personalized treatment plans. Same-week appointments available.
+                Need a psych evaluation? Our board-certified psychiatrists in Orlando provide comprehensive mental health assessments for anxiety, depression, ADHD, bipolar disorder, and more. Same-week appointments available—get an accurate diagnosis and personalized treatment plan.
               </p>
               
               <div className="flex flex-wrap justify-center gap-6 mb-8">

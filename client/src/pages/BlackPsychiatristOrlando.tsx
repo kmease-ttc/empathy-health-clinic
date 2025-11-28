@@ -224,8 +224,8 @@ export default function BlackPsychiatristOrlando() {
   return (
     <>
       <SEOHead
-        title="Black Psychiatrist Orlando | Culturally Competent Mental Health Care"
-        description="Find a culturally competent Black psychiatrist in Orlando. Board-certified psychiatrists providing mental health care with understanding of cultural experiences, racial trauma, and community-specific needs. Same-week appointments available."
+        title="Black Psychiatrist Orlando | Same-Week Appointments"
+        description="Black psychiatrist in Orlando accepting new patients. Culturally competent care for anxiety, depression & ADHD. Same-week appointments. 386-848-8751."
         keywords={[
           "black psychiatrist Orlando",
           "African American psychiatrist Orlando",
@@ -254,7 +254,7 @@ export default function BlackPsychiatristOrlando() {
               </h1>
               
               <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-                Board-certified psychiatrists providing culturally competent mental health care with understanding of your unique experiences, cultural background, and community needs.
+                Looking for a Black psychiatrist in Orlando? Our board-certified psychiatrists provide culturally competent care for anxiety, depression, ADHD, and trauma—with understanding of your unique cultural experiences.
               </p>
 
               <div className="flex flex-wrap gap-4 justify-center mb-12">

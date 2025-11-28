@@ -207,8 +207,8 @@ export default function FemaleTherapistOrlando() {
   return (
     <>
       <SEOHead
-        title="Female Therapist Orlando | Women's Mental Health Specialists"
-        description="Find a compassionate female therapist in Orlando specializing in women's mental health. Board-certified therapists offering anxiety, depression, trauma, and relationship therapy. Same-week appointments available."
+        title="Female Therapist Orlando | Same-Week Appointments"
+        description="Female therapist in Orlando accepting new patients. Licensed women therapists for anxiety, depression & trauma. In-person & telehealth. 386-848-8751."
         keywords={[
           "female therapist Orlando",
           "women therapist Orlando",
@@ -231,7 +231,7 @@ export default function FemaleTherapistOrlando() {
                 Female Therapist in Orlando
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
-                Connect with compassionate female therapists who understand women's unique mental health needs. Board-certified specialists offering anxiety, depression, trauma, and relationship therapy in Orlando.
+                Looking for a female therapist in Orlando? Our licensed women therapists specialize in anxiety, depression, trauma, postpartum, and relationship issues. Same-week appointments available—in-person or telehealth.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button 
