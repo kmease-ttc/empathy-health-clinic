@@ -117,7 +117,7 @@ export default function BlogListingPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 {featuredPosts.map((post, index) => (
                   <Link key={post.id} href={`/blog/${post.slug}`}>
-                    <Card className="hover-elevate cursor-pointer h-full flex flex-col" data-testid={`featured-post-${index}`}>
+                    <Card className="hover-elevate cursor-pointer h-full min-h-[480px] flex flex-col" data-testid={`featured-post-${index}`}>
                       {post.featuredImage && (
                         <div 
                           className="h-56 bg-cover bg-center"

@@ -86,13 +86,13 @@ export default function SiteHeader() {
                 <>
                   <a 
                     href={`tel:${phone.replace(/[^0-9]/g, '')}`}
-                    className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium underline decoration-primary/50 hover:decoration-primary"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-amber-100 dark:bg-amber-900/40 text-amber-900 dark:text-amber-200 hover:bg-amber-200 dark:hover:bg-amber-800/50 transition-colors font-semibold"
                     data-testid="link-header-phone"
                     aria-label="Call Empathy Health Clinic at 386-848-8751"
                     onClick={() => trackEvent('phone_click', 'conversion', 'Header Phone', phone)}
                   >
-                    <Phone className="h-4 w-4" />
-                    <span className="text-sm">{phone}</span>
+                    <Phone className="h-5 w-5" />
+                    <span className="text-base">{phone}</span>
                   </a>
                   <div className="h-6 w-px bg-border" />
                   <Button
