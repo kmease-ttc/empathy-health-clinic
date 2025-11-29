@@ -139,6 +139,33 @@ export default function OrganizationSchema() {
         "https://www.tiktok.com/@empathy.health.cl",
         "https://www.linkedin.com/company/empathy-health-clinic/",
         "https://www.youtube.com/@EmpathyHealthClinic"
+      ],
+      "potentialAction": [
+        {
+          "@type": "ReserveAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://empathyhealthclinic.com/request-appointment",
+            "actionPlatform": [
+              "http://schema.org/DesktopWebPlatform",
+              "http://schema.org/MobileWebPlatform"
+            ]
+          },
+          "result": {
+            "@type": "Reservation",
+            "name": "Appointment Request"
+          }
+        },
+        {
+          "@type": "CommunicateAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "tel:+1-386-848-8751",
+            "actionPlatform": [
+              "http://schema.org/MobileWebPlatform"
+            ]
+          }
+        }
       ]
     };
 

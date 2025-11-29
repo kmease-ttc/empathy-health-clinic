@@ -265,6 +265,39 @@ export function normalizePath(path: string): string {
 }
 
 /**
+ * Query parameters that should be stripped for SEO purposes
+ * These are tracking/analytics parameters that don't affect page content
+ */
+const STRIP_QUERY_PARAMS = [
+  'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+  'ref', 'fbclid', 'gclid', 'msclkid', 'dclid',
+  'mc_cid', 'mc_eid', 'oly_enc_id', 'oly_anon_id',
+  '_ga', '_gl', 'hsCtaTracking', 'hsa_acc', 'hsa_cam', 'hsa_grp', 'hsa_ad', 'hsa_src', 'hsa_tgt', 'hsa_kw', 'hsa_mt', 'hsa_net', 'hsa_ver',
+];
+
+/**
+ * Strip tracking query parameters for clean canonical URLs
+ */
+function stripTrackingParams(query: string): string {
+  if (!query || query === '?' || !query.startsWith('?')) {
+    return '';
+  }
+  
+  const params = new URLSearchParams(query.slice(1));
+  const cleanParams = new URLSearchParams();
+  
+  for (const [key, value] of params.entries()) {
+    // Keep parameter if it's not in the strip list
+    if (!STRIP_QUERY_PARAMS.includes(key.toLowerCase())) {
+      cleanParams.set(key, value);
+    }
+  }
+  
+  const cleanQuery = cleanParams.toString();
+  return cleanQuery ? `?${cleanQuery}` : '';
+}
+
+/**
  * Get the canonical URL for a given request
  * Returns null if already canonical, otherwise returns the canonical URL
  */
@@ -283,10 +316,13 @@ export function getCanonicalUrl(
   // Step 3: Normalize path (remove trailing slash, collapse duplicates)
   const normalizedPath = normalizePath(path);
   
-  // Step 4: Check for content redirects in the map
+  // Step 4: Strip tracking query parameters
+  const cleanQuery = stripTrackingParams(query);
+  
+  // Step 5: Check for content redirects in the map
   let canonicalPath = contentRedirectMap[normalizedPath];
   
-  // Step 5: Check if this is a blog post slug (dynamic redirect)
+  // Step 6: Check if this is a blog post slug (dynamic redirect)
   if (!canonicalPath && blogSlugChecker) {
     const segments = normalizedPath.split('/').filter(s => s.length > 0);
     
@@ -307,7 +343,7 @@ export function getCanonicalUrl(
   }
   
   // Construct the canonical URL
-  const canonical = `${canonicalProtocol}://${canonicalHost}${canonicalPath}${query}`;
+  const canonical = `${canonicalProtocol}://${canonicalHost}${canonicalPath}${cleanQuery}`;
   const current = `${protocol}://${host}${path}${query}`;
   
   // Return canonical URL only if it differs from current

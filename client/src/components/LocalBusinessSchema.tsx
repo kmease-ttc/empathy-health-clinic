@@ -8,6 +8,24 @@ interface LocalBusinessSchemaProps {
   slug: string;
 }
 
+interface CityGeoData {
+  latitude: number;
+  longitude: number;
+  postalCode: string;
+}
+
+const cityGeoCoordinates: Record<string, CityGeoData> = {
+  "Orlando": { latitude: 28.5383, longitude: -81.3792, postalCode: "32801" },
+  "Winter Park": { latitude: 28.5999, longitude: -81.3392, postalCode: "32789" },
+  "Altamonte Springs": { latitude: 28.6611, longitude: -81.3656, postalCode: "32701" },
+  "Lake Mary": { latitude: 28.7589, longitude: -81.3178, postalCode: "32746" },
+  "Sanford": { latitude: 28.8029, longitude: -81.2731, postalCode: "32771" },
+  "Maitland": { latitude: 28.6275, longitude: -81.3631, postalCode: "32751" },
+  "Casselberry": { latitude: 28.6778, longitude: -81.3278, postalCode: "32707" },
+  "Longwood": { latitude: 28.7028, longitude: -81.3384, postalCode: "32750" },
+  "Oviedo": { latitude: 28.6700, longitude: -81.2081, postalCode: "32765" },
+};
+
 export default function LocalBusinessSchema({ 
   city, 
   serviceType, 
@@ -17,6 +35,8 @@ export default function LocalBusinessSchema({
 }: LocalBusinessSchemaProps) {
   useEffect(() => {
     const baseUrl = window.location.origin;
+    
+    const geoData = cityGeoCoordinates[city] || cityGeoCoordinates["Orlando"];
     
     const localBusinessSchema = {
       "@context": "https://schema.org",
@@ -32,15 +52,15 @@ export default function LocalBusinessSchema({
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "2281 Lee Rd Suite 102",
-        "addressLocality": "Winter Park",
+        "addressLocality": city,
         "addressRegion": "FL",
-        "postalCode": "32810",
+        "postalCode": geoData.postalCode,
         "addressCountry": "US"
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 28.59544,
-        "longitude": -81.36537
+        "latitude": geoData.latitude,
+        "longitude": geoData.longitude
       },
       "areaServed": [
         {
