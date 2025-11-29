@@ -81,6 +81,23 @@ export default function OrganizationSchema() {
         }
       ],
       "medicalSpecialty": "Psychiatric",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "acceptsInsurance": [
+        "Blue Cross Blue Shield",
+        "Aetna",
+        "Cigna",
+        "United Healthcare",
+        "Medicare",
+        "Tricare",
+        "UMR",
+        "Oscar Health"
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Mental Health Services",

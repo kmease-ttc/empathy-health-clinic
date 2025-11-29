@@ -86,8 +86,9 @@ export default function SiteHeader() {
                 <>
                   <a 
                     href={`tel:${phone.replace(/[^0-9]/g, '')}`}
-                    className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium"
+                    className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium underline decoration-primary/50 hover:decoration-primary"
                     data-testid="link-header-phone"
+                    aria-label="Call Empathy Health Clinic at 386-848-8751"
                     onClick={() => trackEvent('phone_click', 'conversion', 'Header Phone', phone)}
                   >
                     <Phone className="h-4 w-4" />
@@ -122,8 +123,9 @@ export default function SiteHeader() {
               {isTablet && (
                 <a 
                   href={`tel:${phone.replace(/[^0-9]/g, '')}`}
-                  className="flex items-center gap-1.5 text-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-1.5 text-primary hover:text-primary/80 transition-colors underline decoration-primary/50"
                   data-testid="link-header-phone-tablet"
+                  aria-label="Call Empathy Health Clinic at 386-848-8751"
                   onClick={() => trackEvent('phone_click', 'conversion', 'Header Phone Tablet', phone)}
                 >
                   <Phone className="h-4 w-4" />
@@ -148,8 +150,9 @@ export default function SiteHeader() {
           <div className="px-6 py-4 space-y-4">
             <a 
               href={`tel:${phone.replace(/[^0-9]/g, '')}`}
-              className="flex items-center justify-center gap-2 text-primary font-semibold text-xl py-3 border-b border-border"
+              className="flex items-center justify-center gap-2 text-primary font-semibold text-xl py-3 border-b border-border underline decoration-primary/50"
               data-testid="link-mobile-phone"
+              aria-label="Call Empathy Health Clinic at 386-848-8751"
               onClick={() => trackEvent('phone_click', 'conversion', 'Mobile Header Phone', phone)}
             >
               <Phone className="h-6 w-6" />

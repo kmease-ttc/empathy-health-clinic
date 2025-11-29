@@ -151,7 +151,7 @@ export default function HeroSection() {
                   >
                     <img
                       src={provider.logo}
-                      alt={provider.name}
+                      alt={`${provider.name} mental health coverage accepted`}
                       className="max-h-full max-w-full object-contain brightness-0 invert opacity-90"
                       width={80}
                       height={32}
@@ -171,57 +171,73 @@ export default function HeroSection() {
                 </h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-3" data-testid="form-hero-lead-mobile">
-                  <Input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    autoComplete="name"
-                    className="h-11 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
-                    data-testid="input-hero-name-mobile"
-                    required
-                  />
+                  <div>
+                    <label htmlFor="hero-name-mobile" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <Input
+                      id="hero-name-mobile"
+                      type="text"
+                      name="name"
+                      placeholder="Your full name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      autoComplete="name"
+                      className="h-11 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                      data-testid="input-hero-name-mobile"
+                      required
+                    />
+                  </div>
                   
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    autoComplete="email"
-                    className="h-11 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
-                    data-testid="input-hero-email-mobile"
-                    required
-                  />
+                  <div>
+                    <label htmlFor="hero-email-mobile" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <Input
+                      id="hero-email-mobile"
+                      type="email"
+                      name="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoComplete="email"
+                      className="h-11 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                      data-testid="input-hero-email-mobile"
+                      required
+                    />
+                  </div>
                   
-                  <Input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    autoComplete="tel"
-                    className="h-11 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
-                    data-testid="input-hero-phone-mobile"
-                    required
-                  />
+                  <div>
+                    <label htmlFor="hero-phone-mobile" className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <Input
+                      id="hero-phone-mobile"
+                      type="tel"
+                      name="phone"
+                      placeholder="(386) 555-1234"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      autoComplete="tel"
+                      className="h-11 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                      data-testid="input-hero-phone-mobile"
+                      required
+                    />
+                  </div>
 
-                  <Select value={service} onValueChange={setService}>
-                    <SelectTrigger 
-                      className="h-11 bg-gray-50 border-gray-200 rounded-lg text-base"
-                      data-testid="select-hero-service-mobile"
-                    >
-                      <SelectValue placeholder="Service Interested In" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {serviceOptions.map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div>
+                    <label htmlFor="hero-service-mobile" className="block text-sm font-medium text-gray-700 mb-1">Service Interested In</label>
+                    <Select value={service} onValueChange={setService}>
+                      <SelectTrigger 
+                        id="hero-service-mobile"
+                        className="h-11 bg-gray-50 border-gray-200 rounded-lg text-base"
+                        data-testid="select-hero-service-mobile"
+                      >
+                        <SelectValue placeholder="Select a service" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {serviceOptions.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                   
                   <Button
                     type="submit"
@@ -229,7 +245,7 @@ export default function HeroSection() {
                     className="w-full h-11 text-white border-0 rounded-lg text-base font-semibold"
                     data-testid="button-hero-submit-mobile"
                   >
-                    {submitLead.isPending ? "Submitting..." : "Submit"}
+                    {submitLead.isPending ? "Booking..." : "Book Appointment"}
                   </Button>
                 </form>
               </div>
@@ -244,57 +260,73 @@ export default function HeroSection() {
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-4" data-testid="form-hero-lead">
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  autoComplete="name"
-                  className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
-                  data-testid="input-hero-name"
-                  required
-                />
+                <div>
+                  <label htmlFor="hero-name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                  <Input
+                    id="hero-name"
+                    type="text"
+                    name="name"
+                    placeholder="Your full name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    autoComplete="name"
+                    className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                    data-testid="input-hero-name"
+                    required
+                  />
+                </div>
                 
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                  className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
-                  data-testid="input-hero-email"
-                  required
-                />
+                <div>
+                  <label htmlFor="hero-email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <Input
+                    id="hero-email"
+                    type="email"
+                    name="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                    data-testid="input-hero-email"
+                    required
+                  />
+                </div>
                 
-                <Input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  autoComplete="tel"
-                  className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
-                  data-testid="input-hero-phone"
-                  required
-                />
+                <div>
+                  <label htmlFor="hero-phone" className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <Input
+                    id="hero-phone"
+                    type="tel"
+                    name="phone"
+                    placeholder="(386) 555-1234"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    autoComplete="tel"
+                    className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base placeholder:text-gray-400"
+                    data-testid="input-hero-phone"
+                    required
+                  />
+                </div>
 
-                <Select value={service} onValueChange={setService}>
-                  <SelectTrigger 
-                    className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base"
-                    data-testid="select-hero-service"
-                  >
-                    <SelectValue placeholder="Service Interested In" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {serviceOptions.map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div>
+                  <label htmlFor="hero-service" className="block text-sm font-medium text-gray-700 mb-1">Service Interested In</label>
+                  <Select value={service} onValueChange={setService}>
+                    <SelectTrigger 
+                      id="hero-service"
+                      className="h-12 bg-gray-50 border-gray-200 rounded-lg text-base"
+                      data-testid="select-hero-service"
+                    >
+                      <SelectValue placeholder="Select a service" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {serviceOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
                 
                 <Button
                   type="submit"
@@ -302,7 +334,7 @@ export default function HeroSection() {
                   className="w-full h-12 text-white border-0 rounded-lg text-base font-semibold"
                   data-testid="button-hero-submit"
                 >
-                  {submitLead.isPending ? "Submitting..." : "Submit"}
+                  {submitLead.isPending ? "Booking..." : "Book Appointment"}
                 </Button>
               </form>
 
@@ -329,7 +361,7 @@ export default function HeroSection() {
                   >
                     <img
                       src={provider.logo}
-                      alt={provider.name}
+                      alt={`${provider.name} psychiatry coverage accepted`}
                       className="max-h-full max-w-full object-contain grayscale opacity-70"
                       width={64}
                       height={24}

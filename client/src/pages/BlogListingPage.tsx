@@ -168,7 +168,7 @@ export default function BlogListingPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {latestPosts.map((post, index) => (
                   <Link key={post.id} href={`/blog/${post.slug}`} data-testid={`latest-post-link-${index}`}>
-                    <Card className="h-full hover-elevate cursor-pointer flex flex-col overflow-hidden" data-testid={`latest-post-card-${index}`}>
+                    <Card className="h-full min-h-[420px] hover-elevate cursor-pointer flex flex-col overflow-hidden" data-testid={`latest-post-card-${index}`}>
                       {post.featuredImage && (
                         <div 
                           className="h-48 bg-cover bg-center"
@@ -253,7 +253,7 @@ export default function BlogListingPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {paginatedPosts.map((post, index) => (
                     <Link key={post.id} href={`/blog/${post.slug}`} data-testid={`paginated-post-link-${index}`}>
-                      <Card className="h-full hover-elevate cursor-pointer flex flex-col overflow-hidden" data-testid={`paginated-post-card-${index}`}>
+                      <Card className="h-full min-h-[420px] hover-elevate cursor-pointer flex flex-col overflow-hidden" data-testid={`paginated-post-card-${index}`}>
                         {post.featuredImage && (
                           <div 
                             className="h-48 bg-cover bg-center"
