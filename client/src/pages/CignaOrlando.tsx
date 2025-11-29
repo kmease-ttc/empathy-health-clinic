@@ -17,8 +17,8 @@ export default function CignaOrlandoPage() {
   return (
     <>
       <Helmet>
-        <title>Orlando Psychiatrists Who Accept Cigna Insurance (2025) | Empathy Health Clinic</title>
-        <meta name="description" content="Find an Orlando psychiatrist who accepts Cigna in 2025. Empathy Health Clinic offers convenient care, easy insurance verification, and fast appointments near you." />
+        <title>Psychiatrist Orlando Accepts Cigna | In-Network 2025</title>
+        <meta name="description" content="Psychiatrist Orlando accepts Cigna - In-network provider for anxiety, depression, ADHD, bipolar. Same-week appointments, verified benefits. Call (386) 848-8751." />
         <meta name="keywords" content="Orlando psychiatrist Cigna, Cigna mental health Orlando, psychiatry Cigna coverage, Orlando Cigna psychiatrist" />
         <link rel="canonical" href="https://empathyhealthclinic.com/psychiatrist-orlando-takes-cigna" />
         

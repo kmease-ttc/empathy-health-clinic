@@ -1004,8 +1004,8 @@ function createInsuranceTherapyConfig(
 // UMR Psychiatry Orlando - Optimized for "psychiatrist orlando accepts umr" (Rank 5)
 export const umrTherapyOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatrist Orlando Accepts UMR | In-Network",
-    description: "Psychiatrist in Orlando that accepts UMR insurance. In-network for anxiety, depression, ADHD, bipolar. Same-week appointments. Call (386) 848-8751.",
+    title: "Psychiatrist Orlando Accepts UMR | In-Network 2025",
+    description: "Psychiatrist Orlando accepts UMR insurance - In-network for anxiety, depression, ADHD, bipolar disorder. Same-week appointments available. Call (386) 848-8751.",
     keywords: ["psychiatrist orlando accepts umr", "umr psychiatrist orlando", "psychiatrist takes umr orlando fl", "umr mental health orlando", "in-network psychiatrist umr orlando", "umr covered psychiatrist orlando", "psychiatrist near me umr insurance", "psychiatrist that accepts umr orlando"],
     canonicalPath: "/therapist-accepts-umr",
   },
@@ -1287,8 +1287,8 @@ export const cignaPsychiatristOrlandoConfig: LandingPageConfig = {
 // Aetna Psychiatrist Orlando - Optimized for "psychiatrist orlando accepts aetna" (Rank 5)
 export const aetnaPsychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatrist Orlando Accepts Aetna | In-Network",
-    description: "Psychiatrist in Orlando that accepts Aetna insurance. In-network for anxiety, ADHD, depression, bipolar. Same-week appointments. Call (386) 848-8751.",
+    title: "Psychiatrist Orlando Accepts Aetna | In-Network 2025",
+    description: "Psychiatrist Orlando accepts Aetna - In-network provider for anxiety, ADHD, depression, bipolar. Same-week appointments available. Call (386) 848-8751.",
     keywords: ["psychiatrist orlando accepts aetna", "aetna psychiatrist orlando", "psychiatrist takes aetna orlando fl", "aetna mental health orlando", "in-network psychiatrist aetna orlando", "aetna covered psychiatrist orlando", "psychiatrist that accepts aetna orlando"],
     canonicalPath: "/psychiatrist-orlando-accepts-aetna",
   },
@@ -1413,8 +1413,8 @@ export const aetnaPsychiatristOrlandoConfig: LandingPageConfig = {
 // BCBS Psychiatrist Orlando - Optimized for "psychiatrist orlando accepts bcbs" (Rank 11)
 export const bcbsPsychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "BCBS Psychiatrist Orlando | In-Network Provider",
-    description: "BCBS-accepted psychiatrists in Orlando, FL. In-network for anxiety, ADHD, depression. Same-week appointments. Call (386) 848-8751.",
+    title: "Psychiatrist Orlando Accepts BCBS | In-Network 2025",
+    description: "Psychiatrist Orlando accepts BCBS - In-network Blue Cross Blue Shield provider for anxiety, depression, ADHD. Same-week appointments. Call (386) 848-8751.",
     keywords: ["psychiatrist orlando accepts bcbs", "bcbs psychiatrist orlando", "blue cross blue shield psychiatrist orlando", "psychiatrist takes bcbs orlando fl", "bcbs mental health orlando", "in-network psychiatrist bcbs orlando"],
     canonicalPath: "/psychiatrist-orlando-accepts-bcbs",
   },
@@ -2273,8 +2273,8 @@ export const bipolarPsychiatristOrlandoConfig: LandingPageConfig = {
 // Medication Management Orlando
 export const medicationManagementOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Medication Management Orlando FL | Same-Week Apts",
-    description: "Expert psychiatric medication management in Orlando, FL. Prescribing and monitoring for anxiety, depression, ADHD, bipolar. Same-week appointments. Call 386-848-8751.",
+    title: "Medication Management Orlando | Psychiatrist | Same-Week",
+    description: "Medication management Orlando - Expert psychiatric medication prescribing & monitoring for anxiety, depression, ADHD, bipolar. Same-week appointments. Call now.",
     keywords: ["medication management orlando", "psychiatric medication management orlando", "mental health medication orlando", "medication management psychiatrist orlando", "psych meds orlando", "medication monitoring orlando"],
     canonicalPath: "/medication-management-orlando",
   },
@@ -2641,8 +2641,8 @@ export const cognitiveBehavioralTherapyConfig: LandingPageConfig = {
 // United Healthcare Psychiatrist Orlando - Optimized for "psychiatrist orlando accepts united healthcare"
 export const unitedHealthcarePsychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatrist Orlando Accepts United Healthcare | UHC",
-    description: "Psychiatrist in Orlando accepting United Healthcare/UHC. In-network for anxiety, ADHD, depression, bipolar. Same-week appointments. Call (386) 848-8751.",
+    title: "Psychiatrist Orlando Accepts United Healthcare | 2025",
+    description: "Psychiatrist Orlando accepts United Healthcare - In-network UHC provider for anxiety, ADHD, depression, bipolar. Same-week appointments. Call (386) 848-8751.",
     keywords: ["psychiatrist orlando accepts united healthcare", "united healthcare psychiatrist orlando", "uhc psychiatrist orlando", "psychiatrist takes united healthcare orlando fl", "united healthcare mental health orlando", "in-network psychiatrist uhc orlando", "psychiatrist that accepts uhc orlando"],
     canonicalPath: "/psychiatrist-orlando-accepts-united-healthcare",
   },
