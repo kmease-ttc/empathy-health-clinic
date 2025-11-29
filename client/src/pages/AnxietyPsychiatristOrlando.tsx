@@ -60,7 +60,7 @@ export default function AnxietyPsychiatristOrlando() {
         title="Anxiety Psychiatrist Orlando FL | #1 Rated | Same-Week"
         description="Anxiety psychiatrist Orlando - Board-certified specialists for panic, GAD, social anxiety & phobias. Same-week appointments, most insurance accepted. Call now."
         keywords={["anxiety psychiatrist orlando", "anxiety psychiatrist orlando fl", "anxiety doctor orlando", "orlando anxiety psychiatrist", "panic disorder psychiatrist orlando", "social anxiety doctor orlando", "GAD treatment orlando", "anxiety medication management orlando", "OCD psychiatrist orlando", "best anxiety psychiatrist orlando"]}
-        canonicalPath="/anxiety-psychiatrist-orlando"
+        canonicalPath="/psychiatrist-orlando"
         jsonLd={jsonLd}
       />
       <SiteHeader />

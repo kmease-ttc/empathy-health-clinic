@@ -1769,9 +1769,9 @@ export const psychiatryOrlandoConfig: LandingPageConfig = {
 // Psychiatrist Orlando - Optimized for "psychiatrist orlando" (Rank 10)
 export const psychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatrist Orlando | #1 Rated | Same-Week Apts",
-    description: "Top-rated psychiatrist in Orlando, FL. Board-certified for anxiety, depression, ADHD, bipolar. 4.8 stars, same-week appointments available. Call (386) 848-8751.",
-    keywords: ["psychiatrist orlando", "psychiatrist orlando fl", "orlando psychiatrist", "psychiatrists in orlando", "find psychiatrist orlando", "best psychiatrist orlando", "board certified psychiatrist orlando", "top psychiatrist orlando", "psychiatrist near me orlando", "orlando fl psychiatrist"],
+    title: "Psychiatrist Orlando | Anxiety, ADHD & Mental Health Treatment",
+    description: "Top-rated psychiatrist in Orlando for anxiety, ADHD, depression & medication management. Same-week appointments. Most insurance accepted.",
+    keywords: ["psychiatrist orlando", "psychiatrist orlando fl", "orlando psychiatrist", "psychiatrists in orlando", "find psychiatrist orlando", "best psychiatrist orlando", "board certified psychiatrist orlando", "top psychiatrist orlando", "psychiatrist near me orlando", "orlando fl psychiatrist", "anxiety psychiatrist orlando", "adhd psychiatrist orlando", "medication management orlando"],
     canonicalPath: "/psychiatrist-orlando",
   },
   jsonLd: {
@@ -1924,9 +1924,11 @@ export const psychiatristOrlandoConfig: LandingPageConfig = {
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
       { href: "/psychiatric-evaluation-orlando", label: "Psychiatric Evaluation" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
       { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
       { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
-      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+      { href: "/therapist-accepts-umr", label: "UMR Insurance" },
+      { href: "/psychiatrist-orlando-accepts-united-healthcare", label: "United Healthcare" },
     ],
   },
   analytics: {
@@ -1941,7 +1943,7 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
     title: "ADHD Psychiatrist Orlando | Fast Diagnosis | Same-Week",
     description: "Top ADHD psychiatrist in Orlando, FL. Fast diagnosis for adults & children. Adderall, Vyvanse, non-stimulants. Same-week appointments. Call (386) 848-8751.",
     keywords: ["adhd psychiatrist orlando", "adhd psychiatrist orlando fl", "adhd doctor orlando", "adhd specialist orlando", "adult adhd psychiatrist orlando", "child adhd psychiatrist orlando", "add doctor orlando", "adhd medication management orlando", "adhd diagnosis orlando", "best adhd psychiatrist orlando"],
-    canonicalPath: "/adhd-psychiatrist-orlando",
+    canonicalPath: "/psychiatrist-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
@@ -2108,7 +2110,7 @@ export const bipolarPsychiatristOrlandoConfig: LandingPageConfig = {
     title: "Bipolar Psychiatrist Orlando | Mood Disorder Experts",
     description: "Top bipolar psychiatrist in Orlando, FL. Expert mood stabilization for Bipolar I, II. Lithium, Lamictal, Seroquel. Same-week appointments. Call (386) 848-8751.",
     keywords: ["bipolar psychiatrist orlando", "bipolar psychiatrist orlando fl", "bipolar disorder treatment orlando", "bipolar doctor orlando", "mood disorder specialist orlando", "bipolar medication management orlando", "manic depression treatment orlando", "bipolar 2 psychiatrist orlando", "best bipolar psychiatrist orlando"],
-    canonicalPath: "/bipolar-psychiatrist-orlando",
+    canonicalPath: "/psychiatrist-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
@@ -2276,7 +2278,7 @@ export const medicationManagementOrlandoConfig: LandingPageConfig = {
     title: "Medication Management Orlando | Psychiatrist | Same-Week",
     description: "Medication management Orlando - Expert psychiatric medication prescribing & monitoring for anxiety, depression, ADHD, bipolar. Same-week appointments. Call now.",
     keywords: ["medication management orlando", "psychiatric medication management orlando", "mental health medication orlando", "medication management psychiatrist orlando", "psych meds orlando", "medication monitoring orlando"],
-    canonicalPath: "/medication-management-orlando",
+    canonicalPath: "/psychiatrist-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
