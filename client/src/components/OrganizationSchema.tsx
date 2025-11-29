@@ -62,9 +62,15 @@ export default function OrganizationSchema() {
           }
         }
       ],
+      "founder": {
+        "@type": "Person",
+        "name": "Alex Regan PA-C"
+      },
+      "foundingDate": "2023-01-01",
       "priceRange": "$$",
       "currenciesAccepted": "USD",
       "paymentAccepted": "Insurance, Credit Card",
+      "isAcceptingNewPatients": true,
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",

@@ -119,6 +119,7 @@ export default function SEOHead({
 
     const metaTags = [
       { name: "description", content: description },
+      { name: "robots", content: "index, follow" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:image", content: defaultOgImage },

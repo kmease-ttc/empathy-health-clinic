@@ -18,6 +18,36 @@ app.use(compression({
   threshold: 1024
 }));
 
+// Security Headers Middleware
+// Required for YMYL medical website compliance and vulnerability scanning
+app.use((req, res, next) => {
+  // Prevent clickjacking attacks
+  res.setHeader("X-Frame-Options", "DENY");
+  // Prevent MIME-type sniffing
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  // Control referrer information sent with requests
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  // XSS Protection (legacy, but required for some security scanners)
+  res.setHeader("X-XSS-Protection", "0");
+  // Content Security Policy - allows necessary external resources
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self' https: data: blob:; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://www.googleadservices.com https://connect.facebook.net https://www.clarity.ms; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "font-src 'self' https://fonts.gstatic.com data:; " +
+    "img-src 'self' https: data: blob:; " +
+    "connect-src 'self' https: wss:; " +
+    "frame-src 'self' https://www.google.com https://www.youtube.com https://player.vimeo.com;"
+  );
+  // Permissions Policy (formerly Feature Policy)
+  res.setHeader(
+    "Permissions-Policy",
+    "geolocation=(), microphone=(), camera=(), payment=(self)"
+  );
+  next();
+});
+
 // 410 Gone: Legacy WordPress URLs that no longer exist
 // IMPORTANT: This must run BEFORE canonicalization middleware to prevent redirects
 // We want these URLs to return 410 immediately, not redirect first

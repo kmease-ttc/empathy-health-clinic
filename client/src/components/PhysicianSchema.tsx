@@ -13,6 +13,8 @@ export default function PhysicianSchema({ teamMember }: PhysicianSchemaProps) {
 
     const baseUrl = window.location.origin;
     
+    const specialties = teamMember.specialties.split(',').map(s => s.trim());
+    
     const physicianSchema = {
       "@context": "https://schema.org",
       "@type": ["Person", "Physician"],
@@ -25,7 +27,24 @@ export default function PhysicianSchema({ teamMember }: PhysicianSchemaProps) {
       "image": teamMember.image,
       "url": `${baseUrl}/team/${teamMember.slug}`,
       "description": teamMember.bio,
-      "medicalSpecialty": teamMember.specialties.split(',').map(s => s.trim()),
+      "medicalSpecialty": ["Psychiatry", "Mental Health", ...specialties],
+      "qualifications": teamMember.credentials,
+      "isAcceptingNewPatients": true,
+      "availableService": [
+        {
+          "@type": "MedicalProcedure",
+          "name": "Psychiatric Evaluation"
+        },
+        {
+          "@type": "MedicalTherapy", 
+          "name": "Medication Management"
+        }
+      ],
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "LicenseNumber",
+        "value": "Florida Licensed APRN/PMHNP"
+      },
       "affiliation": {
         "@type": ["MedicalOrganization", "LocalBusiness"],
         "name": "Empathy Health Clinic",

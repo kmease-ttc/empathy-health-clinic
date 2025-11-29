@@ -1,5 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import rateLimit from "express-rate-limit";
 import { storage, initBlogSlugCache, isBlogPostSlug } from "./storage";
 import { sendLeadNotification } from "./email";
 import * as googleAdsService from "./google-ads-service";
@@ -8,6 +9,24 @@ import { ContentAnalyzerService } from "./content-analyzer-service";
 import { db } from "./db";
 import { sql } from "drizzle-orm";
 import { contentRedirectMap, normalizePath, setBlogSlugChecker } from './redirect-config';
+
+// Rate limiting for form submissions (prevents bot spam)
+const formSubmissionLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // 10 submissions per 15 minutes per IP
+  message: { error: "Too many form submissions. Please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Rate limiting for API endpoints (general protection)
+const apiLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100, // 100 requests per minute per IP
+  message: { error: "Too many requests. Please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 import {
   insertSiteContentSchema,
   insertTreatmentSchema,
@@ -35,6 +54,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Connect blog slug checker to canonicalization middleware
   // This enables dynamic /{slug} → /blog/{slug} redirects
   setBlogSlugChecker(isBlogPostSlug);
+  
+  // Apply general API rate limiting to all /api routes (prevents DDoS/abuse)
+  app.use('/api', apiLimiter);
   
   // Setup authentication routes (/api/register, /api/login, /api/logout, /api/user)
   setupAuth(app);
@@ -1233,8 +1255,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Lead routes
-  app.post("/api/leads", async (req, res) => {
+  // Lead routes - with rate limiting to prevent bot spam
+  app.post("/api/leads", formSubmissionLimiter, async (req, res) => {
     try {
       const validated = insertLeadSchema.parse(req.body);
       console.log(`📝 Lead submission received: ${validated.email} (${validated.phone}) - ${validated.formType} from ${validated.source}`);
@@ -1936,8 +1958,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Newsletter subscriber routes
-  app.post("/api/newsletter/subscribe", async (req, res) => {
+  // Newsletter subscriber routes - with rate limiting to prevent bot spam
+  app.post("/api/newsletter/subscribe", formSubmissionLimiter, async (req, res) => {
     try {
       const validated = insertNewsletterSubscriberSchema.parse(req.body);
       const subscriber = await storage.createNewsletterSubscriber(validated);
