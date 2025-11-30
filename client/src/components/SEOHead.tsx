@@ -752,6 +752,45 @@ export default function SEOHead({
       breadcrumbScript = null;
     }
 
+    // Add CollectionPage structured data for paginated lists
+    let paginationScript = document.querySelector('script[type="application/ld+json"][data-pagination="true"]');
+    if (pagination && pagination.totalPages > 1) {
+      const { currentPage, totalPages, basePath } = pagination;
+      const paginationSchema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": `${title.split(' | ')[0]} - Page ${currentPage}`,
+        "url": currentPage === 1 
+          ? `${preferredDomain}${basePath}`
+          : `${preferredDomain}${basePath}?page=${currentPage}`,
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Empathy Health Clinic",
+          "url": preferredDomain
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "Mental Health Resources"
+        },
+        "numberOfItems": totalPages,
+        "hasPart": {
+          "@type": "ItemList",
+          "numberOfItems": totalPages
+        }
+      };
+      
+      if (!paginationScript) {
+        paginationScript = document.createElement("script");
+        paginationScript.setAttribute("type", "application/ld+json");
+        paginationScript.setAttribute("data-pagination", "true");
+        document.head.appendChild(paginationScript);
+      }
+      paginationScript.textContent = JSON.stringify(paginationSchema);
+    } else if (paginationScript) {
+      paginationScript.remove();
+      paginationScript = null;
+    }
+
     return () => {
       metaTags.forEach(({ name, property }) => {
         const selector = name ? `meta[name="${name}"]` : `meta[property="${property}"]`;
@@ -786,6 +825,11 @@ export default function SEOHead({
       }
       if (nextLink && nextLink.parentNode) {
         nextLink.parentNode.removeChild(nextLink);
+      }
+      
+      // Clean up pagination structured data
+      if (paginationScript && paginationScript.parentNode) {
+        paginationScript.parentNode.removeChild(paginationScript);
       }
     };
   }, [title, description, keywords, ogImage, canonicalPath, type, publishedDate, modifiedDate, author, jsonLd, preloadImage, breadcrumbTitle, pagination]);
