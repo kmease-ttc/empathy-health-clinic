@@ -19,6 +19,15 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, Microsoft Clarity, page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
 - **Admin Dashboards:** Includes a Link & Performance Monitor, SEO Optimization Dashboard, Blog SEO Optimizer, and SEMrush Keyword Optimizer.
 - **Performance Optimizations:** Mobile-first approach with code splitting, analytics deferral, resource hints, script optimization, and hero image preloading.
+- **JavaScript Optimization (November 2025):** Comprehensive JS audit implementation:
+  - **Compression**: Gzip middleware (level 6) enabled in server/index.ts
+  - **Code Splitting**: React.lazy for 100+ pages with Suspense fallbacks
+  - **Analytics Deferral**: requestIdleCallback for GA4, Facebook Pixel, Microsoft Clarity
+  - **Resource Hints**: modulepreload for main.tsx, dns-prefetch for all third-party scripts (GTM, Clarity, GA, Facebook)
+  - **Script Guards**: All dynamic script injections have duplicate prevention
+  - **No Inline Handlers**: All event handlers use React onClick (not HTML onclick)
+  - **No WordPress Legacy**: All wp-includes/wp-content scripts removed (410 Gone responses)
+  - **Note**: vite.config.ts is write-protected; chunk size budgeting not configurable
 - **URL Management:** Unified canonicalization middleware for www removal, trailing slash normalization, content redirects, and comprehensive query parameter stripping (40+ tracking params). Dynamic blog redirect system with SEO-safe slug normalization.
 - **Title & Meta Description Optimization (November 2025):** SEOHead.tsx now enforces: titles max 60 chars with Title Case normalization and automatic brand suffix; meta descriptions max 160 chars with 80-char minimum and YMYL-compliant fallback generation. Applied to document.title, og:title/description, twitter:title/description.
 - **Meta Keywords Optimization (November 2025):** formatKeywords() enforces 3-7 keyword limit with: utility page suppression, canonical consolidation path exclusion, lowercase normalization, deduplication, and automatic backfilling. GEO_KEYWORD_MAP provides path-specific geo terms for 9 Central Florida locations (Orlando, Winter Park, Kissimmee, Altamonte Springs, Lake Mary, Sanford, Apopka, Maitland, Casselberry).
