@@ -9,6 +9,7 @@ import InsuranceSection from "@/components/InsuranceSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/calm_peaceful_therap_3749281a.jpg";
 import { trackEvent } from "@/lib/analytics";
 import TherapyFAQ from "@/components/TherapyFAQ";
@@ -316,6 +317,18 @@ export default function EMDRTherapy() {
             }
           ]}
         />
+
+        {/* Authoritative Sources for YMYL Compliance */}
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AuthoritativeSourcesBlock 
+            variant="section"
+            sources={[
+              { source: "APA", topic: "EMDR Therapy" },
+              { source: "NIMH", topic: "Post-Traumatic Stress Disorder" },
+              { source: "NIH", topic: "EMDR for Trauma" }
+            ]}
+          />
+        </div>
 
         {/* Trust Badges */}
         <ReviewsAndBadges />

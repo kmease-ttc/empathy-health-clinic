@@ -10,6 +10,9 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
+import LocalizedContent from "@/components/LocalizedContent";
+import InternalLinkBlock from "@/components/InternalLinkBlock";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -409,6 +412,33 @@ export default function PsychiatristWinterPark() {
                   </div>
                 </div>
               </section>
+
+              {/* Localized Neighborhood Content */}
+              <LocalizedContent 
+                city="Winter Park" 
+                neighborhoods={["Park Avenue", "Hannibal Square", "College Park", "Baldwin Park", "Mead Botanical Garden Area"]}
+                nearbyLandmarks={["Rollins College", "Central Park", "Winter Park Village", "Park Avenue Shopping District"]}
+                highways={["I-4", "SR 436", "Fairbanks Avenue", "Aloma Avenue"]}
+                description="Charming city known for tree-lined streets and cultural attractions, home to our main clinic location"
+                driveTimeMinutes={5}
+                slug="/psychiatrist-winter-park"
+              />
+
+              {/* Internal Links Section */}
+              <InternalLinkBlock 
+                category="services"
+                excludePaths={["/psychiatrist-winter-park"]}
+                title="Explore Our Psychiatric Services in Winter Park"
+              />
+
+              {/* Authoritative Sources */}
+              <AuthoritativeSourcesBlock 
+                sources={[
+                  { source: "NIMH", topic: "Mental Health Information" },
+                  { source: "APA", topic: "Finding a Psychiatrist" },
+                  { source: "NIH", topic: "Mental Health Resources" }
+                ]}
+              />
 
             </div>
 

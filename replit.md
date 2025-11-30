@@ -25,6 +25,13 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **H1 Tag Optimization (November 2025):** Centralized H1 formatting via `formatH1()` in seoHelpers.ts. Enforces 20-70 char limits, Title Case with uppercase abbreviation preservation (FL, ADHD, CBT, etc.), pipe symbol replacement. LandingPageTemplate applies formatH1 to all hero titles. Orlando cluster H1s differentiated: "Psychiatrist Orlando", "ADHD Psychiatrist Orlando", "Bipolar Psychiatrist Orlando", etc. to prevent keyword cannibalization.
 - **H2 Tag Optimization (November 2025):** Centralized H2 formatting via `formatH2()` in seoHelpers.ts. Enforces 25-70 char limits for ALL inputs, Title Case with uppercase abbreviation preservation (ADHD, CBT, TMS, EMDR, GAD, OCD, PTSD, etc.), generic heading prevention, and automatic contextual suffix addition (" in Orlando, FL" or " - Expert Care in Orlando, FL") for short headings. Includes recursion guards for safe fallback handling. LandingPageTemplate applies formatH2 to all H2 headings. Unique H2 maps defined for Orlando cluster, location, insurance, and condition pages to prevent cannibalization. Added validateH2() for validation and isGenericH2() for detection.
 - **Security Hardening (November 2025):** YMYL-compliant security headers (X-Frame-Options DENY, X-Content-Type-Options nosniff, CSP, Referrer-Policy, Permissions-Policy). Rate limiting: 10 requests/15min for form submissions, 100 requests/min for API endpoints. Enhanced structured data with medical qualifications, founder info, and isAcceptingNewPatients flags.
+- **YMYL Content Audit Implementation (November 2025):** Comprehensive YMYL compliance via reusable components:
+  - `AuthoritativeSource.tsx` / `AuthoritativeSourcesBlock` - Citations to NIMH, APA, NIH for medical content credibility
+  - `LocalizedContent.tsx` - Neighborhood details, landmarks, and drive times for location pages (accepts custom props or falls back to CITY_DATA)
+  - `InternalLinkBlock.tsx` - Contextual internal links with 5+ entries per category (services, conditions, treatments, locations, insurance)
+  - Orlando cluster configs updated with authoritativeSources and internalLinksCategory fields
+  - All 4 location pages (Altamonte Springs, Kissimmee, Apopka, Winter Park) enhanced with localized content, internal links, and 3 authoritative sources (NIMH, APA, NIH)
+  - All condition pages (AnxietyTherapy, DepressionCounseling, EMDRTherapy, ADHDTestingOrlando, TMSTreatment) include AuthoritativeSourcesBlock for YMYL compliance
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, and conditions, including Google Ads and city-specific landing pages.

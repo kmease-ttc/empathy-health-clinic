@@ -9,6 +9,7 @@ import InsuranceSection from "@/components/InsuranceSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/calm_peaceful_therap_3749281a.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -361,6 +362,18 @@ export default function TMSTreatment() {
             </div>
             <TrustFactors variant="compact" limit={4} />
           </div>
+        </div>
+
+        {/* Authoritative Sources for YMYL Compliance */}
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AuthoritativeSourcesBlock 
+            variant="section"
+            sources={[
+              { source: "NIMH", topic: "Brain Stimulation Therapies" },
+              { source: "APA", topic: "Transcranial Magnetic Stimulation" },
+              { source: "NIH", topic: "TMS for Depression" }
+            ]}
+          />
         </div>
 
         {/* Trust Badges */}

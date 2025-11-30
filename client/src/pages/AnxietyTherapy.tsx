@@ -9,6 +9,7 @@ import InsuranceSection from "@/components/InsuranceSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/calm_peaceful_therap_b118766b.jpg";
 import { trackEvent } from "@/lib/analytics";
 import TherapyFAQ from "@/components/TherapyFAQ";
@@ -431,6 +432,18 @@ export default function AnxietyTherapy() {
             }
           ]}
         />
+
+        {/* Authoritative Sources for YMYL Compliance */}
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AuthoritativeSourcesBlock 
+            variant="section"
+            sources={[
+              { source: "NIMH", topic: "Anxiety Disorders" },
+              { source: "APA", topic: "What Are Anxiety Disorders?" },
+              { source: "NIH", topic: "Generalized Anxiety Disorder" }
+            ]}
+          />
+        </div>
 
         {/* Trust Badges */}
         <ReviewsAndBadges />

@@ -1853,6 +1853,12 @@ export const psychiatristOrlandoConfig: LandingPageConfig = {
       { name: "Insomnia & Sleep Disorders" },
       { name: "Schizophrenia & Psychotic Disorders" },
     ],
+    authoritativeSources: [
+      { source: "APA" as const, topic: "What is a Psychiatrist?" },
+      { source: "NIMH" as const, topic: "Mental Health Information" },
+    ],
+    internalLinksCategory: "conditions" as const,
+    showTrustFactors: true,
     servicesHeading: "Orlando Psychiatry Services",
     services: [
       {
@@ -2022,6 +2028,12 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
       { name: "Child & Adolescent ADHD" },
       { name: "ADD (Attention Deficit Disorder)" },
     ],
+    authoritativeSources: [
+      { source: "NIMH" as const, topic: "Attention-Deficit/Hyperactivity Disorder" },
+      { source: "APA" as const, topic: "ADHD Diagnosis and Treatment" },
+    ],
+    internalLinksCategory: "services" as const,
+    showTrustFactors: true,
     servicesHeading: "ADHD Psychiatry Services in Orlando",
     services: [
       {
@@ -2190,6 +2202,12 @@ export const bipolarPsychiatristOrlandoConfig: LandingPageConfig = {
       { name: "Depressive Episodes" },
       { name: "Mixed Episodes" },
     ],
+    authoritativeSources: [
+      { source: "NIMH" as const, topic: "Bipolar Disorder" },
+      { source: "APA" as const, topic: "Bipolar and Related Disorders" },
+    ],
+    internalLinksCategory: "services" as const,
+    showTrustFactors: true,
     servicesHeading: "Bipolar Disorder Treatment Services",
     services: [
       {
@@ -2359,6 +2377,12 @@ export const medicationManagementOrlandoConfig: LandingPageConfig = {
       { name: "Insomnia & Sleep Disorders" },
       { name: "Schizophrenia & Psychotic Disorders" },
     ],
+    authoritativeSources: [
+      { source: "APA" as const, topic: "Psychiatric Medications" },
+      { source: "NIH" as const, topic: "Mental Health Medications" },
+    ],
+    internalLinksCategory: "conditions" as const,
+    showTrustFactors: true,
     servicesHeading: "Medication Management Services in Orlando",
     services: [
       {

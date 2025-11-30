@@ -10,6 +10,9 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
+import LocalizedContent from "@/components/LocalizedContent";
+import InternalLinkBlock from "@/components/InternalLinkBlock";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -399,6 +402,33 @@ export default function PsychiatristKissimmee() {
                   </div>
                 </div>
               </section>
+
+              {/* Localized Neighborhood Content */}
+              <LocalizedContent 
+                city="Kissimmee" 
+                neighborhoods={["Downtown Kissimmee", "Poinciana", "Celebration", "St. Cloud", "Buenaventura Lakes"]}
+                nearbyLandmarks={["Walt Disney World Resort", "Osceola Heritage Park", "Old Town Kissimmee", "Lakefront Park"]}
+                highways={["US 192", "I-4", "SR 535", "Florida's Turnpike"]}
+                description="Gateway to Central Florida theme parks with diverse Osceola County communities we proudly serve"
+                driveTimeMinutes={25}
+                slug="/locations/kissimmee"
+              />
+
+              {/* Internal Links Section */}
+              <InternalLinkBlock 
+                category="services"
+                excludePaths={["/locations/kissimmee"]}
+                title="Explore Our Services in Kissimmee Area"
+              />
+
+              {/* Authoritative Sources */}
+              <AuthoritativeSourcesBlock 
+                sources={[
+                  { source: "NIMH", topic: "Mental Health Information" },
+                  { source: "APA", topic: "Finding a Psychiatrist" },
+                  { source: "NIH", topic: "Mental Health Resources" }
+                ]}
+              />
 
             </div>
 

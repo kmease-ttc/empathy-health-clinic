@@ -28,6 +28,11 @@ export const QuickLinkSchema = z.object({
   label: z.string(),
 });
 
+export const AuthoritativeSourceSchema = z.object({
+  source: z.enum(["NIMH", "APA", "NIH", "MayoClinic", "SAMHSA", "CDC", "WHO"]),
+  topic: z.string().optional(),
+});
+
 export const LandingPageConfigSchema = z.object({
   // SEO Data
   seo: z.object({
@@ -72,13 +77,16 @@ export const LandingPageConfigSchema = z.object({
   // Main Content
   content: z.object({
     mainHeading: z.string(),
-    introduction: z.array(z.string()).optional().default([]), // Array of paragraphs, defaults to empty array
+    introduction: z.array(z.string()).optional().default([]),
     conditionsHeading: z.string().optional(),
     conditions: z.array(ConditionSchema).optional(),
     servicesHeading: z.string().optional(),
     services: z.array(ServiceFeatureSchema).optional(),
     whyChooseHeading: z.string().optional(),
     whyChoosePoints: z.array(WhyChoosePointSchema).optional(),
+    authoritativeSources: z.array(AuthoritativeSourceSchema).optional(),
+    showTrustFactors: z.boolean().optional().default(true),
+    internalLinksCategory: z.enum(["services", "conditions", "treatments", "locations", "insurance"]).optional(),
   }),
   
   // FAQ Section

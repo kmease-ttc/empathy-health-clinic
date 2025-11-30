@@ -10,6 +10,7 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -551,6 +552,18 @@ export default function ADHDTestingOrlando() {
             <ShortContactForm />
           </div>
         </section>
+
+        {/* Authoritative Sources for YMYL Compliance */}
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AuthoritativeSourcesBlock 
+            variant="section"
+            sources={[
+              { source: "NIMH", topic: "Attention-Deficit/Hyperactivity Disorder" },
+              { source: "APA", topic: "What Is ADHD?" },
+              { source: "NIH", topic: "ADHD Diagnosis and Treatment" }
+            ]}
+          />
+        </div>
 
         {/* Trust Factors */}
         <TrustFactors />

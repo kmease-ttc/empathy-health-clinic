@@ -9,6 +9,9 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
+import TrustFactors from "@/components/TrustFactors";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
+import InternalLinkBlock from "@/components/InternalLinkBlock";
 import { trackEvent } from "@/lib/analytics";
 import { formatH1, formatH2 } from "@/lib/seoHelpers";
 import type { LandingPageConfig } from "@/types/landingPage";
@@ -280,6 +283,27 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
                 </section>
               )}
 
+              {/* Authoritative Sources (YMYL Compliance) */}
+              {config.content.authoritativeSources && config.content.authoritativeSources.length > 0 && (
+                <AuthoritativeSourcesBlock 
+                  variant="section"
+                  sources={config.content.authoritativeSources} 
+                />
+              )}
+
+              {/* Internal Links for SEO */}
+              {config.content.internalLinksCategory && (
+                <section className="mt-8 pt-6 border-t">
+                  <InternalLinkBlock 
+                    category={config.content.internalLinksCategory} 
+                    title="Related Services"
+                    variant="cards"
+                    limit={6}
+                    excludePaths={[config.seo.canonicalPath]}
+                  />
+                </section>
+              )}
+
             </div>
 
             {/* Sidebar */}
@@ -311,6 +335,18 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
             </div>
           </div>
         </div>
+
+        {/* Trust Factors Section */}
+        {config.content.showTrustFactors !== false && (
+          <section className="py-12 bg-muted/30">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <h2 className="text-2xl font-sans font-bold text-foreground text-center mb-8">
+                {formatH2("Why Patients Trust Empathy Health Clinic")}
+              </h2>
+              <TrustFactors variant="grid" limit={8} />
+            </div>
+          </section>
+        )}
 
         <ReviewsAndBadges />
       </main>

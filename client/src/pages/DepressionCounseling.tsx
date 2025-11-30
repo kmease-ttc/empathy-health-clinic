@@ -9,6 +9,7 @@ import InsuranceSection from "@/components/InsuranceSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/calm_peaceful_therap_ae20056a.jpg";
 import { trackEvent } from "@/lib/analytics";
 import TherapyFAQ from "@/components/TherapyFAQ";
@@ -350,6 +351,18 @@ export default function DepressionCounseling() {
             }
           ]}
         />
+
+        {/* Authoritative Sources for YMYL Compliance */}
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AuthoritativeSourcesBlock 
+            variant="section"
+            sources={[
+              { source: "NIMH", topic: "Depression" },
+              { source: "APA", topic: "What Is Depression?" },
+              { source: "NIH", topic: "Major Depressive Disorder" }
+            ]}
+          />
+        </div>
 
         {/* Trust Badges */}
         <ReviewsAndBadges />

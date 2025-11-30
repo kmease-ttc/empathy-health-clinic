@@ -10,6 +10,9 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
+import LocalizedContent from "@/components/LocalizedContent";
+import InternalLinkBlock from "@/components/InternalLinkBlock";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -399,6 +402,33 @@ export default function PsychiatristApopka() {
                   </div>
                 </div>
               </section>
+
+              {/* Localized Neighborhood Content */}
+              <LocalizedContent 
+                city="Apopka" 
+                neighborhoods={["Downtown Apopka", "Rock Springs Ridge", "Wekiva Springs", "Ocoee", "Lockhart"]}
+                nearbyLandmarks={["Wekiwa Springs State Park", "Kelly Park", "Northwest Recreation Complex", "Apopka Amphitheater"]}
+                highways={["US 441", "SR 436", "SR 429", "Apopka-Vineland Road"]}
+                description="Growing northwest Orange County community surrounded by natural springs and outdoor recreation"
+                driveTimeMinutes={18}
+                slug="/locations/apopka"
+              />
+
+              {/* Internal Links Section */}
+              <InternalLinkBlock 
+                category="services"
+                excludePaths={["/locations/apopka"]}
+                title="Explore Our Services in Apopka Area"
+              />
+
+              {/* Authoritative Sources */}
+              <AuthoritativeSourcesBlock 
+                sources={[
+                  { source: "NIMH", topic: "Mental Health Information" },
+                  { source: "APA", topic: "Finding a Psychiatrist" },
+                  { source: "NIH", topic: "Mental Health Resources" }
+                ]}
+              />
 
             </div>
 

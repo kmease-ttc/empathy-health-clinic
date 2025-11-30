@@ -10,6 +10,9 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
+import LocalizedContent from "@/components/LocalizedContent";
+import InternalLinkBlock from "@/components/InternalLinkBlock";
+import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -399,6 +402,33 @@ export default function PsychiatristAltamonteSprings() {
                   </div>
                 </div>
               </section>
+
+              {/* Localized Neighborhood Content */}
+              <LocalizedContent 
+                city="Altamonte Springs" 
+                neighborhoods={["Eastmonte", "Forest City", "Wekiva Springs", "Jamestown", "Spring Oaks"]}
+                nearbyLandmarks={["Altamonte Mall", "Cranes Roost Park", "SunRail Altamonte Springs Station", "AdventHealth Altamonte"]}
+                highways={["I-4", "SR 436", "SR 434", "Palm Springs Drive"]}
+                description="Growing Seminole County community with excellent healthcare access and easy commute to Winter Park"
+                driveTimeMinutes={12}
+                slug="/locations/altamonte-springs"
+              />
+
+              {/* Internal Links Section */}
+              <InternalLinkBlock 
+                category="services"
+                excludePaths={["/locations/altamonte-springs"]}
+                title="Explore Our Services in Altamonte Springs Area"
+              />
+
+              {/* Authoritative Sources */}
+              <AuthoritativeSourcesBlock 
+                sources={[
+                  { source: "NIMH", topic: "Mental Health Information" },
+                  { source: "APA", topic: "Finding a Psychiatrist" },
+                  { source: "NIH", topic: "Mental Health Resources" }
+                ]}
+              />
 
             </div>
 
