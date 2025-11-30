@@ -398,6 +398,11 @@ interface SEOHeadProps {
   pageDesignType?: string;
   preloadImage?: string;
   breadcrumbTitle?: string;
+  pagination?: {
+    currentPage: number;
+    totalPages: number;
+    basePath: string;
+  };
 }
 
 export default function SEOHead({
@@ -414,6 +419,7 @@ export default function SEOHead({
   pageDesignType,
   preloadImage,
   breadcrumbTitle,
+  pagination,
 }: SEOHeadProps) {
   useEffect(() => {
     // Format title: add brand suffix, enforce max length
@@ -593,6 +599,51 @@ export default function SEOHead({
       canonicalLink = null;
     }
 
+    // Handle rel="prev" and rel="next" for pagination (improves crawlability)
+    let prevLink = document.querySelector('link[rel="prev"]');
+    let nextLink = document.querySelector('link[rel="next"]');
+    
+    if (pagination && pagination.totalPages > 1) {
+      const { currentPage, totalPages, basePath } = pagination;
+      
+      // Add rel="prev" for pages 2+
+      if (currentPage > 1) {
+        if (!prevLink) {
+          prevLink = document.createElement("link");
+          prevLink.setAttribute("rel", "prev");
+          document.head.appendChild(prevLink);
+        }
+        const prevUrl = currentPage === 2 
+          ? `${preferredDomain}${basePath}` 
+          : `${preferredDomain}${basePath}?page=${currentPage - 1}`;
+        prevLink.setAttribute("href", prevUrl);
+      } else if (prevLink) {
+        prevLink.remove();
+        prevLink = null;
+      }
+      
+      // Add rel="next" for pages before the last
+      if (currentPage < totalPages) {
+        if (!nextLink) {
+          nextLink = document.createElement("link");
+          nextLink.setAttribute("rel", "next");
+          document.head.appendChild(nextLink);
+        }
+        nextLink.setAttribute("href", `${preferredDomain}${basePath}?page=${currentPage + 1}`);
+      } else if (nextLink) {
+        nextLink.remove();
+        nextLink = null;
+      }
+    } else {
+      // Remove pagination links if not a paginated page
+      if (prevLink) {
+        prevLink.remove();
+      }
+      if (nextLink) {
+        nextLink.remove();
+      }
+    }
+
     // Preload critical LCP image for better performance with responsive images
     let preloadLink = document.querySelector('link[rel="preload"][data-seo-head="true"]');
     if (preloadImage) {
@@ -698,8 +749,18 @@ export default function SEOHead({
       if (preloadLink && preloadLink.parentNode) {
         preloadLink.parentNode.removeChild(preloadLink);
       }
+      
+      // Clean up pagination links
+      const prevLink = document.querySelector('link[rel="prev"]');
+      const nextLink = document.querySelector('link[rel="next"]');
+      if (prevLink && prevLink.parentNode) {
+        prevLink.parentNode.removeChild(prevLink);
+      }
+      if (nextLink && nextLink.parentNode) {
+        nextLink.parentNode.removeChild(nextLink);
+      }
     };
-  }, [title, description, keywords, ogImage, canonicalPath, type, publishedDate, modifiedDate, author, jsonLd, preloadImage, breadcrumbTitle]);
+  }, [title, description, keywords, ogImage, canonicalPath, type, publishedDate, modifiedDate, author, jsonLd, preloadImage, breadcrumbTitle, pagination]);
 
   return null;
 }
