@@ -116,7 +116,7 @@ export default function PsychiatricServices() {
             </p>
 
             <p className="text-foreground leading-relaxed mb-6">
-              Our team includes board-certified psychiatrists, psychiatric nurse practitioners, and licensed therapists working together to provide integrated mental health care. We accept most major insurance plans including Blue Cross Blue Shield, UnitedHealthcare, Cigna, Aetna, and Medicare. Both in-person and <Link href="/telepsychiatry-orlando" className="text-primary hover:underline font-medium">telehealth appointments</Link> are available for your convenience. Call us today at (386) 848-8751 to schedule with the best psychiatrist near you.
+              Our team includes board-certified psychiatrists, psychiatric nurse practitioners, and licensed therapists working together to provide integrated mental health care. We accept most major insurance plans including Blue Cross Blue Shield, UnitedHealthcare, Cigna, Aetna, and Medicare. Both in-person and <Link href="/virtual-therapy" className="text-primary hover:underline font-medium">telehealth appointments</Link> are available for your convenience. Call us today at (386) 848-8751 to schedule with the best <Link href="/psychiatrist-orlando" className="text-primary hover:underline font-medium">psychiatrist in Orlando</Link>.
             </p>
 
             <h3 className="text-2xl font-sans font-semibold text-foreground mb-4 mt-8">Why Choose Our Psychiatrists?</h3>

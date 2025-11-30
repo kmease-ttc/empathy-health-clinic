@@ -411,8 +411,8 @@ export default function MentalHealthNearMe() {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/adhd-psychiatrist-orlando" className="text-sm text-primary hover:underline" data-testid="link-adhd">
-                      ADHD Treatment →
+                    <Link href="/adhd-testing-orlando" className="text-sm text-primary hover:underline" data-testid="link-adhd">
+                      ADHD Testing →
                     </Link>
                   </li>
                   <li>

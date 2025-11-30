@@ -233,10 +233,10 @@ export default function PsychiatristWinterPark() {
                     Looking for a trusted <Link href="/psychiatrist-orlando" className="text-primary hover:underline">psychiatrist</Link> in Winter Park? Empathy Health Clinic is located right here in Winter Park on Lee Road, providing convenient access to expert psychiatric care for Winter Park residents and the surrounding Central Florida communities.
                   </p>
                   <p className="text-foreground leading-relaxed mb-4">
-                    Our board-certified psychiatrists specialize in <Link href="/medication-management-orlando" className="text-primary hover:underline">medication management</Link>, psychiatric evaluations, and evidence-based treatment for <Link href="/anxiety-psychiatrist-orlando" className="text-primary hover:underline">anxiety</Link>, depression, <Link href="/adhd-psychiatrist-orlando" className="text-primary hover:underline">ADHD</Link>, bipolar disorder, and other mental health conditions. As your local Winter Park psychiatrists, we understand the importance of accessible, high-quality mental health care.
+                    Our board-certified psychiatrists specialize in <Link href="/medication-management" className="text-primary hover:underline">medication management</Link>, psychiatric evaluations, and evidence-based treatment for <Link href="/anxiety-therapy" className="text-primary hover:underline">anxiety</Link>, depression, <Link href="/adhd-testing-orlando" className="text-primary hover:underline">ADHD</Link>, bipolar disorder, and other mental health conditions. As your local Winter Park psychiatrists, we understand the importance of accessible, high-quality mental health care.
                   </p>
                   <p className="text-foreground leading-relaxed">
-                    We accept most major insurance plans and offer both in-person visits at our Winter Park office and secure <Link href="/telepsychiatry-orlando" className="text-primary hover:underline">telepsychiatry</Link> appointments. Same-week appointments are typically available for new patients.
+                    We accept most major insurance plans and offer both in-person visits at our Winter Park office and secure <Link href="/virtual-therapy" className="text-primary hover:underline">telehealth</Link> appointments. Same-week appointments are typically available for new patients.
                   </p>
                 </div>
               </section>

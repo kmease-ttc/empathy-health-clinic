@@ -199,7 +199,7 @@ export default function SameDayPsychiatristOrlando() {
                 </h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-foreground leading-relaxed mb-4">
-                    When you're experiencing a mental health crisis or urgent psychiatric symptoms, waiting weeks to see a psychiatrist isn't an option. At our <Link href="/psychiatry-clinic-orlando" className="text-primary hover:underline font-medium">mental health clinic in Orlando</Link>, we understand that mental health emergencies require prompt attention. That's why we offer same-day psychiatrist appointments for Orlando residents who need urgent psychiatric care.
+                    When you're experiencing a mental health crisis or urgent psychiatric symptoms, waiting weeks to see a psychiatrist isn't an option. At our <Link href="/psychiatrist-orlando" className="text-primary hover:underline font-medium">mental health clinic in Orlando</Link>, we understand that mental health emergencies require prompt attention. That's why we offer same-day psychiatrist appointments for Orlando residents who need urgent psychiatric care.
                   </p>
                   <p className="text-foreground leading-relaxed mb-4">
                     Our board-certified psychiatrists provide same-day appointments for severe depression, panic attacks, anxiety crises, medication emergencies, suicidal thoughts (but call 988 for imminent risk), acute mood episodes, ADHD medication concerns, and other urgent psychiatric needs. Whether you need a same-day evaluation, urgent medication adjustment, or crisis intervention, our Orlando psychiatrists are here to help you get the immediate care you need.
@@ -462,17 +462,17 @@ export default function SameDayPsychiatristOrlando() {
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                   <h3 className="font-semibold text-foreground mb-3">Related Services</h3>
                   <div className="space-y-2">
-                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline">
+                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline font-medium">
                       Psychiatrist Orlando
                     </Link>
-                    <Link href="/telepsychiatry-orlando" className="block text-sm text-primary hover:underline">
-                      Telepsychiatry Orlando
+                    <Link href="/psychiatrist-near-me" className="block text-sm text-primary hover:underline">
+                      Psychiatrist Near Me
                     </Link>
-                    <Link href="/anxiety-psychiatrist-orlando" className="block text-sm text-primary hover:underline">
-                      Anxiety Psychiatrist Orlando
+                    <Link href="/anxiety-therapy" className="block text-sm text-primary hover:underline">
+                      Anxiety Therapy
                     </Link>
-                    <Link href="/medication-management-orlando" className="block text-sm text-primary hover:underline">
-                      Medication Management Orlando
+                    <Link href="/medication-management" className="block text-sm text-primary hover:underline">
+                      Medication Management
                     </Link>
                   </div>
                 </div>

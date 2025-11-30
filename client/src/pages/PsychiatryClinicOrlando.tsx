@@ -300,10 +300,10 @@ export default function PsychiatryClinicOrlando() {
                     When you're searching for a trusted psychiatry clinic in Orlando, you need more than just a provider - you need a comprehensive mental health partner. Empathy Health Clinic is a leading mental health clinic in Orlando providing expert psychiatric care to patients throughout Central Florida. Our psychiatry clinic serves Orlando, Winter Park, Lake Nona, Baldwin Park, Downtown Orlando, and surrounding communities with a full range of psychiatric services designed to help you achieve lasting mental wellness.
                   </p>
                   <p className="text-foreground leading-relaxed mb-4">
-                    Our Orlando psychiatry clinic is staffed by board-certified psychiatrists with extensive experience treating <Link href="/anxiety-therapy" className="text-primary hover:underline font-medium">anxiety disorders</Link>, <Link href="/depression-treatment" className="text-primary hover:underline font-medium">depression</Link>, <Link href="/adhd-psychiatrist-orlando" className="text-primary hover:underline font-medium">ADHD</Link>, <Link href="/bipolar-psychiatrist-orlando" className="text-primary hover:underline font-medium">bipolar disorder</Link>, <Link href="/ptsd-treatment" className="text-primary hover:underline font-medium">PTSD</Link>, <Link href="/ocd-treatment" className="text-primary hover:underline font-medium">OCD</Link>, and other mental health conditions. We provide personalized, evidence-based psychiatric care that addresses your unique needs and goals.
+                    Our Orlando psychiatry clinic is staffed by board-certified psychiatrists with extensive experience treating <Link href="/anxiety-therapy" className="text-primary hover:underline font-medium">anxiety disorders</Link>, <Link href="/depression-counseling" className="text-primary hover:underline font-medium">depression</Link>, <Link href="/adhd-testing-orlando" className="text-primary hover:underline font-medium">ADHD</Link>, <Link href="/psychiatrist-orlando" className="text-primary hover:underline font-medium">bipolar disorder</Link>, <Link href="/ptsd-treatment" className="text-primary hover:underline font-medium">PTSD</Link>, <Link href="/ocd-treatment" className="text-primary hover:underline font-medium">OCD</Link>, and other mental health conditions. We provide personalized, evidence-based psychiatric care that addresses your unique needs and goals.
                   </p>
                   <p className="text-foreground leading-relaxed">
-                    What sets our psychiatry clinic apart is our commitment to accessible, patient-centered care. We offer same-week appointments, accept most major insurance plans including Medicare, and provide both in-person visits at our Orlando-area office and convenient <Link href="/telepsychiatry-orlando" className="text-primary hover:underline font-medium">telepsychiatry services</Link>. Your mental health matters, and we're here to make getting help as easy as possible.
+                    What sets our psychiatry clinic apart is our commitment to accessible, patient-centered care. We offer same-week appointments, accept most major insurance plans including Medicare, and provide both in-person visits at our Orlando-area office and convenient <Link href="/virtual-therapy" className="text-primary hover:underline font-medium">telepsychiatry services</Link>. Your mental health matters, and we're here to make getting help as easy as possible.
                   </p>
                 </div>
               </section>
@@ -368,7 +368,7 @@ export default function PsychiatryClinicOrlando() {
                     <Brain className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
                     <div>
                       <h3 className="font-semibold text-lg text-foreground mb-2">
-                        <Link href="/medication-management-orlando" className="text-foreground hover:text-primary transition-colors">
+                        <Link href="/medication-management" className="text-foreground hover:text-primary transition-colors">
                           Psychiatric Medication Management
                         </Link>
                       </h3>
@@ -392,7 +392,7 @@ export default function PsychiatryClinicOrlando() {
                     <Video className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
                     <div>
                       <h3 className="font-semibold text-lg text-foreground mb-2">
-                        <Link href="/telepsychiatry-orlando" className="text-foreground hover:text-primary transition-colors">
+                        <Link href="/virtual-therapy" className="text-foreground hover:text-primary transition-colors">
                           Telepsychiatry Services
                         </Link>
                       </h3>
@@ -495,41 +495,41 @@ export default function PsychiatryClinicOrlando() {
 
               {/* Related Services */}
               <div className="bg-card border rounded-lg p-6">
-                <h3 className="font-semibold text-lg text-foreground mb-4">Our Orlando Specialty Services</h3>
+                <h3 className="font-semibold text-lg text-foreground mb-4">Our Specialty Services</h3>
                 <ul className="space-y-3">
                   <li>
-                    <Link href="/adhd-psychiatrist-orlando" className="text-primary hover:underline font-medium text-sm">
-                      ADHD Psychiatrist Orlando →
+                    <Link href="/psychiatrist-orlando" className="text-primary hover:underline font-medium text-sm">
+                      Psychiatrist Orlando →
+                    </Link>
+                    <p className="text-xs text-muted-foreground mt-1">Board-certified psychiatric care</p>
+                  </li>
+                  <li>
+                    <Link href="/adhd-testing-orlando" className="text-primary hover:underline font-medium text-sm">
+                      ADHD Testing →
                     </Link>
                     <p className="text-xs text-muted-foreground mt-1">Expert ADHD diagnosis and treatment</p>
                   </li>
                   <li>
-                    <Link href="/anxiety-psychiatrist-orlando" className="text-primary hover:underline font-medium text-sm">
-                      Anxiety Psychiatrist Orlando →
+                    <Link href="/anxiety-therapy" className="text-primary hover:underline font-medium text-sm">
+                      Anxiety Therapy →
                     </Link>
                     <p className="text-xs text-muted-foreground mt-1">Comprehensive anxiety disorder care</p>
                   </li>
                   <li>
-                    <Link href="/child-psychiatrist-orlando" className="text-primary hover:underline font-medium text-sm">
-                      Child Psychiatrist Orlando →
+                    <Link href="/depression-counseling" className="text-primary hover:underline font-medium text-sm">
+                      Depression Counseling →
                     </Link>
-                    <p className="text-xs text-muted-foreground mt-1">Pediatric mental health specialists</p>
+                    <p className="text-xs text-muted-foreground mt-1">Evidence-based depression treatment</p>
                   </li>
                   <li>
-                    <Link href="/bipolar-psychiatrist-orlando" className="text-primary hover:underline font-medium text-sm">
-                      Bipolar Psychiatrist Orlando →
-                    </Link>
-                    <p className="text-xs text-muted-foreground mt-1">Bipolar disorder treatment</p>
-                  </li>
-                  <li>
-                    <Link href="/medication-management-orlando" className="text-primary hover:underline font-medium text-sm">
-                      Medication Management Orlando →
+                    <Link href="/medication-management" className="text-primary hover:underline font-medium text-sm">
+                      Medication Management →
                     </Link>
                     <p className="text-xs text-muted-foreground mt-1">Psychiatric medication services</p>
                   </li>
                   <li>
-                    <Link href="/telepsychiatry-orlando" className="text-primary hover:underline font-medium text-sm">
-                      Telepsychiatry Orlando →
+                    <Link href="/virtual-therapy" className="text-primary hover:underline font-medium text-sm">
+                      Virtual Therapy →
                     </Link>
                     <p className="text-xs text-muted-foreground mt-1">Virtual psychiatry appointments</p>
                   </li>

@@ -190,7 +190,7 @@ export default function ChildPsychiatristOrlando() {
                 </h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-foreground leading-relaxed mb-4">
-                    When your child is struggling with mental health challenges, finding the right psychiatric care is crucial. At our <Link href="/psychiatry-clinic-orlando" className="text-primary hover:underline font-medium">Orlando psychiatry clinic</Link>, our board-certified child and adolescent psychiatrists provide comprehensive, compassionate mental health treatment for children and teenagers experiencing ADHD, anxiety, depression, behavioral issues, and other psychiatric conditions.
+                    When your child is struggling with mental health challenges, finding the right psychiatric care is crucial. At our <Link href="/psychiatrist-orlando" className="text-primary hover:underline font-medium">Orlando psychiatry clinic</Link>, our board-certified child and adolescent psychiatrists provide comprehensive, compassionate mental health treatment for children and teenagers experiencing ADHD, anxiety, depression, behavioral issues, and other psychiatric conditions.
                   </p>
                   <p className="text-foreground leading-relaxed mb-4">
                     Our Orlando child psychiatrists understand the unique developmental needs of children and adolescents. We take a family-centered approach, working closely with parents, schools, and therapists to support your child's mental health and overall wellbeing. Whether your child is struggling with focus and hyperactivity, experiencing anxiety or mood changes, having behavioral outbursts, or facing other mental health concerns, we provide evidence-based psychiatric evaluations and medication management tailored to their age and specific needs.
@@ -484,17 +484,20 @@ export default function ChildPsychiatristOrlando() {
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                   <h3 className="font-semibold text-foreground mb-3">Related Services</h3>
                   <div className="space-y-2">
-                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline">
+                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline font-medium">
                       Psychiatrist Orlando
                     </Link>
-                    <Link href="/adhd-psychiatrist-orlando" className="block text-sm text-primary hover:underline">
-                      ADHD Psychiatrist Orlando
+                    <Link href="/psychiatrist-near-me" className="block text-sm text-primary hover:underline">
+                      Psychiatrist Near Me
                     </Link>
-                    <Link href="/anxiety-psychiatrist-orlando" className="block text-sm text-primary hover:underline">
-                      Anxiety Psychiatrist Orlando
+                    <Link href="/adhd-testing-orlando" className="block text-sm text-primary hover:underline">
+                      ADHD Testing
                     </Link>
-                    <Link href="/medication-management-orlando" className="block text-sm text-primary hover:underline">
-                      Medication Management Orlando
+                    <Link href="/anxiety-therapy" className="block text-sm text-primary hover:underline">
+                      Anxiety Treatment
+                    </Link>
+                    <Link href="/medication-management" className="block text-sm text-primary hover:underline">
+                      Medication Management
                     </Link>
                   </div>
                 </div>

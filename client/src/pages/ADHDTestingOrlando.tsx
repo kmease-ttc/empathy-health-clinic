@@ -519,17 +519,17 @@ export default function ADHDTestingOrlando() {
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                   <h3 className="font-semibold text-foreground mb-3">Related Services</h3>
                   <div className="space-y-2">
-                    <Link href="/adhd-psychiatrist-orlando" className="block text-sm text-primary hover:underline">
-                      ADHD Treatment Orlando
-                    </Link>
-                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline">
+                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline font-medium">
                       Psychiatrist Orlando
                     </Link>
-                    <Link href="/child-psychiatrist-orlando" className="block text-sm text-primary hover:underline">
-                      Teen Psychiatrist
+                    <Link href="/psychiatrist-near-me" className="block text-sm text-primary hover:underline">
+                      Psychiatrist Near Me
                     </Link>
-                    <Link href="/medication-management-orlando" className="block text-sm text-primary hover:underline">
+                    <Link href="/medication-management" className="block text-sm text-primary hover:underline">
                       Medication Management
+                    </Link>
+                    <Link href="/anxiety-therapy" className="block text-sm text-primary hover:underline">
+                      Anxiety Treatment
                     </Link>
                   </div>
                 </div>

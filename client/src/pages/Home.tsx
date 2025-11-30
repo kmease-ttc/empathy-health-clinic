@@ -153,7 +153,7 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
               <Link href="/psychiatrist-orlando" className="group" data-testid="link-orlando-psychiatrist">
                 <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-psychiatrist">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
                     Psychiatrist Orlando
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -162,21 +162,21 @@ export default function Home() {
                 </div>
               </Link>
 
-              <Link href="/psychiatry-clinic-orlando" className="group" data-testid="link-orlando-clinic">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-clinic">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Psychiatry Clinic Orlando
+              <Link href="/psychiatrist-near-me" className="group" data-testid="link-orlando-near-me">
+                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-near-me">
+                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
+                    Psychiatrist Near Me
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Leading Orlando psychiatry clinic - comprehensive care
+                    Find psychiatric care close to you
                   </p>
                 </div>
               </Link>
 
-              <Link href="/adhd-psychiatrist-orlando" className="group" data-testid="link-orlando-adhd">
+              <Link href="/adhd-testing-orlando" className="group" data-testid="link-orlando-adhd">
                 <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-adhd">
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    ADHD Psychiatrist
+                    ADHD Testing
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Adult & child ADHD diagnosis and treatment
@@ -184,10 +184,10 @@ export default function Home() {
                 </div>
               </Link>
 
-              <Link href="/anxiety-psychiatrist-orlando" className="group" data-testid="link-orlando-anxiety">
+              <Link href="/anxiety-therapy" className="group" data-testid="link-orlando-anxiety">
                 <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-anxiety">
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Anxiety Psychiatrist
+                    Anxiety Treatment
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Comprehensive anxiety & panic disorder treatment
@@ -195,18 +195,18 @@ export default function Home() {
                 </div>
               </Link>
 
-              <Link href="/bipolar-psychiatrist-orlando" className="group" data-testid="link-orlando-bipolar">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-bipolar">
+              <Link href="/depression-counseling" className="group" data-testid="link-orlando-depression">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-depression">
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Bipolar Psychiatrist
+                    Depression Counseling
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Expert mood stabilization & bipolar treatment
+                    Evidence-based depression treatment
                   </p>
                 </div>
               </Link>
 
-              <Link href="/medication-management-orlando" className="group" data-testid="link-orlando-medication">
+              <Link href="/medication-management" className="group" data-testid="link-orlando-medication">
                 <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-medication">
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
                     Medication Management
@@ -217,24 +217,24 @@ export default function Home() {
                 </div>
               </Link>
 
-              <Link href="/telepsychiatry-orlando" className="group" data-testid="link-orlando-telepsychiatry">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-telepsychiatry">
+              <Link href="/virtual-therapy" className="group" data-testid="link-orlando-virtual">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-virtual">
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Telepsychiatry
+                    Virtual Therapy
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Convenient online psychiatry appointments
+                    Convenient online therapy appointments
                   </p>
                 </div>
               </Link>
 
-              <Link href="/same-day-psychiatrist-orlando" className="group" data-testid="link-orlando-same-day">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-same-day">
+              <Link href="/psychiatrist-winter-park" className="group" data-testid="link-orlando-winter-park">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-winter-park">
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Same-Day Psychiatrist
+                    Winter Park
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Urgent psychiatric care when you need it
+                    Our main clinic location
                   </p>
                 </div>
               </Link>

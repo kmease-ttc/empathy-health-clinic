@@ -534,29 +534,29 @@ export default function PsychiatristNearMe() {
               Explore Our Psychiatric Services
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Link href="/psychiatrist-orlando" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
-                <h3 className="font-semibold text-foreground text-sm">Psychiatrist Orlando</h3>
+              <Link href="/psychiatrist-orlando" className="bg-primary/5 border-2 border-primary rounded-lg p-4 text-center hover-elevate">
+                <h3 className="font-semibold text-primary text-sm">Psychiatrist Orlando</h3>
               </Link>
               <Link href="/psychiatrist-winter-park" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
                 <h3 className="font-semibold text-foreground text-sm">Psychiatrist Winter Park</h3>
               </Link>
-              <Link href="/medication-management-orlando" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
+              <Link href="/medication-management" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
                 <h3 className="font-semibold text-foreground text-sm">Medication Management</h3>
               </Link>
-              <Link href="/anxiety-psychiatrist-orlando" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
-                <h3 className="font-semibold text-foreground text-sm">Anxiety Psychiatrist</h3>
+              <Link href="/anxiety-therapy" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
+                <h3 className="font-semibold text-foreground text-sm">Anxiety Therapy</h3>
               </Link>
-              <Link href="/adhd-psychiatrist-orlando" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
-                <h3 className="font-semibold text-foreground text-sm">ADHD Psychiatrist</h3>
+              <Link href="/adhd-testing-orlando" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
+                <h3 className="font-semibold text-foreground text-sm">ADHD Testing</h3>
               </Link>
-              <Link href="/telepsychiatry-orlando" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
-                <h3 className="font-semibold text-foreground text-sm">Telepsychiatry</h3>
+              <Link href="/virtual-therapy" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
+                <h3 className="font-semibold text-foreground text-sm">Virtual Therapy</h3>
               </Link>
-              <Link href="/psychiatric-evaluation-orlando" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
+              <Link href="/psychiatric-evaluation" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
                 <h3 className="font-semibold text-foreground text-sm">Psychiatric Evaluation</h3>
               </Link>
-              <Link href="/same-day-psychiatrist-orlando" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
-                <h3 className="font-semibold text-foreground text-sm">Same-Day Psychiatrist</h3>
+              <Link href="/depression-counseling" className="bg-card border border-card-border rounded-lg p-4 text-center hover-elevate">
+                <h3 className="font-semibold text-foreground text-sm">Depression Counseling</h3>
               </Link>
             </div>
           </div>

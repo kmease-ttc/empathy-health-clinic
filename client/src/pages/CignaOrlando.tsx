@@ -201,27 +201,27 @@ export default function CignaOrlandoPage() {
             <h2 className="text-3xl font-bold mb-8 text-center">Related Services</h2>
             <div className="grid md:grid-cols-4 gap-4">
               <Link href="/psychiatrist-orlando">
-                <Card className="hover-elevate cursor-pointer">
+                <Card className="hover-elevate cursor-pointer border-primary/30 bg-primary/5">
                   <CardContent className="pt-6">
-                    <h3 className="font-semibold">General Psychiatry</h3>
+                    <h3 className="font-semibold text-primary">Psychiatrist Orlando</h3>
                   </CardContent>
                 </Card>
               </Link>
-              <Link href="/adhd-psychiatrist-orlando">
+              <Link href="/adhd-testing-orlando">
                 <Card className="hover-elevate cursor-pointer">
                   <CardContent className="pt-6">
-                    <h3 className="font-semibold">ADHD Treatment</h3>
+                    <h3 className="font-semibold">ADHD Testing</h3>
                   </CardContent>
                 </Card>
               </Link>
-              <Link href="/telepsychiatry-orlando">
+              <Link href="/virtual-therapy">
                 <Card className="hover-elevate cursor-pointer">
                   <CardContent className="pt-6">
-                    <h3 className="font-semibold">Telepsychiatry</h3>
+                    <h3 className="font-semibold">Virtual Therapy</h3>
                   </CardContent>
                 </Card>
               </Link>
-              <Link href="/medication-management-orlando">
+              <Link href="/medication-management">
                 <Card className="hover-elevate cursor-pointer">
                   <CardContent className="pt-6">
                     <h3 className="font-semibold">Medication Management</h3>

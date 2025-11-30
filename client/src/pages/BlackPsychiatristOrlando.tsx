@@ -728,23 +728,23 @@ export default function BlackPsychiatristOrlando() {
                 <div className="border rounded-lg p-6 bg-card">
                   <h3 className="font-semibold text-lg mb-4">Related Services</h3>
                   <div className="space-y-3">
-                    <Link href="/psychiatry-clinic-orlando" className="block text-sm text-primary hover:underline" data-testid="link-psychiatry-clinic">
-                      → Psychiatry Clinic Orlando
-                    </Link>
-                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline" data-testid="link-psychiatrist">
+                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline font-medium" data-testid="link-psychiatrist">
                       → Psychiatrist Orlando
+                    </Link>
+                    <Link href="/psychiatrist-near-me" className="block text-sm text-primary hover:underline" data-testid="link-near-me">
+                      → Psychiatrist Near Me
                     </Link>
                     <Link href="/trauma-specialist-near-me" className="block text-sm text-primary hover:underline" data-testid="link-trauma">
                       → Trauma Specialist
                     </Link>
-                    <Link href="/adhd-psychiatrist-orlando" className="block text-sm text-primary hover:underline" data-testid="link-adhd">
-                      → ADHD Psychiatrist Orlando
+                    <Link href="/adhd-testing-orlando" className="block text-sm text-primary hover:underline" data-testid="link-adhd">
+                      → ADHD Testing
                     </Link>
-                    <Link href="/anxiety-psychiatrist-orlando" className="block text-sm text-primary hover:underline" data-testid="link-anxiety">
-                      → Anxiety Psychiatrist Orlando
+                    <Link href="/anxiety-therapy" className="block text-sm text-primary hover:underline" data-testid="link-anxiety">
+                      → Anxiety Therapy
                     </Link>
-                    <Link href="/telepsychiatry-orlando" className="block text-sm text-primary hover:underline" data-testid="link-telepsychiatry">
-                      → Telepsychiatry Orlando
+                    <Link href="/virtual-therapy" className="block text-sm text-primary hover:underline" data-testid="link-virtual">
+                      → Virtual Therapy
                     </Link>
                   </div>
                 </div>

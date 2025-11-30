@@ -776,7 +776,15 @@ export default function Psychiatrist() {
                 <div className="bg-card border rounded-lg p-6" data-testid="related-services">
                   <h3 className="text-xl font-semibold text-foreground mb-4">Related Services</h3>
                   <div className="space-y-3">
-                    <Link href="/medication-management-orlando">
+                    <Link href="/psychiatrist-orlando">
+                      <a className="block p-3 rounded-lg border border-primary/50 bg-primary/5 hover:border-primary transition-colors" data-testid="link-psychiatrist-orlando">
+                        <div className="flex items-center gap-3">
+                          <Brain className="h-5 w-5 text-primary" />
+                          <span className="font-medium text-primary">Psychiatrist Orlando</span>
+                        </div>
+                      </a>
+                    </Link>
+                    <Link href="/medication-management">
                       <a className="block p-3 rounded-lg border hover:border-primary transition-colors" data-testid="link-medication-management">
                         <div className="flex items-center gap-3">
                           <Pill className="h-5 w-5 text-primary" />
@@ -784,11 +792,11 @@ export default function Psychiatrist() {
                         </div>
                       </a>
                     </Link>
-                    <Link href="/telepsychiatry-orlando">
+                    <Link href="/virtual-therapy">
                       <a className="block p-3 rounded-lg border hover:border-primary transition-colors" data-testid="link-telepsychiatry">
                         <div className="flex items-center gap-3">
                           <Video className="h-5 w-5 text-primary" />
-                          <span className="font-medium text-foreground">Telepsychiatry</span>
+                          <span className="font-medium text-foreground">Virtual Therapy</span>
                         </div>
                       </a>
                     </Link>
@@ -800,11 +808,11 @@ export default function Psychiatrist() {
                         </div>
                       </a>
                     </Link>
-                    <Link href="/adhd-psychiatrist-orlando">
+                    <Link href="/adhd-testing-orlando">
                       <a className="block p-3 rounded-lg border hover:border-primary transition-colors" data-testid="link-adhd">
                         <div className="flex items-center gap-3">
                           <Brain className="h-5 w-5 text-primary" />
-                          <span className="font-medium text-foreground">ADHD Treatment</span>
+                          <span className="font-medium text-foreground">ADHD Testing</span>
                         </div>
                       </a>
                     </Link>

@@ -199,7 +199,7 @@ export default function AnxietyPsychiatristOrlando() {
                 </h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-foreground leading-relaxed mb-4">
-                    Living with anxiety can feel overwhelming, affecting every aspect of your daily life. At our <Link href="/psychiatry-clinic-orlando" className="text-primary hover:underline font-medium">Orlando psychiatry clinic</Link>, our board-certified psychiatrists specialize in comprehensive anxiety disorder treatment, providing evidence-based medication management and psychiatric care for adults experiencing panic attacks, social anxiety, generalized anxiety disorder (GAD), phobias, and other anxiety conditions.
+                    Living with anxiety can feel overwhelming, affecting every aspect of your daily life. At our <Link href="/psychiatrist-orlando" className="text-primary hover:underline font-medium">Orlando psychiatry clinic</Link>, our board-certified psychiatrists specialize in comprehensive anxiety disorder treatment, providing evidence-based medication management and psychiatric care for adults experiencing panic attacks, social anxiety, generalized anxiety disorder (GAD), phobias, and other anxiety conditions.
                   </p>
                   <p className="text-foreground leading-relaxed mb-4">
                     Our Orlando anxiety psychiatrists understand that anxiety disorders are among the most common mental health conditions, affecting millions of Americans. Whether you're experiencing panic attacks at work, avoiding social situations due to social anxiety, struggling with constant worry from GAD, or feeling held back by specific phobias, we provide personalized treatment plans tailored to your unique symptoms and goals.
@@ -501,20 +501,20 @@ export default function AnxietyPsychiatristOrlando() {
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                   <h3 className="font-semibold text-foreground mb-3">Related Services</h3>
                   <div className="space-y-2">
-                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline">
+                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline font-medium">
                       Psychiatrist Orlando
                     </Link>
-                    <Link href="/adhd-psychiatrist-orlando" className="block text-sm text-primary hover:underline">
-                      ADHD Psychiatrist Orlando
+                    <Link href="/psychiatrist-near-me" className="block text-sm text-primary hover:underline">
+                      Psychiatrist Near Me
                     </Link>
-                    <Link href="/medication-management-orlando" className="block text-sm text-primary hover:underline">
-                      Medication Management Orlando
+                    <Link href="/adhd-testing-orlando" className="block text-sm text-primary hover:underline">
+                      ADHD Testing
                     </Link>
-                    <Link href="/telepsychiatry-orlando" className="block text-sm text-primary hover:underline">
-                      Telepsychiatry Orlando
+                    <Link href="/medication-management" className="block text-sm text-primary hover:underline">
+                      Medication Management
                     </Link>
-                    <Link href="/same-day-psychiatrist-orlando" className="block text-sm text-primary hover:underline">
-                      Same Day Psychiatrist Orlando
+                    <Link href="/virtual-therapy" className="block text-sm text-primary hover:underline">
+                      Virtual Therapy
                     </Link>
                   </div>
                 </div>
