@@ -19,7 +19,8 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Analytics System:** PostgreSQL-backed analytics tracking Core Web Vitals, GA4, Facebook Pixel, Microsoft Clarity, page views, conversion events, and Google Ads conversions, with a dedicated admin dashboard and Google Ads API integration.
 - **Admin Dashboards:** Includes a Link & Performance Monitor, SEO Optimization Dashboard, Blog SEO Optimizer, and SEMrush Keyword Optimizer.
 - **Performance Optimizations:** Mobile-first approach with code splitting, analytics deferral, resource hints, script optimization, and hero image preloading.
-- **URL Management:** Unified canonicalization middleware for www removal, trailing slash normalization, and content redirects, with a dynamic blog redirect system.
+- **URL Management:** Unified canonicalization middleware for www removal, trailing slash normalization, content redirects, and comprehensive query parameter stripping (40+ tracking params). Dynamic blog redirect system with SEO-safe slug normalization.
+- **Security Hardening (November 2025):** YMYL-compliant security headers (X-Frame-Options DENY, X-Content-Type-Options nosniff, CSP, Referrer-Policy, Permissions-Policy). Rate limiting: 10 requests/15min for form submissions, 100 requests/min for API endpoints. Enhanced structured data with medical qualifications, founder info, and isAcceptingNewPatients flags.
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, and conditions, including Google Ads and city-specific landing pages.
