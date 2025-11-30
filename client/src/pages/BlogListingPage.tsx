@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
-import { useState } from "react";
+import { Link, useLocation, useSearch } from "wouter";
+import { useState, useEffect } from "react";
 import { Loader2, Calendar, User, ArrowRight, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,8 +22,24 @@ interface BlogPostsResponse {
 }
 
 export default function BlogListingPage() {
+  const [, setLocation] = useLocation();
+  const searchString = useSearch();
+  const searchParams = new URLSearchParams(searchString);
+  
+  // Get page from URL, default to 1
+  const urlPage = parseInt(searchParams.get('page') || '1', 10);
+  const initialPage = isNaN(urlPage) || urlPage < 1 ? 1 : urlPage;
+  
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  
+  // Sync URL with pagination state
+  useEffect(() => {
+    const urlPageParam = parseInt(searchParams.get('page') || '1', 10);
+    if (urlPageParam !== currentPage && !isNaN(urlPageParam) && urlPageParam >= 1) {
+      setCurrentPage(urlPageParam);
+    }
+  }, [searchString]);
   
   const { data: featuredData } = useQuery<BlogPostsResponse>({
     queryKey: ["/api/blog-posts", { featured: true }],
@@ -65,11 +81,18 @@ export default function BlogListingPage() {
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
-    // Don't scroll - user wants to stay in the filtered section
+    // Reset URL to base when changing category
+    setLocation('/blog');
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    // Update URL: page 1 uses clean /blog, page 2+ uses /blog?page=N
+    if (page === 1) {
+      setLocation('/blog');
+    } else {
+      setLocation(`/blog?page=${page}`);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -81,14 +104,31 @@ export default function BlogListingPage() {
     );
   }
 
+  // Generate page-specific SEO content
+  const isPaginated = currentPage > 1;
+  const pageTitle = isPaginated 
+    ? `Mental Health Blog - Page ${currentPage} | Empathy Health Clinic`
+    : "Mental Health Blog | Empathy Health Clinic";
+  const pageDescription = isPaginated
+    ? `Page ${currentPage} of our mental health blog. Expert insights & resources for mental health, wellness & growth from licensed professionals.`
+    : "Expert insights & resources for mental health, wellness & growth from mental health professionals. Support for anxiety, depression & more.";
+  const h1Title = isPaginated 
+    ? `Mental Health Blog - Page ${currentPage}`
+    : "Mental Health Blog";
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Mental Health Blog | Empathy Health Clinic"
-        description="Expert insights & resources for mental health, wellness & growth from mental health professionals. Support for anxiety, depression & more."
+        title={pageTitle}
+        description={pageDescription}
         keywords={["mental health blog", "therapy advice", "wellness tips", "mental health resources", "psychiatric care", "counseling insights"]}
         canonicalPath="/blog"
         type="website"
+        pagination={totalPages > 1 ? {
+          currentPage,
+          totalPages,
+          basePath: "/blog"
+        } : undefined}
       />
       <SiteHeader />
       <main className="flex-1">
@@ -101,7 +141,7 @@ export default function BlogListingPage() {
           </div>
           <div className="container mx-auto max-w-6xl relative z-10 text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white" data-testid="text-page-title">
-              Mental Health Blog
+              {h1Title}
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
               Expert insights, guidance, and resources for mental health, wellness, and personal growth. 
