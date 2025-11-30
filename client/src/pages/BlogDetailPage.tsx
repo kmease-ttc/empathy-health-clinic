@@ -570,14 +570,15 @@ export default function BlogDetailPage() {
             src={optimizedHeroImage}
             srcSet={`${heroImageMobile} 640w, ${heroImageTablet} 1024w, ${optimizedHeroImage} 1200w`}
             sizes="(max-width: 768px) 640px, (max-width: 1024px) 1024px, 1200px"
-            alt={blogPost.title}
+            alt={`${blogPost.title} - Mental Health Blog - Empathy Health Clinic Orlando FL`}
             className="absolute inset-0 w-full h-full object-cover"
-            style={{ filter: 'brightness(1.3)' }}
+            style={{ filter: 'brightness(1.3)', aspectRatio: "1200/500" }}
             loading="eager"
-            fetchpriority="high"
+            fetchPriority="high"
             decoding="async"
             width={1200}
             height={500}
+            data-testid="img-blog-hero"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
           <div className="container mx-auto max-w-4xl relative z-10">

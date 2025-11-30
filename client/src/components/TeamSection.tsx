@@ -35,12 +35,14 @@ export default function TeamSection() {
               <div className="aspect-square rounded-xl border border-border bg-card flex flex-col items-center justify-center hover-elevate transition-transform duration-200 hover:scale-[1.02] p-6 cursor-pointer">
                 <img 
                   src={member.image} 
-                  alt={member.name}
+                  alt={`${member.name} ${member.credentials} - Mental Health Provider Orlando FL - Empathy Health Clinic`}
                   className="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority={index < 4 ? 'high' : 'auto'}
                   width={400}
                   height={400}
+                  style={{ aspectRatio: "1/1" }}
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     const fallback = e.currentTarget.parentElement?.querySelector('p');

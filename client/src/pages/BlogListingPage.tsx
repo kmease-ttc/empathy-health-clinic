@@ -117,11 +117,19 @@ export default function BlogListingPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 {featuredPosts.map((post, index) => (
                   <Link key={post.id} href={`/blog/${post.slug}`}>
-                    <Card className="hover-elevate cursor-pointer h-full min-h-[480px] flex flex-col" data-testid={`featured-post-${index}`}>
+                    <Card className="hover-elevate cursor-pointer h-full min-h-[480px] flex flex-col overflow-hidden" data-testid={`featured-post-${index}`}>
                       {post.featuredImage && (
-                        <div 
-                          className="h-56 bg-cover bg-center"
-                          style={{ backgroundImage: `url(${post.featuredImage})` }}
+                        <img 
+                          src={post.featuredImage}
+                          alt={`${post.title} - Mental Health Blog - Empathy Health Clinic`}
+                          className="h-56 w-full object-cover"
+                          width={600}
+                          height={224}
+                          loading={index === 0 ? "eager" : "lazy"}
+                          fetchPriority={index === 0 ? "high" : "auto"}
+                          decoding="async"
+                          style={{ aspectRatio: "600/224" }}
+                          data-testid={`img-featured-post-${index}`}
                         />
                       )}
                       <div className="p-6 flex-1 flex flex-col">
@@ -170,9 +178,16 @@ export default function BlogListingPage() {
                   <Link key={post.id} href={`/blog/${post.slug}`} data-testid={`latest-post-link-${index}`}>
                     <Card className="h-full min-h-[420px] hover-elevate cursor-pointer flex flex-col overflow-hidden" data-testid={`latest-post-card-${index}`}>
                       {post.featuredImage && (
-                        <div 
-                          className="h-48 bg-cover bg-center"
-                          style={{ backgroundImage: `url(${post.featuredImage})` }}
+                        <img 
+                          src={post.featuredImage}
+                          alt={`${post.title} - Mental Health Blog - Empathy Health Clinic`}
+                          className="h-48 w-full object-cover"
+                          width={400}
+                          height={192}
+                          loading="lazy"
+                          decoding="async"
+                          style={{ aspectRatio: "400/192" }}
+                          data-testid={`img-latest-post-${index}`}
                         />
                       )}
                       <CardHeader className="flex-1">
@@ -255,9 +270,16 @@ export default function BlogListingPage() {
                     <Link key={post.id} href={`/blog/${post.slug}`} data-testid={`paginated-post-link-${index}`}>
                       <Card className="h-full min-h-[420px] hover-elevate cursor-pointer flex flex-col overflow-hidden" data-testid={`paginated-post-card-${index}`}>
                         {post.featuredImage && (
-                          <div 
-                            className="h-48 bg-cover bg-center"
-                            style={{ backgroundImage: `url(${post.featuredImage})` }}
+                          <img 
+                            src={post.featuredImage}
+                            alt={`${post.title} - Mental Health Blog - Empathy Health Clinic`}
+                            className="h-48 w-full object-cover"
+                            width={400}
+                            height={192}
+                            loading="lazy"
+                            decoding="async"
+                            style={{ aspectRatio: "400/192" }}
+                            data-testid={`img-paginated-post-${index}`}
                           />
                         )}
                         <CardHeader className="flex-1">

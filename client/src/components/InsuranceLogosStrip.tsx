@@ -23,10 +23,15 @@ export default function InsuranceLogosStrip() {
             >
               <img 
                 src={provider.logo} 
-                alt={`${provider.name} accepted`}
+                alt={`${provider.name} insurance accepted at Empathy Health Clinic Orlando FL`}
+                role="img"
+                aria-label={`${provider.name} insurance logo`}
                 className="max-h-full max-w-full object-contain"
                 width={112}
                 height={56}
+                loading="lazy"
+                decoding="async"
+                style={{ aspectRatio: "2/1" }}
               />
             </div>
           ))}

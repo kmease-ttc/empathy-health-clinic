@@ -46,6 +46,7 @@ import {
 } from "@shared/schema";
 import { setupAuth } from "./auth";
 import { setupSEOWebhook } from "./seo-webhook";
+import { registerImageSitemap } from "./imageSitemap";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize blog slug cache at startup
@@ -63,6 +64,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Setup SEO webhook endpoint (/api/seo/implement)
   setupSEOWebhook(app);
+  
+  // Register image sitemap endpoint (/image-sitemap.xml)
+  registerImageSitemap(app);
+  
   // Specific treatment redirects (must come BEFORE catch-all)
   app.get("/treatments/psychiatric-services", (req, res) => {
     res.redirect(301, "/services");
@@ -2534,15 +2539,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Sitemap Index (points to main sitemap)
+  // Sitemap Index (points to main sitemap and image sitemap)
   app.get("/sitemap_index.xml", (_req, res) => {
     const baseUrl = "https://empathyhealthclinic.com";
+    const today = new Date().toISOString().split('T')[0];
     
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>${baseUrl}/sitemap.xml</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${baseUrl}/image-sitemap.xml</loc>
+    <lastmod>${today}</lastmod>
   </sitemap>
 </sitemapindex>`;
 
