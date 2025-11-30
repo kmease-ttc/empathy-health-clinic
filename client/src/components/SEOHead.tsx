@@ -681,11 +681,9 @@ export default function SEOHead({
     
     if (shouldHaveHreflang) {
       // Hreflang URL must match canonical URL exactly
-      // Sanitize to ensure production domain format
-      const hreflangUrl = canonicalUrl
-        .replace('http://', 'https://')
-        .replace('www.empathyhealthclinic.com', 'empathyhealthclinic.com')
-        .replace('.replit.app', '.com');
+      // canonicalUrl is already normalized using preferredDomain (https://empathyhealthclinic.com)
+      // so we can use it directly - no additional sanitization needed
+      const hreflangUrl = canonicalUrl;
       
       // Add en-us hreflang
       if (!hreflangEnUs) {
