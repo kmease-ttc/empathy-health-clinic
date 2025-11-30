@@ -31,6 +31,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
   - **X-Robots-Tag headers**: Server middleware for admin, auth, config, debug, examples, test, API endpoints, static assets (.json, .csv, .js, .css), and attachment/media pages.
   - **robots.txt**: Comprehensive disallow rules for admin, utility, search/filter, API, attachment/media, and UTM parameters. AI crawler allowances (Google-Extended, GPTBot, ChatGPT-User, PerplexityBot, Claude-Web, Anthropic-AI). All three sitemaps referenced (sitemap_index.xml, sitemap.xml, image-sitemap.xml).
   - **Pagination noindex**: Paginated pages (?page=N) get noindex,follow with canonical to base path.
+  - **Hreflang Internationalization**: Dual hreflang tags (en-us, x-default) for all indexable pages. Reuses canonicalUrl directly for guaranteed alignment with preferredDomain normalization. Skipped for noindex, paginated, search/filter, and consolidated pages. Includes proper cleanup on component unmount.
 - **YMYL Content Audit Implementation (November 2025):** Comprehensive YMYL compliance via reusable components:
   - `AuthoritativeSource.tsx` / `AuthoritativeSourcesBlock` - Citations to NIMH, APA, NIH for medical content credibility
   - `LocalizedContent.tsx` - Neighborhood details, landmarks, and drive times for location pages (accepts custom props or falls back to CITY_DATA)
