@@ -1,5 +1,61 @@
 import { useEffect } from "react";
 
+const BRAND_SUFFIX = "Empathy Health Clinic";
+const MAX_TITLE_LENGTH = 60;
+
+/**
+ * Normalize title to Title Case for consistency
+ * Handles common lowercase words that should stay lowercase
+ */
+function toTitleCase(str: string): string {
+  const lowercaseWords = new Set(['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of']);
+  
+  return str.split(' ').map((word, index) => {
+    // Keep first word capitalized, check for lowercase words
+    if (index === 0 || !lowercaseWords.has(word.toLowerCase())) {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }
+    return word.toLowerCase();
+  }).join(' ');
+}
+
+/**
+ * Ensure title has brand suffix, proper casing, and is within length limits
+ * - Normalizes to Title Case
+ * - Adds "| Empathy Health Clinic" if missing
+ * - Trims to 60 characters max with ellipsis
+ */
+function formatTitle(title: string): string {
+  // Extract main title (before any brand suffix)
+  const mainTitle = title.replace(/\s*[\|\-]\s*Empathy.*$/i, '').trim();
+  
+  // Apply title case to the main title only (not brand suffix)
+  const normalizedMain = toTitleCase(mainTitle);
+  
+  // Always add the brand suffix (normalized main title + brand)
+  let fullTitle = `${normalizedMain} | ${BRAND_SUFFIX}`;
+  
+  // Trim if over max length
+  if (fullTitle.length > MAX_TITLE_LENGTH) {
+    // Try to preserve the brand by trimming the main title
+    const brandPart = ` | ${BRAND_SUFFIX}`;
+    const mainTitleMaxLength = MAX_TITLE_LENGTH - brandPart.length - 1; // -1 for ellipsis
+    
+    if (mainTitleMaxLength > 20) {
+      // Enough room for meaningful title + brand
+      const trimmedMain = normalizedMain.length > mainTitleMaxLength 
+        ? normalizedMain.slice(0, mainTitleMaxLength).trim() + '…'
+        : normalizedMain;
+      fullTitle = `${trimmedMain}${brandPart}`;
+    } else {
+      // Just trim the whole thing
+      fullTitle = fullTitle.slice(0, MAX_TITLE_LENGTH - 1).trim() + '…';
+    }
+  }
+  
+  return fullTitle;
+}
+
 interface SEOHeadProps {
   title: string;
   description: string;
@@ -46,7 +102,9 @@ export default function SEOHead({
   breadcrumbTitle,
 }: SEOHeadProps) {
   useEffect(() => {
-    document.title = title;
+    // Format title: add brand suffix, enforce max length
+    const formattedTitle = formatTitle(title);
+    document.title = formattedTitle;
 
     /**
      * Normalize path for canonical URL:
@@ -120,13 +178,13 @@ export default function SEOHead({
     const metaTags = [
       { name: "description", content: description },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: title },
+      { property: "og:title", content: formattedTitle },
       { property: "og:description", content: description },
       { property: "og:image", content: defaultOgImage },
       { property: "og:url", content: currentUrl },
       { property: "og:type", content: type },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: title },
+      { name: "twitter:title", content: formattedTitle },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: defaultOgImage },
     ];
