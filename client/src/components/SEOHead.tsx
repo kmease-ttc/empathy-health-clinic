@@ -667,6 +667,65 @@ export default function SEOHead({
       canonicalLink = null;
     }
 
+    // ============ HREFLANG IMPLEMENTATION ============
+    // Add hreflang tags for indexable pages only
+    // - en-us: Primary language/region for US English
+    // - x-default: Fallback for unspecified regions
+    // Both point to the canonical URL to prevent conflicts
+    
+    let hreflangEnUs = document.querySelector('link[rel="alternate"][hreflang="en-us"]');
+    let hreflangXDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+    
+    // Only add hreflang for indexable pages (skip noindex, paginated, search/filter, consolidated)
+    const shouldHaveHreflang = shouldHaveCanonical && !isPaginated && !isSearchFilter;
+    
+    if (shouldHaveHreflang) {
+      // Hreflang URL must match canonical URL exactly
+      // Sanitize to ensure production domain format
+      const hreflangUrl = canonicalUrl
+        .replace('http://', 'https://')
+        .replace('www.empathyhealthclinic.com', 'empathyhealthclinic.com')
+        .replace('.replit.app', '.com');
+      
+      // Add en-us hreflang
+      if (!hreflangEnUs) {
+        hreflangEnUs = document.createElement("link");
+        hreflangEnUs.setAttribute("rel", "alternate");
+        hreflangEnUs.setAttribute("hreflang", "en-us");
+        // Insert after canonical tag for proper ordering
+        if (canonicalLink && canonicalLink.nextSibling) {
+          document.head.insertBefore(hreflangEnUs, canonicalLink.nextSibling);
+        } else {
+          document.head.appendChild(hreflangEnUs);
+        }
+      }
+      hreflangEnUs.setAttribute("href", hreflangUrl);
+      
+      // Add x-default hreflang (fallback for unspecified regions)
+      if (!hreflangXDefault) {
+        hreflangXDefault = document.createElement("link");
+        hreflangXDefault.setAttribute("rel", "alternate");
+        hreflangXDefault.setAttribute("hreflang", "x-default");
+        // Insert after en-us hreflang
+        if (hreflangEnUs && hreflangEnUs.nextSibling) {
+          document.head.insertBefore(hreflangXDefault, hreflangEnUs.nextSibling);
+        } else {
+          document.head.appendChild(hreflangXDefault);
+        }
+      }
+      hreflangXDefault.setAttribute("href", hreflangUrl);
+    } else {
+      // Remove hreflang tags from noindex pages
+      if (hreflangEnUs) {
+        hreflangEnUs.remove();
+        hreflangEnUs = null;
+      }
+      if (hreflangXDefault) {
+        hreflangXDefault.remove();
+        hreflangXDefault = null;
+      }
+    }
+
     // Handle rel="prev" and rel="next" for pagination (improves crawlability)
     let prevLink = document.querySelector('link[rel="prev"]');
     let nextLink = document.querySelector('link[rel="next"]');
@@ -871,6 +930,16 @@ export default function SEOHead({
       const paginationScriptCleanup = document.querySelector('script[type="application/ld+json"][data-pagination="true"]');
       if (paginationScriptCleanup && paginationScriptCleanup.parentNode) {
         paginationScriptCleanup.parentNode.removeChild(paginationScriptCleanup);
+      }
+      
+      // Clean up hreflang tags
+      const hreflangEnUsCleanup = document.querySelector('link[rel="alternate"][hreflang="en-us"]');
+      const hreflangXDefaultCleanup = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+      if (hreflangEnUsCleanup && hreflangEnUsCleanup.parentNode) {
+        hreflangEnUsCleanup.parentNode.removeChild(hreflangEnUsCleanup);
+      }
+      if (hreflangXDefaultCleanup && hreflangXDefaultCleanup.parentNode) {
+        hreflangXDefaultCleanup.parentNode.removeChild(hreflangXDefaultCleanup);
       }
     };
   }, [title, description, keywords, ogImage, canonicalPath, type, publishedDate, modifiedDate, author, jsonLd, preloadImage, breadcrumbTitle, pagination]);
