@@ -828,8 +828,9 @@ export default function SEOHead({
       }
       
       // Clean up pagination structured data
-      if (paginationScript && paginationScript.parentNode) {
-        paginationScript.parentNode.removeChild(paginationScript);
+      const paginationScriptCleanup = document.querySelector('script[type="application/ld+json"][data-pagination="true"]');
+      if (paginationScriptCleanup && paginationScriptCleanup.parentNode) {
+        paginationScriptCleanup.parentNode.removeChild(paginationScriptCleanup);
       }
     };
   }, [title, description, keywords, ogImage, canonicalPath, type, publishedDate, modifiedDate, author, jsonLd, preloadImage, breadcrumbTitle, pagination]);
