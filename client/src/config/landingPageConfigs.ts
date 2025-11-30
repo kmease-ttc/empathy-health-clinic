@@ -1853,7 +1853,7 @@ export const psychiatristOrlandoConfig: LandingPageConfig = {
       { name: "Insomnia & Sleep Disorders" },
       { name: "Schizophrenia & Psychotic Disorders" },
     ],
-    servicesHeading: "What Our Orlando Psychiatrists Offer",
+    servicesHeading: "Orlando Psychiatry Services",
     services: [
       {
         icon: FileText,

@@ -10,7 +10,7 @@ import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
 import { trackEvent } from "@/lib/analytics";
-import { formatH1 } from "@/lib/seoHelpers";
+import { formatH1, formatH2 } from "@/lib/seoHelpers";
 import type { LandingPageConfig } from "@/types/landingPage";
 
 interface LandingPageTemplateProps {
@@ -181,8 +181,8 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
               
               {/* Introduction */}
               <section>
-                <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
-                  {config.content.mainHeading}
+                <h2 className="text-3xl font-sans font-bold text-foreground mb-6" data-testid="text-main-heading">
+                  {formatH2(config.content.mainHeading)}
                 </h2>
                 {config.content.introduction && config.content.introduction.length > 0 && (
                   <div className="prose prose-lg max-w-none">
@@ -198,8 +198,8 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
               {/* Conditions Section */}
               {config.content.conditions && config.content.conditions.length > 0 && (
                 <section>
-                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                    {config.content.conditionsHeading || "Conditions We Treat"}
+                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4" data-testid="text-conditions-heading">
+                    {formatH2(config.content.conditionsHeading || "Conditions We Treat")}
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-3">
                     {config.content.conditions.map((condition, idx) => (
@@ -220,8 +220,8 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
               {/* Services Section */}
               {config.content.services && config.content.services.length > 0 && (
                 <section>
-                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                    {config.content.servicesHeading || "Our Services"}
+                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4" data-testid="text-services-heading">
+                    {formatH2(config.content.servicesHeading || "Our Services")}
                   </h2>
                   <div className="space-y-4">
                     {config.content.services.map((service, idx) => {
@@ -243,8 +243,8 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
               {/* Why Choose Section */}
               {config.content.whyChoosePoints && config.content.whyChoosePoints.length > 0 && (
                 <section>
-                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                    {config.content.whyChooseHeading || "Why Choose Us?"}
+                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4" data-testid="text-whychoose-heading">
+                    {formatH2(config.content.whyChooseHeading || "Why Choose Our Mental Health Team")}
                   </h2>
                   <div className="space-y-4">
                     {config.content.whyChoosePoints.map((point, idx) => {
@@ -266,8 +266,8 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
               {/* FAQs */}
               {config.faqs && config.faqs.length > 0 && (
                 <section>
-                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                    Frequently Asked Questions
+                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4" data-testid="text-faq-heading">
+                    {formatH2("Frequently Asked Questions About Our Services")}
                   </h2>
                   <div className="space-y-4">
                     {config.faqs.map((faq, idx) => (
@@ -286,8 +286,8 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
             <div className="lg:col-span-1">
               <div className="sticky top-6 space-y-6">
                 <div className="bg-card rounded-lg border p-6" id="contact-form">
-                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                    {config.sidebar.formHeading}
+                  <h2 className="text-2xl font-sans font-bold text-foreground mb-4" data-testid="text-form-heading">
+                    {formatH2(config.sidebar.formHeading)}
                   </h2>
                   <p className="text-muted-foreground mb-6">
                     {config.sidebar.formSubheading}
