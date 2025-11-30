@@ -67,7 +67,7 @@ export default function TelepsychiatryOrlando() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Telepsychiatry Services in Orlando, FL
+            Telepsychiatry Orlando
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
             Board-certified psychiatrists providing virtual mental health care in Orlando. Online psychiatrist appointments for medication management, psychiatric evaluations, and comprehensive treatment from the comfort of your home.

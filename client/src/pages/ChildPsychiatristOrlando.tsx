@@ -58,7 +58,7 @@ export default function ChildPsychiatristOrlando() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Child & Adolescent Psychiatrists in Orlando
+            Child Psychiatrist Orlando
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
             Board-certified child and adolescent psychiatrists specializing in children's mental health in Orlando. Expert diagnosis and medication management for ADHD, anxiety, depression, and behavioral issues in kids and teens.

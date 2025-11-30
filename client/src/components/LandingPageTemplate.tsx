@@ -10,6 +10,7 @@ import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
 import { trackEvent } from "@/lib/analytics";
+import { formatH1 } from "@/lib/seoHelpers";
 import type { LandingPageConfig } from "@/types/landingPage";
 
 interface LandingPageTemplateProps {
@@ -40,7 +41,7 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
         {/* Hero Section */}
         <HeroBackground imageSrc={config.hero.heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            {config.hero.title}
+            {formatH1(config.hero.title)}
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
             {config.hero.subtitle}

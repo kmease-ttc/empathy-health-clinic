@@ -246,7 +246,7 @@ export default function WinterPark() {
               <MapPin className="h-8 w-8 text-primary" />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white" data-testid="text-page-title">
-              Winter Park Psychiatry & Therapy
+              Psychiatrist Winter Park
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
               Empathy Health Clinic is located in the heart of Winter Park, FL. Our experienced psychiatrists and therapists provide compassionate, evidence-based mental health care to help you thrive.

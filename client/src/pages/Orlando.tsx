@@ -274,7 +274,7 @@ export default function Orlando() {
               <Brain className="h-8 w-8 text-primary" />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white" data-testid="text-page-title">
-              Psychiatrist in Orlando, FL
+              Psychiatrist Orlando
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
               Board-certified psychiatrists and licensed therapists providing compassionate, evidence-based psychiatric care in Orlando. Specializing in depression, anxiety, ADHD, PTSD, and comprehensive mental health treatment.

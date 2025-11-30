@@ -1602,7 +1602,7 @@ export const psychiatryOrlandoConfig: LandingPageConfig = {
     "medicalSpecialty": "Psychiatry"
   },
   hero: {
-    title: "Psychiatry Orlando | Comprehensive Psychiatric Services in Orlando, FL",
+    title: "Psychiatry Services Orlando",
     subtitle: "Board-certified psychiatrists providing expert mental health care in Orlando. Medication management, psychiatric evaluations, and treatment for anxiety, depression, ADHD, bipolar disorder, and more. Same-week appointments available with in-person and telehealth options.",
     ctaPrimary: "Schedule Appointment",
     ctaSecondary: "Call 386-848-8751",
@@ -1814,7 +1814,7 @@ export const psychiatristOrlandoConfig: LandingPageConfig = {
     ]
   },
   hero: {
-    title: "Psychiatrist Orlando | Expert Mental Health Care in Orlando, FL",
+    title: "Psychiatrist Orlando",
     subtitle: "Connect with board-certified psychiatrists in Orlando for comprehensive mental health treatment. Medication management, psychiatric evaluations, and treatment for anxiety, depression, ADHD, bipolar disorder, and more. Same-week appointments with in-person and telehealth options.",
     ctaPrimary: "Schedule Appointment",
     ctaSecondary: "Call 386-848-8751",
@@ -1985,7 +1985,7 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
     "medicalSpecialty": "Psychiatry"
   },
   hero: {
-    title: "ADHD Psychiatrist Orlando | Expert ADHD Treatment in Orlando, FL",
+    title: "ADHD Psychiatrist Orlando",
     subtitle: "Specialized ADHD diagnosis and treatment by board-certified psychiatrists. Comprehensive evaluations, medication management, and personalized treatment plans for adults, teens, and children with ADHD. Same-week appointments available with in-person and telehealth options.",
     ctaPrimary: "Schedule ADHD Evaluation",
     ctaSecondary: "Call 386-848-8751",
@@ -2152,7 +2152,7 @@ export const bipolarPsychiatristOrlandoConfig: LandingPageConfig = {
     "medicalSpecialty": "Psychiatry"
   },
   hero: {
-    title: "Bipolar Psychiatrist Orlando | Expert Bipolar Disorder Treatment in Orlando, FL",
+    title: "Bipolar Psychiatrist Orlando",
     subtitle: "Specialized treatment for bipolar disorder by board-certified psychiatrists. Expert mood stabilization, medication management, and comprehensive care for bipolar I, bipolar II, and cyclothymia. Same-week appointments with in-person and telehealth options.",
     ctaPrimary: "Schedule Appointment",
     ctaSecondary: "Call 386-848-8751",
@@ -2320,7 +2320,7 @@ export const medicationManagementOrlandoConfig: LandingPageConfig = {
     "medicalSpecialty": "Psychiatry"
   },
   hero: {
-    title: "Medication Management Orlando | Expert Psychiatric Medication Management in Orlando, FL",
+    title: "Medication Management Orlando",
     subtitle: "Professional psychiatric medication management by board-certified psychiatrists. Expert prescribing, monitoring, and adjustment of mental health medications for anxiety, depression, ADHD, bipolar disorder, and more. Same-week appointments with in-person and telehealth options.",
     ctaPrimary: "Schedule Appointment",
     ctaSecondary: "Call 386-848-8751",
