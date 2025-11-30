@@ -191,6 +191,28 @@ function isPaginatedPath(path: string, search: string): boolean {
 }
 
 /**
+ * Check if path is a search or filter page that should be noindex
+ * Includes internal search results, category/tag filters with pagination
+ */
+function isSearchOrFilterPage(path: string, search: string): boolean {
+  const normalizedPath = path.toLowerCase();
+  const normalizedSearch = search.toLowerCase();
+  
+  // Internal search pages
+  if (normalizedPath.includes('/search') || normalizedSearch.includes('search=') || normalizedSearch.includes('q=')) {
+    return true;
+  }
+  
+  // Category/tag filter pages with pagination
+  if ((normalizedSearch.includes('tag=') || normalizedSearch.includes('category=')) && 
+      normalizedSearch.includes('page=')) {
+    return true;
+  }
+  
+  return false;
+}
+
+/**
  * Get the base path for pagination (strip page parameter)
  */
 function getBasePaginationPath(path: string): string {
@@ -493,6 +515,9 @@ export default function SEOHead({
     // Check pagination BEFORE normalizing (normalizePath strips query params)
     const isPaginated = isPaginatedPath(rawPath, currentSearch);
     
+    // Check for search/filter pages that should be noindex
+    const isSearchFilter = isSearchOrFilterPage(rawPath, currentSearch);
+    
     // Normalize the path (strips query params, trailing slashes, etc.)
     let normalizedPath = normalizePath(rawPath);
     
@@ -500,9 +525,9 @@ export default function SEOHead({
     // Query params are already stripped by normalizePath, so just use base path
     
     // Determine if this page should have a canonical tag at all
-    // Noindex utility pages and paginated pages should NOT be indexed
+    // Noindex utility pages should NOT have canonical
     const isNoindex = isNoindexPage(normalizedPath);
-    const shouldHaveCanonical = !isNoindex;
+    const shouldHaveCanonical = !isNoindex && !isSearchFilter;
     
     // Apply canonical consolidation ONLY if NOT a self-canonical page
     // Self-canonical pages (location, insurance, condition pages) must stay self-canonical
@@ -517,8 +542,11 @@ export default function SEOHead({
     // Set robots based on page type:
     // - noindex for utility pages (admin, privacy-policy, etc.)
     // - noindex for paginated pages (they point to base canonical)
-    const shouldNoindex = isNoindex || isPaginated;
-    const robotsContent = shouldNoindex ? "noindex, follow" : "index, follow";
+    // - noindex, nofollow for search/filter pages (prevent crawl waste)
+    const shouldNoindex = isNoindex || isPaginated || isSearchFilter;
+    const robotsContent = isSearchFilter 
+      ? "noindex, nofollow"  // Search/filter pages get nofollow too
+      : (shouldNoindex ? "noindex, follow" : "index, follow");
     
     const metaTags = [
       { name: "description", content: formattedDescription },
