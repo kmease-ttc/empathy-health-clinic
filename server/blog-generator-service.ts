@@ -3,6 +3,24 @@ import { db } from "./db";
 import { usedBlogImages } from "@shared/schema";
 import { sql } from "drizzle-orm";
 
+/**
+ * Normalize a slug for SEO best practices:
+ * - All lowercase
+ * - Hyphens only (no underscores)
+ * - No trailing slashes
+ * - No encoded characters
+ * - No duplicate hyphens
+ * - No leading/trailing hyphens
+ */
+export function normalizeSlug(input: string): string {
+  return input
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")  // Replace non-alphanumeric with hyphens
+    .replace(/-+/g, "-")          // Collapse multiple hyphens
+    .replace(/^-|-$/g, "");       // Remove leading/trailing hyphens
+}
+
 // This is using Replit's AI Integrations service, which provides OpenAI-compatible API access without requiring your own OpenAI API key.
 // Lazy initialization of OpenAI client to ensure env vars are loaded
 let openai: OpenAI | null = null;
@@ -1268,7 +1286,7 @@ Return complete JSON:
 
     return {
       title: currentBlog.title,
-      slug: currentBlog.slug,
+      slug: normalizeSlug(currentBlog.slug),
       metaDescription: currentBlog.metaDescription,
       content: currentBlog.content,
       excerpt: currentBlog.excerpt,
@@ -2116,7 +2134,7 @@ Return valid JSON with all fields (title, metaDescription, slug, content, excerp
 
       return {
         title: improvedBlog.title,
-        slug: improvedBlog.slug,
+        slug: normalizeSlug(improvedBlog.slug),
         metaDescription: improvedBlog.metaDescription,
         content: improvedBlog.content,
         excerpt: improvedBlog.excerpt,

@@ -265,18 +265,54 @@ export function normalizePath(path: string): string {
 }
 
 /**
- * Query parameters that should be stripped for SEO purposes
+ * Query parameters that should be stripped for SEO purposes (DENYLIST approach)
  * These are tracking/analytics parameters that don't affect page content
+ * 
+ * This comprehensive list covers:
+ * - UTM tracking (Google Analytics, marketing)
+ * - Click ID tracking (Google, Facebook, Microsoft, etc.)
+ * - Email marketing (Mailchimp, HubSpot)
+ * - Affiliate/referral tracking
+ * - Session tracking
+ * - Social sharing parameters
  */
-const STRIP_QUERY_PARAMS = [
-  'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
-  'ref', 'fbclid', 'gclid', 'msclkid', 'dclid',
-  'mc_cid', 'mc_eid', 'oly_enc_id', 'oly_anon_id',
-  '_ga', '_gl', 'hsCtaTracking', 'hsa_acc', 'hsa_cam', 'hsa_grp', 'hsa_ad', 'hsa_src', 'hsa_tgt', 'hsa_kw', 'hsa_mt', 'hsa_net', 'hsa_ver',
-];
+const STRIP_QUERY_PARAMS = new Set([
+  // UTM tracking (all entries lowercase for case-insensitive matching)
+  'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id',
+  // Google Click IDs
+  'gclid', 'gbraid', 'wbraid', 'dclid', 'gclsrc',
+  // Facebook/Meta Click IDs
+  'fbclid', 'fbc', 'fbp',
+  // Microsoft/Bing Click IDs
+  'msclkid', 'mscampid',
+  // Twitter
+  'twclid',
+  // LinkedIn
+  'li_fat_id',
+  // Instagram
+  'igshid',
+  // TikTok
+  'ttclid',
+  // Email marketing - Mailchimp
+  'mc_cid', 'mc_eid',
+  // Email marketing - HubSpot (all lowercase for case-insensitive matching)
+  'hs_ctaclickedid', 'hsctaTracking'.toLowerCase(),
+  'hsa_acc', 'hsa_cam', 'hsa_grp', 'hsa_ad', 'hsa_src', 'hsa_tgt', 'hsa_kw', 'hsa_mt', 'hsa_net', 'hsa_ver',
+  // Affiliate/referral
+  'ref', 'referer', 'referrer', 'source', 'partner', 'affiliate', 'aff_id',
+  'click_id', 'tracking_id', 'campaign', 'share',
+  // Analytics session IDs
+  '_ga', '_gl', '_gid', '_gac', 'sid', 'session_id',
+  // Misc tracking
+  'oly_enc_id', 'oly_anon_id', 'vero_id', 'sc_src', 'sc_cid', 'sscid',
+  'mktcid', 'mkt_tok', 'trk', 'mtm_source', 'mtm_medium', 'mtm_campaign',
+]);
 
 /**
  * Strip tracking query parameters for clean canonical URLs
+ * 
+ * Uses DENYLIST approach: removes known tracking params, preserves functional params
+ * This is safer than allowlist for content sites that may add pagination/filters later
  */
 function stripTrackingParams(query: string): string {
   if (!query || query === '?' || !query.startsWith('?')) {
@@ -287,8 +323,9 @@ function stripTrackingParams(query: string): string {
   const cleanParams = new URLSearchParams();
   
   for (const [key, value] of params.entries()) {
-    // Keep parameter if it's not in the strip list
-    if (!STRIP_QUERY_PARAMS.includes(key.toLowerCase())) {
+    const lowerKey = key.toLowerCase();
+    // Keep parameter only if it's NOT in the strip list
+    if (!STRIP_QUERY_PARAMS.has(lowerKey)) {
       cleanParams.set(key, value);
     }
   }
