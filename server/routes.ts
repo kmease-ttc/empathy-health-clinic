@@ -2434,7 +2434,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // SEO Routes - XML Sitemap
+  // SEO Routes - XML Sitemap with comprehensive filtering
   app.get("/sitemap.xml", async (_req, res) => {
     try {
       const [treatments, therapies, conditions, insuranceProviders, blogPosts, locations, teamMembers] = await Promise.all([
@@ -2447,99 +2447,195 @@ export async function registerRoutes(app: Express): Promise<Server> {
         storage.getAllTeamMembers()
       ]);
 
-      // Always use production domain for sitemap (required for Google Search Console)
       const baseUrl = "https://empathyhealthclinic.com";
+      const today = new Date().toISOString().split('T')[0];
+      const addedUrls = new Set<string>();
 
-      // Helper function to check if a URL redirects
-      const isRedirectingUrl = (path: string): boolean => {
-        return path in contentRedirectMap;
+      const NOINDEX_PATHS = [
+        '/admin', '/login', '/auth', '/config', '/debug',
+        '/examples', '/test', '/preview',
+        '/privacy', '/terms', '/disclaimer',
+        '/thank-you', '/confirmed', '/appointment-confirmed',
+        '/404', '/500', '/error',
+        '/search', '/filter',
+        '/api', '/attachment', '/uploads', '/media',
+        '/wp-includes', '/wp-content', '/wp-admin',
+      ];
+
+      const CANONICAL_CONSOLIDATION_PATHS: Record<string, string> = {
+        '/psychiatry-orlando': '/psychiatrist-orlando',
+        '/psychiatry-clinic-orlando': '/psychiatrist-orlando',
+        '/anxiety-psychiatrist-orlando': '/psychiatrist-orlando',
+        '/depression-psychiatrist-orlando': '/psychiatrist-orlando',
+        '/medication-management-orlando': '/psychiatrist-orlando',
+        '/telepsychiatry-orlando': '/psychiatrist-orlando',
+        '/bipolar-psychiatrist-orlando': '/psychiatrist-orlando',
+        '/same-day-psychiatrist-orlando': '/psychiatrist-orlando',
+      };
+
+      const shouldInclude = (path: string): boolean => {
+        const normalized = path.toLowerCase().replace(/\/+$/, '');
+        if (NOINDEX_PATHS.some(p => normalized.startsWith(p))) return false;
+        if (normalized in CANONICAL_CONSOLIDATION_PATHS) return false;
+        if (normalized.includes('page=')) return false;
+        if (normalized.includes('?')) return false;
+        if (normalized.includes('attachment')) return false;
+        if (normalized.includes('wp-')) return false;
+        if (path in contentRedirectMap) return false;
+        return true;
+      };
+
+      const escapeXml = (text: string): string => {
+        return text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&apos;');
+      };
+
+      const addUrl = (path: string, changefreq: string, priority: number, lastmod?: string): string => {
+        const fullUrl = `${baseUrl}${path}`;
+        if (addedUrls.has(fullUrl)) return '';
+        if (!shouldInclude(path)) return '';
+        addedUrls.add(fullUrl);
+
+        let xml = `  <url>\n`;
+        xml += `    <loc>${escapeXml(fullUrl)}</loc>\n`;
+        if (lastmod) {
+          xml += `    <lastmod>${lastmod}</lastmod>\n`;
+        }
+        xml += `    <changefreq>${changefreq}</changefreq>\n`;
+        xml += `    <priority>${priority.toFixed(1)}</priority>\n`;
+        xml += `    <xhtml:link rel="alternate" hreflang="en-us" href="${escapeXml(fullUrl)}" />\n`;
+        xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(fullUrl)}" />\n`;
+        xml += `  </url>\n`;
+        return xml;
       };
 
       let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-      xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+      xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n';
+      xml += '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
 
-      // Homepage
-      xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n`;
+      xml += addUrl('/', 'daily', 1.0, today);
 
-      // Main pages (filter out any that redirect)
-      const mainPages = ['/services', '/insurance', '/team', '/blog', '/therapy', '/new-patients', '/virtual-therapy', '/request-appointment', '/psychotherapist-orlando', '/couples-counseling', '/counselor-near-me', '/mental-health-near-me', '/therapy-near-me', '/counseling-orlando', '/therapy-oviedo', '/therapist-maitland', '/anxiety-therapy', '/depression-counseling', '/cognitive-behavioral-therapy', '/emdr-therapy'];
-      mainPages.forEach(page => {
-        if (!isRedirectingUrl(page)) {
-          xml += `  <url>\n    <loc>${baseUrl}${page}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
-        }
+      const PAGE_LASTMOD: Record<string, string> = {
+        '/': today,
+        '/services': '2025-11-15',
+        '/psychiatrist-orlando': '2025-11-20',
+        '/therapist-orlando': '2025-11-18',
+        '/team': '2025-11-25',
+        '/insurance': '2025-11-10',
+        '/blog': today,
+        '/new-patients': '2025-11-01',
+        '/virtual-therapy': '2025-11-12',
+        '/request-appointment': '2025-11-05',
+        '/therapy': '2025-11-08',
+        '/psychotherapist-orlando': '2025-11-15',
+        '/couples-counseling': '2025-10-20',
+        '/counselor-near-me': '2025-10-25',
+        '/mental-health-near-me': '2025-10-25',
+        '/therapy-near-me': '2025-10-25',
+        '/psychiatrist-near-me': '2025-11-22',
+        '/counseling-orlando': '2025-10-15',
+        '/child-psychiatrist-orlando': '2025-11-18',
+        '/adhd-psychiatrist-orlando': '2025-11-18',
+        '/anxiety-therapy': '2025-10-10',
+        '/depression-counseling': '2025-10-10',
+        '/cognitive-behavioral-therapy': '2025-09-15',
+        '/emdr-therapy': '2025-09-20',
+        '/tms-treatment': '2025-11-01',
+        '/adhd-testing-orlando': '2025-11-15',
+        '/anxiety-treatment': '2025-10-05',
+        '/depression-treatment': '2025-10-05',
+        '/medication-management': '2025-11-10',
+        '/psychiatric-services': '2025-10-01',
+        '/psychiatrist-winter-park': '2025-10-20',
+        '/therapy-oviedo': '2025-09-01',
+        '/therapist-maitland': '2025-09-01',
+      };
+
+      const staticPages = [
+        { path: '/services', changefreq: 'weekly', priority: 0.9 },
+        { path: '/psychiatrist-orlando', changefreq: 'weekly', priority: 0.95 },
+        { path: '/therapist-orlando', changefreq: 'weekly', priority: 0.85 },
+        { path: '/team', changefreq: 'weekly', priority: 0.85 },
+        { path: '/insurance', changefreq: 'weekly', priority: 0.8 },
+        { path: '/blog', changefreq: 'daily', priority: 0.8 },
+        { path: '/new-patients', changefreq: 'weekly', priority: 0.8 },
+        { path: '/virtual-therapy', changefreq: 'weekly', priority: 0.8 },
+        { path: '/request-appointment', changefreq: 'weekly', priority: 0.85 },
+        { path: '/therapy', changefreq: 'weekly', priority: 0.8 },
+        { path: '/psychotherapist-orlando', changefreq: 'weekly', priority: 0.8 },
+        { path: '/couples-counseling', changefreq: 'weekly', priority: 0.75 },
+        { path: '/counselor-near-me', changefreq: 'weekly', priority: 0.75 },
+        { path: '/mental-health-near-me', changefreq: 'weekly', priority: 0.75 },
+        { path: '/therapy-near-me', changefreq: 'weekly', priority: 0.75 },
+        { path: '/psychiatrist-near-me', changefreq: 'weekly', priority: 0.9 },
+        { path: '/counseling-orlando', changefreq: 'weekly', priority: 0.75 },
+        { path: '/child-psychiatrist-orlando', changefreq: 'weekly', priority: 0.85 },
+        { path: '/adhd-psychiatrist-orlando', changefreq: 'weekly', priority: 0.85 },
+        { path: '/anxiety-therapy', changefreq: 'weekly', priority: 0.8 },
+        { path: '/depression-counseling', changefreq: 'weekly', priority: 0.8 },
+        { path: '/cognitive-behavioral-therapy', changefreq: 'monthly', priority: 0.75 },
+        { path: '/emdr-therapy', changefreq: 'monthly', priority: 0.8 },
+        { path: '/tms-treatment', changefreq: 'monthly', priority: 0.8 },
+        { path: '/adhd-testing-orlando', changefreq: 'weekly', priority: 0.85 },
+        { path: '/anxiety-treatment', changefreq: 'weekly', priority: 0.8 },
+        { path: '/depression-treatment', changefreq: 'weekly', priority: 0.8 },
+        { path: '/medication-management', changefreq: 'weekly', priority: 0.85 },
+        { path: '/psychiatric-services', changefreq: 'weekly', priority: 0.8 },
+        { path: '/psychiatrist-winter-park', changefreq: 'weekly', priority: 0.8 },
+        { path: '/therapy-oviedo', changefreq: 'monthly', priority: 0.7 },
+        { path: '/therapist-maitland', changefreq: 'monthly', priority: 0.7 },
+      ];
+      
+      staticPages.forEach(page => {
+        xml += addUrl(page.path, page.changefreq, page.priority, PAGE_LASTMOD[page.path] || today);
       });
 
-      // Treatment pages (filter out any that redirect)
       treatments.forEach(treatment => {
-        const path = `/${treatment.slug}`;
-        if (!isRedirectingUrl(path)) {
-          xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
-        }
+        xml += addUrl(`/${treatment.slug}`, 'monthly', 0.7, today);
       });
 
-      // Therapy pages (filter out any that redirect)
       therapies.forEach(therapy => {
-        const path = `/${therapy.slug}`;
-        if (!isRedirectingUrl(path)) {
-          xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
-        }
+        xml += addUrl(`/${therapy.slug}`, 'monthly', 0.7, today);
       });
 
-      // Condition pages (filter out any that redirect)
       conditions.forEach(condition => {
-        const path = `/${condition.slug}`;
-        if (!isRedirectingUrl(path)) {
-          xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
-        }
+        xml += addUrl(`/${condition.slug}`, 'monthly', 0.7, today);
       });
 
-      // Insurance provider pages (filter out any that redirect)
       insuranceProviders.forEach(provider => {
-        const path = `/${provider.slug}`;
-        if (!isRedirectingUrl(path)) {
-          xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
-        }
+        xml += addUrl(`/${provider.slug}`, 'monthly', 0.6, today);
       });
 
-      // Blog posts (filter out any that redirect)
       blogPosts.forEach(post => {
-        const path = `/blog/${post.slug}`;
-        if (!isRedirectingUrl(path)) {
-          const lastMod = post.lastUpdated || post.publishedDate;
-          xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n`;
-          if (lastMod) {
-            xml += `    <lastmod>${new Date(lastMod).toISOString().split('T')[0]}</lastmod>\n`;
-          }
-          xml += `    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
-        }
+        const lastMod = post.lastUpdated || post.publishedDate;
+        const lastModStr = lastMod ? new Date(lastMod).toISOString().split('T')[0] : today;
+        xml += addUrl(`/blog/${post.slug}`, 'weekly', 0.5, lastModStr);
       });
 
-      // Location pages (filter out any that redirect)
       locations.forEach(location => {
-        const path = `/locations/${location.slug}`;
-        if (!isRedirectingUrl(path)) {
-          xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
-        }
+        xml += addUrl(`/locations/${location.slug}`, 'monthly', 0.7, today);
       });
 
-      // Team member pages (filter out any that redirect)
       teamMembers.forEach(member => {
-        const path = `/team/${member.slug}`;
-        if (!isRedirectingUrl(path)) {
-          xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
-        }
+        xml += addUrl(`/team/${member.slug}`, 'monthly', 0.7, today);
       });
 
       xml += '</urlset>';
 
       res.header('Content-Type', 'application/xml');
+      res.header('Cache-Control', 'public, max-age=3600');
       res.send(xml);
     } catch (error: any) {
+      console.error('Sitemap generation error:', error);
       res.status(500).json({ error: error.message });
     }
   });
 
-  // Sitemap Index (points to main sitemap and image sitemap)
+  // Sitemap Index (master index pointing to all sitemaps)
   app.get("/sitemap_index.xml", (_req, res) => {
     const baseUrl = "https://empathyhealthclinic.com";
     const today = new Date().toISOString().split('T')[0];
@@ -2557,6 +2653,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 </sitemapindex>`;
 
     res.header('Content-Type', 'application/xml');
+    res.header('Cache-Control', 'public, max-age=3600');
     res.send(xml);
   });
 
