@@ -19,103 +19,122 @@ interface RankingResult {
   error?: string;
 }
 
-const KEYWORDS = [
-  "psychiatrist orlando",
-  "psychiatry orlando",
-  "psychiatrist winter park",
-  "psychiatry winter park",
-  "psychiatrist near me",
-  "psychiatry near me",
-  "mental health psychiatrist orlando",
-  "mental health clinic orlando",
-  "psychiatric clinic orlando",
-  "psychiatric services orlando",
-  "psychiatric evaluation orlando",
-  "psychiatric assessment orlando",
-  "psychiatric medication orlando",
-  "psychiatrist accepting new patients orlando",
-  "psychiatry accepting new patients orlando",
-  "same day psychiatrist orlando",
-  "same day psychiatry orlando",
-  "walk in psychiatrist orlando",
-  "urgent psychiatrist orlando",
-  "emergency psychiatrist orlando",
-  "telepsychiatry orlando",
-  "online psychiatrist orlando",
-  "online psychiatry orlando",
-  "online psychiatrist florida",
-  "online psychiatry florida",
-  "virtual psychiatrist orlando",
-  "virtual psychiatry orlando",
-  "best psychiatrist orlando",
-  "top rated psychiatrist orlando",
-  "adult psychiatrist orlando",
-  "family psychiatrist orlando",
-  "medication management orlando",
-  "medication management psychiatry orlando",
-  "mental health medication orlando",
-  "anxiety psychiatrist orlando",
-  "anxiety treatment orlando",
-  "anxiety therapy orlando",
-  "anxiety medication orlando",
-  "adhd psychiatrist orlando",
-  "adhd psychiatry orlando",
-  "adhd evaluation orlando",
-  "adhd testing orlando",
-  "adhd treatment orlando",
-  "adhd medication orlando",
-  "depression psychiatrist orlando",
-  "depression psychiatry orlando",
-  "depression treatment orlando",
-  "depression medication orlando",
-  "bipolar psychiatrist orlando",
-  "bipolar psychiatry orlando",
-  "bipolar treatment orlando",
-  "ptsd psychiatrist orlando",
-  "ptsd psychiatry orlando",
-  "ptsd treatment orlando",
-  "ocd psychiatrist orlando",
-  "ocd psychiatry orlando",
-  "schizophrenia psychiatrist orlando",
-  "schizophrenia treatment orlando",
-  "panic attack psychiatrist orlando",
-  "panic disorder psychiatrist orlando",
-  "insomnia psychiatrist orlando",
-  "sleep medication psychiatrist orlando",
-  "mental health doctor orlando",
-  "behavioral health orlando psychiatrist",
-  "psychiatrist orlando accepts insurance",
-  "psychiatry orlando accepts insurance",
-  "psychiatrist orlando accepts cigna",
-  "psychiatry orlando accepts cigna",
-  "psychiatrist orlando accepts aetna",
-  "psychiatry orlando accepts aetna",
-  "psychiatrist orlando accepts bcbs",
-  "psychiatry orlando accepts bcbs",
-  "psychiatrist orlando accepts umr",
-  "psychiatry orlando accepts umr",
-  "psychiatrist orlando accepts united healthcare",
-  "psychiatry orlando accepts united healthcare",
-  "psychiatrist orlando accepts medicare",
-  "psychiatry orlando accepts medicare",
-  "psychiatrist orlando accepts medicaid",
-  "psychiatry orlando accepts medicaid",
-  "local psychiatrist orlando",
-  "affordable psychiatrist orlando",
-  "low cost psychiatrist orlando",
-  "private psychiatrist orlando",
-  "psychiatrist near ucf",
-  "psychiatrist near lake nona",
-  "psychiatrist near winter park",
-  "psychiatrist near downtown orlando",
-  "mental health provider orlando",
-  "psychiatrist for anxiety near me",
-  "psychiatrist for depression near me",
-  "psychiatrist specializing in adhd orlando",
-  "psychiatrist specializing in anxiety orlando",
-  "psychiatrist specializing in depression orlando",
-  "trauma psychiatrist orlando",
+interface KeywordData {
+  keyword: string;
+  volume: number; // Estimated monthly search volume
+  priority: "critical" | "high" | "medium" | "low";
+  category: "core" | "condition" | "insurance" | "location" | "service" | "intent";
+  notes?: string;
+}
+
+// Keywords with estimated search volumes and priority scores
+// All keywords are within 20-mile radius of Orlando or geo-targeted "near me" searches
+const KEYWORD_DATA: KeywordData[] = [
+  // CRITICAL - Highest volume, highest intent keywords
+  { keyword: "psychiatrist near me", volume: 49500, priority: "critical", category: "intent", notes: "Top priority - highest intent" },
+  { keyword: "psychiatrist orlando", volume: 2900, priority: "critical", category: "core", notes: "Primary geo target" },
+  { keyword: "psychiatry orlando", volume: 720, priority: "critical", category: "core" },
+  { keyword: "mental health clinic orlando", volume: 590, priority: "critical", category: "core" },
+  { keyword: "psychiatric clinic orlando", volume: 390, priority: "critical", category: "core" },
+  
+  // HIGH - Strong volume or high conversion intent
+  { keyword: "psychiatrist accepting new patients orlando", volume: 480, priority: "high", category: "intent", notes: "High conversion" },
+  { keyword: "adhd psychiatrist orlando", volume: 590, priority: "high", category: "condition" },
+  { keyword: "anxiety psychiatrist orlando", volume: 480, priority: "high", category: "condition" },
+  { keyword: "depression psychiatrist orlando", volume: 390, priority: "high", category: "condition" },
+  { keyword: "medication management orlando", volume: 480, priority: "high", category: "service" },
+  { keyword: "telepsychiatry orlando", volume: 320, priority: "high", category: "service" },
+  { keyword: "online psychiatrist orlando", volume: 390, priority: "high", category: "service" },
+  { keyword: "best psychiatrist orlando", volume: 320, priority: "high", category: "intent" },
+  { keyword: "psychiatrist winter park", volume: 260, priority: "high", category: "location" },
+  { keyword: "same day psychiatrist orlando", volume: 210, priority: "high", category: "intent", notes: "Urgent care" },
+  { keyword: "psychiatrist for anxiety near me", volume: 1300, priority: "high", category: "intent" },
+  { keyword: "psychiatrist for depression near me", volume: 880, priority: "high", category: "intent" },
+  
+  // MEDIUM - Moderate volume, good intent
+  { keyword: "psychiatric evaluation orlando", volume: 210, priority: "medium", category: "service" },
+  { keyword: "psychiatric services orlando", volume: 170, priority: "medium", category: "service" },
+  { keyword: "mental health psychiatrist orlando", volume: 170, priority: "medium", category: "core" },
+  { keyword: "adhd testing orlando", volume: 320, priority: "medium", category: "condition" },
+  { keyword: "adhd evaluation orlando", volume: 260, priority: "medium", category: "condition" },
+  { keyword: "anxiety treatment orlando", volume: 320, priority: "medium", category: "condition" },
+  { keyword: "depression treatment orlando", volume: 260, priority: "medium", category: "condition" },
+  { keyword: "bipolar psychiatrist orlando", volume: 170, priority: "medium", category: "condition" },
+  { keyword: "ptsd psychiatrist orlando", volume: 140, priority: "medium", category: "condition" },
+  { keyword: "virtual psychiatrist orlando", volume: 170, priority: "medium", category: "service" },
+  { keyword: "psychiatrist orlando accepts insurance", volume: 140, priority: "medium", category: "insurance" },
+  { keyword: "psychiatrist orlando accepts bcbs", volume: 110, priority: "medium", category: "insurance" },
+  { keyword: "psychiatrist orlando accepts cigna", volume: 90, priority: "medium", category: "insurance" },
+  { keyword: "psychiatrist orlando accepts aetna", volume: 90, priority: "medium", category: "insurance" },
+  { keyword: "psychiatrist orlando accepts united healthcare", volume: 90, priority: "medium", category: "insurance" },
+  { keyword: "psychiatrist near ucf", volume: 110, priority: "medium", category: "location", notes: "College students" },
+  { keyword: "psychiatrist near lake nona", volume: 70, priority: "medium", category: "location" },
+  { keyword: "psychiatrist near downtown orlando", volume: 90, priority: "medium", category: "location" },
+  { keyword: "trauma psychiatrist orlando", volume: 140, priority: "medium", category: "condition" },
+  { keyword: "urgent psychiatrist orlando", volume: 110, priority: "medium", category: "intent" },
+  { keyword: "walk in psychiatrist orlando", volume: 90, priority: "medium", category: "intent" },
+  { keyword: "adult psychiatrist orlando", volume: 110, priority: "medium", category: "service" },
+  { keyword: "mental health doctor orlando", volume: 210, priority: "medium", category: "core" },
+  
+  // LOW - Lower volume but still relevant
+  { keyword: "psychiatry near me", volume: 1900, priority: "low", category: "intent" },
+  { keyword: "psychiatry winter park", volume: 70, priority: "low", category: "location" },
+  { keyword: "psychiatric assessment orlando", volume: 50, priority: "low", category: "service" },
+  { keyword: "psychiatric medication orlando", volume: 70, priority: "low", category: "service" },
+  { keyword: "psychiatry accepting new patients orlando", volume: 70, priority: "low", category: "intent" },
+  { keyword: "same day psychiatry orlando", volume: 50, priority: "low", category: "intent" },
+  { keyword: "emergency psychiatrist orlando", volume: 70, priority: "low", category: "intent" },
+  { keyword: "online psychiatry orlando", volume: 70, priority: "low", category: "service" },
+  { keyword: "online psychiatrist florida", volume: 260, priority: "low", category: "service" },
+  { keyword: "online psychiatry florida", volume: 90, priority: "low", category: "service" },
+  { keyword: "virtual psychiatry orlando", volume: 50, priority: "low", category: "service" },
+  { keyword: "top rated psychiatrist orlando", volume: 70, priority: "low", category: "intent" },
+  { keyword: "family psychiatrist orlando", volume: 50, priority: "low", category: "service" },
+  { keyword: "medication management psychiatry orlando", volume: 50, priority: "low", category: "service" },
+  { keyword: "mental health medication orlando", volume: 70, priority: "low", category: "service" },
+  { keyword: "anxiety therapy orlando", volume: 170, priority: "low", category: "condition" },
+  { keyword: "anxiety medication orlando", volume: 90, priority: "low", category: "condition" },
+  { keyword: "adhd psychiatry orlando", volume: 50, priority: "low", category: "condition" },
+  { keyword: "adhd treatment orlando", volume: 170, priority: "low", category: "condition" },
+  { keyword: "adhd medication orlando", volume: 110, priority: "low", category: "condition" },
+  { keyword: "depression psychiatry orlando", volume: 50, priority: "low", category: "condition" },
+  { keyword: "depression medication orlando", volume: 70, priority: "low", category: "condition" },
+  { keyword: "bipolar psychiatry orlando", volume: 30, priority: "low", category: "condition" },
+  { keyword: "bipolar treatment orlando", volume: 70, priority: "low", category: "condition" },
+  { keyword: "ptsd psychiatry orlando", volume: 30, priority: "low", category: "condition" },
+  { keyword: "ptsd treatment orlando", volume: 90, priority: "low", category: "condition" },
+  { keyword: "ocd psychiatrist orlando", volume: 70, priority: "low", category: "condition" },
+  { keyword: "ocd psychiatry orlando", volume: 30, priority: "low", category: "condition" },
+  { keyword: "schizophrenia psychiatrist orlando", volume: 50, priority: "low", category: "condition" },
+  { keyword: "schizophrenia treatment orlando", volume: 50, priority: "low", category: "condition" },
+  { keyword: "panic attack psychiatrist orlando", volume: 50, priority: "low", category: "condition" },
+  { keyword: "panic disorder psychiatrist orlando", volume: 30, priority: "low", category: "condition" },
+  { keyword: "insomnia psychiatrist orlando", volume: 50, priority: "low", category: "condition" },
+  { keyword: "sleep medication psychiatrist orlando", volume: 30, priority: "low", category: "condition" },
+  { keyword: "behavioral health orlando psychiatrist", volume: 50, priority: "low", category: "core" },
+  { keyword: "psychiatry orlando accepts insurance", volume: 30, priority: "low", category: "insurance" },
+  { keyword: "psychiatry orlando accepts cigna", volume: 20, priority: "low", category: "insurance" },
+  { keyword: "psychiatry orlando accepts aetna", volume: 20, priority: "low", category: "insurance" },
+  { keyword: "psychiatry orlando accepts bcbs", volume: 20, priority: "low", category: "insurance" },
+  { keyword: "psychiatrist orlando accepts umr", volume: 30, priority: "low", category: "insurance" },
+  { keyword: "psychiatry orlando accepts umr", volume: 10, priority: "low", category: "insurance" },
+  { keyword: "psychiatry orlando accepts united healthcare", volume: 20, priority: "low", category: "insurance" },
+  { keyword: "psychiatrist orlando accepts medicare", volume: 70, priority: "low", category: "insurance" },
+  { keyword: "psychiatry orlando accepts medicare", volume: 20, priority: "low", category: "insurance" },
+  { keyword: "psychiatrist orlando accepts medicaid", volume: 50, priority: "low", category: "insurance" },
+  { keyword: "psychiatry orlando accepts medicaid", volume: 20, priority: "low", category: "insurance" },
+  { keyword: "local psychiatrist orlando", volume: 50, priority: "low", category: "intent" },
+  { keyword: "affordable psychiatrist orlando", volume: 70, priority: "low", category: "intent" },
+  { keyword: "low cost psychiatrist orlando", volume: 50, priority: "low", category: "intent" },
+  { keyword: "private psychiatrist orlando", volume: 50, priority: "low", category: "service" },
+  { keyword: "psychiatrist near winter park", volume: 50, priority: "low", category: "location" },
+  { keyword: "mental health provider orlando", volume: 90, priority: "low", category: "core" },
+  { keyword: "psychiatrist specializing in adhd orlando", volume: 50, priority: "low", category: "condition" },
+  { keyword: "psychiatrist specializing in anxiety orlando", volume: 50, priority: "low", category: "condition" },
+  { keyword: "psychiatrist specializing in depression orlando", volume: 50, priority: "low", category: "condition" },
 ];
+
+const KEYWORDS = KEYWORD_DATA.map(k => k.keyword);
 
 export default function AdminSERP() {
   const [, setLocation] = useLocation();
@@ -125,7 +144,9 @@ export default function AdminSERP() {
   const [progress, setProgress] = useState(0);
   const [currentKeyword, setCurrentKeyword] = useState("");
   const [filter, setFilter] = useState("");
-  const [sortBy, setSortBy] = useState<"keyword" | "position">("keyword");
+  const [sortBy, setSortBy] = useState<"keyword" | "position" | "volume" | "priority">("priority");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [priorityFilter, setPriorityFilter] = useState<string>("all");
 
   useEffect(() => {
     const saved = localStorage.getItem("serp_rankings");
@@ -196,7 +217,7 @@ export default function AdminSERP() {
     setProgress(0);
     
     const newRankings = new Map(rankings);
-    const BATCH_SIZE = 5;
+    const BATCH_SIZE = 3; // Conservative batch size to respect API limits
     
     for (let i = 0; i < KEYWORDS.length; i += BATCH_SIZE) {
       const batch = KEYWORDS.slice(i, i + BATCH_SIZE);
@@ -213,7 +234,7 @@ export default function AdminSERP() {
       setProgress(((i + batch.length) / KEYWORDS.length) * 100);
       
       if (i + BATCH_SIZE < KEYWORDS.length) {
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 5000)); // 5 second delay between batches
       }
     }
     
@@ -251,7 +272,7 @@ export default function AdminSERP() {
     setProgress(0);
     
     const newRankings = new Map(rankings);
-    const BATCH_SIZE = 5;
+    const BATCH_SIZE = 3;
     
     for (let i = 0; i < keywords.length; i += BATCH_SIZE) {
       const batch = keywords.slice(i, i + BATCH_SIZE);
@@ -268,7 +289,7 @@ export default function AdminSERP() {
       setProgress(((i + batch.length) / keywords.length) * 100);
       
       if (i + BATCH_SIZE < keywords.length) {
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
       }
     }
     
@@ -281,11 +302,14 @@ export default function AdminSERP() {
   };
 
   const exportCSV = () => {
-    const headers = ["Keyword", "Position", "URL", "Healing Psychiatry", "MyMindCare", "Orlando Health", "Last Checked"];
-    const rows = KEYWORDS.map(keyword => {
-      const data = rankings.get(keyword);
+    const headers = ["Keyword", "Volume", "Priority", "Category", "Position", "URL", "Healing Psychiatry", "MyMindCare", "Orlando Health", "Last Checked"];
+    const rows = KEYWORD_DATA.map(kd => {
+      const data = rankings.get(kd.keyword);
       return [
-        keyword,
+        kd.keyword,
+        kd.volume,
+        kd.priority,
+        kd.category,
         data?.position ?? "Not checked",
         data?.url ?? "",
         data?.competitor_positions?.["healingpsychiatryflorida.com"] ?? "",
@@ -304,15 +328,36 @@ export default function AdminSERP() {
     a.click();
   };
 
-  const filteredKeywords = KEYWORDS.filter(k => 
-    k.toLowerCase().includes(filter.toLowerCase())
-  );
+  const getKeywordData = (keyword: string): KeywordData | undefined => {
+    return KEYWORD_DATA.find(k => k.keyword === keyword);
+  };
 
+  const filteredKeywords = KEYWORD_DATA.filter(kd => {
+    const matchesText = kd.keyword.toLowerCase().includes(filter.toLowerCase());
+    const matchesCategory = categoryFilter === "all" || kd.category === categoryFilter;
+    const matchesPriority = priorityFilter === "all" || kd.priority === priorityFilter;
+    return matchesText && matchesCategory && matchesPriority;
+  }).map(kd => kd.keyword);
+
+  const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
+  
   const sortedKeywords = [...filteredKeywords].sort((a, b) => {
+    const kdA = getKeywordData(a);
+    const kdB = getKeywordData(b);
+    
     if (sortBy === "position") {
       const posA = rankings.get(a)?.position ?? 999;
       const posB = rankings.get(b)?.position ?? 999;
       return posA - posB;
+    }
+    if (sortBy === "volume") {
+      return (kdB?.volume ?? 0) - (kdA?.volume ?? 0);
+    }
+    if (sortBy === "priority") {
+      const prioA = priorityOrder[kdA?.priority ?? "low"];
+      const prioB = priorityOrder[kdB?.priority ?? "low"];
+      if (prioA !== prioB) return prioA - prioB;
+      return (kdB?.volume ?? 0) - (kdA?.volume ?? 0);
     }
     return a.localeCompare(b);
   });
@@ -420,7 +465,7 @@ export default function AdminSERP() {
                 {Math.round(progress)}% complete ({Math.round(progress / 100 * KEYWORDS.length)}/{KEYWORDS.length} keywords)
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                Processing 5 keywords per batch. Estimated time: {Math.round(((KEYWORDS.length - Math.round(progress / 100 * KEYWORDS.length)) / 5) * 3 / 60)} minutes remaining.
+                Processing 3 keywords per batch with 5s delay. Estimated time: {Math.round(((KEYWORDS.length - Math.round(progress / 100 * KEYWORDS.length)) / 3) * 5 / 60)} minutes remaining.
               </p>
             </CardContent>
           </Card>
@@ -461,9 +506,9 @@ export default function AdminSERP() {
 
         <Card>
           <CardHeader>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <CardTitle>100 Target Keywords</CardTitle>
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <CardTitle>{KEYWORD_DATA.length} Target Keywords (Orlando 20mi radius)</CardTitle>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
@@ -474,14 +519,48 @@ export default function AdminSERP() {
                     data-testid="input-filter"
                   />
                 </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setSortBy(sortBy === "keyword" ? "position" : "keyword")}
-                  data-testid="button-sort"
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <select
+                  value={priorityFilter}
+                  onChange={(e) => setPriorityFilter(e.target.value)}
+                  className="px-3 py-1.5 border rounded-md text-sm bg-background"
+                  data-testid="select-priority"
                 >
-                  Sort by: {sortBy === "keyword" ? "Keyword" : "Position"}
-                </Button>
+                  <option value="all">All Priorities</option>
+                  <option value="critical">Critical</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+                <select
+                  value={categoryFilter}
+                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  className="px-3 py-1.5 border rounded-md text-sm bg-background"
+                  data-testid="select-category"
+                >
+                  <option value="all">All Categories</option>
+                  <option value="core">Core</option>
+                  <option value="condition">Condition</option>
+                  <option value="insurance">Insurance</option>
+                  <option value="location">Location</option>
+                  <option value="service">Service</option>
+                  <option value="intent">Intent</option>
+                </select>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as any)}
+                  className="px-3 py-1.5 border rounded-md text-sm bg-background"
+                  data-testid="select-sort"
+                >
+                  <option value="priority">Sort: Priority</option>
+                  <option value="volume">Sort: Volume</option>
+                  <option value="position">Sort: Position</option>
+                  <option value="keyword">Sort: A-Z</option>
+                </select>
+                <span className="text-sm text-muted-foreground ml-2">
+                  Showing {filteredKeywords.length} of {KEYWORD_DATA.length} keywords
+                </span>
               </div>
             </div>
           </CardHeader>
@@ -491,29 +570,58 @@ export default function AdminSERP() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left py-3 px-2 font-medium">Keyword</th>
+                    <th className="text-center py-3 px-2 font-medium">Vol.</th>
+                    <th className="text-center py-3 px-2 font-medium">Priority</th>
+                    <th className="text-center py-3 px-2 font-medium hidden sm:table-cell">Category</th>
                     <th className="text-center py-3 px-2 font-medium">Position</th>
-                    <th className="text-left py-3 px-2 font-medium hidden md:table-cell">Ranking URL</th>
-                    <th className="text-center py-3 px-2 font-medium hidden lg:table-cell">Competitors</th>
-                    <th className="text-center py-3 px-2 font-medium">Actions</th>
+                    <th className="text-left py-3 px-2 font-medium hidden lg:table-cell">Ranking URL</th>
+                    <th className="text-center py-3 px-2 font-medium hidden xl:table-cell">Competitors</th>
+                    <th className="text-center py-3 px-2 font-medium">Check</th>
                   </tr>
                 </thead>
                 <tbody>
                   {sortedKeywords.map((keyword) => {
                     const data = rankings.get(keyword);
+                    const kd = getKeywordData(keyword);
+                    const priorityColors = {
+                      critical: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+                      high: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+                      medium: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+                      low: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200",
+                    };
+                    const categoryColors = {
+                      core: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+                      condition: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+                      insurance: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+                      location: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
+                      service: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+                      intent: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
+                    };
                     return (
                       <tr key={keyword} className="border-b hover:bg-muted/50">
                         <td className="py-3 px-2">
                           <span className="font-medium">{keyword}</span>
-                          {data?.lastChecked && (
-                            <div className="text-xs text-muted-foreground">
-                              {new Date(data.lastChecked).toLocaleDateString()}
-                            </div>
+                          {kd?.notes && (
+                            <div className="text-xs text-muted-foreground">{kd.notes}</div>
                           )}
+                        </td>
+                        <td className="text-center py-3 px-2">
+                          <span className="font-mono text-xs">{kd?.volume?.toLocaleString() ?? "-"}</span>
+                        </td>
+                        <td className="text-center py-3 px-2">
+                          <Badge className={`text-xs ${priorityColors[kd?.priority ?? "low"]}`}>
+                            {kd?.priority ?? "-"}
+                          </Badge>
+                        </td>
+                        <td className="text-center py-3 px-2 hidden sm:table-cell">
+                          <Badge variant="outline" className={`text-xs ${categoryColors[kd?.category ?? "core"]}`}>
+                            {kd?.category ?? "-"}
+                          </Badge>
                         </td>
                         <td className="text-center py-3 px-2">
                           {getPositionBadge(data?.position)}
                         </td>
-                        <td className="py-3 px-2 hidden md:table-cell">
+                        <td className="py-3 px-2 hidden lg:table-cell">
                           {data?.url ? (
                             <a 
                               href={data.url} 
@@ -527,7 +635,7 @@ export default function AdminSERP() {
                             <span className="text-muted-foreground">-</span>
                           )}
                         </td>
-                        <td className="py-3 px-2 hidden lg:table-cell">
+                        <td className="py-3 px-2 hidden xl:table-cell">
                           {data?.competitor_positions && (
                             <div className="flex gap-2 justify-center text-xs">
                               {Object.entries(data.competitor_positions).map(([domain, pos]) => (
