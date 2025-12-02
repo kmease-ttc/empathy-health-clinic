@@ -64,35 +64,35 @@ export async function getGoogleRanking(query: string, useCache = true): Promise<
       throw new Error('SERP_API_KEY not found in environment');
     }
     
-    console.log(`🔍 SERP API call for "${query}" (key prefix: ${apiKey.substring(0, 8)}...)`);
-    const response = await axios.post(
-      'https://google.serper.dev/search',
-      {
+    console.log(`🔍 SerpAPI call for "${query}" (key prefix: ${apiKey.substring(0, 8)}...)`);
+    
+    // Using SerpAPI (serpapi.com) - GET request with query params
+    const response = await axios.get('https://serpapi.com/search', {
+      params: {
+        api_key: apiKey,
+        engine: 'google',
         q: query,
+        location: CITY,
+        google_domain: 'google.com',
         gl: 'us',
         hl: 'en',
-        location: CITY,
         num: 20,
       },
-      {
-        headers: {
-          'X-API-KEY': apiKey,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    });
     
     if (response.status !== 200) {
-      throw new Error(`Serper API returned status ${response.status}`);
+      throw new Error(`SerpAPI returned status ${response.status}`);
     }
     
     const data = response.data;
     const organic: OrganicResult[] = [];
     
-    for (let i = 0; i < (data.organic || []).length; i++) {
-      const result = data.organic[i];
+    // SerpAPI returns organic_results (not organic)
+    const organicResults = data.organic_results || [];
+    for (let i = 0; i < organicResults.length; i++) {
+      const result = organicResults[i];
       organic.push({
-        position: i + 1,
+        position: result.position || (i + 1),
         link: result.link || '',
         title: result.title || '',
         snippet: result.snippet || '',
