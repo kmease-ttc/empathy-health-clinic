@@ -96,6 +96,32 @@ export const contentRedirectMap: Record<string, string> = {
   // SEMrush orphaned pages - Insurance pages
   '/adventhealth-adventhealth-coverage': '/insurance',
   
+  // Google Ads insurance redirects - redirect dynamic slugs to STATIC pages (no API calls)
+  // AdsBot requires pages that don't depend on API calls to render
+  '/blue-cross-blue-shield-blue-cross-blue-shield-coverage': '/blue-cross-blue-shield-therapy-orlando',
+  '/blue-cross-blue-shield-coverage': '/blue-cross-blue-shield-therapy-orlando',
+  '/blue-cross-blue-shield': '/blue-cross-blue-shield-therapy-orlando',
+  '/bcbs-insurance': '/psychiatrist-orlando-accepts-bcbs',
+  '/bcbs-coverage': '/psychiatrist-orlando-accepts-bcbs',
+  '/cigna-insurance': '/psychiatrist-orlando-accepts-cigna',
+  '/cigna-coverage': '/psychiatrist-orlando-accepts-cigna',
+  '/cigna': '/psychiatrist-orlando-accepts-cigna',
+  '/aetna-insurance': '/psychiatrist-orlando-accepts-aetna',
+  '/aetna-coverage': '/psychiatrist-orlando-accepts-aetna',
+  '/aetna': '/psychiatrist-orlando-accepts-aetna',
+  '/united-healthcare-insurance': '/psychiatrist-orlando-accepts-united-healthcare',
+  '/united-healthcare-coverage': '/psychiatrist-orlando-accepts-united-healthcare',
+  '/united-healthcare': '/psychiatrist-orlando-accepts-united-healthcare',
+  '/unitedhealth-insurance': '/psychiatrist-orlando-accepts-united-healthcare',
+  '/umr-insurance': '/psychiatrist-orlando-accepts-umr',
+  '/umr-coverage': '/psychiatrist-orlando-accepts-umr',
+  '/medicare-insurance': '/medicare-psychiatrist-orlando',
+  '/medicare-coverage': '/medicare-psychiatrist-orlando',
+  '/oscar-health-insurance': '/therapist-accepts-oscar-health',
+  '/oscar-health-coverage': '/therapist-accepts-oscar-health',
+  '/sunshine-health-insurance': '/sunshine-health-therapy',
+  '/sunshine-health-coverage': '/sunshine-health-therapy',
+  
   // Google Search Console - Legacy URLs (November 2025)
   '/therapy-services-orlando-mental-health-support': '/therapy-services-orlando',
   '/hm05': '/services',
