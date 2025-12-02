@@ -10,13 +10,18 @@ interface InternalLink {
 const LINK_CATEGORIES = {
   services: [
     { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando", description: "Board-certified psychiatric care" },
-    { href: "/therapy", label: "Therapy Services", description: "Licensed therapists and counselors" },
+    { href: "/psychiatrist-near-me", label: "Psychiatrist Near Me", description: "Find psychiatric care nearby" },
+    { href: "/mental-health-services-orlando", label: "Mental Health Clinic Orlando", description: "Comprehensive mental health care" },
+    { href: "/medication-management-orlando", label: "Medication Management Orlando", description: "Psychiatric medication expertise" },
     { href: "/medication-management", label: "Medication Management", description: "Expert psychiatric medication care" },
+    { href: "/therapy", label: "Therapy Services", description: "Licensed therapists and counselors" },
     { href: "/psychiatric-evaluation", label: "Psychiatric Evaluations", description: "Comprehensive mental health assessments" },
     { href: "/virtual-therapy", label: "Virtual Therapy", description: "Online therapy from home" },
-    { href: "/psychiatrist-near-me", label: "Psychiatrist Near Me", description: "Find psychiatric care nearby" },
   ],
   conditions: [
+    { href: "/psychiatrist-for-anxiety-near-me", label: "Anxiety Psychiatrist Near Me", description: "Expert anxiety medication management" },
+    { href: "/psychiatrist-for-depression-near-me", label: "Depression Psychiatrist Near Me", description: "Specialized depression treatment" },
+    { href: "/depression-psychiatrist-orlando", label: "Depression Psychiatrist Orlando", description: "Orlando depression specialists" },
     { href: "/anxiety-therapy", label: "Anxiety Treatment", description: "GAD, panic disorder, social anxiety" },
     { href: "/adhd-testing-orlando", label: "ADHD Treatment", description: "Adult and child ADHD specialists" },
     { href: "/depression-counseling", label: "Depression Treatment", description: "Evidence-based depression care" },

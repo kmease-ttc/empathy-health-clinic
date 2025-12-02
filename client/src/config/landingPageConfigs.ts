@@ -3520,6 +3520,11 @@ export const psychiatristForDepressionNearMeConfig: LandingPageConfig = {
       { name: "Bipolar Depression", description: "Depressive episodes in bipolar disorder" },
       { name: "Grief-Related Depression" },
     ],
+    authoritativeSources: [
+      { source: "NIMH" as const, topic: "Depression" },
+      { source: "APA" as const, topic: "Depression Treatment Guidelines" },
+    ],
+    internalLinksCategory: "services" as const,
     servicesHeading: "Depression Psychiatry Services",
     services: [
       {
