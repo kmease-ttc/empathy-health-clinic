@@ -24,14 +24,14 @@ const services = [
     icon: Heart,
     title: "Anxiety Treatment",
     description: "Evidence-based treatment for generalized anxiety, panic disorder, social anxiety, and phobias using medication and therapeutic approaches.",
-    href: "/anxiety-therapy",
+    href: "/anxiety-treatment",
     conditions: ["Generalized anxiety", "Panic attacks", "Social anxiety", "Phobias"]
   },
   {
     icon: Zap,
     title: "Depression Treatment",
     description: "Personalized medication management and support for major depression, persistent depressive disorder, and mood disorders.",
-    href: "/depression-counseling",
+    href: "/depression-treatment",
     conditions: ["Major depression", "Dysthymia", "Mood disorders", "Seasonal depression"]
   },
   {

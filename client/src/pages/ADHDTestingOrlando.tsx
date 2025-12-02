@@ -17,27 +17,146 @@ import { trackEvent } from "@/lib/analytics";
 export default function ADHDTestingOrlando() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": ["MedicalBusiness", "LocalBusiness"],
-    "name": "Empathy Health Clinic - ADHD Testing Orlando FL",
-    "description": "Professional ADHD testing and evaluation in Orlando, FL. Comprehensive assessments for adults and teens. Same-week appointments. Most insurance accepted including BCBS, Aetna, Cigna.",
-    "url": "https://empathyhealthclinic.com/adhd-testing-orlando",
-    "telephone": "+1-386-848-8751",
-    "email": "providers@empathyhealthclinic.com",
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "2281 Lee Rd Suite 102",
-      "addressLocality": "Winter Park",
-      "addressRegion": "FL",
-      "postalCode": "32810",
-      "addressCountry": "US"
-    },
-    "areaServed": [
-      { "@type": "City", "name": "Orlando" },
-      { "@type": "City", "name": "Winter Park" },
-      { "@type": "City", "name": "Altamonte Springs" }
-    ],
-    "medicalSpecialty": "Psychiatry"
+    "@graph": [
+      {
+        "@type": "MedicalTest",
+        "@id": "https://empathyhealthclinic.com/adhd-testing-orlando/#test",
+        "name": "ADHD Testing & Evaluation",
+        "alternateName": ["ADHD Assessment", "ADHD Evaluation", "Attention Deficit Hyperactivity Disorder Testing"],
+        "description": "Comprehensive ADHD testing for adults and teens including clinical interviews, standardized rating scales (ASRS, Conners), and differential diagnosis to accurately identify ADHD and co-occurring conditions.",
+        "usesDevice": [
+          { "@type": "MedicalDevice", "name": "ASRS (Adult ADHD Self-Report Scale)" },
+          { "@type": "MedicalDevice", "name": "Conners Adult ADHD Rating Scales" },
+          { "@type": "MedicalDevice", "name": "Vanderbilt Assessment Scales" }
+        ],
+        "normalRange": "Used to diagnose ADHD-Inattentive, ADHD-Hyperactive/Impulsive, or ADHD-Combined presentations",
+        "affectedBy": ["Age", "Medical history", "Current medications", "Co-occurring conditions"],
+        "usedToDiagnose": {
+          "@type": "MedicalCondition",
+          "name": "Attention Deficit Hyperactivity Disorder",
+          "alternateName": ["ADHD", "ADD"],
+          "code": {
+            "@type": "MedicalCode",
+            "code": "F90",
+            "codingSystem": "ICD-10"
+          }
+        }
+      },
+      {
+        "@type": ["MedicalClinic", "LocalBusiness", "MedicalOrganization"],
+        "@id": "https://empathyhealthclinic.com/adhd-testing-orlando/#organization",
+        "name": "Empathy Health Clinic - ADHD Testing Winter Park & Orlando",
+        "description": "Professional ADHD testing and evaluation in Winter Park and Orlando, FL. Board-certified psychiatrists providing comprehensive assessments for adults and teens. Same-week appointments. Most insurance accepted.",
+        "url": "https://empathyhealthclinic.com/adhd-testing-orlando",
+        "telephone": "+1-386-848-8751",
+        "email": "providers@empathyhealthclinic.com",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "2281 Lee Rd Suite 102",
+          "addressLocality": "Winter Park",
+          "addressRegion": "FL",
+          "postalCode": "32810",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 28.59544,
+          "longitude": -81.36537
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "17:00"
+          }
+        ],
+        "medicalSpecialty": ["Psychiatry", "ADHD"],
+        "areaServed": [
+          { "@type": "City", "name": "Orlando" },
+          { "@type": "City", "name": "Winter Park" },
+          { "@type": "City", "name": "Altamonte Springs" },
+          { "@type": "City", "name": "Maitland" },
+          { "@type": "City", "name": "Casselberry" }
+        ],
+        "isAcceptingNewPatients": true,
+        "availableService": {
+          "@type": "MedicalTest",
+          "@id": "https://empathyhealthclinic.com/adhd-testing-orlando/#test"
+        }
+      },
+      {
+        "@type": "Physician",
+        "@id": "https://empathyhealthclinic.com/adhd-testing-orlando/#physician",
+        "name": "Dr. Marna Morrow",
+        "description": "Board-certified psychiatrist specializing in ADHD evaluation and treatment with expertise in adult ADHD diagnosis.",
+        "medicalSpecialty": "Psychiatry",
+        "worksFor": { "@id": "https://empathyhealthclinic.com/adhd-testing-orlando/#organization" },
+        "knowsAbout": ["ADHD Diagnosis", "Adult ADHD", "ADHD Medication Management", "Stimulant Medications", "Non-Stimulant ADHD Treatment"]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How long does ADHD testing take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The initial ADHD evaluation appointment typically lasts 60-90 minutes. You'll receive preliminary results during that visit, with a complete written report available within 1 week. If ADHD is diagnosed, treatment can often begin the same day."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does ADHD testing cost in Orlando?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ADHD testing is typically covered by most insurance plans as a diagnostic psychiatric evaluation. With insurance, you'll typically pay your standard specialist copay or coinsurance. We accept Blue Cross Blue Shield, Aetna, Cigna, UnitedHealthcare, and many other plans. For self-pay patients, contact us for current rates."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need a referral for ADHD testing?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No referral is required to schedule ADHD testing at our Winter Park clinic. However, some insurance plans may require a referral for coverage, so check with your insurance provider beforehand."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should I bring to my ADHD testing appointment?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bring your insurance card, photo ID, list of current medications, and any previous psychological testing, school records, or performance reviews that document attention difficulties. If possible, have a family member or close friend who knows you well provide input on your symptoms."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can ADHD testing be done via telehealth?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! We offer telehealth ADHD testing appointments throughout Florida. The clinical interview and rating scales can be completed effectively via secure video call, making testing convenient for busy adults and teens in Orlando and surrounding areas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if the test shows I don't have ADHD?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If testing doesn't confirm ADHD, we'll provide alternative explanations for your symptoms and recommend appropriate treatment. Many conditions can mimic ADHD (anxiety, depression, sleep disorders), and accurate diagnosis ensures you get the right help."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you test children for ADHD?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We specialize in ADHD testing for teens (ages 13-17) and adults (18+). For younger children, we can provide referrals to child psychiatrists or psychologists who specialize in pediatric ADHD evaluation."
+            }
+          }
+        ]
+      }
+    ]
   };
 
   const handlePhoneClick = () => {
@@ -47,9 +166,9 @@ export default function ADHDTestingOrlando() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="ADHD Testing Orlando FL | Adult & Teen ADHD Evaluation | Empathy Health"
-        description="Professional ADHD testing in Orlando, FL. Comprehensive evaluations for adults and teens. Board-certified psychiatrists. Same-week appointments. Insurance accepted. Call 386-848-8751."
-        keywords={["adhd testing orlando", "adhd testing", "adhd testing near me", "adhd evaluation orlando", "adult adhd testing orlando", "adhd assessment orlando", "adhd diagnosis orlando"]}
+        title="ADHD Testing & Evaluation in Winter Park & Orlando | Empathy Health Clinic"
+        description="Professional ADHD testing in Winter Park & Orlando, FL. Comprehensive evaluations for adults and teens. Same-week appointments. Insurance accepted including BCBS, Aetna, Cigna. Call 386-848-8751."
+        keywords={["adhd testing", "adhd testing near me", "adhd evaluation", "adhd testing orlando", "adhd testing winter park", "adult adhd testing", "adhd assessment orlando", "adhd diagnosis orlando", "add testing orlando"]}
         canonicalPath="/adhd-testing-orlando"
         jsonLd={jsonLd}
       />
@@ -460,6 +579,102 @@ export default function ADHDTestingOrlando() {
                       If testing doesn't confirm ADHD, we'll provide alternative explanations for your symptoms and recommend appropriate treatment. Many conditions can mimic ADHD (anxiety, depression, sleep disorders), and accurate diagnosis ensures you get the right help.
                     </p>
                   </div>
+                  <div data-testid="faq-item-06">
+                    <h3 className="font-semibold text-foreground mb-2">How much does ADHD testing cost?</h3>
+                    <p className="text-muted-foreground">
+                      ADHD testing is typically covered by insurance as a diagnostic psychiatric evaluation. With insurance, you'll pay your standard specialist copay or coinsurance. We accept BCBS, Aetna, Cigna, UnitedHealthcare, and many other plans. Contact us for self-pay rates.
+                    </p>
+                  </div>
+                  <div data-testid="faq-item-07">
+                    <h3 className="font-semibold text-foreground mb-2">Do you test children for ADHD?</h3>
+                    <p className="text-muted-foreground">
+                      We specialize in ADHD testing for teens (ages 13-17) and adults (18+). For younger children, we can provide referrals to child psychiatrists or psychologists who specialize in pediatric ADHD evaluation.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section className="bg-card border rounded-lg p-6">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
+                  Meet Your ADHD Testing Specialist
+                </h2>
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="bg-primary/10 rounded-full p-4 h-fit flex-shrink-0">
+                    <Award className="h-12 w-12 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Dr. Marna Morrow, MD</h3>
+                    <p className="text-primary font-medium mb-3">Founder & Lead Psychiatrist</p>
+                    <p className="text-muted-foreground mb-4">
+                      Dr. Morrow is a board-certified psychiatrist with extensive experience in ADHD evaluation and treatment. She founded Empathy Health Clinic to provide thorough, compassionate ADHD testing that goes beyond simple questionnaires to deliver accurate diagnoses and personalized treatment plans.
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">Board Certified</span>
+                      <span className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">Adult ADHD Specialist</span>
+                      <span className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">Medication Management Expert</span>
+                      <span className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">15+ Years Experience</span>
+                    </div>
+                    <a 
+                      href="https://www.psychologytoday.com/us/psychiatrists/empathy-health-clinic-llc-orlando-fl/1121969" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-sm text-primary hover:underline flex items-center gap-1"
+                      data-testid="link-psychology-today"
+                    >
+                      View Profile on Psychology Today →
+                    </a>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
+                  ADHD Educational Resources
+                </h2>
+                <p className="text-muted-foreground mb-4">
+                  Learn more about ADHD from these authoritative sources. Understanding ADHD can help you prepare for your evaluation and make informed treatment decisions.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <a 
+                    href="https://www.nimh.nih.gov/health/topics/attention-deficit-hyperactivity-disorder-adhd" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-card border rounded-lg p-4 hover-elevate group"
+                    data-testid="link-resource-nimh"
+                  >
+                    <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">NIMH: ADHD Overview</h4>
+                    <p className="text-sm text-muted-foreground">Comprehensive information from the National Institute of Mental Health</p>
+                  </a>
+                  <a 
+                    href="https://www.cdc.gov/adhd/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-card border rounded-lg p-4 hover-elevate group"
+                    data-testid="link-resource-cdc"
+                  >
+                    <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">CDC: ADHD Facts</h4>
+                    <p className="text-sm text-muted-foreground">Statistics, research, and resources from the CDC</p>
+                  </a>
+                  <a 
+                    href="https://chadd.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-card border rounded-lg p-4 hover-elevate group"
+                    data-testid="link-resource-chadd"
+                  >
+                    <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">CHADD: ADHD Support</h4>
+                    <p className="text-sm text-muted-foreground">National resource for ADHD education and advocacy</p>
+                  </a>
+                  <a 
+                    href="https://www.psychiatry.org/patients-families/adhd" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-card border rounded-lg p-4 hover-elevate group"
+                    data-testid="link-resource-apa"
+                  >
+                    <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">APA: What Is ADHD?</h4>
+                    <p className="text-sm text-muted-foreground">Patient guide from the American Psychiatric Association</p>
+                  </a>
                 </div>
               </section>
 
@@ -519,18 +734,36 @@ export default function ADHDTestingOrlando() {
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                   <h3 className="font-semibold text-foreground mb-3">Related Services</h3>
                   <div className="space-y-2">
-                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline font-medium">
+                    <Link href="/adhd-psychiatrist-orlando" className="block text-sm text-primary hover:underline font-medium">
+                      ADHD Psychiatrist Orlando
+                    </Link>
+                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline">
                       Psychiatrist Orlando
                     </Link>
-                    <Link href="/psychiatrist-near-me" className="block text-sm text-primary hover:underline">
-                      Psychiatrist Near Me
-                    </Link>
                     <Link href="/medication-management" className="block text-sm text-primary hover:underline">
-                      Medication Management
+                      ADHD Medication Management
                     </Link>
-                    <Link href="/anxiety-therapy" className="block text-sm text-primary hover:underline">
+                    <Link href="/anxiety-treatment" className="block text-sm text-primary hover:underline">
                       Anxiety Treatment
                     </Link>
+                    <Link href="/depression-treatment" className="block text-sm text-primary hover:underline">
+                      Depression Treatment
+                    </Link>
+                    <Link href="/psychiatry-near-me" className="block text-sm text-primary hover:underline">
+                      Psychiatry Near Me
+                    </Link>
+                  </div>
+                </div>
+                
+                <div className="bg-card border rounded-lg p-6">
+                  <h3 className="font-semibold text-foreground mb-3">Winter Park & Orlando Locations</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Our clinic is conveniently located in Winter Park, serving patients throughout the Orlando metro area including:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Winter Park", "Orlando", "Maitland", "Altamonte Springs", "Casselberry", "Longwood"].map((area) => (
+                      <span key={area} className="bg-muted px-2 py-1 rounded text-xs text-muted-foreground">{area}</span>
+                    ))}
                   </div>
                 </div>
               </div>

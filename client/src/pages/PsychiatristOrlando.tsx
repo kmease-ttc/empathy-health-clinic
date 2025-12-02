@@ -391,7 +391,7 @@ export default function PsychiatristOrlando() {
                 </p>
               </Link>
 
-              <Link href="/anxiety-therapy" className="bg-card border border-card-border rounded-xl p-6 hover-elevate group">
+              <Link href="/anxiety-treatment" className="bg-card border border-card-border rounded-xl p-6 hover-elevate group">
                 <Heart className="h-10 w-10 text-primary mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Anxiety Treatment</h3>
                 <p className="text-sm text-muted-foreground">
@@ -399,7 +399,7 @@ export default function PsychiatristOrlando() {
                 </p>
               </Link>
 
-              <Link href="/depression-counseling" className="bg-card border border-card-border rounded-xl p-6 hover-elevate group">
+              <Link href="/depression-treatment" className="bg-card border border-card-border rounded-xl p-6 hover-elevate group">
                 <Zap className="h-10 w-10 text-primary mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Depression Treatment</h3>
                 <p className="text-sm text-muted-foreground">
