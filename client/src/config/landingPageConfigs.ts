@@ -2301,10 +2301,10 @@ export const bipolarPsychiatristOrlandoConfig: LandingPageConfig = {
 // Medication Management Orlando
 export const medicationManagementOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Medication Management Orlando FL | Psychiatrist | Same-Week",
+    title: "Medication Management Orlando | Psychiatrist | Same-Week",
     description: "Medication management Orlando - Board-certified psychiatrists prescribing & monitoring psychiatric medications for anxiety, depression, ADHD, bipolar. Same-week appointments available. Most insurance accepted. Call (386) 848-8751.",
-    keywords: ["medication management orlando", "medication management orlando fl", "psychiatric medication management orlando", "mental health medication orlando", "medication management psychiatrist orlando", "psych meds orlando", "medication monitoring orlando", "psychiatric medication prescribing orlando"],
-    canonicalPath: "/psychiatrist-orlando",
+    keywords: ["medication management orlando", "medication management psychiatrist orlando", "psychiatric medication management orlando fl", "medication management orlando fl", "psychiatric medication management orlando", "mental health medication orlando", "psych meds orlando", "medication monitoring orlando", "psychiatric medication prescribing orlando"],
+    canonicalPath: "/medication-management-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
@@ -3255,5 +3255,533 @@ export const psychiatristOrlandoAcceptsUmrConfig: LandingPageConfig = {
   analytics: {
     pageName: "UMR Psychiatrist Orlando Page",
     conversionCategory: "umr_psychiatrist",
+  },
+};
+
+// Psychiatrist for Anxiety Near Me - Optimized for "psychiatrist for anxiety near me" (1,300 volume)
+export const psychiatristForAnxietyNearMeConfig: LandingPageConfig = {
+  seo: {
+    title: "Psychiatrist for Anxiety Near Me | Orlando FL | Same-Week",
+    description: "Find a psychiatrist for anxiety near me in Orlando, FL. GAD, panic disorder, social anxiety treatment. Same-week appointments, medication management. Call 386-848-8751.",
+    keywords: ["psychiatrist for anxiety near me", "anxiety psychiatrist near me", "psychiatrist anxiety near me", "anxiety psychiatrist", "psychiatrist for anxiety", "anxiety doctor near me", "psychiatrist for panic attacks near me", "anxiety medication psychiatrist", "psychiatrist for social anxiety near me"],
+    canonicalPath: "/psychiatrist-for-anxiety-near-me",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
+    "name": "Psychiatrist for Anxiety Near Me - Empathy Health Clinic Orlando",
+    "description": "Board-certified psychiatrists specializing in anxiety disorders including GAD, panic disorder, and social anxiety in Orlando, FL.",
+    "url": "https://empathyhealthclinic.com/psychiatrist-for-anxiety-near-me",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Orlando",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.59544,
+      "longitude": -81.36537
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Orlando" },
+      { "@type": "City", "name": "Winter Park" },
+      { "@type": "City", "name": "Altamonte Springs" },
+      { "@type": "City", "name": "Lake Mary" },
+      { "@type": "City", "name": "Maitland" }
+    ],
+    "medicalSpecialty": "Psychiatry - Anxiety Disorders"
+  },
+  hero: {
+    title: "Find a Psychiatrist for Anxiety Near Me",
+    subtitle: "Expert anxiety treatment by board-certified psychiatrists in Orlando, FL. Specialized care for generalized anxiety disorder (GAD), panic attacks, social anxiety, and phobias. Same-week appointments available with medication management and personalized treatment plans. In-person and telehealth options.",
+    ctaPrimary: "Schedule Anxiety Evaluation",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Anxiety Specialists", "Same-Week Appointments", "Telehealth Available"],
+  },
+  location: {
+    title: "Anxiety Psychiatrist Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Psychiatrist for Anxiety Near Me: Expert Anxiety Treatment in Orlando",
+    introduction: [
+      "If you're searching for a psychiatrist for anxiety near me, you've found the right place. At Empathy Health Clinic in Orlando, our board-certified psychiatrists specialize in diagnosing and treating all types of anxiety disorders with evidence-based medication management and comprehensive psychiatric care.",
+      "Anxiety disorders are among the most common mental health conditions, affecting millions of Americans. Whether you're experiencing constant worry from generalized anxiety disorder (GAD), sudden panic attacks, debilitating social anxiety, or specific phobias, our anxiety psychiatrists can help you regain control and live without fear.",
+      "Unlike general practitioners who may not have specialized training in psychiatric medication, our psychiatrists are experts in anxiety medications including SSRIs, SNRIs, benzodiazepines, and newer treatment options. We create personalized treatment plans that address your specific symptoms and concerns, with same-week appointments available.",
+    ],
+    conditionsHeading: "Anxiety Disorders We Treat",
+    conditions: [
+      { name: "Generalized Anxiety Disorder (GAD)", description: "Persistent, excessive worry about everyday things" },
+      { name: "Panic Disorder", description: "Recurrent panic attacks and fear of future attacks" },
+      { name: "Social Anxiety Disorder", description: "Intense fear of social situations and judgment" },
+      { name: "Specific Phobias", description: "Extreme fear of specific objects or situations" },
+      { name: "Agoraphobia", description: "Fear of places or situations that might cause panic" },
+      { name: "Health Anxiety", description: "Excessive worry about having a serious illness" },
+      { name: "Separation Anxiety", description: "Fear of being away from attachment figures" },
+      { name: "Anxiety with Depression", description: "Co-occurring anxiety and depressive symptoms" },
+    ],
+    authoritativeSources: [
+      { source: "NIMH" as const, topic: "Anxiety Disorders" },
+      { source: "APA" as const, topic: "Anxiety Treatment Guidelines" },
+    ],
+    internalLinksCategory: "conditions" as const,
+    showTrustFactors: true,
+    servicesHeading: "Anxiety Psychiatry Services",
+    services: [
+      {
+        icon: Brain,
+        title: "Comprehensive Anxiety Evaluation",
+        description: "Thorough psychiatric assessment to accurately diagnose your anxiety type, identify triggers, and rule out other conditions. Our evaluation examines your symptoms, medical history, and any co-occurring mental health conditions to create the most effective treatment plan."
+      },
+      {
+        icon: Shield,
+        title: "Anxiety Medication Management",
+        description: "Expert prescribing and monitoring of anti-anxiety medications including SSRIs (Lexapro, Zoloft, Prozac), SNRIs (Effexor, Cymbalta), buspirone, hydroxyzine, and when appropriate, benzodiazepines. We carefully adjust medications to maximize effectiveness while minimizing side effects."
+      },
+      {
+        icon: Heart,
+        title: "Panic Disorder Treatment",
+        description: "Specialized treatment for panic attacks and panic disorder. Our psychiatrists understand the urgency of stopping panic attacks and can provide fast-acting and long-term medication solutions to help you regain confidence and function normally."
+      },
+      {
+        icon: Users,
+        title: "Social Anxiety Treatment",
+        description: "Medication management specifically for social anxiety disorder, helping you feel more comfortable in social and professional situations. We can prescribe medications that reduce physical symptoms and excessive self-consciousness."
+      },
+      {
+        icon: Video,
+        title: "Telehealth Anxiety Treatment",
+        description: "Convenient online psychiatric appointments for anxiety from the comfort of your home. Ideal for patients with social anxiety or agoraphobia who find it difficult to travel to appointments. Same quality care as in-person visits."
+      },
+      {
+        icon: Calendar,
+        title: "Ongoing Medication Monitoring",
+        description: "Regular follow-up appointments to track your progress, adjust medication dosages, manage side effects, and ensure your anxiety treatment continues to be effective over time."
+      },
+    ],
+    whyChooseHeading: "Why Choose a Psychiatrist for Anxiety Treatment?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Medical Expertise in Anxiety Medications",
+        description: "Psychiatrists are medical doctors with specialized training in brain chemistry and psychiatric medications. Unlike general practitioners, we understand the nuances of different anxiety medications and can find the right medication faster."
+      },
+      {
+        icon: Brain,
+        title: "Accurate Diagnosis of Anxiety Types",
+        description: "Different anxiety disorders require different treatments. Our psychiatrists accurately diagnose whether you have GAD, panic disorder, social anxiety, or another condition to ensure you receive the most effective treatment."
+      },
+      {
+        icon: Shield,
+        title: "Safe Medication Management",
+        description: "We carefully monitor your medications, watch for interactions, manage side effects, and make informed adjustments. Our expertise ensures you're on the safest, most effective medication regimen."
+      },
+      {
+        icon: CheckCircle,
+        title: "Treatment of Complex Cases",
+        description: "If you have anxiety along with depression, ADHD, or other conditions, a psychiatrist can manage all your medications together, avoiding dangerous interactions and ensuring coordinated care."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "What does a psychiatrist for anxiety do?",
+      answer: "A psychiatrist for anxiety is a medical doctor who specializes in diagnosing and treating anxiety disorders with medication. They conduct comprehensive evaluations to determine your specific anxiety type, prescribe anti-anxiety medications, monitor your response to treatment, adjust dosages as needed, and manage any side effects. Unlike therapists who provide talk therapy, psychiatrists focus on the biological and medication aspects of anxiety treatment."
+    },
+    {
+      question: "What medications do psychiatrists prescribe for anxiety?",
+      answer: "Psychiatrists commonly prescribe SSRIs (like Lexapro, Zoloft, Prozac), SNRIs (like Effexor, Cymbalta), buspirone, hydroxyzine, and in some cases benzodiazepines (like Xanax, Klonopin, Ativan). The choice of medication depends on your specific anxiety type, symptom severity, other medications you take, and medical history. Our psychiatrists take time to find the right medication with the fewest side effects for your situation."
+    },
+    {
+      question: "How quickly can I see an anxiety psychiatrist near me?",
+      answer: "At Empathy Health Clinic, we typically offer same-week appointments for new patients seeking anxiety treatment. Many patients can be seen within 3-5 business days. We understand that anxiety symptoms can be debilitating and prioritize getting you in quickly. Call 386-848-8751 to schedule your appointment."
+    },
+    {
+      question: "Should I see a psychiatrist or therapist for anxiety?",
+      answer: "Both can be helpful, and many patients benefit from seeing both. Psychiatrists are medical doctors who prescribe and manage medications. Therapists provide talk therapy like CBT to help you develop coping skills. If your anxiety is moderate to severe, significantly impacts daily functioning, or hasn't improved with therapy alone, seeing a psychiatrist for medication can be very effective. We can also refer you to therapists who specialize in anxiety."
+    },
+    {
+      question: "Does insurance cover anxiety psychiatry appointments?",
+      answer: "Yes, most health insurance plans cover psychiatric services for anxiety disorders. We accept most major insurance plans including Blue Cross Blue Shield, Aetna, Cigna, UnitedHealthcare, Humana, and more. Contact our office at 386-848-8751 to verify your specific coverage before your appointment."
+    },
+    {
+      question: "How long does anxiety medication take to work?",
+      answer: "It depends on the medication type. Some medications like buspirone and SSRIs/SNRIs take 2-4 weeks to reach full effectiveness because they work by gradually changing brain chemistry. Other medications like hydroxyzine or benzodiazepines can provide relief within 30-60 minutes. Our psychiatrists will explain what to expect with your specific medication and schedule follow-ups to monitor your progress."
+    },
+  ],
+  sidebar: {
+    formHeading: "Schedule Anxiety Evaluation",
+    formSubheading: "Same-week appointments available. Most insurance accepted.",
+    formType: "anxiety_psychiatrist",
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist Orlando" },
+      { href: "/anxiety-treatment", label: "Anxiety Treatment" },
+      { href: "/anxiety-therapy", label: "Anxiety Therapy" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "Psychiatrist for Anxiety Near Me Page",
+    conversionCategory: "anxiety_psychiatrist_near_me",
+  },
+};
+
+export const psychiatristForDepressionNearMeConfig: LandingPageConfig = {
+  seo: {
+    title: "Psychiatrist for Depression Near Me | Orlando FL | Same-Week",
+    description: "Find a psychiatrist for depression near me in Orlando, FL. Board-certified depression psychiatrists offering antidepressant medication, treatment-resistant depression care. Same-week appointments. Call 386-848-8751.",
+    keywords: ["psychiatrist for depression near me", "depression psychiatrist near me", "psychiatrist depression near me", "depression medication doctor near me", "antidepressant psychiatrist near me", "major depression psychiatrist", "treatment resistant depression doctor"],
+    canonicalPath: "/psychiatrist-for-depression-near-me",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Psychiatrist"],
+    "name": "Psychiatrist for Depression Near Me - Empathy Health Clinic Orlando",
+    "description": "Board-certified psychiatrists specializing in depression treatment, antidepressant medication management, and treatment-resistant depression care in Orlando, FL.",
+    "url": "https://empathyhealthclinic.com/psychiatrist-for-depression-near-me",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Psychiatry",
+    "availableService": {
+      "@type": "MedicalTherapy",
+      "name": "Depression Medication Management",
+      "description": "Psychiatric evaluation and medication management for major depressive disorder, treatment-resistant depression, and other depressive conditions."
+    }
+  },
+  hero: {
+    title: "Find a Psychiatrist for Depression Near Me",
+    subtitle: "Struggling with depression? Our board-certified psychiatrists specialize in depression medication management, antidepressant prescriptions, and treatment-resistant depression care. Same-week appointments available with in-person and telehealth options throughout Orlando. Most insurance accepted.",
+    ctaPrimary: "Schedule Depression Evaluation",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Same-Week Appointments", "Depression Specialists", "Telehealth Available"],
+  },
+  location: {
+    title: "Orlando Metro Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Expert Depression Psychiatrists Near You in Orlando",
+    introduction: [
+      "If you're searching for a psychiatrist for depression near me, Empathy Health Clinic offers specialized care from board-certified psychiatrists who focus on treating major depressive disorder, persistent depressive disorder, and treatment-resistant depression. We understand how debilitating depression can be, and we're here to help you find relief.",
+      "Our Orlando depression psychiatrists provide comprehensive medication management, including the latest antidepressants and evidence-based treatment protocols. Whether you've tried medications before without success or are seeking help for the first time, our psychiatrists will create a personalized treatment plan tailored to your unique needs.",
+      "Same-week appointments are typically available because we know that when you're struggling with depression, every day matters. We offer both in-person appointments at our Winter Park office and secure telehealth visits throughout Florida."
+    ],
+    conditionsHeading: "Depression Conditions We Treat",
+    conditions: [
+      { name: "Major Depressive Disorder (MDD)", description: "Clinical depression with persistent symptoms" },
+      { name: "Treatment-Resistant Depression", description: "When standard treatments haven't worked" },
+      { name: "Persistent Depressive Disorder", description: "Dysthymia, chronic low-grade depression" },
+      { name: "Postpartum Depression", description: "Depression following childbirth" },
+      { name: "Seasonal Affective Disorder (SAD)", description: "Depression related to seasonal changes" },
+      { name: "Depression with Anxiety", description: "Co-occurring depression and anxiety disorders" },
+      { name: "Bipolar Depression", description: "Depressive episodes in bipolar disorder" },
+      { name: "Grief-Related Depression" },
+    ],
+    servicesHeading: "Depression Psychiatry Services",
+    services: [
+      {
+        icon: Brain,
+        title: "Comprehensive Depression Evaluation",
+        description: "Thorough psychiatric assessment to accurately diagnose your depression type, identify any co-occurring conditions, review your medical history, and develop an effective treatment plan tailored to your needs."
+      },
+      {
+        icon: Shield,
+        title: "Antidepressant Medication Management",
+        description: "Expert prescription and monitoring of antidepressants including SSRIs, SNRIs, bupropion, mirtazapine, and other medications. We carefully track your response and adjust treatment for optimal results with minimal side effects."
+      },
+      {
+        icon: Award,
+        title: "Treatment-Resistant Depression Care",
+        description: "For patients who haven't responded to standard treatments, we offer advanced medication strategies, combination therapies, and referrals for treatments like TMS or ketamine/esketamine therapy."
+      },
+      {
+        icon: Calendar,
+        title: "Ongoing Depression Monitoring",
+        description: "Regular follow-up appointments to track your progress, adjust medication dosages, manage side effects, and ensure your depression treatment continues to be effective over time."
+      },
+    ],
+    whyChooseHeading: "Why See a Psychiatrist for Depression?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Medical Expertise in Depression Medications",
+        description: "Psychiatrists are medical doctors with specialized training in brain chemistry and psychiatric medications. Unlike general practitioners, we have deep expertise in antidepressants and can find the right medication combination faster."
+      },
+      {
+        icon: Brain,
+        title: "Accurate Diagnosis of Depression Types",
+        description: "Different types of depression require different treatments. Our psychiatrists accurately diagnose whether you have major depression, bipolar depression, or another condition to ensure you receive the most effective treatment."
+      },
+      {
+        icon: Shield,
+        title: "Safe Medication Management",
+        description: "We carefully monitor your antidepressants, watch for interactions with other medications, manage side effects, and make informed adjustments. Our expertise ensures you're on the safest, most effective medication regimen."
+      },
+      {
+        icon: CheckCircle,
+        title: "Treatment of Complex Depression Cases",
+        description: "If you have depression along with anxiety, ADHD, or other conditions, a psychiatrist can manage all your medications together, avoiding dangerous interactions and ensuring coordinated care for better outcomes."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "What does a psychiatrist for depression do?",
+      answer: "A psychiatrist for depression is a medical doctor who specializes in diagnosing and treating depressive disorders with medication. They conduct comprehensive evaluations to determine your specific depression type, prescribe antidepressants, monitor your response to treatment, adjust dosages as needed, and manage any side effects. Unlike therapists who provide talk therapy, psychiatrists focus on the biological and medication aspects of depression treatment."
+    },
+    {
+      question: "What medications do psychiatrists prescribe for depression?",
+      answer: "Psychiatrists commonly prescribe SSRIs (like Lexapro, Zoloft, Prozac, Celexa), SNRIs (like Effexor, Cymbalta, Pristiq), bupropion (Wellbutrin), mirtazapine (Remeron), and tricyclic antidepressants. For treatment-resistant depression, we may consider augmentation strategies or newer treatments. The choice depends on your specific symptoms, side effect concerns, other medications, and medical history."
+    },
+    {
+      question: "How quickly can I see a depression psychiatrist near me?",
+      answer: "At Empathy Health Clinic, we typically offer same-week appointments for new patients seeking depression treatment. Many patients can be seen within 3-5 business days. We understand that depression symptoms are serious and prioritize getting you in quickly. Call 386-848-8751 to schedule your appointment."
+    },
+    {
+      question: "What is treatment-resistant depression?",
+      answer: "Treatment-resistant depression is when depression doesn't adequately respond to at least two different antidepressant medications tried at adequate doses for sufficient duration. Our psychiatrists specialize in treating treatment-resistant depression using advanced medication strategies, combination therapies, and can refer for treatments like TMS (transcranial magnetic stimulation) or ketamine/esketamine therapy."
+    },
+    {
+      question: "Should I see a psychiatrist or therapist for depression?",
+      answer: "Both can be very helpful, and many patients benefit from seeing both. Psychiatrists are medical doctors who prescribe and manage medications like antidepressants. Therapists provide talk therapy like CBT or IPT to help you develop coping skills and address underlying issues. If your depression is moderate to severe, significantly impacts daily functioning, or hasn't improved with therapy alone, seeing a psychiatrist for medication is often very effective."
+    },
+    {
+      question: "How long does antidepressant medication take to work?",
+      answer: "Most antidepressants take 2-4 weeks to start working and 6-8 weeks to reach full effectiveness. This is because they work by gradually changing brain chemistry. Some people notice improvements in sleep, appetite, or energy before mood improves. Our psychiatrists will explain what to expect with your specific medication and schedule regular follow-ups to monitor your progress and make adjustments as needed."
+    },
+  ],
+  sidebar: {
+    formHeading: "Schedule Depression Evaluation",
+    formSubheading: "Same-week appointments available. Most insurance accepted.",
+    formType: "depression_psychiatrist",
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/depression-treatment", label: "Depression Treatment" },
+      { href: "/depression-counseling", label: "Depression Counseling" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "Psychiatrist for Depression Near Me Page",
+    conversionCategory: "depression_psychiatrist_near_me",
+  },
+};
+
+export const depressionPsychiatristOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Depression Psychiatrist Orlando | Expert Treatment | Same-Week",
+    description: "Expert depression psychiatrist in Orlando, FL. Board-certified specialists for major depression, treatment-resistant depression. Same-week appointments. Call 386-848-8751.",
+    keywords: ["depression psychiatrist orlando", "depression psychiatrist orlando fl", "psychiatrist for depression orlando", "depression doctor orlando", "depression specialist orlando", "antidepressant psychiatrist orlando", "major depression treatment orlando"],
+    canonicalPath: "/depression-psychiatrist-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
+    "name": "Depression Psychiatrist Orlando FL - Empathy Health Clinic",
+    "description": "Expert depression treatment in Orlando, FL by board-certified psychiatrists specializing in major depression and treatment-resistant depression.",
+    "url": "https://empathyhealthclinic.com/depression-psychiatrist-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Orlando",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.59544,
+      "longitude": -81.36537
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Orlando" },
+      { "@type": "City", "name": "Winter Park" },
+      { "@type": "City", "name": "Altamonte Springs" },
+      { "@type": "City", "name": "Lake Mary" },
+      { "@type": "City", "name": "Maitland" }
+    ],
+    "medicalSpecialty": "Psychiatry"
+  },
+  hero: {
+    title: "Depression Psychiatrist Orlando",
+    subtitle: "Expert depression treatment by board-certified psychiatrists in Orlando. Specialized care for major depression, treatment-resistant depression, and medication management. Same-week appointments available with in-person and telehealth options. Most insurance accepted.",
+    ctaPrimary: "Schedule Appointment",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Depression Specialists", "Same-Week Appointments", "Most Insurance Accepted"],
+  },
+  location: {
+    title: "Depression Psychiatry Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Depression Psychiatrist Orlando: Expert Depression Treatment",
+    introduction: [
+      "Finding an experienced depression psychiatrist in Orlando is essential for effective treatment. At Empathy Health Clinic, our board-certified psychiatrists specialize in diagnosing and treating all forms of depression, including major depressive disorder, persistent depressive disorder, and treatment-resistant depression.",
+      "Our Orlando depression specialists provide comprehensive psychiatric evaluations, personalized medication management, and ongoing support to help you overcome depression and reclaim your quality of life. We understand that depression affects every aspect of daily living and are committed to finding the treatment approach that works best for you.",
+      "Same-week appointments are typically available because we know that when you're struggling with depression, every day matters. We offer both in-person visits at our Winter Park office and telehealth appointments throughout Florida."
+    ],
+    conditionsHeading: "Depression Conditions We Treat",
+    conditions: [
+      { name: "Major Depressive Disorder", description: "Clinical depression with persistent symptoms" },
+      { name: "Treatment-Resistant Depression", description: "Depression that hasn't responded to previous treatments" },
+      { name: "Persistent Depressive Disorder", description: "Dysthymia and chronic depression" },
+      { name: "Postpartum Depression" },
+      { name: "Seasonal Affective Disorder (SAD)" },
+      { name: "Bipolar Depression", description: "Depressive episodes in bipolar disorder" },
+    ],
+    authoritativeSources: [
+      { source: "NIMH" as const, topic: "Depression" },
+      { source: "APA" as const, topic: "Depression Treatment" },
+    ],
+    internalLinksCategory: "services" as const,
+    showTrustFactors: true,
+    servicesHeading: "Depression Psychiatry Services in Orlando",
+    services: [
+      {
+        icon: FileText,
+        title: "Comprehensive Depression Evaluation",
+        description: "Thorough psychiatric assessment to accurately diagnose your specific type of depression, identify contributing factors, and rule out other conditions. Our evaluation includes symptom history, medical history review, and validated depression screening tools."
+      },
+      {
+        icon: Brain,
+        title: "Antidepressant Medication Management",
+        description: "Expert prescribing and monitoring of antidepressants including SSRIs (Lexapro, Zoloft, Prozac), SNRIs (Effexor, Cymbalta), and other medications. We work with you to find the right medication and dosage for optimal symptom relief with minimal side effects."
+      },
+      {
+        icon: Shield,
+        title: "Treatment-Resistant Depression Care",
+        description: "Specialized approaches for depression that hasn't responded to standard treatments. Options include medication optimization, combination therapy, augmentation strategies, and referrals for TMS or ketamine therapy when appropriate."
+      },
+      {
+        icon: Video,
+        title: "Telehealth Depression Treatment",
+        description: "Convenient online psychiatric appointments from anywhere in Florida. Our secure telehealth platform provides the same quality care as in-person visits, making it easier to maintain consistent treatment even when depression makes leaving home difficult."
+      },
+    ],
+    whyChooseHeading: "Why Choose Our Orlando Depression Psychiatrists?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Board-Certified Depression Specialists",
+        description: "Our psychiatrists are board-certified by the American Board of Psychiatry and Neurology with extensive experience treating all types of depression, including complex and treatment-resistant cases."
+      },
+      {
+        icon: Calendar,
+        title: "Same-Week Appointments",
+        description: "Unlike many Orlando psychiatrists with months-long waitlists, we typically offer same-week appointments for new patients. When you're struggling with depression, waiting isn't acceptable."
+      },
+      {
+        icon: Heart,
+        title: "Compassionate, Personalized Care",
+        description: "We understand that depression is deeply personal. Our psychiatrists take time to listen, explain treatment options, and work collaboratively with you to develop a treatment plan that fits your life and preferences."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "What medications do psychiatrists prescribe for depression in Orlando?",
+      answer: "Our Orlando psychiatrists commonly prescribe SSRIs (Lexapro, Zoloft, Prozac, Celexa), SNRIs (Effexor, Cymbalta, Pristiq), bupropion (Wellbutrin), mirtazapine (Remeron), and other antidepressants. For treatment-resistant depression, we may use augmentation strategies or newer treatments. The choice depends on your specific symptoms, medical history, and any previous medication trials."
+    },
+    {
+      question: "How quickly can I see a depression psychiatrist in Orlando?",
+      answer: "At Empathy Health Clinic, we typically offer same-week appointments for depression evaluations. Many patients can be seen within 3-5 business days. We understand that depression symptoms are serious and prioritize getting you in quickly. Call 386-848-8751 to schedule your appointment."
+    },
+    {
+      question: "What is the difference between a depression psychiatrist and a therapist?",
+      answer: "A psychiatrist is a medical doctor who can prescribe and manage medications like antidepressants. A therapist provides talk therapy (like CBT) to help develop coping skills. Many patients benefit from both - a psychiatrist for medication management and a therapist for counseling. Our clinic can help coordinate both types of care."
+    },
+    {
+      question: "How long does antidepressant medication take to work?",
+      answer: "Most antidepressants take 2-4 weeks to start showing effects and 6-8 weeks to reach full effectiveness. Some people notice improvements in sleep, energy, or appetite before their mood lifts. Our psychiatrists schedule regular follow-ups during this period to monitor your progress and make adjustments as needed."
+    },
+    {
+      question: "What is treatment-resistant depression?",
+      answer: "Treatment-resistant depression is when depression doesn't adequately respond to at least two different antidepressant medications tried at proper doses for sufficient duration. Our psychiatrists specialize in treating treatment-resistant depression using advanced medication strategies, combination therapies, and can refer for treatments like TMS or ketamine when appropriate."
+    },
+    {
+      question: "Does insurance cover depression psychiatry in Orlando?",
+      answer: "Yes, most health insurance plans cover psychiatric evaluations and medication management for depression. We accept most major insurance plans including Blue Cross Blue Shield, Aetna, Cigna, UnitedHealthcare, Humana, and Medicare. Contact us at 386-848-8751 to verify your specific coverage before your appointment."
+    },
+  ],
+  sidebar: {
+    formHeading: "Schedule Depression Evaluation",
+    formSubheading: "Same-week appointments available. Most insurance accepted.",
+    formType: "depression_psychiatrist",
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/depression-treatment", label: "Depression Treatment" },
+      { href: "/depression-counseling", label: "Depression Counseling" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "Depression Psychiatrist Orlando Page",
+    conversionCategory: "depression_psychiatrist_orlando",
   },
 };

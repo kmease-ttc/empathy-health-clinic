@@ -229,10 +229,10 @@ export default function PsychiatristNearMe() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Psychiatrist in Orlando & Winter Park
+            Find a Psychiatrist Near Me in Orlando
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-6 max-w-3xl" data-testid="text-hero-description">
-            Board-certified psychiatrists accepting new patients. Medication management for anxiety, depression, ADHD, and more. Same-week appointments available.
+            Looking for a psychiatrist near you? Our board-certified psychiatrists in Orlando, Winter Park, and Central Florida are accepting new patients. Same-week appointments for medication management.
           </p>
           
           <div className="flex flex-wrap gap-3 mb-8 text-white/95">

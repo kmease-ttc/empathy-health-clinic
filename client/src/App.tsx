@@ -88,6 +88,7 @@ const PsychiatryNearMe = lazy(() => import("@/pages/PsychiatryNearMe"));
 const ADHDPsychiatristOrlando = lazy(() => import("@/pages/ADHDPsychiatristOrlando"));
 const AnxietyPsychiatristOrlando = lazy(() => import("@/pages/AnxietyPsychiatristOrlando"));
 const BipolarPsychiatristOrlando = lazy(() => import("@/pages/BipolarPsychiatristOrlando"));
+const DepressionPsychiatristOrlando = lazy(() => import("@/pages/DepressionPsychiatristOrlando"));
 const PTSDPsychiatristOrlando = lazy(() => import("@/pages/PTSDPsychiatristOrlando"));
 const UrgentPsychiatricCareOrlando = lazy(() => import("@/pages/UrgentPsychiatricCareOrlando"));
 const PsychiatristOrlandoAcceptsUMR = lazy(() => import("@/pages/PsychiatristOrlandoAcceptsUMR"));
@@ -95,6 +96,8 @@ const ChildPsychiatristOrlando = lazy(() => import("@/pages/ChildPsychiatristOrl
 const MedicationManagementOrlando = lazy(() => import("@/pages/MedicationManagementOrlando"));
 const TelepsychiatryOrlando = lazy(() => import("@/pages/TelepsychiatryOrlando"));
 const SameDayPsychiatristOrlando = lazy(() => import("@/pages/SameDayPsychiatristOrlando"));
+const PsychiatristForAnxietyNearMe = lazy(() => import("@/pages/PsychiatristForAnxietyNearMe"));
+const PsychiatristForDepressionNearMe = lazy(() => import("@/pages/PsychiatristForDepressionNearMe"));
 
 // New Google Ads Landing Pages (Template-based)
 const PsychiatricEvaluationOrlando = lazy(() => import("@/pages/PsychiatricEvaluationOrlando"));
@@ -468,6 +471,11 @@ function Router() {
             <BipolarPsychiatristOrlando />
           </Suspense>
         </Route>
+        <Route path="/depression-psychiatrist-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <DepressionPsychiatristOrlando />
+          </Suspense>
+        </Route>
         <Route path="/ptsd-psychiatrist-orlando">
           <Suspense fallback={<LoadingFallback />}>
             <PTSDPsychiatristOrlando />
@@ -501,6 +509,16 @@ function Router() {
         <Route path="/same-day-psychiatrist-orlando">
           <Suspense fallback={<LoadingFallback />}>
             <SameDayPsychiatristOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-for-anxiety-near-me">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristForAnxietyNearMe />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-for-depression-near-me">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristForDepressionNearMe />
           </Suspense>
         </Route>
         <Route path="/psychiatric-evaluation-orlando">

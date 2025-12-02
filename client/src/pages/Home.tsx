@@ -240,7 +240,54 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="text-center">
+            {/* Condition-Specific Psychiatrist Links */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+              <Link href="/psychiatrist-for-anxiety-near-me" className="group" data-testid="link-anxiety-psychiatrist-near-me">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-anxiety-psychiatrist-near-me">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Anxiety Psychiatrist Near Me
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Expert anxiety medication management
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/psychiatrist-for-depression-near-me" className="group" data-testid="link-depression-psychiatrist-near-me">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-depression-psychiatrist-near-me">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Depression Psychiatrist Near Me
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Specialized depression treatment
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/depression-psychiatrist-orlando" className="group" data-testid="link-depression-psychiatrist-orlando">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-depression-psychiatrist-orlando">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Depression Psychiatrist Orlando
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Orlando depression specialists
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/medication-management-orlando" className="group" data-testid="link-medication-management-orlando">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-medication-management-orlando">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Medication Management Orlando
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Psychiatric medication expertise
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="text-center mt-8">
               <Link href="/psychiatrist-orlando">
                 <Button size="lg" data-testid="button-view-all-orlando">
                   View All Orlando Services

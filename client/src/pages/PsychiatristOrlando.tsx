@@ -154,7 +154,7 @@ export default function PsychiatristOrlando() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Top Psychiatrist in Orlando, FL
+            Psychiatrist Orlando, FL
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-6 max-w-3xl" data-testid="text-hero-description">
             Board-certified psychiatrists serving Orlando and Central Florida. Expert medication management for anxiety, depression, ADHD, and bipolar disorder. Same-week appointments available.
