@@ -247,15 +247,34 @@ export default function AdminSERP() {
   };
 
   const checkUncheckedOnly = async () => {
-    const unchecked = KEYWORDS.filter(k => !rankings.has(k) || rankings.get(k)?.error);
+    // Find keywords that either:
+    // 1. Don't exist in rankings map
+    // 2. Have an error
+    // 3. Have null/undefined position (not found in search results)
+    const unchecked = KEYWORDS.filter(k => {
+      const ranking = rankings.get(k);
+      if (!ranking) return true; // Not in map
+      if (ranking.error) return true; // Has error
+      if (ranking.position === null || ranking.position === undefined) return true; // No position data
+      return false;
+    });
+    
     if (unchecked.length === 0) {
       toast({
         title: "All Checked",
-        description: "All keywords have been checked already.",
+        description: "All keywords have valid position data.",
       });
       return;
     }
-    await checkSelectedKeywords(unchecked);
+    
+    // Limit to 5 keywords at a time to avoid API overload
+    const toCheck = unchecked.slice(0, 5);
+    toast({
+      title: "Checking Rankings",
+      description: `Checking ${toCheck.length} of ${unchecked.length} unchecked keywords...`,
+    });
+    
+    await checkSelectedKeywords(toCheck);
   };
 
   const clearCache = () => {
