@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader2, Mail, Phone } from "lucide-react";
 import { Link } from "wouter";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import type { TeamMember } from "@shared/schema";
 import SiteHeader from "@/components/SiteHeader";
@@ -90,17 +89,20 @@ export default function TeamPage() {
                     className="bg-card border rounded-lg hover-elevate transition-all duration-200 cursor-pointer h-full"
                     data-testid={`team-member-card-${index}`}
                   >
-                    <div className="aspect-square rounded-t-lg bg-muted flex items-center justify-center p-4">
-                      <Avatar className="w-full h-full rounded-none">
-                        <AvatarImage 
+                    <div className="aspect-[4/5] rounded-t-lg overflow-hidden bg-muted">
+                      {member.image ? (
+                        <img 
                           src={member.image} 
                           alt={member.name} 
-                          className="object-contain w-full h-full" 
+                          className="w-full h-full object-cover object-top" 
                         />
-                        <AvatarFallback className="text-4xl rounded-none">
-                          {member.name.split(' ').map(n => n[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
+                          <span className="text-5xl font-semibold text-primary/40">
+                            {member.name.split(' ').map(n => n[0]).join('')}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-sans font-bold text-foreground mb-2">
