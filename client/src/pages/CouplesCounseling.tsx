@@ -1,375 +1,580 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { CheckCircle2, Heart, Shield, Calendar, Users, MessageCircle, MapPin, Phone, Clock, Star, CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { CheckCircle, Phone, Clock, MapPin, Shield, Star, Award, Calendar, Heart, Users, MessageCircle, ArrowRight } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
-import TrustFactors from "@/components/TrustFactors";
-import InsuranceSection from "@/components/InsuranceSection";
-import ReviewsAndBadges from "@/components/ReviewsAndBadges";
-import VerifiedOnBadge from "@/components/VerifiedOnBadge";
-import HeroBackground from "@/components/HeroBackground";
-import heroImage from "@assets/stock_images/calm_peaceful_therap_b118766b.jpg";
+import { LeadCaptureForm } from "@/components/LeadCaptureForm";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { trackEvent } from "@/lib/analytics";
-import TherapyFAQ from "@/components/TherapyFAQ";
 
 export default function CouplesCounseling() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "MedicalTherapy",
-    "name": "Couples Counseling & Marriage Therapy",
-    "description": "Couples counseling and marriage therapy in Winter Park and Orlando, FL. Evidence-based relationship therapy to improve communication, resolve conflicts, and strengthen your bond.",
-    "provider": {
-      "@type": "MedicalClinic",
-      "name": "Empathy Health Clinic",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "1155 Louisiana Ave Suite 202",
-        "addressLocality": "Winter Park",
-        "addressRegion": "FL",
-        "postalCode": "32789"
+    "@graph": [
+      {
+        "@type": ["MedicalBusiness", "LocalBusiness"],
+        "name": "Couples Counseling Orlando - Empathy Health Clinic",
+        "description": "Licensed marriage and couples therapists in Orlando providing Gottman Method, EFT, and evidence-based relationship counseling. Same-week appointments available.",
+        "url": "https://empathyhealthclinic.com/couples-counseling",
+        "telephone": "+1-386-848-8751",
+        "email": "providers@empathyhealthclinic.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1155 Louisiana Ave Suite 202",
+          "addressLocality": "Winter Park",
+          "addressRegion": "FL",
+          "postalCode": "32789",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 28.5997,
+          "longitude": -81.3392
+        },
+        "medicalSpecialty": ["Marriage Counseling", "Couples Therapy", "Relationship Counseling"],
+        "priceRange": "$$",
+        "areaServed": [
+          { "@type": "City", "name": "Orlando" },
+          { "@type": "City", "name": "Winter Park" },
+          { "@type": "City", "name": "Maitland" },
+          { "@type": "City", "name": "Altamonte Springs" }
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "120",
+          "bestRating": "5"
+        }
       },
-      "telephone": "386-848-8751"
-    },
-    "areaServed": ["Orlando", "Winter Park", "Altamonte Springs", "Maitland", "Central Florida"]
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is couples counseling and how does it work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Couples counseling is therapy that helps partners improve their relationship by addressing communication issues, resolving conflicts, and strengthening emotional bonds. Our therapists use evidence-based approaches like Emotionally Focused Therapy (EFT) and the Gottman Method."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How quickly can we schedule couples counseling?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We offer same-week appointments for couples. Most couples can schedule within 3-5 business days. Call 386-848-8751 to check current availability."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does insurance cover couples counseling?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Many insurance plans cover couples counseling. We accept Cigna, Aetna, BCBS, UMR, and others. Most patients pay only their copay of $20-50 per session."
+            }
+          }
+        ]
+      }
+    ]
   };
 
-  const faqs = [
-    {
-      question: "What is couples counseling and how does it work?",
-      answer: "Couples counseling is a form of therapy that helps partners improve their relationship by addressing communication issues, resolving conflicts, and strengthening emotional bonds. Sessions typically involve both partners meeting with a licensed therapist to discuss challenges, learn new skills, and work toward shared goals. Our therapists use evidence-based approaches like Emotionally Focused Therapy (EFT) and the Gottman Method."
-    },
-    {
-      question: "When should couples consider marriage counseling?",
-      answer: "Couples should consider counseling when experiencing ongoing conflicts, communication breakdowns, trust issues, intimacy problems, or major life transitions. You don't need to be in crisis—many couples seek therapy to strengthen an already good relationship. Early intervention often leads to better outcomes, so don't wait until problems become severe."
-    },
-    {
-      question: "How long does couples therapy typically take?",
-      answer: "The duration varies based on your specific needs and goals. Some couples see improvement in 8-12 sessions, while others benefit from longer-term therapy. We'll create a personalized treatment plan during your first session and adjust as needed. Many couples notice positive changes within the first few weeks."
-    },
-    {
-      question: "Does insurance cover couples counseling?",
-      answer: "Many insurance plans cover couples counseling, including Cigna, Aetna, BCBS, and UMR. Coverage varies by plan, so we recommend calling our office at 386-848-8751 to verify your specific benefits. We'll help you understand your coverage and maximize your insurance benefits."
-    },
-    {
-      question: "Can couples counseling help save a marriage?",
-      answer: "Research shows that couples counseling can be highly effective when both partners are committed to the process. Studies indicate that 70% of couples who complete therapy report significant improvements in their relationship. Even if the relationship ends, therapy can help couples separate respectfully and co-parent effectively."
-    },
-    {
-      question: "Do you offer virtual couples counseling?",
-      answer: "Yes, we offer telehealth couples counseling sessions for Florida residents. Virtual sessions are just as effective as in-person therapy and offer added convenience. Many couples prefer the flexibility of attending sessions from home together."
-    }
-  ];
+  const handlePhoneClick = () => {
+    trackEvent('phone_click', 'conversion', 'Couples Counseling Page', '386-848-8751');
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Couples Counseling Orlando | Marriage Therapy Near Me"
-        description="Couples counseling in Orlando & Winter Park, FL. Expert marriage therapy, relationship counseling. Rebuild trust & communication. Same-week appointments. Call 386-848-8751."
-        keywords={["couples counseling near me", "couples counseling Orlando", "marriage counseling near me", "marriage counseling Orlando", "couples therapy near me", "relationship counseling Orlando", "marriage therapist Orlando", "couples therapist Winter Park", "premarital counseling Orlando"]}
+        title="Couples Counseling Orlando | Marriage Therapy | Same-Week Appointments"
+        description="Looking for couples counseling in Orlando? Licensed marriage therapists offering Gottman Method & EFT. Rebuild trust & communication. Same-week appointments. Call 386-848-8751."
+        keywords={["couples counseling near me", "couples counseling orlando", "marriage counseling near me", "marriage counseling orlando", "couples therapy near me", "relationship counseling orlando", "marriage therapist orlando"]}
         canonicalPath="/couples-counseling"
         jsonLd={jsonLd}
       />
       <SiteHeader />
-      <main className="flex-1">
-        <HeroBackground imageSrc={heroImage}>
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Couples Counseling & Marriage Therapy in Orlando
-          </h1>
-          <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
-            Rebuild connection, improve communication, and strengthen your relationship. Expert couples counseling and marriage therapy from licensed therapists serving Orlando and Winter Park.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Button 
-              size="lg" 
-              asChild 
-              data-testid="button-hero-cta"
-              onClick={() => trackEvent('couples_hero_cta', 'conversion', 'Couples Counseling Page')}
-            >
-              <a href="#contact-form">Schedule Your First Session</a>
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              asChild 
-              className="bg-background/20 backdrop-blur-sm border-white/30 text-white hover:bg-background/30"
-              data-testid="button-hero-phone"
-              onClick={() => trackEvent('phone_click', 'conversion', 'Couples Counseling Page - Hero')}
-            >
-              <a href="tel:386-848-8751">Call 386-848-8751</a>
-            </Button>
-          </div>
-        </HeroBackground>
 
-        <section className="py-8 bg-card border-b">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 flex-wrap">
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative bg-[#1a3a2f] text-white py-16 md:py-24">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1a3a2f] via-[#2d5a47] to-[#1a3a2f] opacity-90" />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 text-[#E48F66]">
+                  <Star className="h-5 w-5 fill-current" />
+                  <span className="font-medium">4.8 Rating from 120+ Couples</span>
                 </div>
-                <span className="text-lg font-semibold text-foreground">4.8</span>
-                <span className="text-sm text-muted-foreground">Google Reviews</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" data-testid="text-page-title">
+                  Couples Counseling Orlando
+                </h1>
+                
+                {/* SEO Intro Paragraph - Keyword in first sentence */}
+                <p className="text-xl text-gray-200 max-w-xl">
+                  <strong>If you're searching for couples counseling in Orlando,</strong> our licensed marriage therapists provide <strong>same-week appointments</strong> using proven methods like Gottman and EFT. Rebuild communication, restore trust, and strengthen your relationship with expert guidance.
+                </p>
+
+                {/* Why Choose Us - Quick Trust Signals */}
+                <div className="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                  <h2 className="text-lg font-semibold mb-4 text-[#E48F66]">Why Choose Our Couples Therapists</h2>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-[#E48F66] flex-shrink-0" />
+                      <span>Same-week appointments for couples</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-[#E48F66] flex-shrink-0" />
+                      <span>Gottman Method & EFT trained therapists</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-[#E48F66] flex-shrink-0" />
+                      <span>In-person & telehealth sessions</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-[#E48F66] flex-shrink-0" />
+                      <span>Most insurance accepted (BCBS, Aetna, Cigna, UHC)</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-[#E48F66] flex-shrink-0" />
+                      <span>Convenient Winter Park / Orlando location</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  <a href="tel:386-848-8751" onClick={handlePhoneClick}>
+                    <Button size="lg" className="bg-[#E48F66] hover:bg-[#d07d54] text-white font-semibold px-8" data-testid="button-call-hero">
+                      <Phone className="mr-2 h-5 w-5" />
+                      Call 386-848-8751
+                    </Button>
+                  </a>
+                  <Link href="/request-appointment">
+                    <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-semibold px-8" data-testid="button-book-hero">
+                      <Calendar className="mr-2 h-5 w-5" />
+                      Book Appointment
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              <div className="hidden lg:block h-6 w-px bg-border" />
-              <VerifiedOnBadge />
-              <div className="hidden lg:block h-6 w-px bg-border" />
-              <div className="flex items-center gap-2 text-sm text-foreground">
-                <CheckCircle className="h-4 w-4 text-primary" />
-                <span>Same-Week Appointments Available</span>
+
+              {/* Lead Capture Form */}
+              <div className="bg-white rounded-2xl p-8 shadow-2xl">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Schedule Couples Counseling</h2>
+                <p className="text-gray-600 mb-6">Request an appointment for you and your partner. Same-week availability.</p>
+                <LeadCaptureForm therapyName="Couples Counseling" />
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-8 bg-primary/5 border-y">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="flex items-start gap-3" data-testid="location-info">
-                <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+        {/* Location Block - MANDATORY for local search */}
+        <section className="bg-[#2E5E4E] text-white py-8">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-3 gap-8 items-center">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-white/10 rounded-lg">
+                  <MapPin className="h-8 w-8" />
+                </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Our Winter Park Location</h3>
-                  <p className="text-sm text-muted-foreground">
-                    1155 Louisiana Ave Suite 202<br />
-                    Winter Park, FL 32789
-                  </p>
-                  <a 
-                    href="https://maps.google.com/?q=1155+Louisiana+Ave+Suite+202+Winter+Park+FL+32789" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline mt-1 inline-block"
-                    data-testid="link-directions"
-                  >
-                    Get Directions →
-                  </a>
+                  <h3 className="font-bold text-lg">Our Counseling Location</h3>
+                  <p className="text-white/90">1155 Louisiana Ave Suite 202</p>
+                  <p className="text-white/90">Winter Park, FL 32789</p>
                 </div>
               </div>
-
-              <div className="flex items-start gap-3" data-testid="contact-info">
-                <Phone className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-white/10 rounded-lg">
+                  <Phone className="h-8 w-8" />
+                </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Call or Text</h3>
-                  <a 
-                    href="tel:386-848-8751" 
-                    className="text-lg font-bold text-primary hover:underline"
-                    data-testid="link-phone"
-                  >
+                  <h3 className="font-bold text-lg">Schedule Couples Therapy</h3>
+                  <a href="tel:386-848-8751" onClick={handlePhoneClick} className="text-[#E48F66] hover:underline text-xl font-bold" data-testid="link-phone-location">
                     386-848-8751
                   </a>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Same-week appointments available
-                  </p>
                 </div>
               </div>
-
-              <div className="flex items-start gap-3" data-testid="hours-info">
-                <Clock className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">Office Hours</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Mon-Fri: 9:00 AM - 6:00 PM<br />
-                    Telehealth available
-                  </p>
-                  <p className="text-sm text-primary mt-1 font-medium">
-                    <CheckCircle2 className="h-4 w-4 inline mr-1" />
-                    Accepting new couples
-                  </p>
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-white/10 rounded-lg">
+                  <Clock className="h-8 w-8" />
                 </div>
+                <div>
+                  <h3 className="font-bold text-lg">Hours</h3>
+                  <p className="text-white/90">Mon - Fri: 9AM - 6PM</p>
+                  <p className="text-white/70 text-sm">Evening telehealth available</p>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 pt-6 border-t border-white/20">
+              <p className="text-center text-white/80">
+                <strong>Serving:</strong> Orlando, Winter Park, Maitland, Altamonte Springs, Casselberry, Lake Mary, Longwood, and surrounding areas
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Insurance Section - Above the Fold Importance */}
+        <section className="py-10 bg-white border-b">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-3xl mx-auto">
+              <h2 className="text-2xl font-bold mb-4">Insurance Accepted</h2>
+              <div className="flex flex-wrap justify-center gap-3 mb-4">
+                {["Blue Cross Blue Shield", "Aetna", "Cigna", "UnitedHealthcare", "UMR", "Humana"].map((insurance) => (
+                  <span key={insurance} className="px-4 py-2 bg-[#2E5E4E]/10 text-[#2E5E4E] rounded-full text-sm font-medium">
+                    {insurance}
+                  </span>
+                ))}
+              </div>
+              <p className="text-gray-700">
+                Your copay is typically <strong>$20–$50 per session</strong> depending on your plan.<br />
+                We verify benefits before your appointment so you know exactly what to expect.
+              </p>
+              <Link href="/insurance" className="inline-flex items-center gap-1 text-[#E48F66] hover:underline mt-2" data-testid="link-all-insurance">
+                View all accepted insurance plans <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust Bar */}
+        <section className="bg-gray-50 py-6">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
+              <div className="flex items-center gap-2">
+                <Award className="h-5 w-5 text-[#2E5E4E]" />
+                <span>Licensed Marriage Therapists</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-[#2E5E4E]" />
+                <span>Gottman & EFT Trained</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Star className="h-5 w-5 text-[#2E5E4E]" />
+                <span>120+ 5-Star Reviews</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-5 w-5 text-[#2E5E4E]" />
+                <span>Same-Week Availability</span>
               </div>
             </div>
           </div>
         </section>
 
-        <InsuranceSection />
-
-        <div className="container mx-auto px-4 py-12 max-w-4xl">
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="md:col-span-2 space-y-8">
-              <section>
-                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                  Expert Couples Counseling in Orlando & Winter Park
-                </h2>
-                <p className="text-foreground leading-relaxed mb-4">
-                  Every relationship faces challenges. Whether you're dealing with communication breakdowns, trust issues, intimacy concerns, or simply want to strengthen your bond, our licensed couples therapists in Orlando are here to help. At Empathy Health Clinic, we provide a safe, non-judgmental space where both partners can be heard and work toward a healthier relationship.
-                </p>
-                <p className="text-foreground leading-relaxed mb-4">
-                  Our approach to <strong>couples counseling</strong> combines evidence-based techniques from Emotionally Focused Therapy (EFT), the Gottman Method, and other proven modalities. We help couples develop practical communication skills, resolve long-standing conflicts, and rebuild emotional connection.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                  Issues We Address in Marriage Counseling
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    "Communication Problems",
-                    "Trust & Infidelity Issues",
-                    "Intimacy & Connection",
-                    "Conflict Resolution",
-                    "Parenting Disagreements",
-                    "Financial Stress",
-                    "Life Transitions",
-                    "Premarital Counseling",
-                    "Blended Family Challenges",
-                    "Relationship Anxiety",
-                    "Emotional Distance",
-                    "Anger & Resentment"
-                  ].map((issue, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                      <span className="text-foreground">{issue}</span>
-                    </div>
-                  ))}
+        {/* Issues We Address */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-4">Issues We Address in Couples Counseling</h2>
+            <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
+              Our licensed therapists help couples work through a wide range of relationship challenges:
+            </p>
+            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              {[
+                "Communication problems",
+                "Trust & infidelity issues",
+                "Intimacy & connection",
+                "Conflict resolution",
+                "Parenting disagreements",
+                "Financial stress",
+                "Life transitions",
+                "Premarital counseling",
+                "Blended family challenges"
+              ].map((issue) => (
+                <div key={issue} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                  <CheckCircle className="h-5 w-5 text-[#2E5E4E] flex-shrink-0" />
+                  <span className="text-gray-700">{issue}</span>
                 </div>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                  Our Approach to Relationship Therapy
-                </h2>
-                <div className="space-y-4">
-                  <div className="bg-card border rounded-lg p-4">
-                    <div className="flex items-start gap-3">
-                      <Heart className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">Emotionally Focused Therapy (EFT)</h3>
-                        <p className="text-sm text-muted-foreground">
-                          A research-backed approach that helps couples identify negative interaction patterns and build secure emotional bonds. EFT has a 70-75% success rate for relationship improvement.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-card border rounded-lg p-4">
-                    <div className="flex items-start gap-3">
-                      <MessageCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">Gottman Method</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Based on decades of research, the Gottman Method teaches couples practical skills for managing conflict, increasing intimacy, and building friendship within the relationship.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-card border rounded-lg p-4">
-                    <div className="flex items-start gap-3">
-                      <Users className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">Collaborative Problem-Solving</h3>
-                        <p className="text-sm text-muted-foreground">
-                          We work with both partners equally, helping you develop shared goals and find solutions that work for your unique relationship dynamics.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
-                  Benefits of Couples Therapy
-                </h2>
-                <ul className="space-y-3">
-                  {[
-                    "Improved communication and ability to express needs effectively",
-                    "Better conflict resolution skills and reduced arguments",
-                    "Deeper emotional intimacy and connection",
-                    "Restored trust after betrayal or infidelity",
-                    "Stronger partnership for parenting and family life",
-                    "Tools for navigating major life transitions together",
-                    "Prevention of small issues from becoming major problems"
-                  ].map((benefit, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+              ))}
             </div>
+          </div>
+        </section>
 
-            <div className="space-y-6">
-              <div id="contact-form" className="bg-card border rounded-lg p-6 sticky top-24">
-                <h3 className="text-xl font-semibold text-foreground mb-4">
-                  Schedule Your First Session
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Take the first step toward a stronger relationship. Call us to schedule your couples counseling appointment.
-                </p>
-                <div className="space-y-3">
-                  <Button 
-                    className="w-full" 
-                    size="lg" 
-                    asChild
-                    data-testid="button-sidebar-call"
-                    onClick={() => trackEvent('phone_click', 'conversion', 'Couples Counseling Page - Sidebar')}
-                  >
-                    <a href="tel:386-848-8751">
-                      <Phone className="h-4 w-4 mr-2" />
-                      Call 386-848-8751
-                    </a>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full" 
-                    size="lg" 
-                    asChild
-                    data-testid="button-sidebar-appointment"
-                  >
-                    <Link href="/request-appointment">
-                      <Calendar className="h-4 w-4 mr-2" />
-                      Request Appointment
-                    </Link>
-                  </Button>
-                </div>
-                <div className="mt-4 pt-4 border-t">
-                  <p className="text-xs text-muted-foreground text-center">
-                    Most insurance accepted including Cigna, Aetna, BCBS, UMR
+        {/* Our Approach */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-10">Our Approach to Relationship Therapy</h2>
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <Card className="h-full">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-[#E48F66]/10 rounded-lg">
+                      <Heart className="h-6 w-6 text-[#E48F66]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg mb-2">Emotionally Focused Therapy (EFT)</h3>
+                      <p className="text-gray-600 text-sm">Research-backed approach that helps couples identify negative patterns and build secure emotional bonds. 70-75% success rate.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="h-full">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-[#E48F66]/10 rounded-lg">
+                      <MessageCircle className="h-6 w-6 text-[#E48F66]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg mb-2">Gottman Method</h3>
+                      <p className="text-gray-600 text-sm">Based on decades of research, teaches practical skills for managing conflict, increasing intimacy, and building friendship.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="h-full">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-[#E48F66]/10 rounded-lg">
+                      <Users className="h-6 w-6 text-[#E48F66]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg mb-2">Collaborative Approach</h3>
+                      <p className="text-gray-600 text-sm">We work with both partners equally, helping you develop shared goals and solutions for your unique relationship.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Related Services - Internal Links Block */}
+        <section className="py-12 bg-white border-y">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold text-center mb-8">Related Services</h2>
+            <p className="text-center text-gray-600 mb-6">People also search for:</p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+              <Link href="/therapist-orlando" data-testid="link-related-therapist">
+                <Card className="hover-elevate cursor-pointer h-full">
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <span className="font-medium text-[#2E5E4E]">Therapist Orlando</span>
+                    <ArrowRight className="h-4 w-4 text-[#E48F66]" />
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/therapy-near-me" data-testid="link-related-therapy">
+                <Card className="hover-elevate cursor-pointer h-full">
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <span className="font-medium text-[#2E5E4E]">Therapy Near Me</span>
+                    <ArrowRight className="h-4 w-4 text-[#E48F66]" />
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/anxiety-therapy" data-testid="link-related-anxiety">
+                <Card className="hover-elevate cursor-pointer h-full">
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <span className="font-medium text-[#2E5E4E]">Anxiety Therapy</span>
+                    <ArrowRight className="h-4 w-4 text-[#E48F66]" />
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/depression-counseling" data-testid="link-related-depression">
+                <Card className="hover-elevate cursor-pointer h-full">
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <span className="font-medium text-[#2E5E4E]">Depression Counseling</span>
+                    <ArrowRight className="h-4 w-4 text-[#E48F66]" />
+                  </CardContent>
+                </Card>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Main Content Section */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-3 gap-12">
+              {/* Main Content */}
+              <div className="lg:col-span-2 space-y-12">
+                
+                {/* Introduction */}
+                <div className="prose prose-lg max-w-none">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Expert Couples Counseling in Orlando & Winter Park</h2>
+                  <p className="text-gray-700 leading-relaxed">
+                    Every relationship faces challenges. Whether you're dealing with communication breakdowns, trust issues, intimacy concerns, or simply want to strengthen your bond, our licensed couples therapists in Orlando are here to help. At Empathy Health Clinic, we provide a safe, non-judgmental space where both partners can be heard and work toward a healthier relationship.
                   </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Our approach to couples counseling combines evidence-based techniques from Emotionally Focused Therapy (EFT), the Gottman Method, and other proven modalities. We help couples develop practical communication skills, resolve long-standing conflicts, and rebuild emotional connection.
+                  </p>
+                </div>
+
+                {/* Benefits */}
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">Benefits of Couples Therapy</h2>
+                  <div className="space-y-3">
+                    {[
+                      "Improved communication and ability to express needs effectively",
+                      "Better conflict resolution skills and reduced arguments",
+                      "Deeper emotional intimacy and connection",
+                      "Restored trust after betrayal or infidelity",
+                      "Stronger partnership for parenting and family life",
+                      "Tools for navigating major life transitions together"
+                    ].map((benefit) => (
+                      <div key={benefit} className="flex items-start gap-2 p-2 bg-gray-50 rounded">
+                        <CheckCircle className="h-5 w-5 text-[#2E5E4E] flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Areas Served */}
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">Areas We Serve</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {["Orlando", "Winter Park", "Maitland", "Altamonte Springs", "Casselberry", "Longwood", "Lake Mary", "Sanford", "Oviedo", "College Park"].map((area) => (
+                      <span key={area} className="px-3 py-1 bg-[#2E5E4E]/10 text-[#2E5E4E] rounded-full text-sm">
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* FAQs */}
+                <div>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Couples Counseling FAQs</h2>
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger className="text-left">What is couples counseling and how does it work?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        Couples counseling is therapy that helps partners improve their relationship by addressing communication issues, resolving conflicts, and strengthening emotional bonds. Sessions typically involve both partners meeting with a licensed therapist to discuss challenges, learn new skills, and work toward shared goals.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-2">
+                      <AccordionTrigger className="text-left">When should couples consider marriage counseling?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        Couples should consider counseling when experiencing ongoing conflicts, communication breakdowns, trust issues, intimacy problems, or major life transitions. You don't need to be in crisis—many couples seek therapy to strengthen an already good relationship.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-3">
+                      <AccordionTrigger className="text-left">How long does couples therapy typically take?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        The duration varies based on your specific needs and goals. Some couples see improvement in 8-12 sessions, while others benefit from longer-term therapy. Many couples notice positive changes within the first few weeks.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-4">
+                      <AccordionTrigger className="text-left">Does insurance cover couples counseling?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        Many insurance plans cover couples counseling, including Cigna, Aetna, BCBS, and UMR. Coverage varies by plan, so we recommend calling (386) 848-8751 to verify your specific benefits. Most patients pay $20-50 per session.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-5">
+                      <AccordionTrigger className="text-left">Do you offer virtual couples counseling?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        Yes, we offer telehealth couples counseling sessions for Florida residents. Virtual sessions are just as effective as in-person therapy and offer added convenience. Many couples prefer attending sessions from home together.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+
+                {/* CTA Section */}
+                <div className="bg-[#1a3a2f] rounded-2xl p-8 text-center text-white">
+                  <h2 className="text-2xl font-bold mb-4">Start Couples Counseling Today</h2>
+                  <p className="text-gray-200 mb-2">Same-week appointments. Most insurance accepted.</p>
+                  <p className="text-gray-200 mb-6">Licensed marriage therapists ready to help your relationship thrive.</p>
+                  <div className="flex flex-wrap justify-center gap-4">
+                    <a href="tel:386-848-8751" onClick={handlePhoneClick}>
+                      <Button size="lg" className="bg-[#E48F66] hover:bg-[#d07d54] text-white" data-testid="button-call-cta">
+                        <Phone className="mr-2 h-5 w-5" />
+                        Call 386-848-8751
+                      </Button>
+                    </a>
+                    <Link href="/request-appointment">
+                      <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" data-testid="button-book-cta">
+                        Book Appointment Online
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-card border rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-3">Quick Links</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <Link href="/therapy" className="text-sm text-primary hover:underline" data-testid="link-therapy">
-                      All Therapy Services →
+              {/* Sidebar */}
+              <div className="space-y-6">
+                {/* Quick Contact */}
+                <Card className="bg-[#2E5E4E] text-white">
+                  <CardContent className="p-6 text-center">
+                    <Phone className="h-8 w-8 mx-auto mb-4" />
+                    <h3 className="font-bold text-lg mb-2">Schedule Couples Therapy</h3>
+                    <p className="text-gray-200 text-sm mb-4">Same-week appointments available</p>
+                    <a href="tel:386-848-8751" onClick={handlePhoneClick}>
+                      <Button className="w-full bg-[#E48F66] hover:bg-[#d07d54] text-white" data-testid="button-call-sidebar">
+                        Call 386-848-8751
+                      </Button>
+                    </a>
+                    <Link href="/request-appointment">
+                      <Button variant="outline" className="w-full mt-3 border-white text-white hover:bg-white/10" data-testid="button-book-sidebar">
+                        Book Online
+                      </Button>
                     </Link>
-                  </li>
-                  <li>
-                    <Link href="/virtual-therapy" className="text-sm text-primary hover:underline" data-testid="link-virtual-therapy">
-                      Virtual Therapy Options →
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/anxiety-therapy" className="text-sm text-primary hover:underline" data-testid="link-anxiety-therapy">
-                      Anxiety Therapy →
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/depression-counseling" className="text-sm text-primary hover:underline" data-testid="link-depression">
-                      Depression Counseling →
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/insurance" className="text-sm text-primary hover:underline" data-testid="link-insurance">
-                      Insurance Information →
-                    </Link>
-                  </li>
-                </ul>
+                  </CardContent>
+                </Card>
+
+                {/* Related Services Links */}
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-bold text-lg mb-4">Therapy Services</h3>
+                    <div className="space-y-2">
+                      <Link href="/therapy" className="block p-2 hover:bg-gray-50 rounded text-[#2E5E4E] hover:underline">
+                        All Therapy Services
+                      </Link>
+                      <Link href="/anxiety-therapy" className="block p-2 hover:bg-gray-50 rounded text-[#2E5E4E] hover:underline">
+                        Anxiety Therapy
+                      </Link>
+                      <Link href="/depression-counseling" className="block p-2 hover:bg-gray-50 rounded text-[#2E5E4E] hover:underline">
+                        Depression Counseling
+                      </Link>
+                      <Link href="/virtual-therapy" className="block p-2 hover:bg-gray-50 rounded text-[#2E5E4E] hover:underline">
+                        Virtual Therapy
+                      </Link>
+                      <Link href="/emdr-therapy" className="block p-2 hover:bg-gray-50 rounded text-[#2E5E4E] hover:underline">
+                        EMDR Therapy
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Location Card */}
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-bold text-lg mb-4">Our Location</h3>
+                    <div className="flex items-start gap-3">
+                      <MapPin className="h-5 w-5 text-[#2E5E4E] flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-medium">1155 Louisiana Ave Suite 202</p>
+                        <p className="text-gray-600">Winter Park, FL 32789</p>
+                        <p className="text-sm text-gray-500 mt-2">Near Orlando, easy parking available</p>
+                      </div>
+                    </div>
+                    <a 
+                      href="https://maps.google.com/?q=1155+Louisiana+Ave+Suite+202+Winter+Park+FL+32789" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block mt-4"
+                    >
+                      <Button variant="outline" className="w-full" data-testid="button-directions">
+                        Get Directions
+                      </Button>
+                    </a>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
-
-          <TherapyFAQ faqs={faqs} heading="Couples Counseling FAQs" />
-        </div>
-
-        <TrustFactors />
-        <ReviewsAndBadges />
+        </section>
       </main>
+
       <SiteFooter />
     </div>
   );
