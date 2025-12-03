@@ -53,8 +53,15 @@ export const contentRedirectMap: Record<string, string> = {
   '/anxiety-assessment': '/anxiety-therapy',
   '/adhd-assessment-page': '/adhd-treatment',
   '/adhd-test': '/adhd-treatment',
+  '/adhd-testing-orlando': '/adhd-treatment',
+  '/adhd-evaluation-orlando': '/adhd-treatment',
   '/psychological-assessment': '/services',
   '/psychiatric-evaluation-page': '/psychiatric-evaluation',
+  
+  // Telepsychiatry/Virtual/Online consolidation - canonical: /telepsychiatry-orlando
+  '/virtual-psychiatrist-orlando': '/telepsychiatry-orlando',
+  '/online-psychiatrist': '/telepsychiatry-orlando',
+  '/online-psychiatry': '/telepsychiatry-orlando',
   
   // Old treatment/therapy URLs
   '/trauma-therapy': '/therapy',

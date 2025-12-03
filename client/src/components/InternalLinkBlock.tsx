@@ -23,7 +23,7 @@ const LINK_CATEGORIES = {
     { href: "/psychiatrist-for-depression-near-me", label: "Depression Psychiatrist Near Me", description: "Specialized depression treatment" },
     { href: "/depression-psychiatrist-orlando", label: "Depression Psychiatrist Orlando", description: "Orlando depression specialists" },
     { href: "/anxiety-therapy", label: "Anxiety Treatment", description: "GAD, panic disorder, social anxiety" },
-    { href: "/adhd-testing-orlando", label: "ADHD Treatment", description: "Adult and child ADHD specialists" },
+    { href: "/adhd-treatment", label: "ADHD Treatment", description: "Adult and child ADHD specialists" },
     { href: "/depression-counseling", label: "Depression Treatment", description: "Evidence-based depression care" },
     { href: "/ptsd-treatment", label: "PTSD Treatment", description: "Trauma-focused therapy and medication" },
     { href: "/stress-management", label: "Stress Management", description: "Stress reduction and coping strategies" },
