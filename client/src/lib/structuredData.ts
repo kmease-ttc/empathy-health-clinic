@@ -453,4 +453,83 @@ export function buildMedicalWebPageSchema(options: {
   };
 }
 
+export function buildMedicalProcedureSchema(options: {
+  name: string;
+  description: string;
+  url: string;
+  procedureType?: "Therapeutic" | "Diagnostic" | "Surgical" | "Palliative";
+  bodyLocation?: string;
+  indication?: string;
+  outcome?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalProcedure",
+    "name": options.name,
+    "description": options.description,
+    "url": options.url,
+    "procedureType": options.procedureType ? {
+      "@type": "MedicalProcedureType",
+      "name": options.procedureType
+    } : undefined,
+    "bodyLocation": options.bodyLocation ? {
+      "@type": "AnatomicalStructure",
+      "name": options.bodyLocation
+    } : undefined,
+    "indication": options.indication ? {
+      "@type": "MedicalIndication",
+      "name": options.indication
+    } : undefined,
+    "outcome": options.outcome,
+    "howPerformed": "By licensed mental health professionals including psychiatrists, psychologists, and licensed clinical social workers.",
+    "status": "http://schema.org/ActiveActionStatus",
+    "performer": {
+      "@type": "Organization",
+      "name": CLINIC_INFO.name,
+      "url": PREFERRED_DOMAIN
+    }
+  };
+}
+
+export function buildMedicalTherapySchema(options: {
+  name: string;
+  description: string;
+  url: string;
+  therapyType: string;
+  indication?: string;
+  contraindication?: string;
+  sideEffect?: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalTherapy",
+    "name": options.name,
+    "description": options.description,
+    "url": options.url,
+    "therapyType": options.therapyType,
+    "indication": options.indication ? {
+      "@type": "MedicalIndication",
+      "name": options.indication
+    } : undefined,
+    "contraindication": options.contraindication ? {
+      "@type": "MedicalContraindication",
+      "name": options.contraindication
+    } : undefined,
+    "sideEffect": options.sideEffect?.map(effect => ({
+      "@type": "MedicalSignOrSymptom",
+      "name": effect
+    })),
+    "relevantSpecialty": {
+      "@type": "MedicalSpecialty",
+      "name": "Psychiatric"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": CLINIC_INFO.name,
+      "url": PREFERRED_DOMAIN,
+      "telephone": CLINIC_INFO.telephone
+    }
+  };
+}
+
 export { PREFERRED_DOMAIN, CLINIC_INFO, SOCIAL_PROFILES, ACCEPTED_INSURANCE };

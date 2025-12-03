@@ -222,18 +222,115 @@ export default function LocalizedContent({
   );
 }
 
-export function LocalizedContentMultiple({ 
-  cities, 
-  className = "" 
-}: { 
-  cities: string[];
+interface LocalizedContentMultipleProps {
+  cities?: string[];
+  variant?: "grid" | "chips" | "inline" | "hero";
+  title?: string;
+  showAllCities?: boolean;
   className?: string;
-}) {
+}
+
+export function LocalizedContentMultiple({ 
+  cities,
+  variant = "grid",
+  title = "Areas We Serve in Central Florida",
+  showAllCities = false,
+  className = "" 
+}: LocalizedContentMultipleProps) {
+  const cityList = showAllCities 
+    ? Object.keys(CITY_DATA).map(key => CITY_DATA[key].name)
+    : cities || ["Orlando", "Winter Park", "Altamonte Springs", "Maitland", "Lake Mary", "Sanford", "Kissimmee", "Apopka", "Casselberry"];
+
+  if (variant === "inline") {
+    return (
+      <span className={className} data-testid="areas-we-serve-inline">
+        We proudly serve patients throughout Central Florida including{" "}
+        {cityList.map((city, i) => {
+          const cityKey = city.toLowerCase().replace(/\s+/g, '-');
+          const cityInfo = CITY_DATA[cityKey];
+          return (
+            <span key={city}>
+              {cityInfo?.slug ? (
+                <Link href={cityInfo.slug} className="text-primary hover:underline">
+                  {city}
+                </Link>
+              ) : (
+                city
+              )}
+              {i < cityList.length - 2 ? ", " : i === cityList.length - 2 ? ", and " : ""}
+            </span>
+          );
+        })}.
+      </span>
+    );
+  }
+
+  if (variant === "chips") {
+    return (
+      <div className={className} data-testid="areas-we-serve-chips">
+        <div className="flex items-center gap-2 mb-3">
+          <MapPin className="h-5 w-5 text-primary" />
+          <h3 className="font-semibold text-foreground">{title}</h3>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {cityList.map((city) => {
+            const cityKey = city.toLowerCase().replace(/\s+/g, '-');
+            const cityInfo = CITY_DATA[cityKey];
+            return (
+              <Link 
+                key={city} 
+                href={cityInfo?.slug || `/locations/${cityKey}`}
+                className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20 transition-colors"
+                data-testid={`area-chip-${cityKey}`}
+              >
+                {city}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  if (variant === "hero") {
+    return (
+      <div className={`bg-white/10 backdrop-blur-sm rounded-xl p-6 ${className}`} data-testid="areas-we-serve-hero">
+        <div className="flex items-center gap-2 mb-4">
+          <MapPin className="h-5 w-5 text-[#E48F66]" />
+          <h3 className="font-semibold text-white">{title}</h3>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {cityList.slice(0, 6).map((city) => {
+            const cityKey = city.toLowerCase().replace(/\s+/g, '-');
+            const cityInfo = CITY_DATA[cityKey];
+            return (
+              <Link 
+                key={city}
+                href={cityInfo?.slug || `/locations/${cityKey}`}
+                className="flex items-center gap-1 text-white/90 hover:text-white hover:underline text-sm"
+                data-testid={`area-hero-${cityKey}`}
+              >
+                <span className="w-1.5 h-1.5 bg-[#E48F66] rounded-full flex-shrink-0" />
+                {city}
+              </Link>
+            );
+          })}
+        </div>
+        <p className="mt-3 text-xs text-white/70">
+          Same-week appointments • In-person & Telehealth
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className={`space-y-3 ${className}`}>
-      <h3 className="text-lg font-semibold text-foreground">Areas We Serve</h3>
+    <div className={`space-y-3 ${className}`} data-testid="areas-we-serve-grid">
+      <div className="flex items-center gap-2">
+        <MapPin className="h-5 w-5 text-primary" />
+        <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {cities.map(city => (
+        {cityList.map(city => (
           <LocalizedContent key={city} city={city} variant="compact" />
         ))}
       </div>
