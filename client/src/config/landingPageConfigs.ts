@@ -1565,8 +1565,8 @@ export const bcbsPsychiatristOrlandoConfig: LandingPageConfig = {
 // Psychiatry Orlando - Optimized for "psychiatry orlando" (not in top 20)
 export const psychiatryOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatry Orlando FL | Expert Psychiatric Care",
-    description: "Premier psychiatry services in Orlando, FL. Board-certified psychiatrists, 4.8-star rating. ADHD, anxiety, depression treatment. Same-week appointments. Call (386) 848-8751.",
+    title: "Psychiatry Orlando | Board-Certified Psychiatric Care",
+    description: "Top-rated psychiatry in Orlando, FL. Board-certified psychiatrists for ADHD, anxiety, depression, bipolar. Same-week appointments. Most insurance accepted. Call (386) 848-8751.",
     keywords: ["psychiatry orlando", "psychiatry orlando fl", "psychiatric services orlando", "orlando psychiatry", "psychiatry clinic orlando", "psychiatric care orlando", "mental health psychiatry orlando", "best psychiatry orlando", "psychiatry near me orlando", "orlando psychiatric services"],
     canonicalPath: "/psychiatry-orlando",
   },
@@ -1954,10 +1954,10 @@ export const psychiatristOrlandoConfig: LandingPageConfig = {
 // ADHD Psychiatrist Orlando - Optimized for "adhd psychiatrist orlando" (not in top 20)
 export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "ADHD Psychiatrist Orlando | Fast Diagnosis | Same-Week",
-    description: "Top ADHD psychiatrist in Orlando, FL. Fast diagnosis for adults & children. Adderall, Vyvanse, non-stimulants. Same-week appointments. Call (386) 848-8751.",
+    title: "ADHD Psychiatrist Orlando FL | Expert Diagnosis & Treatment",
+    description: "Board-certified ADHD psychiatrist in Orlando, FL. Fast diagnosis for adults & children. Adderall, Vyvanse, non-stimulants. Same-week appointments. Call (386) 848-8751.",
     keywords: ["adhd psychiatrist orlando", "adhd psychiatrist orlando fl", "adhd doctor orlando", "adhd specialist orlando", "adult adhd psychiatrist orlando", "child adhd psychiatrist orlando", "add doctor orlando", "adhd medication management orlando", "adhd diagnosis orlando", "best adhd psychiatrist orlando"],
-    canonicalPath: "/psychiatrist-orlando",
+    canonicalPath: "/adhd-psychiatrist-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
