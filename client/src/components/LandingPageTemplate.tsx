@@ -12,6 +12,7 @@ import ShortContactForm from "@/components/ShortContactForm";
 import TrustFactors from "@/components/TrustFactors";
 import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import InternalLinkBlock from "@/components/InternalLinkBlock";
+import { LocalizedContentMultiple } from "@/components/LocalizedContent";
 import { trackEvent } from "@/lib/analytics";
 import { formatH1, formatH2 } from "@/lib/seoHelpers";
 import type { LandingPageConfig } from "@/types/landingPage";
@@ -72,7 +73,27 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
               </Button>
             )}
           </div>
+          
+          <LocalizedContentMultiple 
+            variant="hero" 
+            title="Serving Central Florida" 
+            className="mt-6"
+          />
         </HeroBackground>
+
+        {config.content.internalLinksCategory && (
+          <section className="py-6 bg-background border-b" data-testid="seo-internal-links-above-fold">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <InternalLinkBlock 
+                category={config.content.internalLinksCategory} 
+                title="Related Services"
+                variant="cards"
+                limit={6}
+                excludePaths={[config.seo.canonicalPath]}
+              />
+            </div>
+          </section>
+        )}
 
         {/* Proof Bar */}
         {config.proofBar && (

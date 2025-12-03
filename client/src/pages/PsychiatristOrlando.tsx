@@ -15,6 +15,7 @@ import {
 import { trackEvent } from "@/lib/analytics";
 import { buildBreadcrumbSchema } from "@/lib/structuredData";
 import InternalLinkBlock from "@/components/InternalLinkBlock";
+import { LocalizedContentMultiple } from "@/components/LocalizedContent";
 
 export default function PsychiatristOrlando() {
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -193,6 +194,12 @@ export default function PsychiatristOrlando() {
                     </Button>
                   </Link>
                 </div>
+
+                <LocalizedContentMultiple 
+                  variant="hero" 
+                  title="Serving Central Florida" 
+                  className="mt-6"
+                />
               </div>
 
               {/* Lead Capture Form */}
@@ -246,6 +253,19 @@ export default function PsychiatristOrlando() {
                 <strong>Serving:</strong> Orlando, Winter Park, Maitland, Altamonte Springs, Casselberry, Lake Mary, Longwood, Sanford, and surrounding areas
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* SEO Internal Links - Above the Fold */}
+        <section className="py-6 bg-background border-b" data-testid="seo-internal-links-above-fold">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <InternalLinkBlock 
+              category="locations" 
+              title="Serving These Locations"
+              variant="cards"
+              limit={5}
+              excludePaths={["/psychiatrist-orlando"]}
+            />
           </div>
         </section>
 

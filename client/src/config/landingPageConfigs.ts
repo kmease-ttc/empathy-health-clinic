@@ -3524,7 +3524,7 @@ export const psychiatristForDepressionNearMeConfig: LandingPageConfig = {
       { source: "NIMH" as const, topic: "Depression" },
       { source: "APA" as const, topic: "Depression Treatment Guidelines" },
     ],
-    internalLinksCategory: "services" as const,
+    internalLinksCategory: "conditions" as const,
     servicesHeading: "Depression Psychiatry Services",
     services: [
       {
@@ -3700,7 +3700,7 @@ export const depressionPsychiatristOrlandoConfig: LandingPageConfig = {
       { source: "NIMH" as const, topic: "Depression" },
       { source: "APA" as const, topic: "Depression Treatment" },
     ],
-    internalLinksCategory: "services" as const,
+    internalLinksCategory: "conditions" as const,
     showTrustFactors: true,
     servicesHeading: "Depression Psychiatry Services in Orlando",
     services: [

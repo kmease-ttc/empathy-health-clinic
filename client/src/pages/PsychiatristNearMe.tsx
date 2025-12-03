@@ -10,6 +10,8 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
+import { LocalizedContentMultiple } from "@/components/LocalizedContent";
+import InternalLinkBlock from "@/components/InternalLinkBlock";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -274,7 +276,25 @@ export default function PsychiatristNearMe() {
               className=""
             />
           </div>
+          
+          <LocalizedContentMultiple 
+            variant="hero" 
+            title="Serving Central Florida" 
+            className="mt-6"
+          />
         </HeroBackground>
+
+        <section className="py-6 bg-background border-b" data-testid="seo-internal-links-above-fold">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <InternalLinkBlock 
+              category="services" 
+              title="Our Psychiatric Services"
+              variant="cards"
+              limit={6}
+              excludePaths={["/psychiatrist-near-me"]}
+            />
+          </div>
+        </section>
 
         <section className="py-16 px-4 bg-background">
           <div className="container mx-auto max-w-6xl">

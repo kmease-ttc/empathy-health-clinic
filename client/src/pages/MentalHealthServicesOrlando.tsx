@@ -11,6 +11,8 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
+import { LocalizedContentMultiple } from "@/components/LocalizedContent";
+import InternalLinkBlock from "@/components/InternalLinkBlock";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -252,7 +254,25 @@ export default function MentalHealthServicesOrlando() {
               <a href="tel:386-848-8751">Call 386-848-8751</a>
             </Button>
           </div>
+          
+          <LocalizedContentMultiple 
+            variant="hero" 
+            title="Serving Central Florida" 
+            className="mt-6"
+          />
         </HeroBackground>
+
+        <section className="py-6 bg-background border-b" data-testid="seo-internal-links-above-fold">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <InternalLinkBlock 
+              category="services" 
+              title="Our Mental Health Services"
+              variant="cards"
+              limit={6}
+              excludePaths={["/mental-health-services-orlando"]}
+            />
+          </div>
+        </section>
 
         <section className="py-8 bg-card border-b">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
