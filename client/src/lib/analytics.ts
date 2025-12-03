@@ -68,20 +68,45 @@ export const initMicrosoftClarity = () => {
 /**
  * Tag Clarity sessions with UTM/campaign attribution for filtering
  * This allows filtering recordings by paid traffic source in Clarity dashboard
+ * 
+ * IMPORTANT: This reads from BOTH URL params AND localStorage because:
+ * 1. URL params may be stripped by canonicalization before this runs
+ * 2. localStorage preserves first-touch attribution from utm-tracker.ts
  */
 export const tagClaritySessionWithAttribution = () => {
   if (typeof window === 'undefined' || typeof window.clarity !== 'function') {
+    console.log('⚠️ Clarity: Not ready for tagging yet');
     return;
   }
 
   try {
-    // Get UTM parameters from URL
+    // Try URL first (for immediate landing), then fall back to localStorage
     const searchParams = new URLSearchParams(window.location.search);
-    const utmSource = searchParams.get('utm_source');
-    const utmMedium = searchParams.get('utm_medium');
-    const utmCampaign = searchParams.get('utm_campaign');
-    const gclid = searchParams.get('gclid');
-    const fbclid = searchParams.get('fbclid');
+    
+    // Get from URL first
+    let utmSource = searchParams.get('utm_source');
+    let utmMedium = searchParams.get('utm_medium');
+    let utmCampaign = searchParams.get('utm_campaign');
+    let gclid = searchParams.get('gclid');
+    let fbclid = searchParams.get('fbclid');
+
+    // If not in URL, try localStorage (utm-tracker saves these on first visit)
+    if (!utmSource && !gclid && !fbclid) {
+      try {
+        const stored = localStorage.getItem('utm_params');
+        if (stored) {
+          const savedParams = JSON.parse(stored);
+          utmSource = utmSource || savedParams.utmSource;
+          utmMedium = utmMedium || savedParams.utmMedium;
+          utmCampaign = utmCampaign || savedParams.utmCampaign;
+          gclid = gclid || savedParams.gclid;
+          fbclid = fbclid || savedParams.fbclid;
+          console.log('🎯 Clarity: Retrieved UTM data from localStorage');
+        }
+      } catch (e) {
+        // Ignore localStorage errors
+      }
+    }
 
     // Identify paid traffic
     const isPaidTraffic = !!(gclid || fbclid || utmMedium === 'cpc' || utmMedium === 'ppc' || utmMedium === 'paid');
@@ -100,6 +125,7 @@ export const tagClaritySessionWithAttribution = () => {
     if (gclid) {
       window.clarity('set', 'ad_platform', 'Google Ads');
       window.clarity('set', 'gclid', 'true');
+      window.clarity('set', 'google_ads', 'yes');
       console.log('🎯 Clarity: Tagged session with Google Ads (gclid)');
     }
 
@@ -107,6 +133,7 @@ export const tagClaritySessionWithAttribution = () => {
     if (fbclid) {
       window.clarity('set', 'ad_platform', 'Facebook Ads');
       window.clarity('set', 'fbclid', 'true');
+      window.clarity('set', 'facebook_ads', 'yes');
       console.log('🎯 Clarity: Tagged session with Facebook Ads (fbclid)');
     }
 

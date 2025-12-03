@@ -376,22 +376,24 @@ export function normalizePath(path: string): string {
  * Query parameters that should be stripped for SEO purposes (DENYLIST approach)
  * These are tracking/analytics parameters that don't affect page content
  * 
- * This comprehensive list covers:
- * - UTM tracking (Google Analytics, marketing)
- * - Click ID tracking (Google, Facebook, Microsoft, etc.)
+ * IMPORTANT: gclid, fbclid, and UTM params are PRESERVED for analytics tracking!
+ * These are needed by Clarity, GA4, and conversion tracking before client JS runs.
+ * Google/Facebook don't penalize their own tracking params in URLs.
+ * The canonical tag in SEOHead still points to the clean URL for SEO.
+ * 
+ * This list covers:
  * - Email marketing (Mailchimp, HubSpot)
  * - Affiliate/referral tracking
  * - Session tracking
  * - Social sharing parameters
  */
 const STRIP_QUERY_PARAMS = new Set([
-  // UTM tracking (all entries lowercase for case-insensitive matching)
-  'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id',
-  // Google Click IDs
-  'gclid', 'gbraid', 'wbraid', 'dclid', 'gclsrc',
-  // Facebook/Meta Click IDs
-  'fbclid', 'fbc', 'fbp',
-  // Microsoft/Bing Click IDs
+  // NOTE: UTM and click IDs are intentionally NOT stripped - needed for analytics
+  // 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id',
+  // 'gclid', 'gbraid', 'wbraid', 'dclid', 'gclsrc',
+  // 'fbclid', 'fbc', 'fbp',
+  
+  // Microsoft/Bing Click IDs (less common, can strip)
   'msclkid', 'mscampid',
   // Twitter
   'twclid',
@@ -409,7 +411,7 @@ const STRIP_QUERY_PARAMS = new Set([
   // Affiliate/referral
   'ref', 'referer', 'referrer', 'source', 'partner', 'affiliate', 'aff_id',
   'click_id', 'tracking_id', 'campaign', 'share',
-  // Analytics session IDs
+  // Analytics session IDs (internal GA params, not conversion tracking)
   '_ga', '_gl', '_gid', '_gac', 'sid', 'session_id',
   // Misc tracking
   'oly_enc_id', 'oly_anon_id', 'vero_id', 'sc_src', 'sc_cid', 'sscid',
