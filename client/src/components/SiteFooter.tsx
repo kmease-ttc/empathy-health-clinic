@@ -48,7 +48,7 @@ export default function SiteFooter() {
     { label: "Insurance", href: "/insurance" },
     { label: "Team", href: "/team" },
     { label: "Blog", href: "/blog" },
-    { label: "Virtual Therapy", href: "/virtual-therapy" },
+    { label: "Virtual Visit", href: "/virtual-therapy" },
     { label: "Request Appointment", href: "/request-appointment" }
   ];
 
@@ -86,7 +86,7 @@ export default function SiteFooter() {
     { label: "Depression Treatment", href: "/depression-treatment" },
     { label: "PTSD Treatment", href: "/ptsd-psychiatrist-orlando" },
     { label: "Urgent Psychiatric Care", href: "/urgent-psychiatric-care-orlando" },
-    { label: "Virtual Therapy", href: "/virtual-therapy" },
+    { label: "Virtual Visit", href: "/virtual-therapy" },
     { label: "Psychiatrist Winter Park", href: "/psychiatrist-winter-park" },
     { label: "Accepts BCBS", href: "/psychiatrist-orlando-accepts-bcbs" },
     { label: "Accepts Cigna", href: "/psychiatrist-orlando-accepts-cigna" },

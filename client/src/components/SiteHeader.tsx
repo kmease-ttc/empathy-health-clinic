@@ -179,13 +179,13 @@ export default function SiteHeader() {
             <a
               href="/virtual-therapy"
               className="block text-base font-medium text-foreground hover:text-primary py-2"
-              data-testid="link-mobile-virtual-therapy"
+              data-testid="link-mobile-virtual-visit"
               onClick={() => {
-                trackEvent('virtual_therapy_click', 'conversion', 'Mobile Header Virtual Therapy');
+                trackEvent('virtual_visit_click', 'conversion', 'Mobile Header Virtual Visit');
                 setMobileMenuOpen(false);
               }}
             >
-              Virtual Therapy
+              Virtual Visit
             </a>
             <Button
               variant="outline"
