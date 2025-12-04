@@ -3790,3 +3790,776 @@ export const depressionPsychiatristOrlandoConfig: LandingPageConfig = {
     conversionCategory: "depression_psychiatrist_orlando",
   },
 };
+
+// Psychiatrist Accepting New Patients Orlando
+export const psychiatristAcceptingNewPatientsOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Psychiatrist Accepting New Patients Orlando FL | Same-Week Apts",
+    description: "Orlando psychiatrist accepting new patients now. No waitlist, same-week appointments available. Board-certified psychiatrists for anxiety, depression, ADHD. Call 386-848-8751.",
+    keywords: ["psychiatrist accepting new patients orlando", "psychiatrist taking new patients orlando", "psychiatrist near me accepting new patients", "orlando psychiatrist accepting patients", "new patient psychiatrist orlando fl", "psychiatrist open to new patients orlando"],
+    canonicalPath: "/psychiatrist-accepting-new-patients-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Psychiatrist"],
+    "name": "Psychiatrist Accepting New Patients Orlando FL - Empathy Health Clinic",
+    "description": "Board-certified psychiatrist in Orlando accepting new patients with same-week appointment availability.",
+    "url": "https://empathyhealthclinic.com/psychiatrist-accepting-new-patients-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Psychiatry"
+  },
+  hero: {
+    title: "Psychiatrist Accepting New Patients in Orlando",
+    subtitle: "Skip the months-long waitlist. Our board-certified psychiatrists are actively accepting new patients with same-week appointment availability. In-person and telehealth options. Comprehensive psychiatric care for anxiety, depression, ADHD, and more. Most insurance accepted.",
+    ctaPrimary: "Request Appointment",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Accepting New Patients Now", "Same-Week Appointments", "No Waitlist"],
+  },
+  location: {
+    title: "Orlando Metro Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Orlando Psychiatrist Accepting New Patients Now",
+    introduction: [
+      "Tired of calling psychiatrists in Orlando only to hear 'we're not accepting new patients' or 'our next opening is in three months'? At Empathy Health Clinic, we're actively accepting new patients and typically offer same-week appointments.",
+      "Our board-certified psychiatrists understand that when you're ready to seek help for your mental health, waiting months isn't an option. That's why we maintain open availability for new patients seeking psychiatric evaluations, medication management, and ongoing care for conditions like anxiety, depression, ADHD, and bipolar disorder.",
+      "Whether you need a new psychiatrist because you've moved to Orlando, your previous provider retired, or you're seeking mental health care for the first time, we're here to help. Call today and you could be seen this week."
+    ],
+    conditionsHeading: "Conditions We Treat for New Patients",
+    conditions: [
+      { name: "Anxiety Disorders", description: "GAD, panic disorder, social anxiety" },
+      { name: "Depression", description: "Major depression, persistent depression" },
+      { name: "ADHD", description: "Adult and adolescent ADHD" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD" },
+      { name: "PTSD & Trauma" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Medication Management" },
+    ],
+    servicesHeading: "New Patient Psychiatric Services",
+    services: [
+      {
+        icon: Calendar,
+        title: "Same-Week New Patient Appointments",
+        description: "Unlike many Orlando psychiatrists with months-long waitlists, we prioritize new patient access. Most new patients are seen within 3-5 business days of calling."
+      },
+      {
+        icon: FileText,
+        title: "Comprehensive Initial Evaluation",
+        description: "Your first appointment includes a thorough 45-60 minute psychiatric evaluation to understand your symptoms, history, and treatment goals. We develop a personalized treatment plan tailored to your needs."
+      },
+      {
+        icon: Brain,
+        title: "Medication Management",
+        description: "If medication is recommended, prescriptions can be sent to your pharmacy the same day. We provide ongoing medication management with regular follow-up appointments."
+      },
+      {
+        icon: Video,
+        title: "In-Person or Telehealth",
+        description: "Choose the appointment format that works best for you. We offer both in-person visits at our Winter Park office and convenient telehealth appointments throughout Florida."
+      },
+    ],
+    whyChooseHeading: "Why New Patients Choose Us",
+    whyChoosePoints: [
+      {
+        icon: Clock,
+        title: "No Waitlist - Seen This Week",
+        description: "We understand the frustration of calling multiple psychiatrists only to be told they aren't accepting new patients. At Empathy Health Clinic, we maintain open availability and typically see new patients within the same week."
+      },
+      {
+        icon: Award,
+        title: "Board-Certified Psychiatrists",
+        description: "All our psychiatrists are board-certified by the American Board of Psychiatry and Neurology. You'll receive expert care from day one."
+      },
+      {
+        icon: Shield,
+        title: "Smooth Transition of Care",
+        description: "If you're transferring from another provider, we make the transition seamless. We can coordinate with your previous psychiatrist or primary care doctor to ensure continuity of care and medication."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "Are you currently accepting new psychiatric patients in Orlando?",
+      answer: "Yes! Empathy Health Clinic is actively accepting new psychiatric patients. Unlike many Orlando psychiatrists with closed panels or months-long waitlists, we prioritize accessibility. Call 386-848-8751 to schedule your appointment - most new patients are seen within the same week."
+    },
+    {
+      question: "How quickly can I get an appointment as a new patient?",
+      answer: "Most new patients are scheduled within 3-5 business days of calling. We understand that when you've made the decision to seek psychiatric help, waiting months isn't acceptable. Same-day appointments may occasionally be available for urgent situations."
+    },
+    {
+      question: "What should I bring to my first psychiatric appointment?",
+      answer: "Please bring your insurance card, photo ID, a list of current medications (including dosages), and any relevant medical records if available. If you're transferring from another psychiatrist, having records of previous medications tried and their outcomes is helpful but not required."
+    },
+    {
+      question: "Do I need a referral to see your psychiatrist as a new patient?",
+      answer: "No referral is required to become a new patient at our practice. You can call us directly at 386-848-8751 to schedule. However, some insurance plans may require a referral for coverage, so we recommend checking with your insurance provider."
+    },
+    {
+      question: "What insurance do you accept for new patients?",
+      answer: "We accept most major insurance plans including Aetna, Blue Cross Blue Shield, Cigna, UnitedHealthcare, Humana, and more. We verify your insurance benefits before your first appointment so you know your costs upfront."
+    },
+  ],
+  sidebar: {
+    formHeading: "New Patient Appointment",
+    formSubheading: "Accepting new patients now. Same-week appointments available.",
+    formType: "new_patient_psychiatrist",
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/psychiatric-evaluation-orlando", label: "Psychiatric Evaluation" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "Psychiatrist Accepting New Patients Orlando Page",
+    conversionCategory: "new_patient_psychiatrist_orlando",
+  },
+};
+
+// Online Psychiatrist Orlando
+export const onlinePsychiatristOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Online Psychiatrist Orlando FL | Telehealth Psychiatry",
+    description: "Online psychiatrist serving Orlando, FL. HIPAA-compliant video appointments for anxiety, depression, ADHD. Same-week telehealth availability. Call 386-848-8751.",
+    keywords: ["online psychiatrist orlando", "telepsychiatry orlando", "virtual psychiatrist orlando", "telehealth psychiatrist orlando fl", "online psychiatric services orlando", "video psychiatry orlando", "remote psychiatrist orlando"],
+    canonicalPath: "/online-psychiatrist-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Psychiatrist"],
+    "name": "Online Psychiatrist Orlando FL - Empathy Health Clinic",
+    "description": "HIPAA-compliant online psychiatry services for Orlando residents via secure video appointments.",
+    "url": "https://empathyhealthclinic.com/online-psychiatrist-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Psychiatry"
+  },
+  hero: {
+    title: "Online Psychiatrist in Orlando, FL",
+    subtitle: "Expert psychiatric care from the comfort of your home. Our board-certified psychiatrists provide HIPAA-compliant telehealth appointments for anxiety, depression, ADHD, and more. Same-week video appointments available. Prescriptions sent directly to your pharmacy. Most insurance accepted.",
+    ctaPrimary: "Schedule Telehealth Visit",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["HIPAA-Compliant Platform", "Same-Week Telehealth", "Prescriptions Sent Same Day"],
+  },
+  location: {
+    title: "Serving All of Orlando via Telehealth",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth appointments available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Convenient Online Psychiatry for Orlando Residents",
+    introduction: [
+      "Access expert psychiatric care without leaving your home. Our online psychiatry services bring board-certified psychiatrists directly to you through secure, HIPAA-compliant video appointments. Perfect for busy professionals, parents, students, or anyone who prefers the convenience of virtual healthcare.",
+      "Our Orlando-based telepsychiatry services provide the same quality of care as in-person visits. You'll meet face-to-face with your psychiatrist via video, discuss your symptoms and concerns, receive an accurate diagnosis, and get prescriptions sent directly to your local pharmacy - all from your couch, office, or anywhere with a private internet connection.",
+      "Whether you're seeking treatment for anxiety, depression, ADHD, or other mental health conditions, our online psychiatrists are here to help. Same-week telehealth appointments are typically available."
+    ],
+    conditionsHeading: "Conditions Treated via Telehealth",
+    conditions: [
+      { name: "Anxiety Disorders", description: "GAD, panic disorder, social anxiety" },
+      { name: "Depression", description: "Major depression, dysthymia" },
+      { name: "ADHD", description: "Adult and adolescent" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD" },
+      { name: "PTSD" },
+      { name: "Insomnia" },
+      { name: "Medication Refills" },
+    ],
+    servicesHeading: "Our Online Psychiatry Services",
+    services: [
+      {
+        icon: Video,
+        title: "Secure Video Appointments",
+        description: "Meet with your psychiatrist face-to-face through our HIPAA-compliant telehealth platform. Our video technology is secure, encrypted, and designed specifically for healthcare to protect your privacy."
+      },
+      {
+        icon: FileText,
+        title: "Online Psychiatric Evaluations",
+        description: "Comprehensive initial evaluations conducted entirely via video. Your psychiatrist will thoroughly assess your symptoms, review your history, and develop a personalized treatment plan - all through your screen."
+      },
+      {
+        icon: Brain,
+        title: "Virtual Medication Management",
+        description: "Ongoing medication management appointments via telehealth. Discuss how your medications are working, adjust dosages, address side effects, and get refills sent to your pharmacy electronically."
+      },
+      {
+        icon: Shield,
+        title: "Same-Day Prescriptions",
+        description: "When medication is prescribed or refilled during your online appointment, we send it electronically to your preferred pharmacy the same day. No waiting, no extra trips."
+      },
+    ],
+    whyChooseHeading: "Why Choose Our Online Psychiatry Services",
+    whyChoosePoints: [
+      {
+        icon: Clock,
+        title: "Convenient & Time-Saving",
+        description: "No commuting, no parking, no waiting rooms. Connect with your psychiatrist from home, your office, or anywhere private. Our online appointments fit into your busy life."
+      },
+      {
+        icon: Shield,
+        title: "HIPAA-Compliant & Secure",
+        description: "Your privacy is protected with enterprise-grade encryption and HIPAA-compliant video technology. Your sessions are private and secure, just like an in-person visit."
+      },
+      {
+        icon: Award,
+        title: "Same Quality as In-Person",
+        description: "Our board-certified psychiatrists provide the same thorough, compassionate care via telehealth as they do in person. Video appointments allow for face-to-face connection and comprehensive evaluation."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "Is online psychiatry as effective as in-person visits?",
+      answer: "Yes, research shows that telepsychiatry is equally effective as in-person psychiatric care for most conditions. Our video platform allows for face-to-face interaction, clear communication, and thorough evaluation. Many patients actually prefer telehealth for its convenience and comfort."
+    },
+    {
+      question: "What technology do I need for an online psychiatry appointment?",
+      answer: "You need a device with a camera and microphone (smartphone, tablet, laptop, or computer), a stable internet connection, and a private space for your appointment. We'll send you a simple link to join your video session - no special software to download."
+    },
+    {
+      question: "Can online psychiatrists prescribe medication?",
+      answer: "Yes, our board-certified psychiatrists can prescribe most psychiatric medications during telehealth appointments, including antidepressants, anti-anxiety medications, ADHD medications, and mood stabilizers. Prescriptions are sent electronically to your preferred pharmacy the same day."
+    },
+    {
+      question: "Is my online psychiatry appointment private and secure?",
+      answer: "Absolutely. We use a HIPAA-compliant telehealth platform with end-to-end encryption to protect your privacy. Your video session is as confidential as an in-person office visit. We recommend you find a private, quiet space for your appointment."
+    },
+    {
+      question: "Do you accept insurance for telehealth psychiatry?",
+      answer: "Yes, most insurance plans now cover telehealth psychiatric services at the same rate as in-person visits. We accept Aetna, Blue Cross Blue Shield, Cigna, UnitedHealthcare, Humana, and more. We'll verify your telehealth benefits before your appointment."
+    },
+  ],
+  sidebar: {
+    formHeading: "Schedule Online Appointment",
+    formSubheading: "HIPAA-compliant telehealth. Same-week availability.",
+    formType: "online_psychiatrist",
+    quickLinks: [
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/psychiatric-evaluation-orlando", label: "Psychiatric Evaluation" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "Online Psychiatrist Orlando Page",
+    conversionCategory: "online_psychiatrist_orlando",
+  },
+};
+
+// Best Psychiatrist Orlando
+export const bestPsychiatristOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Best Psychiatrist Orlando FL | Top-Rated & Board-Certified",
+    description: "Top-rated psychiatrists in Orlando, FL. Board-certified, 4.8 star Google rating, extensive experience. Expert care for anxiety, depression, ADHD. Call 386-848-8751.",
+    keywords: ["best psychiatrist orlando", "top psychiatrist orlando", "top rated psychiatrist orlando fl", "best psychiatrist near me", "highly rated psychiatrist orlando", "best mental health doctor orlando", "orlando best psychiatrist"],
+    canonicalPath: "/best-psychiatrist-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Psychiatrist"],
+    "name": "Best Psychiatrist Orlando FL - Empathy Health Clinic",
+    "description": "Top-rated, board-certified psychiatrists in Orlando, FL with excellent patient reviews and extensive experience.",
+    "url": "https://empathyhealthclinic.com/best-psychiatrist-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Psychiatry",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "200"
+    }
+  },
+  hero: {
+    title: "Best Psychiatrist in Orlando, FL",
+    subtitle: "Board-certified psychiatrists with 4.8-star ratings and hundreds of positive patient reviews. Our top-rated team delivers exceptional psychiatric care for anxiety, depression, ADHD, and more. Experience the difference that expertise and compassion make. Same-week appointments available.",
+    ctaPrimary: "Book Top-Rated Care",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["4.8 Star Google Rating", "Board-Certified Psychiatrists", "200+ Patient Reviews"],
+  },
+  location: {
+    title: "Orlando Metro Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Why We're Rated Among Orlando's Best Psychiatrists",
+    introduction: [
+      "When searching for the best psychiatrist in Orlando, you deserve more than just credentials - you deserve exceptional care from providers who truly listen, understand, and deliver results. At Empathy Health Clinic, our board-certified psychiatrists have earned a 4.8-star rating through their commitment to clinical excellence and patient-centered care.",
+      "What makes a psychiatrist 'the best' isn't just medical training - it's the combination of diagnostic expertise, genuine compassion, clear communication, and a treatment approach tailored to each individual. Our patients consistently praise our psychiatrists for taking time to listen, explaining treatment options thoroughly, and achieving real improvements in their mental health.",
+      "Our top-rated Orlando psychiatrists specialize in anxiety, depression, ADHD, bipolar disorder, and other conditions. We accept most major insurance plans and offer same-week appointments because excellent psychiatric care shouldn't require a months-long wait."
+    ],
+    conditionsHeading: "Conditions Treated by Our Top-Rated Team",
+    conditions: [
+      { name: "Anxiety Disorders", description: "GAD, panic disorder, social anxiety" },
+      { name: "Depression", description: "Major depression, treatment-resistant depression" },
+      { name: "ADHD", description: "Adult and adolescent" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD" },
+      { name: "PTSD & Trauma" },
+      { name: "Personality Disorders" },
+      { name: "Medication Optimization" },
+    ],
+    servicesHeading: "What Sets Our Psychiatrists Apart",
+    services: [
+      {
+        icon: Award,
+        title: "Board-Certified Excellence",
+        description: "All our psychiatrists are board-certified by the American Board of Psychiatry and Neurology, representing the highest standard of psychiatric training, knowledge, and ongoing education in the field."
+      },
+      {
+        icon: Heart,
+        title: "Patient-Centered Approach",
+        description: "We believe the best psychiatric care happens when patients feel heard and understood. Our psychiatrists take time to listen to your concerns, explain diagnoses clearly, and involve you in treatment decisions."
+      },
+      {
+        icon: Brain,
+        title: "Evidence-Based Treatment",
+        description: "Our treatment recommendations are grounded in the latest psychiatric research and clinical evidence. We stay current with advances in psychopharmacology to provide you with the most effective treatments available."
+      },
+      {
+        icon: CheckCircle,
+        title: "Proven Patient Outcomes",
+        description: "Our 4.8-star rating reflects real patient experiences and outcomes. We measure our success by your improvement - reduced symptoms, better functioning, and improved quality of life."
+      },
+    ],
+    whyChooseHeading: "Why Patients Rate Us Among Orlando's Best",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Exceptional Credentials",
+        description: "Our psychiatrists hold board certification, have completed residency training at top programs, and bring years of clinical experience. You receive care from providers who are true experts in their field."
+      },
+      {
+        icon: MessageCircle,
+        title: "Outstanding Patient Reviews",
+        description: "With a 4.8-star Google rating and hundreds of positive reviews, our patients consistently praise our thorough evaluations, compassionate care, effective treatments, and responsive communication."
+      },
+      {
+        icon: Calendar,
+        title: "Accessibility Despite Demand",
+        description: "Even with high demand, we maintain same-week appointment availability. Being the best doesn't mean being unavailable - we believe everyone deserves timely access to excellent psychiatric care."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "What makes a psychiatrist the 'best' in Orlando?",
+      answer: "The best psychiatrists combine board certification, extensive clinical experience, excellent diagnostic skills, and genuine compassion for patients. At Empathy Health Clinic, our 4.8-star rating reflects our commitment to all these qualities. We also prioritize clear communication, patient involvement in treatment decisions, and measurable improvement in symptoms and quality of life."
+    },
+    {
+      question: "How do I know if your psychiatrists are highly rated?",
+      answer: "Our psychiatrists maintain a 4.8-star average rating on Google with over 200 patient reviews. You can read real patient experiences on our Google Business listing. Our patients frequently mention thorough evaluations, effective treatment, compassionate care, and improved mental health outcomes."
+    },
+    {
+      question: "Are your psychiatrists board-certified?",
+      answer: "Yes, all our psychiatrists are board-certified by the American Board of Psychiatry and Neurology (ABPN). Board certification requires completing an accredited psychiatry residency, passing rigorous examinations, and maintaining ongoing education. This certification represents the highest standard of psychiatric expertise."
+    },
+    {
+      question: "Can I see a top-rated psychiatrist quickly or is there a long wait?",
+      answer: "Despite being highly rated, we maintain same-week appointment availability for new patients. We believe that excellent psychiatric care should be accessible when you need it. Call 386-848-8751 to schedule - most new patients are seen within 3-5 business days."
+    },
+    {
+      question: "What conditions do your best-rated psychiatrists treat?",
+      answer: "Our top-rated psychiatrists treat a full range of mental health conditions including anxiety disorders, depression, ADHD, bipolar disorder, OCD, PTSD, personality disorders, and more. We're experienced in complex cases and treatment-resistant conditions where previous treatments haven't worked."
+    },
+  ],
+  sidebar: {
+    formHeading: "See Our Top-Rated Team",
+    formSubheading: "4.8-star rated care. Same-week appointments available.",
+    formType: "best_psychiatrist",
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/psychiatric-evaluation-orlando", label: "Psychiatric Evaluation" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "Best Psychiatrist Orlando Page",
+    conversionCategory: "best_psychiatrist_orlando",
+  },
+};
+
+// Online Psychiatrist Florida - Statewide Telehealth
+export const onlinePsychiatristFloridaConfig: LandingPageConfig = {
+  seo: {
+    title: "Online Psychiatrist Florida | Telehealth Mental Health Care",
+    description: "Florida-licensed online psychiatrists serving all FL residents via telehealth. Virtual psychiatric care from Orlando to Miami, Tampa, Jacksonville. Same-week appointments. Call 386-848-8751.",
+    keywords: ["online psychiatrist florida", "florida online psychiatrist", "telehealth psychiatrist florida", "virtual psychiatrist fl", "online mental health florida", "psychiatrist telehealth florida", "florida telepsychiatry"],
+    canonicalPath: "/online-psychiatrist-florida",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Psychiatrist"],
+    "name": "Online Psychiatrist Florida - Empathy Health Clinic",
+    "description": "Florida-licensed online psychiatrists providing statewide telehealth psychiatric care to residents throughout Florida.",
+    "url": "https://empathyhealthclinic.com/online-psychiatrist-florida",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Florida"
+    },
+    "medicalSpecialty": "Psychiatry"
+  },
+  hero: {
+    title: "Online Psychiatrist for Florida Residents",
+    subtitle: "Florida-licensed psychiatrists providing virtual mental health care statewide. Whether you're in Orlando, Miami, Tampa, Jacksonville, or Fort Lauderdale, receive expert psychiatric treatment from the comfort of your home. Same-week telehealth appointments available. Most insurance accepted.",
+    ctaPrimary: "Start Telehealth Visit",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Serving All of Florida", "Same-Week Telehealth Appointments", "HIPAA-Compliant Video"],
+  },
+  location: {
+    title: "Serving All of Florida",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth available statewide",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Virtual Psychiatric Care Anywhere in Florida",
+    introduction: [
+      "Access board-certified psychiatrists from anywhere in Florida through our secure telehealth platform. Empathy Health Clinic's online psychiatry services bring expert mental health care directly to you, whether you're in Orlando, Tampa, Miami, Jacksonville, Fort Lauderdale, or any Florida community.",
+      "Our Florida-licensed psychiatrists provide comprehensive virtual psychiatric care including evaluations, medication management, and ongoing treatment. You receive the same quality care as an in-person visit, with the convenience of connecting from your home, office, or anywhere with a private internet connection.",
+      "No more long drives to appointments or taking time off work. With same-week telehealth availability and flexible scheduling, getting expert psychiatric care has never been more accessible for Florida residents."
+    ],
+    conditionsHeading: "Conditions We Treat Online",
+    conditions: [
+      { name: "Anxiety Disorders", description: "GAD, panic disorder, social anxiety" },
+      { name: "Depression & Mood Disorders" },
+      { name: "ADHD", description: "Adult & adolescent" },
+      { name: "Bipolar Disorder" },
+      { name: "OCD" },
+      { name: "PTSD & Trauma" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Panic Attacks" },
+      { name: "Medication Management" },
+      { name: "Treatment-Resistant Depression" },
+    ],
+    servicesHeading: "Our Online Psychiatry Services",
+    services: [
+      {
+        icon: Video,
+        title: "Secure Video Appointments",
+        description: "HIPAA-compliant telehealth platform providing private, face-to-face psychiatric care. Connect from any device with a camera and internet connection."
+      },
+      {
+        icon: Brain,
+        title: "Psychiatric Evaluations",
+        description: "Comprehensive initial evaluations conducted virtually to accurately diagnose your condition and develop a personalized treatment plan."
+      },
+      {
+        icon: FileText,
+        title: "Medication Management",
+        description: "Expert medication prescribing and monitoring. Prescriptions sent electronically to your local Florida pharmacy the same day."
+      },
+      {
+        icon: Calendar,
+        title: "Flexible Follow-Up Care",
+        description: "Convenient virtual follow-up appointments to monitor your progress, adjust medications, and ensure optimal treatment outcomes."
+      },
+    ],
+    whyChooseHeading: "Why Choose Our Online Psychiatry?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Florida-Licensed Psychiatrists",
+        description: "All our psychiatrists are licensed to practice in Florida and board-certified by the American Board of Psychiatry and Neurology, ensuring you receive expert care that meets Florida's medical standards."
+      },
+      {
+        icon: Shield,
+        title: "Statewide Coverage",
+        description: "From the Panhandle to the Keys, we serve patients throughout Florida. Whether you're in Orlando, Tampa, Miami, Jacksonville, Fort Lauderdale, or rural communities, quality psychiatric care is just a video call away."
+      },
+      {
+        icon: CheckCircle,
+        title: "Same Quality as In-Person",
+        description: "Research shows telehealth psychiatry is just as effective as in-person care for most conditions. You receive the same thorough evaluation, expert treatment, and compassionate care through our secure video platform."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "Can I see an online psychiatrist if I live anywhere in Florida?",
+      answer: "Yes! Our Florida-licensed psychiatrists can treat patients anywhere in the state via telehealth. Whether you're in Orlando, Miami, Tampa, Jacksonville, Fort Lauderdale, Tallahassee, or any Florida community, you can access our online psychiatric services."
+    },
+    {
+      question: "Is online psychiatry as effective as in-person visits?",
+      answer: "Research consistently shows that telehealth psychiatry is equally effective as in-person care for most mental health conditions. You receive the same comprehensive evaluation, accurate diagnosis, and effective treatment through our secure video platform. Many patients prefer the convenience and privacy of virtual visits."
+    },
+    {
+      question: "Can online psychiatrists prescribe medications in Florida?",
+      answer: "Yes, our Florida-licensed psychiatrists can prescribe all appropriate psychiatric medications including controlled substances when clinically indicated. Prescriptions are sent electronically to your local Florida pharmacy the same day as your appointment."
+    },
+    {
+      question: "What do I need for a telehealth psychiatry appointment?",
+      answer: "You need a smartphone, tablet, or computer with a camera, a reliable internet connection, and a private location where you feel comfortable speaking openly. We'll send you a secure link before your appointment - no special software downloads required."
+    },
+    {
+      question: "Does insurance cover online psychiatry in Florida?",
+      answer: "Most major insurance plans cover telehealth psychiatry at the same rate as in-person visits. We accept Aetna, Blue Cross Blue Shield, Cigna, UnitedHealthcare, Humana, and many other plans. Our team will verify your telehealth benefits before your appointment."
+    },
+  ],
+  sidebar: {
+    formHeading: "Start Your Telehealth Visit",
+    formSubheading: "Serving all Florida residents. Same-week appointments.",
+    formType: "online_psychiatrist_florida",
+    quickLinks: [
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry Orlando" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Treatment" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Treatment" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "Online Psychiatrist Florida Page",
+    conversionCategory: "online_psychiatrist_florida",
+  },
+};
+
+// Mental Health Doctor Orlando - Medical Approach
+export const mentalHealthDoctorOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Mental Health Doctor Orlando FL | Psychiatric Physician",
+    description: "Mental health doctors in Orlando, FL. Board-certified psychiatric physicians providing medical treatment for depression, anxiety, ADHD. Same-week appointments. Call 386-848-8751.",
+    keywords: ["mental health doctor orlando", "mental health doctor near me", "mental health physician orlando", "psychiatric doctor orlando", "doctor for mental health orlando", "mental health md orlando", "orlando mental health doctor"],
+    canonicalPath: "/mental-health-doctor-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Physician"],
+    "name": "Mental Health Doctor Orlando FL - Empathy Health Clinic",
+    "description": "Board-certified mental health doctors providing medical psychiatric treatment in Orlando, FL.",
+    "url": "https://empathyhealthclinic.com/mental-health-doctor-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Psychiatry"
+  },
+  hero: {
+    title: "Mental Health Doctor in Orlando, FL",
+    subtitle: "Board-certified psychiatric physicians providing medical treatment for mental health conditions. Expert diagnosis and medication management for depression, anxiety, ADHD, bipolar disorder, and more. Same-week appointments available with telehealth and in-person options.",
+    ctaPrimary: "See a Mental Health Doctor",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Board-Certified Physicians", "Same-Week Appointments", "Medical Treatment Approach"],
+  },
+  location: {
+    title: "Orlando Mental Health Physician",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Expert Mental Health Physicians in Orlando",
+    introduction: [
+      "When you need a doctor for your mental health, you deserve a physician who understands both the medical and psychological aspects of your condition. At Empathy Health Clinic, our mental health doctors are board-certified psychiatric physicians who provide comprehensive medical treatment for mental health conditions.",
+      "Unlike therapists or counselors, our mental health doctors are medical physicians (MDs/DOs) with specialized training in psychiatry. This means they can diagnose conditions, prescribe medications, order lab tests, and coordinate your mental health care with your other medical providers.",
+      "Whether you're experiencing depression, anxiety, ADHD, bipolar disorder, or other mental health challenges, our Orlando mental health doctors provide thorough medical evaluations and evidence-based treatment. Same-week appointments are typically available."
+    ],
+    conditionsHeading: "Conditions Our Mental Health Doctors Treat",
+    conditions: [
+      { name: "Clinical Depression", description: "Major depressive disorder, treatment-resistant depression" },
+      { name: "Anxiety Disorders", description: "Generalized anxiety, panic disorder, social anxiety" },
+      { name: "ADHD", description: "Comprehensive evaluation and medication management" },
+      { name: "Bipolar Disorder", description: "Bipolar I, Bipolar II, mood stabilization" },
+      { name: "OCD" },
+      { name: "PTSD & Trauma" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Psychotic Disorders" },
+      { name: "Personality Disorders" },
+      { name: "Substance Use Disorders" },
+    ],
+    servicesHeading: "Our Medical Approach to Mental Health",
+    services: [
+      {
+        icon: Brain,
+        title: "Comprehensive Medical Evaluation",
+        description: "Thorough psychiatric assessment including medical history review, mental status examination, and consideration of medical conditions that may affect mental health."
+      },
+      {
+        icon: FileText,
+        title: "Accurate Psychiatric Diagnosis",
+        description: "Expert diagnosis based on DSM-5 criteria by physicians with specialized psychiatric training. Rule out medical causes of psychiatric symptoms."
+      },
+      {
+        icon: Shield,
+        title: "Medication Management",
+        description: "Evidence-based prescribing of psychiatric medications with careful monitoring for effectiveness and side effects. Adjustments made for optimal outcomes."
+      },
+      {
+        icon: Heart,
+        title: "Integrated Care Coordination",
+        description: "Your mental health doctor can coordinate with your primary care physician, therapist, and other specialists to ensure comprehensive, integrated care."
+      },
+    ],
+    whyChooseHeading: "Why See a Mental Health Doctor?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Physician-Level Expertise",
+        description: "Our mental health doctors are board-certified psychiatric physicians who completed medical school and residency training. They understand how medical conditions and medications interact with mental health."
+      },
+      {
+        icon: Brain,
+        title: "Medical Treatment Capability",
+        description: "Unlike therapists or counselors, mental health doctors can prescribe medications, order laboratory tests, and provide medical treatment for psychiatric conditions."
+      },
+      {
+        icon: CheckCircle,
+        title: "Comprehensive Diagnostic Skills",
+        description: "Mental health doctors can differentiate between psychiatric conditions and medical conditions that mimic mental illness, ensuring accurate diagnosis and appropriate treatment."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "What is a mental health doctor?",
+      answer: "A mental health doctor is a physician (MD or DO) who specializes in diagnosing and treating mental health conditions. Unlike therapists or counselors, mental health doctors are medical physicians who can prescribe medications, order laboratory tests, and provide medical treatment. Psychiatrists are the most common type of mental health doctor."
+    },
+    {
+      question: "When should I see a mental health doctor vs. a therapist?",
+      answer: "See a mental health doctor when you need medication, want a comprehensive medical evaluation, or when your symptoms are severe or not responding to therapy alone. Many patients benefit from seeing both - a mental health doctor for medication management and a therapist for counseling. At Empathy Health Clinic, we offer both services."
+    },
+    {
+      question: "Can a mental health doctor prescribe medication?",
+      answer: "Yes! Mental health doctors are medical physicians who can prescribe all types of psychiatric medications including antidepressants, anti-anxiety medications, mood stabilizers, ADHD medications, and when appropriate, controlled substances. Prescriptions are sent electronically to your pharmacy."
+    },
+    {
+      question: "How is a mental health doctor different from a primary care doctor?",
+      answer: "While primary care doctors can prescribe some psychiatric medications, mental health doctors (psychiatrists) have specialized training specifically in diagnosing and treating mental health conditions. They have more expertise in complex cases, medication combinations, and treatment-resistant conditions."
+    },
+    {
+      question: "Do you accept insurance for mental health doctor visits?",
+      answer: "Yes, we accept most major insurance plans including Aetna, Blue Cross Blue Shield, Cigna, UnitedHealthcare, Humana, and more. Our team will verify your mental health benefits before your appointment."
+    },
+  ],
+  sidebar: {
+    formHeading: "See a Mental Health Doctor",
+    formSubheading: "Board-certified physicians. Same-week appointments.",
+    formType: "mental_health_doctor",
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/psychiatric-evaluation-orlando", label: "Psychiatric Evaluation" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Doctor" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Doctor" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "Mental Health Doctor Orlando Page",
+    conversionCategory: "mental_health_doctor_orlando",
+  },
+};

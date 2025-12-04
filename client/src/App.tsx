@@ -124,6 +124,11 @@ const PsychiatristWinterPark = lazy(() => import("@/pages/locations/WinterPark")
 // Additional Landing Pages
 const ADHDTestingOrlando = lazy(() => import("@/pages/ADHDTestingOrlando"));
 const BlueCrossBlueShieldTherapy = lazy(() => import("@/pages/BlueCrossBlueShieldTherapy"));
+const PsychiatristAcceptingNewPatientsOrlando = lazy(() => import("@/pages/PsychiatristAcceptingNewPatientsOrlando"));
+const OnlinePsychiatristOrlando = lazy(() => import("@/pages/OnlinePsychiatristOrlando"));
+const BestPsychiatristOrlando = lazy(() => import("@/pages/BestPsychiatristOrlando"));
+const OnlinePsychiatristFlorida = lazy(() => import("@/pages/OnlinePsychiatristFlorida"));
+const MentalHealthDoctorOrlando = lazy(() => import("@/pages/MentalHealthDoctorOrlando"));
 
 // Legal & Info Pages
 const About = lazy(() => import("@/pages/About"));
@@ -599,6 +604,31 @@ function Router() {
         <Route path="/adhd-testing-orlando">
           <Suspense fallback={<LoadingFallback />}>
             <ADHDTestingOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-accepting-new-patients-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristAcceptingNewPatientsOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/online-psychiatrist-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <OnlinePsychiatristOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/best-psychiatrist-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <BestPsychiatristOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/online-psychiatrist-florida">
+          <Suspense fallback={<LoadingFallback />}>
+            <OnlinePsychiatristFlorida />
+          </Suspense>
+        </Route>
+        <Route path="/mental-health-doctor-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <MentalHealthDoctorOrlando />
           </Suspense>
         </Route>
         <Route path="/blue-cross-blue-shield-therapy-orlando">

@@ -53,8 +53,8 @@ export const contentRedirectMap: Record<string, string> = {
   '/anxiety-assessment': '/anxiety-therapy',
   '/adhd-assessment-page': '/adhd-treatment',
   '/adhd-test': '/adhd-treatment',
-  '/adhd-testing-orlando': '/adhd-treatment',
-  '/adhd-evaluation-orlando': '/adhd-treatment',
+  // Note: /adhd-testing-orlando is now a real landing page - DO NOT redirect
+  '/adhd-evaluation-orlando': '/adhd-testing-orlando',
   '/psychological-assessment': '/services',
   '/psychiatric-evaluation-page': '/psychiatric-evaluation',
   
