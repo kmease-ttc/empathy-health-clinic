@@ -57,3 +57,13 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **PostgreSQL:** Database for analytics and leads.
 - **Unsplash API:** For professional stock images.
 - **Microsoft Clarity API:** Optional integration for enhanced link monitoring.
+
+## Recent Changes
+### December 4, 2025 - GCLID Preservation for Clarity Tracking
+- **Problem**: Microsoft Clarity wasn't recording Google Ads sessions because GCLID was lost during SPA navigation
+- **Solution**: Implemented multi-layer GCLID persistence:
+  - Added sessionStorage for GCLID (`gclid_session` key) - persists during SPA navigation
+  - Reordered analytics initialization: UTM tracking now runs BEFORE Clarity
+  - Updated Clarity tagging to read from URL → sessionStorage → localStorage (always merges UTM fields)
+- **Files Modified**: `client/src/lib/utm-tracker.ts`, `client/src/lib/analytics.ts`, `client/src/App.tsx`
+- **Testing**: Verified GCLID persists in sessionStorage after SPA navigation, UTM params merge correctly
