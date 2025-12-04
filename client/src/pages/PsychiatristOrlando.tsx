@@ -16,6 +16,7 @@ import { trackEvent } from "@/lib/analytics";
 import { buildBreadcrumbSchema } from "@/lib/structuredData";
 import InternalLinkBlock from "@/components/InternalLinkBlock";
 import { LocalizedContentMultiple } from "@/components/LocalizedContent";
+import ReviewSchema, { PAGE_TESTIMONIALS } from "@/components/ReviewSchema";
 
 export default function PsychiatristOrlando() {
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -660,6 +661,11 @@ export default function PsychiatristOrlando() {
             </div>
           </div>
         </section>
+
+        <ReviewSchema 
+          reviews={PAGE_TESTIMONIALS["psychiatrist-orlando"]} 
+          pageIdentifier="psychiatrist-orlando" 
+        />
       </main>
 
       <SiteFooter />

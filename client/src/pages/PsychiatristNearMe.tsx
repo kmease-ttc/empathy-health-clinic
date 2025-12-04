@@ -14,6 +14,7 @@ import { LocalizedContentMultiple } from "@/components/LocalizedContent";
 import InternalLinkBlock from "@/components/InternalLinkBlock";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
+import ReviewSchema, { PAGE_TESTIMONIALS } from "@/components/ReviewSchema";
 
 export default function PsychiatristNearMe() {
   const jsonLd = {
@@ -886,6 +887,11 @@ export default function PsychiatristNearMe() {
             </div>
           </div>
         </section>
+
+        <ReviewSchema 
+          reviews={PAGE_TESTIMONIALS["psychiatrist-near-me"]} 
+          pageIdentifier="psychiatrist-near-me" 
+        />
       </main>
       <SiteFooter />
     </div>

@@ -15,6 +15,7 @@ import { LocalizedContentMultiple } from "@/components/LocalizedContent";
 import InternalLinkBlock from "@/components/InternalLinkBlock";
 import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
+import ReviewSchema, { PAGE_TESTIMONIALS } from "@/components/ReviewSchema";
 
 export default function MentalHealthServicesOrlando() {
   const jsonLd = {
@@ -714,6 +715,11 @@ export default function MentalHealthServicesOrlando() {
         </section>
 
         <ReviewsAndBadges />
+
+        <ReviewSchema 
+          reviews={PAGE_TESTIMONIALS["mental-health-services-orlando"]} 
+          pageIdentifier="mental-health-services-orlando" 
+        />
       </main>
 
       <SiteFooter />

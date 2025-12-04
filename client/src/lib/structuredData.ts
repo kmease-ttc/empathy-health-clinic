@@ -532,4 +532,70 @@ export function buildMedicalTherapySchema(options: {
   };
 }
 
+export interface ReviewItem {
+  authorName: string;
+  reviewBody: string;
+  ratingValue: number;
+  datePublished: string;
+  reviewLocation?: string;
+}
+
+export function buildReviewSchema(reviews: ReviewItem[]) {
+  return reviews.map((review, index) => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "@id": `${PREFERRED_DOMAIN}/#review-${index}`,
+    "author": {
+      "@type": "Person",
+      "name": review.authorName
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": review.ratingValue,
+      "bestRating": 5,
+      "worstRating": 1
+    },
+    "reviewBody": review.reviewBody,
+    "datePublished": review.datePublished,
+    "itemReviewed": {
+      "@type": "MedicalBusiness",
+      "@id": `${PREFERRED_DOMAIN}/#organization`,
+      "name": CLINIC_INFO.name,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": CLINIC_INFO.streetAddress,
+        "addressLocality": review.reviewLocation || CLINIC_INFO.addressLocality,
+        "addressRegion": CLINIC_INFO.addressRegion,
+        "postalCode": CLINIC_INFO.postalCode
+      }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Google",
+      "sameAs": "https://www.google.com"
+    }
+  }));
+}
+
+export function buildAggregateRatingSchema(options: {
+  ratingValue: number;
+  reviewCount: number;
+  bestRating?: number;
+  worstRating?: number;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AggregateRating",
+    "itemReviewed": {
+      "@type": "MedicalBusiness",
+      "@id": `${PREFERRED_DOMAIN}/#organization`,
+      "name": CLINIC_INFO.name
+    },
+    "ratingValue": options.ratingValue,
+    "reviewCount": options.reviewCount,
+    "bestRating": options.bestRating || 5,
+    "worstRating": options.worstRating || 1
+  };
+}
+
 export { PREFERRED_DOMAIN, CLINIC_INFO, SOCIAL_PROFILES, ACCEPTED_INSURANCE };
