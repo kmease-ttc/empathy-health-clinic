@@ -13,6 +13,7 @@ import TrustFactors from "@/components/TrustFactors";
 import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
 import InternalLinkBlock from "@/components/InternalLinkBlock";
 import { LocalizedContentMultiple } from "@/components/LocalizedContent";
+import TextUsButton from "@/components/TextUsButton";
 import { trackEvent } from "@/lib/analytics";
 import { formatH1, formatH2 } from "@/lib/seoHelpers";
 import type { LandingPageConfig } from "@/types/landingPage";
@@ -72,6 +73,11 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
                 <a href={`tel:${config.location.phone}`}>{config.hero.ctaSecondary}</a>
               </Button>
             )}
+            <TextUsButton 
+              variant="hero" 
+              size="lg" 
+              location="hero"
+            />
           </div>
           
           <LocalizedContentMultiple 
