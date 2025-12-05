@@ -15,6 +15,7 @@ import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroLeadForm from "@/components/HeroLeadForm";
 import forestBg from "@assets/stock_images/calm_forest_trees_me_0c56a0e8.jpg";
 import { trackEvent } from "@/lib/analytics";
+import TextUsButton from "@/components/TextUsButton";
 
 export default function ServicesPage() {
   const { data: treatments, isLoading: treatmentsLoading } = useQuery<Treatment[]>({
@@ -117,8 +118,8 @@ export default function ServicesPage() {
                 <HeroLeadForm />
               </div>
 
-              {/* Phone Button */}
-              <div className="flex justify-center">
+              {/* Phone/Text Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button 
                   size="lg" 
                   className=""
@@ -131,6 +132,11 @@ export default function ServicesPage() {
                     Call (386) 848-8751
                   </a>
                 </Button>
+                <TextUsButton 
+                  variant="hero" 
+                  size="lg" 
+                  location="hero-services"
+                />
               </div>
             </div>
           </div>

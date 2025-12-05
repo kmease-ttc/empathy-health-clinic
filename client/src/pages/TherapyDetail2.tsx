@@ -14,6 +14,7 @@ import HeroBackground from "@/components/HeroBackground";
 import SEOHead from "@/components/SEOHead";
 import FAQSchema from "@/components/FAQSchema";
 import { trackEvent } from "@/lib/analytics";
+import TextUsButton from "@/components/TextUsButton";
 
 export default function TherapyDetail() {
   const [, params] = useRoute("/:slug");
@@ -146,6 +147,11 @@ export default function TherapyDetail() {
                   Request Appointment
                 </Link>
               </Button>
+              <TextUsButton 
+                variant="hero" 
+                size="lg" 
+                location={`hero-${therapy.slug}`}
+              />
               <Button 
                 size="lg" 
                 className=""

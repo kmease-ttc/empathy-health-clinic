@@ -10,6 +10,7 @@ import SEOHead from "@/components/SEOHead";
 import HeroLeadForm from "@/components/HeroLeadForm";
 import { trackEvent } from "@/lib/analytics";
 import heroImage from "@assets/stock_images/healthcare_insurance_a8872338.jpg";
+import TextUsButton from "@/components/TextUsButton";
 
 export default function Insurance() {
   const { data: providers, isLoading } = useQuery<InsuranceProvider[]>({
@@ -62,6 +63,11 @@ export default function Insurance() {
                 Call 386-848-8751
               </a>
             </Button>
+            <TextUsButton 
+              variant="hero" 
+              size="lg" 
+              location="hero-insurance"
+            />
             <Button 
               size="lg"
               variant="outline"

@@ -15,6 +15,7 @@ import ShortContactForm from "@/components/ShortContactForm";
 import { trackEvent } from "@/lib/analytics";
 import therapyImage from "@assets/stock_images/professional_therapy_f11c950a.jpg";
 import TherapyFAQ from "@/components/TherapyFAQ";
+import TextUsButton from "@/components/TextUsButton";
 
 export default function TherapyPage() {
   const { data: therapies, isLoading } = useQuery<Therapy[]>({
@@ -70,6 +71,11 @@ export default function TherapyPage() {
                 Request Appointment
               </Link>
             </Button>
+            <TextUsButton 
+              variant="hero" 
+              size="lg" 
+              location="hero-therapy"
+            />
             <Button 
               size="lg" 
               className=""

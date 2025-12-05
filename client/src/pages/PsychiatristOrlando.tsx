@@ -17,6 +17,7 @@ import { buildBreadcrumbSchema } from "@/lib/structuredData";
 import InternalLinkBlock from "@/components/InternalLinkBlock";
 import { LocalizedContentMultiple } from "@/components/LocalizedContent";
 import ReviewSchema, { PAGE_TESTIMONIALS } from "@/components/ReviewSchema";
+import TextUsButton from "@/components/TextUsButton";
 
 export default function PsychiatristOrlando() {
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -188,6 +189,11 @@ export default function PsychiatristOrlando() {
                       Call 386-848-8751
                     </Button>
                   </a>
+                  <TextUsButton 
+                    variant="hero" 
+                    size="lg" 
+                    location="hero-psychiatrist-orlando"
+                  />
                   <Link href="/request-appointment">
                     <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-semibold px-8" data-testid="button-book-hero">
                       <Calendar className="mr-2 h-5 w-5" />
