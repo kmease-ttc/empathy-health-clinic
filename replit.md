@@ -59,6 +59,18 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **Microsoft Clarity API:** Optional integration for enhanced link monitoring.
 
 ## Recent Changes
+### December 5, 2025 - "Text Us" Feature Implementation
+- **Added SMS text messaging option** for patient scheduling (lower-barrier contact method for anxious patients)
+- **TextUsButton component** (`client/src/components/TextUsButton.tsx`):
+  - Mobile: Opens native SMS app with prefilled message via `sms:` protocol
+  - Desktop: Opens clean modal with phone number and copy button
+  - GA4 tracking: `click_text_us` event with location parameter
+  - Accessibility: Proper aria-labels and screen reader support
+- **Updated StickyMobileCTA** to include Text button between Request Appointment and Call
+- **Updated LandingPageTemplate** hero section with third CTA option
+- **Phone number for texting**: (407) 635-1021 (configurable via props)
+- **Safety disclaimers**: Business hours notice and emergency guidance in modal
+
 ### December 4, 2025 - New SEO Landing Pages for Missing Keywords
 - **Added 5 new landing pages** targeting missing high-volume keywords:
   - `/psychiatrist-accepting-new-patients-orlando` (480 monthly searches)

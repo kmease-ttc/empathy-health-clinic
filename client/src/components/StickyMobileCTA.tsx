@@ -34,8 +34,10 @@ export default function StickyMobileCTA() {
               href={SMS_URL} 
               className="flex items-center"
               onClick={handleTextClick}
+              aria-label="Text us to schedule an appointment"
             >
               <MessageSquare className="w-5 h-5" />
+              <span className="sr-only">Text Us</span>
             </a>
           </Button>
           <Button 
@@ -48,8 +50,10 @@ export default function StickyMobileCTA() {
               href="tel:3868488751" 
               className="flex items-center"
               onClick={handleCallClick}
+              aria-label="Call us at 386-848-8751"
             >
               <Phone className="w-5 h-5" />
+              <span className="sr-only">Call Us</span>
             </a>
           </Button>
         </div>

@@ -17,12 +17,24 @@ interface TextUsButtonProps {
   className?: string;
   showLabel?: boolean;
   phoneNumber?: string;
+  phoneNumberDisplay?: string;
   prefillMessage?: string;
 }
 
 const DEFAULT_PHONE = "4076351021";
 const DEFAULT_PHONE_DISPLAY = "(407) 635-1021";
 const DEFAULT_PREFILL = "Hi, I'd like to schedule an appointment with Empathy Health Clinic.";
+
+function formatPhoneDisplay(phone: string): string {
+  const digits = phone.replace(/\D/g, '');
+  if (digits.length === 10) {
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+  if (digits.length === 11 && digits.startsWith('1')) {
+    return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
+  }
+  return phone;
+}
 
 export default function TextUsButton({
   variant = "outline",
@@ -31,11 +43,14 @@ export default function TextUsButton({
   className = "",
   showLabel = true,
   phoneNumber = DEFAULT_PHONE,
+  phoneNumberDisplay,
   prefillMessage = DEFAULT_PREFILL,
 }: TextUsButtonProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const displayNumber = phoneNumberDisplay || formatPhoneDisplay(phoneNumber);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -46,7 +61,7 @@ export default function TextUsButton({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const smsUrl = `sms:+1${phoneNumber}?body=${encodeURIComponent(prefillMessage)}`;
+  const smsUrl = `sms:+1${phoneNumber.replace(/\D/g, '')}?body=${encodeURIComponent(prefillMessage)}`;
 
   const handleClick = (e: React.MouseEvent) => {
     trackEvent("click_text_us", "engagement", location);
@@ -59,7 +74,7 @@ export default function TextUsButton({
 
   const handleCopyNumber = async () => {
     try {
-      await navigator.clipboard.writeText(DEFAULT_PHONE_DISPLAY);
+      await navigator.clipboard.writeText(displayNumber);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -110,7 +125,7 @@ export default function TextUsButton({
             <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
               <div>
                 <p className="text-sm text-muted-foreground">Text us at</p>
-                <p className="text-xl font-semibold text-foreground">{DEFAULT_PHONE_DISPLAY}</p>
+                <p className="text-xl font-semibold text-foreground">{displayNumber}</p>
               </div>
               <Button
                 variant="outline"
