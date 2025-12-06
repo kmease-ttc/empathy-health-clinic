@@ -59,6 +59,16 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **Microsoft Clarity API:** Optional integration for enhanced link monitoring.
 
 ## Recent Changes
+### December 6, 2025 - Historical SERP Ranking Tracking
+- **Database Table**: Added `keyword_ranking_history` table for persistent storage of ranking snapshots
+- **API Endpoints**: 
+  - `POST /api/serp/ranking-history/batch` - Saves multiple rankings with validation (400/200/207/500 status codes)
+  - `GET /api/serp/ranking-trends` - Returns 7d/30d/90d trend changes for all tracked keywords
+- **Trend Indicators**: AdminSERP.tsx now displays color-coded trend arrows (green ↑ improvements, red ↓ declines, gray ↔ no change)
+- **Auto-Save**: Rankings are automatically saved to database when checked, with null position filtering
+- **Error Handling**: HTTP 207 Multi-Status for partial failures with toast notifications
+- **Trend Calculation**: (old position - current position) = positive means improvement (ranking higher)
+
 ### December 5, 2025 - Comprehensive SEO Optimization for 25 Priority Keywords
 - **SEO Title/Meta Optimization**: Updated 15+ landing pages with optimized titles under 60 characters including "2025", "#1 Rated" messaging
 - **Internal Linking Strategy**: Added strategic internal links from Home.tsx and ServicesPage.tsx to all priority SEO pages
