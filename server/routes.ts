@@ -1531,6 +1531,169 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Save keyword ranking snapshot to history
+  app.post("/api/serp/ranking-history", async (req, res) => {
+    try {
+      const { keyword, position, url, competitorPositions, error } = req.body;
+      
+      if (!keyword) {
+        return res.status(400).json({ success: false, error: 'Keyword is required' });
+      }
+      
+      await db.execute(sql`
+        INSERT INTO keyword_ranking_history (keyword, position, url, competitor_positions, error)
+        VALUES (${keyword}, ${position || null}, ${url || null}, ${competitorPositions ? JSON.stringify(competitorPositions) : null}, ${error || null})
+      `);
+      
+      res.json({ success: true, message: 'Ranking snapshot saved' });
+    } catch (error: any) {
+      console.error('❌ Save Ranking History Error:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Save multiple keyword rankings in batch
+  app.post("/api/serp/ranking-history/batch", async (req, res) => {
+    try {
+      const { rankings } = req.body;
+      
+      if (!rankings || !Array.isArray(rankings) || rankings.length === 0) {
+        return res.status(400).json({ success: false, error: 'Rankings array is required' });
+      }
+      
+      let savedCount = 0;
+      for (const ranking of rankings) {
+        const { keyword, position, url, competitorPositions, error } = ranking;
+        if (keyword) {
+          await db.execute(sql`
+            INSERT INTO keyword_ranking_history (keyword, position, url, competitor_positions, error)
+            VALUES (${keyword}, ${position || null}, ${url || null}, ${competitorPositions ? JSON.stringify(competitorPositions) : null}, ${error || null})
+          `);
+          savedCount++;
+        }
+      }
+      
+      res.json({ success: true, message: `Saved ${savedCount} ranking snapshots` });
+    } catch (error: any) {
+      console.error('❌ Batch Save Ranking History Error:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get historical ranking data for trend analysis
+  app.get("/api/serp/ranking-history", async (req, res) => {
+    try {
+      const keyword = req.query.keyword as string;
+      const days = parseInt(req.query.days as string) || 90;
+      
+      const dateThreshold = new Date();
+      dateThreshold.setDate(dateThreshold.getDate() - days);
+      const dateString = dateThreshold.toISOString();
+      
+      let result;
+      if (keyword) {
+        // Get history for specific keyword
+        result = await db.execute(sql`
+          SELECT keyword, position, url, competitor_positions, checked_at, error
+          FROM keyword_ranking_history
+          WHERE keyword = ${keyword} AND checked_at >= ${dateString}
+          ORDER BY checked_at DESC
+        `);
+      } else {
+        // Get history for all keywords (latest snapshot per day per keyword)
+        result = await db.execute(sql`
+          SELECT DISTINCT ON (keyword, DATE(checked_at::timestamp)) 
+            keyword, position, url, competitor_positions, checked_at, error
+          FROM keyword_ranking_history
+          WHERE checked_at >= ${dateString}
+          ORDER BY keyword, DATE(checked_at::timestamp) DESC, checked_at DESC
+        `);
+      }
+      
+      res.json({ success: true, history: result.rows });
+    } catch (error: any) {
+      console.error('❌ Get Ranking History Error:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get trend summary for all keywords (7d, 30d, 90d comparisons)
+  app.get("/api/serp/ranking-trends", async (req, res) => {
+    try {
+      const now = new Date();
+      const sevenDaysAgo = new Date(now);
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const thirtyDaysAgo = new Date(now);
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const ninetyDaysAgo = new Date(now);
+      ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+      
+      // Get the oldest ranking per keyword for each time period
+      const getOldestInPeriod = async (startDate: Date, endDate: Date) => {
+        const result = await db.execute(sql`
+          SELECT DISTINCT ON (keyword) keyword, position, checked_at
+          FROM keyword_ranking_history
+          WHERE checked_at >= ${startDate.toISOString()} 
+            AND checked_at < ${endDate.toISOString()}
+          ORDER BY keyword, checked_at ASC
+        `);
+        return result.rows;
+      };
+      
+      // Get the most recent ranking per keyword
+      const latestResult = await db.execute(sql`
+        SELECT DISTINCT ON (keyword) keyword, position, url, checked_at
+        FROM keyword_ranking_history
+        ORDER BY keyword, checked_at DESC
+      `);
+      
+      const [rankings7d, rankings30d, rankings90d] = await Promise.all([
+        getOldestInPeriod(sevenDaysAgo, now),
+        getOldestInPeriod(thirtyDaysAgo, now),
+        getOldestInPeriod(ninetyDaysAgo, now)
+      ]);
+      
+      // Build trend data per keyword
+      const trends: Record<string, {
+        current: number | null;
+        url: string | null;
+        lastChecked: string;
+        position7dAgo: number | null;
+        position30dAgo: number | null;
+        position90dAgo: number | null;
+        change7d: number | null;
+        change30d: number | null;
+        change90d: number | null;
+      }> = {};
+      
+      for (const row of latestResult.rows as any[]) {
+        const keyword = row.keyword;
+        const current = row.position;
+        
+        const old7d = (rankings7d as any[]).find(r => r.keyword === keyword);
+        const old30d = (rankings30d as any[]).find(r => r.keyword === keyword);
+        const old90d = (rankings90d as any[]).find(r => r.keyword === keyword);
+        
+        trends[keyword] = {
+          current,
+          url: row.url,
+          lastChecked: row.checked_at,
+          position7dAgo: old7d?.position ?? null,
+          position30dAgo: old30d?.position ?? null,
+          position90dAgo: old90d?.position ?? null,
+          change7d: current !== null && old7d?.position !== null ? old7d.position - current : null,
+          change30d: current !== null && old30d?.position !== null ? old30d.position - current : null,
+          change90d: current !== null && old90d?.position !== null ? old90d.position - current : null,
+        };
+      }
+      
+      res.json({ success: true, trends });
+    } catch (error: any) {
+      console.error('❌ Get Ranking Trends Error:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // SEMrush data route
   app.get("/api/semrush-data", async (_req, res) => {
     try {
