@@ -550,9 +550,9 @@ export default function AdminSERP() {
     if (!lastChecked) {
       return <Badge variant="outline" className="bg-muted">Not checked</Badge>;
     }
-    // Checked but not ranking in top 20
+    // Checked but not found in search results
     if (position === null || position === undefined) {
-      return <Badge variant="outline" className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-300">Not in top 20</Badge>;
+      return <Badge variant="outline" className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-300">Not Found</Badge>;
     }
     if (position <= 3) {
       return <Badge className="bg-green-600 text-white">{position}</Badge>;
@@ -567,21 +567,26 @@ export default function AdminSERP() {
   };
 
   const stats = {
+    // Exclusive ranges so numbers add up
     top3: KEYWORDS.filter(k => {
       const pos = rankings.get(k)?.position;
-      return pos !== null && pos !== undefined && pos <= 3;
+      return pos !== null && pos !== undefined && pos >= 1 && pos <= 3;
     }).length,
-    top10: KEYWORDS.filter(k => {
+    top4to10: KEYWORDS.filter(k => {
       const pos = rankings.get(k)?.position;
-      return pos !== null && pos !== undefined && pos <= 10;
+      return pos !== null && pos !== undefined && pos >= 4 && pos <= 10;
     }).length,
-    top20: KEYWORDS.filter(k => {
+    top11to20: KEYWORDS.filter(k => {
       const pos = rankings.get(k)?.position;
-      return pos !== null && pos !== undefined && pos <= 20;
+      return pos !== null && pos !== undefined && pos >= 11 && pos <= 20;
+    }).length,
+    beyond20: KEYWORDS.filter(k => {
+      const pos = rankings.get(k)?.position;
+      return pos !== null && pos !== undefined && pos > 20;
     }).length,
     notRanking: KEYWORDS.filter(k => {
       const data = rankings.get(k);
-      // Checked (has lastChecked) but position is null = not ranking in top 20
+      // Checked (has lastChecked) but position is null = not ranking at all
       return data && data.lastChecked && data.position === null && !data.error;
     }).length,
     neverChecked: KEYWORDS.filter(k => {
@@ -668,29 +673,35 @@ export default function AdminSERP() {
           </Card>
         )}
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
           <Card>
             <CardContent className="pt-6 text-center">
               <div className="text-3xl font-bold text-green-600">{stats.top3}</div>
-              <div className="text-sm text-muted-foreground">Top 3</div>
+              <div className="text-sm text-muted-foreground">#1-3</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
-              <div className="text-3xl font-bold text-blue-600">{stats.top10}</div>
-              <div className="text-sm text-muted-foreground">Top 10</div>
+              <div className="text-3xl font-bold text-blue-600">{stats.top4to10}</div>
+              <div className="text-sm text-muted-foreground">#4-10</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
-              <div className="text-3xl font-bold text-yellow-600">{stats.top20}</div>
-              <div className="text-sm text-muted-foreground">Top 20</div>
+              <div className="text-3xl font-bold text-yellow-600">{stats.top11to20}</div>
+              <div className="text-sm text-muted-foreground">#11-20</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <div className="text-3xl font-bold text-orange-600">{stats.beyond20}</div>
+              <div className="text-sm text-muted-foreground">#21+</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
               <div className="text-3xl font-bold text-red-600">{stats.notRanking}</div>
-              <div className="text-sm text-muted-foreground">Not in Top 20</div>
+              <div className="text-sm text-muted-foreground">Not Found</div>
             </CardContent>
           </Card>
           <Card>
@@ -880,19 +891,23 @@ export default function AdminSERP() {
             <div className="flex flex-wrap gap-4 mb-4">
               <div className="flex items-center gap-2">
                 <Badge className="bg-green-600 text-white">1-3</Badge>
-                <span className="text-sm">Top 3 (Excellent)</span>
+                <span className="text-sm">#1-3 (Excellent)</span>
               </div>
               <div className="flex items-center gap-2">
                 <Badge className="bg-blue-600 text-white">4-10</Badge>
-                <span className="text-sm">Page 1 (Good)</span>
+                <span className="text-sm">#4-10 (Page 1)</span>
               </div>
               <div className="flex items-center gap-2">
                 <Badge className="bg-yellow-600 text-white">11-20</Badge>
-                <span className="text-sm">Page 2 (Needs Work)</span>
+                <span className="text-sm">#11-20 (Page 2)</span>
               </div>
               <div className="flex items-center gap-2">
-                <Badge variant="outline" className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-300">Not in top 20</Badge>
-                <span className="text-sm">Checked - Not ranking in top 20</span>
+                <Badge variant="destructive">21+</Badge>
+                <span className="text-sm">#21+ (Page 3+)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge variant="outline" className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-300">Not Found</Badge>
+                <span className="text-sm">Not in search results</span>
               </div>
               <div className="flex items-center gap-2">
                 <Badge variant="outline" className="bg-muted">Not checked</Badge>
@@ -900,7 +915,7 @@ export default function AdminSERP() {
               </div>
               <div className="flex items-center gap-2">
                 <Badge variant="destructive" className="bg-red-600 text-white">Error</Badge>
-                <span className="text-sm">API error - retry needed</span>
+                <span className="text-sm">API error</span>
               </div>
             </div>
             <div className="border-t pt-4">
