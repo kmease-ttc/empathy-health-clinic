@@ -3794,7 +3794,7 @@ export const depressionPsychiatristOrlandoConfig: LandingPageConfig = {
 // Psychiatrist Accepting New Patients Orlando
 export const psychiatristAcceptingNewPatientsOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "Psychiatrist Accepting New Patients Orlando FL | Same-Week Apts",
+    title: "Psychiatrist Accepting New Patients Orlando | 2025",
     description: "Orlando psychiatrist accepting new patients now. No waitlist, same-week appointments available. Board-certified psychiatrists for anxiety, depression, ADHD. Call 386-848-8751.",
     keywords: ["psychiatrist accepting new patients orlando", "psychiatrist taking new patients orlando", "psychiatrist near me accepting new patients", "orlando psychiatrist accepting patients", "new patient psychiatrist orlando fl", "psychiatrist open to new patients orlando"],
     canonicalPath: "/psychiatrist-accepting-new-patients-orlando",
