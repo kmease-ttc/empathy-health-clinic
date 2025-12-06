@@ -4,9 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useLocation } from "wouter";
-import { ArrowLeft, Search, RefreshCw, Download, TrendingUp, TrendingDown, Minus, AlertCircle } from "lucide-react";
+import { ArrowLeft, Search, RefreshCw, Download, TrendingUp, TrendingDown, Minus, AlertCircle, History } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 interface RankingResult {
   keyword: string;
@@ -17,6 +20,18 @@ interface RankingResult {
   };
   lastChecked?: string;
   error?: string;
+}
+
+interface TrendData {
+  current: number | null;
+  url: string | null;
+  lastChecked: string;
+  position7dAgo: number | null;
+  position30dAgo: number | null;
+  position90dAgo: number | null;
+  change7d: number | null;
+  change30d: number | null;
+  change90d: number | null;
 }
 
 interface KeywordData {
@@ -148,6 +163,19 @@ export default function AdminSERP() {
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [priorityFilter, setPriorityFilter] = useState<string>("all");
 
+  // Fetch historical trends from database
+  const { data: trendsData, refetch: refetchTrends } = useQuery<{ success: boolean; trends: Record<string, TrendData> }>({
+    queryKey: ['serp-ranking-trends'],
+    queryFn: async () => {
+      const res = await fetch('/api/serp/ranking-trends', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch trends');
+      return res.json();
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+
+  const trends = trendsData?.trends || {};
+
   useEffect(() => {
     const saved = localStorage.getItem("serp_rankings");
     if (saved) {
@@ -163,6 +191,107 @@ export default function AdminSERP() {
   const saveRankings = (newRankings: Map<string, RankingResult>) => {
     const obj = Object.fromEntries(newRankings);
     localStorage.setItem("serp_rankings", JSON.stringify(obj));
+  };
+
+  // Save rankings to database for historical tracking
+  const saveRankingsToDatabase = async (results: RankingResult[]) => {
+    // Filter out results with no keyword, with errors, or with null position
+    // Only save actual ranking data (position 1-100+)
+    const validResults = results.filter(r => 
+      r.keyword && 
+      !r.error && 
+      r.position !== null && 
+      r.position !== undefined
+    );
+    
+    if (validResults.length === 0) {
+      console.log('No valid rankings with positions to save');
+      return;
+    }
+    
+    const rankings = validResults.map(r => ({
+      keyword: r.keyword,
+      position: r.position,
+      url: r.url,
+      competitorPositions: r.competitor_positions,
+    }));
+    
+    try {
+      const response = await apiRequest('POST', '/api/serp/ranking-history/batch', { rankings });
+      const data = await response.json();
+      
+      // Handle partial failures (207 Multi-Status)
+      if (response.status === 207 || !data.success) {
+        console.warn('Partial save to database:', data.message);
+        toast({
+          title: "Partial Save",
+          description: data.message || "Some rankings could not be saved to history.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Failed to save rankings to database:', error);
+      toast({
+        title: "History Save Failed",
+        description: "Could not save ranking history to database.",
+        variant: "destructive",
+      });
+    } finally {
+      // Always refetch trends to show any available data
+      refetchTrends();
+    }
+  };
+
+  // Trend indicator component
+  const TrendIndicator = ({ keyword }: { keyword: string }) => {
+    const trend = trends[keyword];
+    if (!trend) {
+      return <span className="text-muted-foreground text-xs">-</span>;
+    }
+
+    const getChangeIndicator = (change: number | null, period: string) => {
+      if (change === null) return null;
+      
+      const isPositive = change > 0; // Higher position change means improvement (lower rank number)
+      const isNeutral = change === 0;
+      
+      if (isNeutral) {
+        return (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-muted-foreground">—</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>No change in {period}</p>
+            </TooltipContent>
+          </Tooltip>
+        );
+      }
+      
+      return (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span className={`font-bold ${isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+              {isPositive ? '↑' : '↓'}{Math.abs(change)}
+            </span>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{isPositive ? 'Improved' : 'Declined'} {Math.abs(change)} positions in {period}</p>
+          </TooltipContent>
+        </Tooltip>
+      );
+    };
+
+    return (
+      <div className="flex items-center gap-1 text-xs whitespace-nowrap">
+        <span className="text-muted-foreground">7d:</span>
+        {getChangeIndicator(trend.change7d, '7 days') || <span className="text-muted-foreground">-</span>}
+        <span className="text-muted-foreground ml-1">30d:</span>
+        {getChangeIndicator(trend.change30d, '30 days') || <span className="text-muted-foreground">-</span>}
+        <span className="text-muted-foreground ml-1">90d:</span>
+        {getChangeIndicator(trend.change90d, '90 days') || <span className="text-muted-foreground">-</span>}
+      </div>
+    );
   };
 
   const checkSingleKeyword = async (keyword: string, retries = 2): Promise<RankingResult> => {
@@ -217,6 +346,7 @@ export default function AdminSERP() {
     setProgress(0);
     
     const newRankings = new Map(rankings);
+    const allResults: RankingResult[] = [];
     const BATCH_SIZE = 3; // Conservative batch size to respect API limits
     
     for (let i = 0; i < KEYWORDS.length; i += BATCH_SIZE) {
@@ -227,6 +357,7 @@ export default function AdminSERP() {
       
       results.forEach((result) => {
         newRankings.set(result.keyword, result);
+        allResults.push(result);
       });
       
       setRankings(new Map(newRankings));
@@ -237,6 +368,9 @@ export default function AdminSERP() {
         await new Promise(resolve => setTimeout(resolve, 5000)); // 5 second delay between batches
       }
     }
+    
+    // Save all results to database for historical tracking
+    await saveRankingsToDatabase(allResults);
     
     setIsChecking(false);
     setCurrentKeyword("");
@@ -289,6 +423,7 @@ export default function AdminSERP() {
     setProgress(0);
     
     const newRankings = new Map(rankings);
+    const allResults: RankingResult[] = [];
     const BATCH_SIZE = 3;
     let successCount = 0;
     let errorCount = 0;
@@ -302,6 +437,7 @@ export default function AdminSERP() {
       
       results.forEach((result) => {
         newRankings.set(result.keyword, result);
+        allResults.push(result);
         if (result.error) {
           errorCount++;
           lastError = result.error;
@@ -318,6 +454,9 @@ export default function AdminSERP() {
         await new Promise(resolve => setTimeout(resolve, 5000));
       }
     }
+    
+    // Save all results to database for historical tracking
+    await saveRankingsToDatabase(allResults);
     
     setIsChecking(false);
     setCurrentKeyword("");
@@ -632,6 +771,12 @@ export default function AdminSERP() {
                     <th className="text-center py-3 px-2 font-medium">Priority</th>
                     <th className="text-center py-3 px-2 font-medium hidden sm:table-cell">Category</th>
                     <th className="text-center py-3 px-2 font-medium">Position</th>
+                    <th className="text-center py-3 px-2 font-medium hidden md:table-cell">
+                      <div className="flex items-center justify-center gap-1">
+                        <History className="w-3 h-3" />
+                        <span>Trends</span>
+                      </div>
+                    </th>
                     <th className="text-left py-3 px-2 font-medium hidden lg:table-cell">Ranking URL</th>
                     <th className="text-center py-3 px-2 font-medium hidden xl:table-cell">Competitors</th>
                     <th className="text-center py-3 px-2 font-medium">Check</th>
@@ -678,6 +823,9 @@ export default function AdminSERP() {
                         </td>
                         <td className="text-center py-3 px-2">
                           {getPositionBadge(data?.position, data?.lastChecked, data?.error)}
+                        </td>
+                        <td className="text-center py-3 px-2 hidden md:table-cell">
+                          <TrendIndicator keyword={keyword} />
                         </td>
                         <td className="py-3 px-2 hidden lg:table-cell">
                           {data?.url ? (
@@ -729,7 +877,7 @@ export default function AdminSERP() {
             <CardTitle>Legend</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mb-4">
               <div className="flex items-center gap-2">
                 <Badge className="bg-green-600 text-white">1-3</Badge>
                 <span className="text-sm">Top 3 (Excellent)</span>
@@ -754,6 +902,33 @@ export default function AdminSERP() {
                 <Badge variant="destructive" className="bg-red-600 text-white">Error</Badge>
                 <span className="text-sm">API error - retry needed</span>
               </div>
+            </div>
+            <div className="border-t pt-4">
+              <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
+                <History className="w-4 h-4" />
+                Trend Indicators
+              </h4>
+              <div className="flex flex-wrap gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-green-600 dark:text-green-400">↑5</span>
+                  <span>Improved 5 positions</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-red-600 dark:text-red-400">↓3</span>
+                  <span>Declined 3 positions</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-muted-foreground">—</span>
+                  <span>No change</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-muted-foreground">-</span>
+                  <span>No historical data</span>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                Trends show position changes over 7 days, 30 days, and 90 days. Data is saved automatically when you check rankings.
+              </p>
             </div>
           </CardContent>
         </Card>

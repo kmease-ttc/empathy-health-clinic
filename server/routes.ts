@@ -1561,19 +1561,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ success: false, error: 'Rankings array is required' });
       }
       
+      // Filter and validate rankings - only save entries with actual position data
+      const validRankings = rankings.filter(r => 
+        r.keyword && 
+        typeof r.keyword === 'string' && 
+        r.keyword.trim().length > 0 &&
+        r.position !== null &&
+        r.position !== undefined &&
+        typeof r.position === 'number'
+      );
+      
+      if (validRankings.length === 0) {
+        return res.status(400).json({ success: false, error: 'No valid rankings provided' });
+      }
+      
       let savedCount = 0;
-      for (const ranking of rankings) {
-        const { keyword, position, url, competitorPositions, error } = ranking;
-        if (keyword) {
+      const errors: string[] = [];
+      
+      for (const ranking of validRankings) {
+        const { keyword, position, url, competitorPositions } = ranking;
+        try {
           await db.execute(sql`
-            INSERT INTO keyword_ranking_history (keyword, position, url, competitor_positions, error)
-            VALUES (${keyword}, ${position || null}, ${url || null}, ${competitorPositions ? JSON.stringify(competitorPositions) : null}, ${error || null})
+            INSERT INTO keyword_ranking_history (keyword, position, url, competitor_positions)
+            VALUES (${keyword.trim()}, ${position ?? null}, ${url || null}, ${competitorPositions ? JSON.stringify(competitorPositions) : null})
           `);
           savedCount++;
+        } catch (insertError: any) {
+          errors.push(`Failed to save ${keyword}: ${insertError.message}`);
+          console.error(`❌ Failed to save ranking for ${keyword}:`, insertError);
         }
       }
       
-      res.json({ success: true, message: `Saved ${savedCount} ranking snapshots` });
+      if (savedCount === 0 && errors.length > 0) {
+        return res.status(500).json({ 
+          success: false, 
+          error: 'All inserts failed', 
+          details: errors 
+        });
+      }
+      
+      // Return 207 Multi-Status if there were partial failures
+      if (errors.length > 0) {
+        return res.status(207).json({ 
+          success: false,
+          partial: true,
+          message: `Saved ${savedCount} of ${validRankings.length} ranking snapshots (${errors.length} failed)`,
+          savedCount,
+          failedCount: errors.length,
+          errors
+        });
+      }
+      
+      res.json({ 
+        success: true, 
+        message: `Saved ${savedCount} ranking snapshots`,
+        savedCount
+      });
     } catch (error: any) {
       console.error('❌ Batch Save Ranking History Error:', error);
       res.status(500).json({ success: false, error: error.message });
