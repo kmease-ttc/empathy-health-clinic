@@ -4713,6 +4713,8 @@ export const traumaPsychiatristOrlandoConfig: LandingPageConfig = {
     formSubheading: "Same-week appointments. Compassionate, specialized care.",
     formType: "trauma_psychiatry",
     quickLinks: [
+      { href: "/psychiatrist-near-me", label: "Psychiatrist Near Me" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
       { href: "/ptsd-psychiatrist-orlando", label: "PTSD Treatment" },
       { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
       { href: "/depression-psychiatrist-orlando", label: "Depression Psychiatrist" },
@@ -4861,6 +4863,8 @@ export const psychiatristNearUcfConfig: LandingPageConfig = {
     formSubheading: "Same-week appointments available. Most insurance accepted.",
     formType: "ucf_psychiatrist",
     quickLinks: [
+      { href: "/psychiatrist-near-me", label: "Psychiatrist Near Me" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
       { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
       { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
       { href: "/new-patients", label: "New Patients" },
@@ -5014,6 +5018,8 @@ export const ocdPsychiatristOrlandoConfig: LandingPageConfig = {
     formSubheading: "Same-week appointments available. Most insurance accepted.",
     formType: "ocd_psychiatrist",
     quickLinks: [
+      { href: "/psychiatrist-near-me", label: "Psychiatrist Near Me" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
       { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/new-patients", label: "New Patients" },
@@ -5163,6 +5169,8 @@ export const schizophreniaPsychiatristOrlandoConfig: LandingPageConfig = {
     formSubheading: "Same-week appointments available. Most insurance accepted.",
     formType: "schizophrenia_psychiatrist",
     quickLinks: [
+      { href: "/psychiatrist-near-me", label: "Psychiatrist Near Me" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/psychiatric-evaluation-orlando", label: "Psychiatric Evaluation" },
       { href: "/new-patients", label: "New Patients" },
@@ -5310,6 +5318,8 @@ export const insomniaPsychiatristOrlandoConfig: LandingPageConfig = {
     formSubheading: "Same-week appointments available. Most insurance accepted.",
     formType: "insomnia_psychiatrist",
     quickLinks: [
+      { href: "/psychiatrist-near-me", label: "Psychiatrist Near Me" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
       { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/depression-psychiatrist-orlando", label: "Depression Psychiatrist" },
