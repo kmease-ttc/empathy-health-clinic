@@ -381,6 +381,30 @@ export default function Home() {
               </Link>
             </div>
 
+            {/* Insurance Quick Links - Boosting declining pages */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+              <Link href="/psychiatrist-orlando-accepts-bcbs" className="group text-center">
+                <div className="p-3 bg-card border rounded-lg hover-elevate transition-all">
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary">BCBS Psychiatrist</span>
+                </div>
+              </Link>
+              <Link href="/psychiatrist-orlando-accepts-cigna" className="group text-center">
+                <div className="p-3 bg-card border rounded-lg hover-elevate transition-all">
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary">Cigna Psychiatrist</span>
+                </div>
+              </Link>
+              <Link href="/psychiatrist-orlando-accepts-aetna" className="group text-center">
+                <div className="p-3 bg-card border rounded-lg hover-elevate transition-all">
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary">Aetna Psychiatrist</span>
+                </div>
+              </Link>
+              <Link href="/anxiety-psychiatrist-orlando" className="group text-center">
+                <div className="p-3 bg-card border rounded-lg hover-elevate transition-all">
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary">Anxiety Psychiatrist</span>
+                </div>
+              </Link>
+            </div>
+
             <div className="text-center mt-8">
               <Link href="/psychiatrist-orlando">
                 <Button size="lg" data-testid="button-view-all-orlando">
