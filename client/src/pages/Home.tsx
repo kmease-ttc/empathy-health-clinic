@@ -287,6 +287,100 @@ export default function Home() {
               </Link>
             </div>
 
+            {/* Additional Priority SEO Links - Row 3 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+              <Link href="/anxiety-psychiatrist-orlando" className="group" data-testid="link-anxiety-psychiatrist-orlando">
+                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-anxiety-psychiatrist-orlando">
+                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
+                    Anxiety Psychiatrist Orlando
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    #1 rated anxiety specialists
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/depression-psychiatrist-orlando" className="group" data-testid="link-depression-psychiatrist-orlando">
+                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-depression-psychiatrist-orlando">
+                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
+                    Depression Psychiatrist Orlando
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Expert depression treatment
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/psychiatric-services" className="group" data-testid="link-psychiatric-services">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-psychiatric-services">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Medication Management
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Psychiatric medication care
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/psychiatric-evaluation-orlando" className="group" data-testid="link-psychiatric-evaluation">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-psychiatric-evaluation">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Psychiatric Evaluation
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Comprehensive assessments
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            {/* Additional Priority SEO Links - Row 4 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+              <Link href="/best-psychiatrist-orlando" className="group" data-testid="link-best-psychiatrist">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-best-psychiatrist">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Best Psychiatrist Orlando
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    4.8★ rated providers
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/psychiatrist-winter-park" className="group" data-testid="link-psychiatrist-winter-park">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-psychiatrist-winter-park">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Psychiatrist Winter Park
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Local Winter Park care
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/new-patients" className="group" data-testid="link-new-patients">
+                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-new-patients">
+                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
+                    Accepting New Patients
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Same-week appointments
+                  </p>
+                </div>
+              </Link>
+
+              <Link href="/mental-health-doctor-orlando" className="group" data-testid="link-mental-health-doctor">
+                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-mental-health-doctor">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
+                    Mental Health Doctor
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Expert mental health care
+                  </p>
+                </div>
+              </Link>
+            </div>
+
             <div className="text-center mt-8">
               <Link href="/psychiatrist-orlando">
                 <Button size="lg" data-testid="button-view-all-orlando">
