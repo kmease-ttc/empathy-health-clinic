@@ -166,9 +166,9 @@ export default function ADHDTestingOrlando() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="ADHD Testing & Evaluation in Winter Park & Orlando | Empathy Health Clinic"
-        description="Professional ADHD testing in Winter Park & Orlando, FL. Comprehensive evaluations for adults and teens. Same-week appointments. Insurance accepted including BCBS, Aetna, Cigna. Call 386-848-8751."
-        keywords={["adhd testing", "adhd testing near me", "adhd evaluation", "adhd testing orlando", "adhd testing winter park", "adult adhd testing", "adhd assessment orlando", "adhd diagnosis orlando", "add testing orlando"]}
+        title="ADHD Psychiatrist Orlando | Testing & Treatment 2025"
+        description="ADHD psychiatrist Orlando providing comprehensive testing & treatment. Board-certified specialists for adults and teens. Same-week appointments. BCBS, Aetna, Cigna accepted. Call 386-848-8751."
+        keywords={["adhd psychiatrist orlando", "adhd testing orlando", "adhd testing", "adhd testing near me", "adhd evaluation", "adhd testing winter park", "adult adhd testing", "adhd assessment orlando", "adhd diagnosis orlando", "add testing orlando", "adhd doctor orlando"]}
         canonicalPath="/adhd-testing-orlando"
         jsonLd={jsonLd}
       />
@@ -176,7 +176,7 @@ export default function ADHDTestingOrlando() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            ADHD Testing & Evaluation in Orlando, FL
+            ADHD Psychiatrist Orlando
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
             Professional ADHD testing for adults and teens in Orlando. Comprehensive evaluations by board-certified psychiatrists. Get clarity, accurate diagnosis, and personalized treatment recommendations. Same-week appointments available.

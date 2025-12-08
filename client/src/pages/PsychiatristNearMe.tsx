@@ -222,9 +222,9 @@ export default function PsychiatristNearMe() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Psychiatrist Near Me | Orlando FL | Accepting New Patients 2025"
-        description="Looking for a psychiatrist near me? Board-certified Orlando psychiatrists accepting new patients now. Same-week appointments for anxiety, depression, ADHD medication management. BCBS, Cigna, Aetna, Medicare accepted. Call (386) 848-8751."
-        keywords={["psychiatrist near me", "find psychiatrist near me", "psychiatrist accepting new patients near me", "psychiatrist near me orlando", "best psychiatrist near me", "psychiatrist orlando", "psychiatrist winter park", "medication management near me", "psychiatrist accepting medicare", "psychiatrist accepting cigna", "psychiatrist accepting aetna", "psychiatrist near me that takes my insurance"]}
+        title="Psychiatrist Near Me Orlando | 2025"
+        description="Psychiatrist near me in Orlando, FL. Board-certified psychiatrists accepting new patients with same-week appointments. Anxiety, depression, ADHD medication management. BCBS, Cigna, Medicare. Call (386) 848-8751."
+        keywords={["psychiatrist near me", "psychiatrist near me orlando", "find psychiatrist near me", "psychiatrist accepting new patients near me", "best psychiatrist near me", "psychiatrist orlando", "psychiatrist winter park", "medication management near me", "psychiatrist accepting medicare", "psychiatrist accepting cigna", "psychiatrist accepting aetna", "psychiatrist near me that takes my insurance"]}
         canonicalPath="/psychiatrist-near-me"
         jsonLd={jsonLd}
       />
@@ -232,7 +232,7 @@ export default function PsychiatristNearMe() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Find a Psychiatrist Near Me in Orlando
+            Psychiatrist Near Me in Orlando
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-6 max-w-3xl" data-testid="text-hero-description">
             Looking for a psychiatrist near you? Our board-certified psychiatrists in Orlando, Winter Park, and Central Florida are accepting new patients. Same-week appointments for medication management.

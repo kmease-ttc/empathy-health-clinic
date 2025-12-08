@@ -110,9 +110,9 @@ export default function MentalHealthNearMe() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Mental Health Near Me | Orlando & Winter Park FL | Same-Week Appointments"
-        description="Looking for mental health services near you? Board-certified psychiatrists & licensed therapists in Orlando. Anxiety, depression, ADHD treatment. Same-week appointments. Call 386-848-8751."
-        keywords={["mental health near me", "mental health services near me", "mental health clinic near me", "mental health orlando", "mental health winter park", "psychiatrist near me", "therapist near me", "mental health help near me"]}
+        title="Mental Health Clinic Orlando | Near Me | 2025"
+        description="Mental health clinic Orlando providing comprehensive care. Board-certified psychiatrists & therapists with same-week appointments for anxiety, depression, ADHD. BCBS, Cigna accepted. Call 386-848-8751."
+        keywords={["mental health clinic orlando", "mental health near me", "mental health services near me", "mental health clinic near me", "mental health orlando", "mental health winter park", "psychiatrist near me", "therapist near me", "mental health help near me"]}
         canonicalPath="/mental-health-near-me"
         jsonLd={jsonLd}
       />
@@ -130,7 +130,7 @@ export default function MentalHealthNearMe() {
                   <span className="font-medium">4.8 Rating from 120+ Patients</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" data-testid="text-page-title">
-                  Mental Health Services Near Me
+                  Mental Health Clinic Orlando
                 </h1>
                 
                 {/* SEO Intro Paragraph - Keyword in first sentence */}

@@ -128,8 +128,8 @@ export default function PsychiatristOrlando() {
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Psychiatrist Orlando FL | New Patients 2025"
-        description="Top-rated psychiatrist in Orlando, FL. Board-certified psychiatrists with same-week appointments for anxiety, depression, ADHD, bipolar disorder. 4.8★ rating. BCBS, Cigna, Medicare accepted. Call (386) 848-8751."
-        keywords={["psychiatrist orlando", "psychiatrist orlando fl", "orlando psychiatrist", "best psychiatrist orlando", "top rated psychiatrist orlando", "psychiatrist near me orlando", "anxiety psychiatrist orlando", "adhd psychiatrist orlando", "depression psychiatrist orlando", "medication management orlando", "mental health orlando", "psychiatrist accepting new patients orlando"]}
+        description="Psychiatrist Orlando and psychiatry Orlando services. Board-certified psychiatrists with same-week appointments for anxiety, depression, ADHD, bipolar. 4.8★ rating. BCBS, Cigna, Medicare. Call (386) 848-8751."
+        keywords={["psychiatrist orlando", "psychiatry orlando", "psychiatrist orlando fl", "orlando psychiatrist", "psychiatry orlando fl", "best psychiatrist orlando", "top rated psychiatrist orlando", "psychiatrist near me orlando", "anxiety psychiatrist orlando", "adhd psychiatrist orlando", "depression psychiatrist orlando", "medication management orlando", "mental health orlando", "psychiatrist accepting new patients orlando"]}
         canonicalPath="/psychiatrist-orlando"
         jsonLd={jsonLd}
       />
