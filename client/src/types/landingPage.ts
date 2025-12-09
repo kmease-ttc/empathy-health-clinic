@@ -87,18 +87,21 @@ export const LandingPageConfigSchema = z.object({
     authoritativeSources: z.array(AuthoritativeSourceSchema).optional(),
     showTrustFactors: z.boolean().optional().default(true),
     internalLinksCategory: z.enum(["services", "conditions", "treatments", "locations", "insurance"]).optional(),
+    quickLinks: z.array(QuickLinkSchema).optional(),
+    faqHeading: z.string().optional(),
+    faqs: z.array(FAQItemSchema).optional(),
   }),
   
   // FAQ Section
   faqs: z.array(FAQItemSchema).optional(),
   
-  // Sidebar
+  // Sidebar (optional - uses defaults if not provided)
   sidebar: z.object({
     formHeading: z.string(),
     formSubheading: z.string(),
     formType: z.string(),
     quickLinks: z.array(QuickLinkSchema).optional(),
-  }),
+  }).optional(),
   
   // Analytics
   analytics: z.object({

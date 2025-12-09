@@ -258,7 +258,8 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
                       const IconComponent = service.icon;
                       return (
                         <div key={idx} className="flex gap-4 p-4 bg-card rounded-lg border">
-                          <IconComponent className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
+                          {IconComponent && <IconComponent className="h-8 w-8 text-primary flex-shrink-0 mt-1" />}
+                          {!IconComponent && <CheckCircle2 className="h-8 w-8 text-primary flex-shrink-0 mt-1" />}
                           <div>
                             <h3 className="font-semibold text-lg text-foreground mb-2">{service.title}</h3>
                             <p className="text-muted-foreground">{service.description}</p>
@@ -281,7 +282,8 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
                       const IconComponent = point.icon;
                       return (
                         <div key={idx} className="flex gap-4 p-4 bg-card rounded-lg border">
-                          <IconComponent className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
+                          {IconComponent && <IconComponent className="h-8 w-8 text-primary flex-shrink-0 mt-1" />}
+                          {!IconComponent && <CheckCircle2 className="h-8 w-8 text-primary flex-shrink-0 mt-1" />}
                           <div>
                             <h3 className="font-semibold text-lg text-foreground mb-2">{point.title}</h3>
                             <p className="text-muted-foreground">{point.description}</p>
@@ -338,19 +340,33 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
               <div className="sticky top-6 space-y-6">
                 <div className="bg-card rounded-lg border p-6" id="contact-form">
                   <h2 className="text-2xl font-sans font-bold text-foreground mb-4" data-testid="text-form-heading">
-                    {formatH2(config.sidebar.formHeading)}
+                    {formatH2(config.sidebar?.formHeading || "Request Appointment")}
                   </h2>
                   <p className="text-muted-foreground mb-6">
-                    {config.sidebar.formSubheading}
+                    {config.sidebar?.formSubheading || "Same-week appointments available. Most insurance accepted."}
                   </p>
-                  <ShortContactForm formType={config.sidebar.formType} />
+                  <ShortContactForm formType={config.sidebar?.formType || "general"} />
                 </div>
 
-                {config.sidebar.quickLinks && config.sidebar.quickLinks.length > 0 && (
+                {config.sidebar?.quickLinks && config.sidebar.quickLinks.length > 0 && (
                   <div className="bg-primary/5 rounded-lg border p-6">
                     <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
                     <div className="space-y-2">
                       {config.sidebar.quickLinks.map((link, idx) => (
+                        <Link key={idx} href={link.href} className="block text-sm text-primary hover:underline">
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Fallback quick links from content section */}
+                {!config.sidebar?.quickLinks && config.content.quickLinks && config.content.quickLinks.length > 0 && (
+                  <div className="bg-primary/5 rounded-lg border p-6">
+                    <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
+                    <div className="space-y-2">
+                      {config.content.quickLinks.map((link, idx) => (
                         <Link key={idx} href={link.href} className="block text-sm text-primary hover:underline">
                           {link.label}
                         </Link>

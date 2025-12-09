@@ -1263,6 +1263,19 @@ export const cignaPsychiatristOrlandoConfig: LandingPageConfig = {
       { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
     ],
   },
+  sidebar: {
+    formHeading: "Verify Your Cigna Coverage",
+    formSubheading: "Our team will verify your Cigna benefits and explain your costs.",
+    formType: "cigna_insurance",
+    quickLinks: [
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist" },
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+      { href: "/insurance", label: "All Insurance" },
+    ],
+  },
   faqs: [
     {
       question: "Does Empathy Health Clinic accept Cigna insurance?",
