@@ -9,32 +9,38 @@ const PLATFORM_BADGES = [
   {
     name: "Healthgrades",
     logo: healthgradesLogo,
-    alt: "Verified on Healthgrades"
+    alt: "Verified on Healthgrades",
+    url: "https://www.healthgrades.com/group-directory/fl-florida/winter-park/empathy-health-clinic-yy3df4x"
   },
   {
     name: "Zocdoc",
     logo: zocdocLogo,
-    alt: "Verified on Zocdoc"
+    alt: "Verified on Zocdoc",
+    url: "https://www.zocdoc.com/practice/empathy-health-clinic-134285"
   },
   {
     name: "Google",
     logo: googleLogo,
-    alt: "Verified on Google"
+    alt: "Verified on Google",
+    url: "https://g.co/kgs/empathyhealth"
   },
   {
     name: "Yelp",
     logo: yelpLogo,
-    alt: "Verified on Yelp"
+    alt: "Verified on Yelp",
+    url: "https://www.yelp.com/biz/empathy-health-clinic-winter-park"
   },
   {
     name: "GoodTherapy",
     logo: goodTherapyLogo,
-    alt: "GoodTherapy Verified Credentials"
+    alt: "GoodTherapy Verified Credentials",
+    url: "https://www.goodtherapy.org/therapists/profile/empathy-health-clinic"
   },
   {
     name: "ScoreMyReviews",
     logo: scoreMyReviewsLogo,
-    alt: "Score My Reviews"
+    alt: "Score My Reviews",
+    url: "https://scoremyreviews.com/empathy-health-clinic"
   }
 ];
 
@@ -49,14 +55,18 @@ export default function ReviewsAndBadges() {
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
             {PLATFORM_BADGES.map((platform) => (
-              <div
+              <a
                 key={platform.name}
+                href={platform.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={
                   platform.name === "Healthgrades"
                     ? "h-24 w-48 md:h-30 md:w-60 flex items-center justify-center transition-all opacity-100 hover:opacity-70"
                     : "h-12 w-24 md:h-14 md:w-28 flex items-center justify-center transition-all opacity-100 hover:opacity-70"
                 }
                 data-testid={`badge-${platform.name.toLowerCase()}`}
+                aria-label={`View our profile on ${platform.name}`}
               >
                 <img 
                   src={platform.logo} 
@@ -65,7 +75,7 @@ export default function ReviewsAndBadges() {
                   width={platform.name === "Healthgrades" ? 240 : 112}
                   height={platform.name === "Healthgrades" ? 120 : 56}
                 />
-              </div>
+              </a>
             ))}
           </div>
         </div>
