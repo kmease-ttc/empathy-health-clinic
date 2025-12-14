@@ -2770,6 +2770,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         '/psychiatrist-winter-park': '2025-10-20',
         '/therapy-oviedo': '2025-09-01',
         '/therapist-maitland': '2025-09-01',
+        // New SEO expansion pages (December 2025)
+        '/providers': today,
+        '/providers/orlando': today,
+        '/what-we-treat': today,
+        '/what-we-treat/adhd': today,
+        '/what-we-treat/anxiety': today,
+        '/what-we-treat/depression': today,
+        '/what-we-treat/bipolar-disorder': today,
+        '/what-we-treat/ptsd': today,
+        '/what-we-treat/ocd': today,
+        '/psychiatrist-lake-nona': today,
+        '/psychiatrist-winter-garden': today,
+        '/psychiatrist-casselberry': today,
+        '/psychiatrist-longwood': today,
+        '/psychiatrist-downtown-orlando': today,
+        '/telehealth': today,
+        '/adult-adhd-treatment-orlando': today,
+        '/suboxone-treatment-orlando': today,
+        '/medicaid-psychiatrist-orlando': today,
       };
 
       const staticPages = [
@@ -2808,6 +2827,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { path: '/psychiatrist-winter-park', changefreq: 'weekly', priority: 0.8 },
         { path: '/therapy-oviedo', changefreq: 'monthly', priority: 0.7 },
         { path: '/therapist-maitland', changefreq: 'monthly', priority: 0.7 },
+        // New SEO expansion pages (December 2025)
+        { path: '/providers', changefreq: 'weekly', priority: 0.85 },
+        { path: '/providers/orlando', changefreq: 'weekly', priority: 0.85 },
+        { path: '/what-we-treat', changefreq: 'weekly', priority: 0.9 },
+        { path: '/what-we-treat/adhd', changefreq: 'weekly', priority: 0.85 },
+        { path: '/what-we-treat/anxiety', changefreq: 'weekly', priority: 0.85 },
+        { path: '/what-we-treat/depression', changefreq: 'weekly', priority: 0.85 },
+        { path: '/what-we-treat/bipolar-disorder', changefreq: 'weekly', priority: 0.85 },
+        { path: '/what-we-treat/ptsd', changefreq: 'weekly', priority: 0.85 },
+        { path: '/what-we-treat/ocd', changefreq: 'weekly', priority: 0.85 },
+        { path: '/psychiatrist-lake-nona', changefreq: 'weekly', priority: 0.8 },
+        { path: '/psychiatrist-winter-garden', changefreq: 'weekly', priority: 0.8 },
+        { path: '/psychiatrist-casselberry', changefreq: 'weekly', priority: 0.8 },
+        { path: '/psychiatrist-longwood', changefreq: 'weekly', priority: 0.8 },
+        { path: '/psychiatrist-downtown-orlando', changefreq: 'weekly', priority: 0.85 },
+        { path: '/telehealth', changefreq: 'weekly', priority: 0.85 },
+        { path: '/adult-adhd-treatment-orlando', changefreq: 'weekly', priority: 0.85 },
+        { path: '/suboxone-treatment-orlando', changefreq: 'weekly', priority: 0.8 },
+        { path: '/medicaid-psychiatrist-orlando', changefreq: 'weekly', priority: 0.8 },
       ];
       
       staticPages.forEach(page => {

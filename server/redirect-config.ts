@@ -88,6 +88,9 @@ export const contentRedirectMap: Record<string, string> = {
   // Note: /{slug} → /blog/{slug} redirects (where slug is identical) are handled automatically 
   // by dynamic blog slug checker. No need to list them here (prevents Google canonical confusion).
   
+  // Booking redirect
+  '/book-appointment': '/request-appointment',
+  
   // SEMrush orphaned pages (November 2025) - About/Info pages
   '/about-us': '/',
   '/about': '/',

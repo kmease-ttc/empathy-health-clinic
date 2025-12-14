@@ -17,6 +17,8 @@ const Insurance = lazy(() => import("@/pages/Insurance"));
 const Therapy = lazy(() => import("@/pages/Therapy"));
 const TeamPage = lazy(() => import("@/pages/TeamPage"));
 const TeamMemberDetail = lazy(() => import("@/pages/TeamMemberDetail"));
+const Providers = lazy(() => import("@/pages/Providers"));
+const ProvidersOrlando = lazy(() => import("@/pages/ProvidersOrlando"));
 const ServicesPage = lazy(() => import("@/pages/ServicesPage"));
 const RequestAppointment = lazy(() => import("@/pages/RequestAppointment"));
 const NewPatients = lazy(() => import("@/pages/NewPatients"));
@@ -118,12 +120,21 @@ const PsychiatryOrlando = lazy(() => import("@/pages/PsychiatryOrlando"));
 const OcdPsychiatristOrlando = lazy(() => import("@/pages/OcdPsychiatristOrlando"));
 const SchizophreniaPsychiatristOrlando = lazy(() => import("@/pages/SchizophreniaPsychiatristOrlando"));
 const InsomniaPsychiatristOrlando = lazy(() => import("@/pages/InsomniaPsychiatristOrlando"));
+const Telehealth = lazy(() => import("@/pages/Telehealth"));
+const AdultADHDTreatmentOrlando = lazy(() => import("@/pages/AdultADHDTreatmentOrlando"));
+const SuboxoneTreatmentOrlando = lazy(() => import("@/pages/SuboxoneTreatmentOrlando"));
+const MedicaidPsychiatristOrlando = lazy(() => import("@/pages/MedicaidPsychiatristOrlando"));
 
 // Location Pages
 const PsychiatristAltamonteSprings = lazy(() => import("@/pages/locations/AltamonteSprings"));
 const PsychiatristKissimmee = lazy(() => import("@/pages/locations/Kissimmee"));
 const PsychiatristApopka = lazy(() => import("@/pages/locations/Apopka"));
 const PsychiatristWinterPark = lazy(() => import("@/pages/locations/WinterPark"));
+const PsychiatristLakeNona = lazy(() => import("@/pages/locations/LakeNona"));
+const PsychiatristWinterGarden = lazy(() => import("@/pages/locations/WinterGarden"));
+const PsychiatristCasselberry = lazy(() => import("@/pages/locations/Casselberry"));
+const PsychiatristLongwood = lazy(() => import("@/pages/locations/Longwood"));
+const PsychiatristDowntownOrlando = lazy(() => import("@/pages/locations/DowntownOrlando"));
 
 // Additional Landing Pages
 const ADHDTestingOrlando = lazy(() => import("@/pages/ADHDTestingOrlando"));
@@ -140,6 +151,15 @@ const PsychiatristNearUcf = lazy(() => import("@/pages/PsychiatristNearUcf"));
 const About = lazy(() => import("@/pages/About"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const MedicalDisclaimer = lazy(() => import("@/pages/MedicalDisclaimer"));
+
+// What We Treat Pages
+const WhatWeTreat = lazy(() => import("@/pages/WhatWeTreat"));
+const WhatWeTreatADHD = lazy(() => import("@/pages/conditions/WhatWeTreatADHD"));
+const WhatWeTreatAnxiety = lazy(() => import("@/pages/conditions/WhatWeTreatAnxiety"));
+const WhatWeTreatDepression = lazy(() => import("@/pages/conditions/WhatWeTreatDepression"));
+const WhatWeTreatBipolar = lazy(() => import("@/pages/conditions/WhatWeTreatBipolar"));
+const WhatWeTreatPTSD = lazy(() => import("@/pages/conditions/WhatWeTreatPTSD"));
+const WhatWeTreatOCD = lazy(() => import("@/pages/conditions/WhatWeTreatOCD"));
 
 // Components
 const StickyMobileCTA = lazy(() => import("@/components/StickyMobileCTA"));
@@ -252,6 +272,16 @@ function Router() {
             <TeamMemberDetail />
           </Suspense>
         </Route>
+        <Route path="/providers">
+          <Suspense fallback={<LoadingFallback />}>
+            <Providers />
+          </Suspense>
+        </Route>
+        <Route path="/providers/orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <ProvidersOrlando />
+          </Suspense>
+        </Route>
         <Route path="/services">
           <Suspense fallback={<LoadingFallback />}>
             <ServicesPage />
@@ -310,6 +340,31 @@ function Router() {
         <Route path="/psychiatrist-winter-park">
           <Suspense fallback={<LoadingFallback />}>
             <PsychiatristWinterPark />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-lake-nona">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristLakeNona />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-winter-garden">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristWinterGarden />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-casselberry">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristCasselberry />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-longwood">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristLongwood />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrist-downtown-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristDowntownOrlando />
           </Suspense>
         </Route>
         <Route path="/locations/kissimmee">
@@ -672,6 +727,26 @@ function Router() {
             <BlueCrossBlueShieldTherapy />
           </Suspense>
         </Route>
+        <Route path="/telehealth">
+          <Suspense fallback={<LoadingFallback />}>
+            <Telehealth />
+          </Suspense>
+        </Route>
+        <Route path="/adult-adhd-treatment-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <AdultADHDTreatmentOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/suboxone-treatment-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <SuboxoneTreatmentOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/medicaid-psychiatrist-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <MedicaidPsychiatristOrlando />
+          </Suspense>
+        </Route>
         <Route path="/about">
           <Suspense fallback={<LoadingFallback />}>
             <About />
@@ -685,6 +760,41 @@ function Router() {
         <Route path="/medical-disclaimer">
           <Suspense fallback={<LoadingFallback />}>
             <MedicalDisclaimer />
+          </Suspense>
+        </Route>
+        <Route path="/what-we-treat">
+          <Suspense fallback={<LoadingFallback />}>
+            <WhatWeTreat />
+          </Suspense>
+        </Route>
+        <Route path="/what-we-treat/adhd">
+          <Suspense fallback={<LoadingFallback />}>
+            <WhatWeTreatADHD />
+          </Suspense>
+        </Route>
+        <Route path="/what-we-treat/anxiety">
+          <Suspense fallback={<LoadingFallback />}>
+            <WhatWeTreatAnxiety />
+          </Suspense>
+        </Route>
+        <Route path="/what-we-treat/depression">
+          <Suspense fallback={<LoadingFallback />}>
+            <WhatWeTreatDepression />
+          </Suspense>
+        </Route>
+        <Route path="/what-we-treat/bipolar-disorder">
+          <Suspense fallback={<LoadingFallback />}>
+            <WhatWeTreatBipolar />
+          </Suspense>
+        </Route>
+        <Route path="/what-we-treat/ptsd">
+          <Suspense fallback={<LoadingFallback />}>
+            <WhatWeTreatPTSD />
+          </Suspense>
+        </Route>
+        <Route path="/what-we-treat/ocd">
+          <Suspense fallback={<LoadingFallback />}>
+            <WhatWeTreatOCD />
           </Suspense>
         </Route>
         <Route path="/locations/:slug">

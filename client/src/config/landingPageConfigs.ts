@@ -5345,3 +5345,631 @@ export const insomniaPsychiatristOrlandoConfig: LandingPageConfig = {
     conversionCategory: "insomnia_psychiatrist_orlando",
   },
 };
+
+// Telehealth Page Config
+export const telehealthConfig: LandingPageConfig = {
+  seo: {
+    title: "Telehealth Psychiatry Orlando FL | Online Therapy",
+    description: "Virtual psychiatry and therapy appointments in Florida. See a board-certified psychiatrist or licensed therapist from home. Same-week appointments. Call 386-848-8751.",
+    keywords: ["telehealth psychiatry orlando", "telehealth therapy florida", "online mental health orlando", "virtual psychiatrist florida", "telehealth counseling orlando", "online therapy orlando fl", "virtual mental health services"],
+    canonicalPath: "/telehealth",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness"],
+    "name": "Telehealth Psychiatry & Therapy - Empathy Health Clinic",
+    "description": "Virtual psychiatry and therapy appointments in Florida. Board-certified psychiatrists and licensed therapists available online.",
+    "url": "https://empathyhealthclinic.com/telehealth",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Florida"
+    },
+    "medicalSpecialty": ["Psychiatry", "Psychology"]
+  },
+  hero: {
+    title: "Telehealth Psychiatry & Therapy in Florida",
+    subtitle: "Access board-certified psychiatrists and licensed therapists from the comfort of your home. HIPAA-compliant video appointments for medication management, therapy, and mental health evaluations. Same-week appointments available throughout Florida.",
+    ctaPrimary: "Schedule Telehealth Visit",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["100% Virtual Appointments", "HIPAA-Compliant Platform", "Same-Week Availability"],
+  },
+  location: {
+    title: "Serving All of Florida",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\n100% telehealth available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Virtual Mental Health Care From Home",
+    introduction: [
+      "Telehealth has revolutionized mental health care, making it easier than ever to access board-certified psychiatrists and licensed therapists without leaving your home. At Empathy Health Clinic, we offer comprehensive virtual mental health services throughout Florida, providing the same quality care as in-person visits with added convenience and accessibility.",
+      "Whether you're seeking psychiatric medication management, therapy for anxiety or depression, ADHD treatment, or couples counseling, our HIPAA-compliant telehealth platform connects you with experienced providers via secure video appointments. Research consistently shows that telehealth is equally effective as in-person care for most mental health conditions.",
+      "Same-week appointments are typically available, and our virtual services eliminate commute time, parking hassles, and waiting rooms. You can attend from your home, office, or any private location with internet access."
+    ],
+    conditionsHeading: "Conditions We Treat via Telehealth",
+    conditions: [
+      { name: "Depression & Mood Disorders" },
+      { name: "Anxiety & Panic Disorders" },
+      { name: "ADHD", description: "Adult and adolescent" },
+      { name: "Bipolar Disorder" },
+      { name: "PTSD & Trauma" },
+      { name: "OCD" },
+      { name: "Insomnia & Sleep Disorders" },
+      { name: "Relationship Issues" },
+      { name: "Stress Management" },
+      { name: "Grief & Loss" },
+    ],
+    servicesHeading: "Our Telehealth Services",
+    services: [
+      {
+        icon: Brain,
+        title: "Virtual Psychiatry",
+        description: "Board-certified psychiatrists provide psychiatric evaluations, medication management, and ongoing treatment via secure video appointments."
+      },
+      {
+        icon: Heart,
+        title: "Online Therapy",
+        description: "Licensed therapists offer CBT, DBT, EMDR, and other evidence-based therapies through convenient telehealth sessions."
+      },
+      {
+        icon: Video,
+        title: "HIPAA-Compliant Platform",
+        description: "Our secure, user-friendly video platform protects your privacy. No downloads required - just click your appointment link."
+      },
+      {
+        icon: Calendar,
+        title: "Flexible Scheduling",
+        description: "Same-week appointments with morning, afternoon, and evening availability to fit your schedule."
+      },
+    ],
+    whyChooseHeading: "Why Choose Telehealth?",
+    whyChoosePoints: [
+      {
+        icon: Clock,
+        title: "No Commute Required",
+        description: "Eliminate travel time and attend appointments from anywhere in Florida with a private internet connection."
+      },
+      {
+        icon: Shield,
+        title: "Same Quality Care",
+        description: "Research shows telehealth is equally effective as in-person visits for most psychiatric and therapy services."
+      },
+      {
+        icon: CheckCircle,
+        title: "Insurance Accepted",
+        description: "Most major insurance plans cover telehealth services. We accept Aetna, BCBS, Cigna, UnitedHealthcare, and more."
+      },
+    ],
+    internalLinksCategory: "services",
+  },
+  faqs: [
+    {
+      question: "How does telehealth work?",
+      answer: "After scheduling your appointment, you'll receive a secure link via email or text. At your appointment time, click the link to join a video call with your provider. You'll need a smartphone, tablet, or computer with a camera, microphone, and internet connection. Technical support is available if you have any difficulties."
+    },
+    {
+      question: "Is telehealth as effective as in-person appointments?",
+      answer: "Yes, research consistently shows that telehealth is equally effective as in-person care for most mental health conditions. Studies demonstrate similar outcomes for medication management, therapy, and psychiatric evaluations conducted via video."
+    },
+    {
+      question: "What technology do I need for telehealth?",
+      answer: "You need a device with a camera and microphone (smartphone, tablet, laptop, or desktop computer) and a stable internet connection. Our platform works in most web browsers without requiring software downloads."
+    },
+    {
+      question: "Can you prescribe medications via telehealth?",
+      answer: "Yes, our psychiatrists can prescribe all psychiatric medications including controlled substances like ADHD medications when medically appropriate. E-prescriptions are sent directly to your preferred pharmacy."
+    },
+    {
+      question: "Does insurance cover telehealth appointments?",
+      answer: "Most major insurance plans cover telehealth services, often at the same rate as in-person visits. We accept Aetna, Blue Cross Blue Shield, Cigna, UnitedHealthcare, Humana, and many other plans. Contact us to verify your coverage."
+    },
+    {
+      question: "What if I have technical difficulties during my appointment?",
+      answer: "Our support team can help troubleshoot connection issues. If video fails, your provider may continue via phone for that session. We recommend testing your connection before your first appointment."
+    },
+  ],
+  sidebar: {
+    formHeading: "Start Telehealth Today",
+    formSubheading: "Same-week virtual appointments. Most insurance accepted.",
+    formType: "telehealth",
+    quickLinks: [
+      { href: "/telepsychiatry-orlando", label: "Telepsychiatry Orlando" },
+      { href: "/virtual-therapy", label: "Virtual Therapy" },
+      { href: "/services", label: "All Services" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/therapist-orlando", label: "Therapist Orlando" },
+      { href: "/new-patients", label: "New Patients" },
+    ],
+  },
+  analytics: {
+    pageName: "Telehealth Page",
+    conversionCategory: "telehealth",
+  },
+};
+
+// Adult ADHD Treatment Orlando Config
+export const adultADHDTreatmentOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Adult ADHD Treatment Orlando FL | Expert Psychiatrist 2025",
+    description: "Specialized adult ADHD treatment in Orlando. Board-certified psychiatrists for ADHD diagnosis, medication management, and comprehensive care. Call 386-848-8751.",
+    keywords: ["adult adhd treatment orlando", "adult adhd psychiatrist orlando", "adhd medication management adults", "adult adhd diagnosis orlando", "adhd treatment for adults orlando fl", "adult add treatment orlando"],
+    canonicalPath: "/adult-adhd-treatment-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Psychiatrist"],
+    "name": "Adult ADHD Treatment Orlando FL - Empathy Health Clinic",
+    "description": "Specialized adult ADHD diagnosis and treatment in Orlando by board-certified psychiatrists.",
+    "url": "https://empathyhealthclinic.com/adult-adhd-treatment-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Psychiatry"
+  },
+  hero: {
+    title: "Adult ADHD Treatment in Orlando, FL",
+    subtitle: "Specialized ADHD diagnosis and treatment for adults by board-certified psychiatrists. Comprehensive evaluations, personalized medication management, and evidence-based strategies to help you thrive. Same-week appointments available.",
+    ctaPrimary: "Schedule ADHD Evaluation",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Adult ADHD Specialists", "Same-Week Appointments", "Stimulant & Non-Stimulant Options"],
+  },
+  location: {
+    title: "Orlando Metro Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Expert Adult ADHD Care in Orlando",
+    introduction: [
+      "ADHD doesn't end in childhood - millions of adults live with undiagnosed or undertreated ADHD that affects their careers, relationships, and daily functioning. At Empathy Health Clinic, our board-certified psychiatrists specialize in diagnosing and treating adult ADHD with personalized, comprehensive care.",
+      "Adult ADHD often presents differently than childhood ADHD. You may struggle with procrastination, disorganization, time management, or difficulty completing projects. Many adults with ADHD also experience anxiety, depression, or low self-esteem as secondary effects of living with untreated symptoms.",
+      "Our Orlando psychiatrists conduct thorough evaluations to accurately diagnose ADHD and rule out other conditions. We offer both stimulant and non-stimulant medication options, tailored to your specific symptoms, lifestyle, and any co-occurring conditions. Same-week appointments are typically available."
+    ],
+    conditionsHeading: "Adult ADHD Symptoms We Treat",
+    conditions: [
+      { name: "Difficulty Concentrating", description: "Trouble focusing at work or on tasks" },
+      { name: "Disorganization", description: "Chronic clutter and missed deadlines" },
+      { name: "Time Management Issues" },
+      { name: "Impulsivity" },
+      { name: "Restlessness", description: "Internal restlessness, not hyperactivity" },
+      { name: "Procrastination" },
+      { name: "Forgetfulness" },
+      { name: "Emotional Dysregulation" },
+    ],
+    servicesHeading: "Our Adult ADHD Services",
+    services: [
+      {
+        icon: Brain,
+        title: "Comprehensive ADHD Evaluation",
+        description: "Thorough psychiatric assessment including symptom history, developmental background, and screening for co-occurring conditions like anxiety or depression."
+      },
+      {
+        icon: Shield,
+        title: "Medication Management",
+        description: "Expert prescribing and monitoring of ADHD medications including stimulants (Adderall, Vyvanse, Concerta) and non-stimulants (Strattera, Wellbutrin)."
+      },
+      {
+        icon: Users,
+        title: "Combination Treatment",
+        description: "Integration of medication with therapy referrals for ADHD coaching, CBT, and organizational skills training when appropriate."
+      },
+      {
+        icon: Video,
+        title: "Telehealth Appointments",
+        description: "Convenient virtual visits for ADHD follow-ups and medication management from anywhere in Florida."
+      },
+    ],
+    whyChooseHeading: "Why Choose Us for Adult ADHD?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Adult ADHD Expertise",
+        description: "Our psychiatrists understand that adult ADHD is different from childhood ADHD and requires specialized evaluation and treatment approaches."
+      },
+      {
+        icon: Calendar,
+        title: "Same-Week Appointments",
+        description: "Don't wait months for an ADHD evaluation. We typically offer same-week appointments for new patients."
+      },
+      {
+        icon: Heart,
+        title: "Personalized Treatment",
+        description: "We tailor medication choices and dosing to your unique symptoms, lifestyle, work schedule, and any co-occurring conditions."
+      },
+    ],
+    internalLinksCategory: "conditions",
+  },
+  faqs: [
+    {
+      question: "How is adult ADHD different from childhood ADHD?",
+      answer: "Adult ADHD often presents as internal restlessness rather than hyperactivity, chronic disorganization, difficulty completing projects, time management struggles, and problems with follow-through. Many adults develop coping mechanisms that mask symptoms, making diagnosis more complex."
+    },
+    {
+      question: "What does an adult ADHD evaluation involve?",
+      answer: "Our comprehensive evaluation includes a detailed symptom history, review of childhood behaviors, assessment of current functioning in work and relationships, screening for co-occurring conditions, and clinical interview. We may use standardized rating scales to support diagnosis."
+    },
+    {
+      question: "What medications are used for adult ADHD?",
+      answer: "We prescribe both stimulant medications (Adderall, Vyvanse, Concerta, Ritalin) and non-stimulant options (Strattera, Wellbutrin, Qelbree). The best choice depends on your symptoms, medical history, and lifestyle. We start at low doses and adjust carefully."
+    },
+    {
+      question: "Can ADHD be diagnosed without childhood symptoms?",
+      answer: "ADHD symptoms must have been present before age 12 for diagnosis, though they may not have been recognized. Many adults realize their childhood struggles were actually ADHD symptoms. Our evaluation explores your developmental history thoroughly."
+    },
+    {
+      question: "Do you treat ADHD with co-occurring anxiety or depression?",
+      answer: "Yes, we commonly treat ADHD alongside anxiety, depression, or other conditions. In fact, addressing all conditions together often leads to better outcomes. We carefully select medications and approaches that address your complete symptom picture."
+    },
+    {
+      question: "How quickly can ADHD medications work?",
+      answer: "Stimulant medications typically show effects within the first dose or two. Non-stimulants like Strattera take 4-6 weeks to reach full effect. We schedule regular follow-ups to monitor your response and adjust treatment as needed."
+    },
+    {
+      question: "Does insurance cover adult ADHD treatment?",
+      answer: "Yes, most insurance plans cover psychiatric evaluations and medication management for ADHD. We accept Aetna, Blue Cross Blue Shield, Cigna, UnitedHealthcare, Humana, and many other plans. Contact us to verify your coverage."
+    },
+  ],
+  sidebar: {
+    formHeading: "Get ADHD Evaluation",
+    formSubheading: "Same-week appointments. Most insurance accepted.",
+    formType: "adult_adhd",
+    quickLinks: [
+      { href: "/adhd-psychiatrist-orlando", label: "ADHD Psychiatrist Orlando" },
+      { href: "/adhd-testing-orlando", label: "ADHD Testing Orlando" },
+      { href: "/what-we-treat/adhd", label: "What We Treat: ADHD" },
+      { href: "/medication-management-orlando", label: "Medication Management" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/new-patients", label: "New Patients" },
+    ],
+  },
+  analytics: {
+    pageName: "Adult ADHD Treatment Orlando Page",
+    conversionCategory: "adult_adhd_treatment",
+  },
+};
+
+// Suboxone Treatment Orlando Config
+export const suboxoneTreatmentOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Suboxone Treatment Orlando FL | MAT for Opioid Addiction",
+    description: "Suboxone and medication-assisted treatment (MAT) for opioid addiction in Orlando. Compassionate, confidential care from board-certified providers. Call 386-848-8751.",
+    keywords: ["suboxone treatment orlando", "suboxone doctor orlando", "MAT orlando", "medication assisted treatment orlando", "opioid addiction treatment orlando", "buprenorphine orlando", "suboxone clinic orlando fl"],
+    canonicalPath: "/suboxone-treatment-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness"],
+    "name": "Suboxone Treatment Orlando FL - Empathy Health Clinic",
+    "description": "Medication-assisted treatment (MAT) for opioid addiction using Suboxone in Orlando, FL.",
+    "url": "https://empathyhealthclinic.com/suboxone-treatment-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Addiction Medicine"
+  },
+  hero: {
+    title: "Suboxone Treatment in Orlando, FL",
+    subtitle: "Compassionate, confidential medication-assisted treatment (MAT) for opioid addiction. Our board-certified providers help you break free from opioid dependence with Suboxone and comprehensive support. Same-week appointments available.",
+    ctaPrimary: "Start Recovery Today",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Confidential Care", "Same-Week Start", "Insurance Accepted"],
+  },
+  location: {
+    title: "Orlando Metro Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Medication-Assisted Treatment for Opioid Recovery",
+    introduction: [
+      "Opioid addiction is a medical condition that requires medical treatment. At Empathy Health Clinic, we provide compassionate, evidence-based Suboxone treatment to help Orlando residents overcome opioid dependence and reclaim their lives. Our confidential MAT program combines medication with supportive care for lasting recovery.",
+      "Suboxone (buprenorphine/naloxone) is an FDA-approved medication that reduces cravings, prevents withdrawal symptoms, and blocks the effects of other opioids. It's one of the most effective treatments for opioid use disorder, with research showing it significantly improves recovery rates and reduces overdose risk.",
+      "Our board-certified providers are experienced in addiction medicine and understand the courage it takes to seek help. We offer a judgment-free environment with same-week appointments, flexible scheduling, and both in-person and telehealth options."
+    ],
+    conditionsHeading: "Conditions We Treat",
+    conditions: [
+      { name: "Opioid Use Disorder" },
+      { name: "Prescription Opioid Dependence", description: "Oxycodone, hydrocodone, etc." },
+      { name: "Heroin Addiction" },
+      { name: "Fentanyl Dependence" },
+      { name: "Opioid Withdrawal" },
+      { name: "Chronic Pain with Opioid Dependence" },
+    ],
+    servicesHeading: "Our MAT Services",
+    services: [
+      {
+        icon: Shield,
+        title: "Suboxone Prescribing",
+        description: "Board-certified providers prescribe and manage Suboxone (buprenorphine/naloxone) to reduce cravings and prevent withdrawal symptoms."
+      },
+      {
+        icon: Brain,
+        title: "Comprehensive Assessment",
+        description: "Thorough evaluation of your opioid use history, medical conditions, and mental health to create a personalized treatment plan."
+      },
+      {
+        icon: Heart,
+        title: "Supportive Care",
+        description: "Ongoing monitoring, counseling referrals, and support throughout your recovery journey. We treat you as a whole person, not just an addiction."
+      },
+      {
+        icon: Video,
+        title: "Telehealth MAT",
+        description: "Convenient virtual appointments for ongoing Suboxone management, reducing barriers to consistent care."
+      },
+    ],
+    whyChooseHeading: "Why Choose Our Suboxone Program?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Experienced Providers",
+        description: "Our board-certified providers are specially trained in addiction medicine and have helped many Orlando residents achieve lasting recovery."
+      },
+      {
+        icon: Shield,
+        title: "Confidential & Judgment-Free",
+        description: "Your privacy is protected. We provide compassionate care in a professional medical setting without stigma or judgment."
+      },
+      {
+        icon: Calendar,
+        title: "Same-Week Start",
+        description: "When you're ready to start recovery, we're ready to help. Same-week appointments typically available for new patients."
+      },
+    ],
+    internalLinksCategory: "services",
+  },
+  faqs: [
+    {
+      question: "What is Suboxone and how does it work?",
+      answer: "Suboxone contains buprenorphine (a partial opioid agonist) and naloxone (an opioid blocker). Buprenorphine reduces cravings and withdrawal symptoms without producing the high of full opioids. Naloxone discourages misuse. Together, they help you focus on recovery while feeling stable."
+    },
+    {
+      question: "How long will I need to take Suboxone?",
+      answer: "Treatment duration varies by individual. Some patients take Suboxone for months, others for years. Research shows longer treatment is often associated with better outcomes. We'll work with you to determine the right timeline based on your progress and goals."
+    },
+    {
+      question: "Is Suboxone just replacing one addiction with another?",
+      answer: "No. Suboxone is a medication that treats the medical condition of opioid use disorder, similar to how insulin treats diabetes. When taken as prescribed, it stabilizes brain chemistry, doesn't produce a high, and allows you to function normally while working on recovery."
+    },
+    {
+      question: "What happens at the first appointment?",
+      answer: "Your first visit includes a comprehensive assessment of your opioid use history, medical conditions, and mental health. If appropriate, you may start Suboxone the same day. We'll discuss your treatment plan, answer questions, and schedule follow-up appointments."
+    },
+    {
+      question: "Does insurance cover Suboxone treatment?",
+      answer: "Most insurance plans cover medication-assisted treatment for opioid addiction, including Suboxone prescriptions and provider visits. We accept many major insurance plans. Contact us to verify your specific coverage."
+    },
+    {
+      question: "Can I receive Suboxone treatment via telehealth?",
+      answer: "Yes, we offer telehealth appointments for Suboxone management, making it easier to stay consistent with treatment. Initial evaluations may be conducted in-person or virtually depending on your situation."
+    },
+  ],
+  sidebar: {
+    formHeading: "Start Your Recovery",
+    formSubheading: "Confidential help. Same-week appointments.",
+    formType: "suboxone_treatment",
+    quickLinks: [
+      { href: "/services", label: "All Services" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/request-appointment", label: "Request Appointment" },
+      { href: "/insurance", label: "Insurance Accepted" },
+      { href: "/new-patients", label: "New Patients" },
+    ],
+  },
+  analytics: {
+    pageName: "Suboxone Treatment Orlando Page",
+    conversionCategory: "suboxone_treatment",
+  },
+};
+
+// Medicaid Psychiatrist Orlando Config
+export const medicaidPsychiatristOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "Medicaid Psychiatrist Orlando FL | Accepting New Patients",
+    description: "Find a psychiatrist in Orlando that accepts Medicaid. Board-certified providers accepting Florida Medicaid plans including Sunshine Health, Molina, Simply Healthcare. Call 386-848-8751.",
+    keywords: ["medicaid psychiatrist orlando", "psychiatrist that accepts medicaid orlando", "medicaid mental health orlando", "florida medicaid psychiatrist", "sunshine health psychiatrist orlando", "molina psychiatrist orlando", "medicaid psychiatric services orlando"],
+    canonicalPath: "/medicaid-psychiatrist-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Psychiatrist"],
+    "name": "Medicaid Psychiatrist Orlando FL - Empathy Health Clinic",
+    "description": "Board-certified psychiatrist in Orlando accepting Florida Medicaid plans.",
+    "url": "https://empathyhealthclinic.com/medicaid-psychiatrist-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2281 Lee Rd Suite 102",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32810",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Psychiatry",
+    "paymentAccepted": ["Medicaid", "Florida Medicaid"]
+  },
+  hero: {
+    title: "Medicaid Psychiatrist in Orlando, FL",
+    subtitle: "Board-certified psychiatrists accepting Florida Medicaid plans. Quality mental health care shouldn't depend on your insurance. We accept Sunshine Health, Molina, Simply Healthcare, and other Medicaid plans. Same-week appointments available.",
+    ctaPrimary: "Schedule Appointment",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["Medicaid Accepted", "Same-Week Appointments", "Board-Certified Psychiatrists"],
+  },
+  location: {
+    title: "Orlando Metro Location",
+    address: "2281 Lee Rd Suite 102",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32810",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM\nTelehealth & in-person available",
+    mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
+  },
+  content: {
+    mainHeading: "Quality Psychiatric Care for Medicaid Patients",
+    introduction: [
+      "Finding a psychiatrist who accepts Medicaid in Orlando can be challenging, but quality mental health care should be accessible to everyone. At Empathy Health Clinic, we proudly accept Florida Medicaid plans and provide the same excellent care to all patients regardless of insurance status.",
+      "Our board-certified psychiatrists treat depression, anxiety, ADHD, bipolar disorder, PTSD, and other mental health conditions for Medicaid patients. We believe financial barriers shouldn't prevent anyone from receiving the mental health treatment they need.",
+      "Same-week appointments are typically available for new Medicaid patients. We offer both in-person visits at our Winter Park office (convenient to all of Orlando) and telehealth appointments throughout Florida."
+    ],
+    conditionsHeading: "Conditions We Treat",
+    conditions: [
+      { name: "Depression & Mood Disorders" },
+      { name: "Anxiety & Panic Disorders" },
+      { name: "ADHD", description: "Adult and adolescent" },
+      { name: "Bipolar Disorder" },
+      { name: "PTSD & Trauma" },
+      { name: "OCD" },
+      { name: "Schizophrenia" },
+      { name: "Personality Disorders" },
+    ],
+    servicesHeading: "Services Covered by Medicaid",
+    services: [
+      {
+        icon: Brain,
+        title: "Psychiatric Evaluations",
+        description: "Comprehensive mental health assessments to diagnose conditions and develop personalized treatment plans, covered by Medicaid."
+      },
+      {
+        icon: Shield,
+        title: "Medication Management",
+        description: "Ongoing prescription and monitoring of psychiatric medications. Generic medications are typically fully covered by Medicaid."
+      },
+      {
+        icon: Video,
+        title: "Telehealth Appointments",
+        description: "Virtual psychiatric visits covered by Medicaid, making it easier to access care without transportation barriers."
+      },
+      {
+        icon: Heart,
+        title: "Integrated Care",
+        description: "Coordination with therapists and primary care providers to ensure comprehensive treatment."
+      },
+    ],
+    whyChooseHeading: "Why Choose Empathy Health Clinic?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "Board-Certified Psychiatrists",
+        description: "Our psychiatrists are board-certified with extensive experience treating diverse patient populations. Medicaid patients receive the same quality care as all our patients."
+      },
+      {
+        icon: Calendar,
+        title: "Same-Week Appointments",
+        description: "Unlike many clinics with months-long waits for Medicaid patients, we typically offer same-week appointments."
+      },
+      {
+        icon: DollarSign,
+        title: "No Balance Billing",
+        description: "We accept Medicaid assignment, meaning you pay only your Medicaid copay with no surprise bills."
+      },
+    ],
+    internalLinksCategory: "insurance",
+  },
+  faqs: [
+    {
+      question: "Which Medicaid plans do you accept?",
+      answer: "We accept most Florida Medicaid managed care plans including Sunshine Health, Molina Healthcare, Simply Healthcare, Prestige Health Choice, Staywell, and others. Contact our office to verify we accept your specific Medicaid plan before scheduling."
+    },
+    {
+      question: "Do I need a referral to see a psychiatrist with Medicaid?",
+      answer: "Referral requirements depend on your specific Medicaid plan. Some plans require a referral from your primary care provider, while others allow direct access to mental health specialists. We recommend checking with your plan or calling our office for guidance."
+    },
+    {
+      question: "What services does Medicaid cover for mental health?",
+      answer: "Florida Medicaid covers psychiatric evaluations, medication management visits, and many prescription medications. Coverage for therapy varies by plan. Our staff can help verify your specific benefits before your appointment."
+    },
+    {
+      question: "Are there any out-of-pocket costs with Medicaid?",
+      answer: "Medicaid patients typically have no or very low copays for psychiatric services. We accept Medicaid assignment and do not balance bill, so you'll only pay your plan's required copay, if any."
+    },
+    {
+      question: "Can I get ADHD treatment with Medicaid?",
+      answer: "Yes, Medicaid covers ADHD evaluation and treatment. Some ADHD medications may require prior authorization. Our staff is experienced in navigating Medicaid requirements for ADHD medications."
+    },
+    {
+      question: "Do you offer telehealth for Medicaid patients?",
+      answer: "Yes, Florida Medicaid covers telehealth psychiatric appointments. This makes it easier to attend appointments if you have transportation challenges or live farther from our office."
+    },
+  ],
+  sidebar: {
+    formHeading: "Schedule Medicaid Visit",
+    formSubheading: "Medicaid accepted. Same-week appointments.",
+    formType: "medicaid_psychiatrist",
+    quickLinks: [
+      { href: "/insurance", label: "All Insurance Accepted" },
+      { href: "/affordable-care", label: "Affordable Care Options" },
+      { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
+      { href: "/sunshine-health-therapy", label: "Sunshine Health" },
+      { href: "/new-patients", label: "New Patients" },
+      { href: "/telepsychiatry-orlando", label: "Telehealth Services" },
+    ],
+  },
+  analytics: {
+    pageName: "Medicaid Psychiatrist Orlando Page",
+    conversionCategory: "medicaid_psychiatrist",
+  },
+};
