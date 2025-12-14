@@ -59,6 +59,17 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **Microsoft Clarity API:** Optional integration for enhanced link monitoring.
 
 ## Recent Changes
+### December 14, 2025 - Screaming Frog SEO Fixes
+- **Fixed Canonical Tags**: Removed hardcoded canonical from `client/index.html`; prerender script now waits for SEOHead to set correct canonical before capturing HTML
+- **Fixed /same-day-psychiatrist-orlando**: Removed from CANONICAL_CONSOLIDATION_PATHS, added to SELF_CANONICAL_EXACT_PATHS for independent ranking with index,follow
+- **Blocked Vite Dev Paths in Production**: Added production-only 404 middleware for /@vite/, /@replit/, /@fs/, /@id/, /__vite paths
+- **Updated Internal Links**: Fixed 25+ files pointing to 301 redirect URLs to use final destinations:
+  - `/medication-management` → `/services`
+  - `/anxiety-treatment` → `/anxiety-therapy`
+  - `/trauma-therapy` → `/therapy`
+  - `/locations/psychiatrist-orlando` → `/psychiatrist-orlando`
+  - `/about` → `/team`
+
 ### December 14, 2025 - Puppeteer-Based Prerendering (Active)
 - **Goal**: Make marketing pages crawlable by serving pre-rendered HTML to search engines
 - **Solution**: Puppeteer-based prerendering (browser automation) instead of React SSR
