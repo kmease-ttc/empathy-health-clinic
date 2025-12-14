@@ -85,16 +85,6 @@ export default function BlogListingPage() {
     setLocation('/blog');
   };
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    // Update URL: page 1 uses clean /blog, page 2+ uses /blog?page=N
-    if (page === 1) {
-      setLocation('/blog');
-    } else {
-      setLocation(`/blog?page=${page}`);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   if (isLoading && !paginatedData) {
     return (
@@ -357,17 +347,30 @@ export default function BlogListingPage() {
                 </div>
 
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-2 mt-12">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      data-testid="button-previous-page"
-                    >
-                      <ChevronLeft className="h-4 w-4 mr-1" />
-                      Previous
-                    </Button>
+                  <nav className="flex items-center justify-center gap-2 mt-12" aria-label="Blog pagination">
+                    {currentPage > 1 ? (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        asChild
+                        data-testid="button-previous-page"
+                      >
+                        <Link href={currentPage === 2 ? "/blog" : `/blog?page=${currentPage - 1}`}>
+                          <ChevronLeft className="h-4 w-4 mr-1" />
+                          Previous
+                        </Link>
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled
+                        data-testid="button-previous-page"
+                      >
+                        <ChevronLeft className="h-4 w-4 mr-1" />
+                        Previous
+                      </Button>
+                    )}
                     <div className="flex items-center gap-1">
                       {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
                         if (
@@ -375,15 +378,21 @@ export default function BlogListingPage() {
                           page === totalPages ||
                           (page >= currentPage - 1 && page <= currentPage + 1)
                         ) {
+                          const pageHref = page === 1 ? "/blog" : `/blog?page=${page}`;
                           return (
                             <Button
                               key={page}
                               variant={currentPage === page ? "default" : "outline"}
                               size="sm"
-                              onClick={() => handlePageChange(page)}
+                              asChild={currentPage !== page}
+                              aria-current={currentPage === page ? "page" : undefined}
                               data-testid={`button-page-${page}`}
                             >
-                              {page}
+                              {currentPage === page ? (
+                                <span>{page}</span>
+                              ) : (
+                                <Link href={pageHref}>{page}</Link>
+                              )}
                             </Button>
                           );
                         } else if (page === currentPage - 2 || page === currentPage + 2) {
@@ -392,17 +401,30 @@ export default function BlogListingPage() {
                         return null;
                       })}
                     </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      data-testid="button-next-page"
-                    >
-                      Next
-                      <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
-                  </div>
+                    {currentPage < totalPages ? (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        asChild
+                        data-testid="button-next-page"
+                      >
+                        <Link href={`/blog?page=${currentPage + 1}`}>
+                          Next
+                          <ChevronRight className="h-4 w-4 ml-1" />
+                        </Link>
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled
+                        data-testid="button-next-page"
+                      >
+                        Next
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    )}
+                  </nav>
                 )}
               </>
             ) : (
