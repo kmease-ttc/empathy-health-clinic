@@ -171,15 +171,15 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
-  // Prerender middleware serves static HTML to search engine crawlers
-  // MUST be registered BEFORE registerRoutes to intercept requests before API/catch-all routes
-  const prerenderedDir = path.resolve(import.meta.dirname, "..", "dist/prerendered");
-  app.use(createPrerenderMiddleware(prerenderedDir));
-  
-  // Debug endpoint to check prerender status
-  app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
+// Prerender middleware serves static HTML to search engine crawlers
+// MUST be registered synchronously BEFORE the async IIFE to ensure it runs before Vite dev middleware
+const prerenderedDir = path.resolve(import.meta.dirname, "..", "dist/prerendered");
+app.use(createPrerenderMiddleware(prerenderedDir));
 
+// Debug endpoint to check prerender status
+app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
+
+(async () => {
   const server = await registerRoutes(app);
 
   // Serve static files from attached_assets directory
