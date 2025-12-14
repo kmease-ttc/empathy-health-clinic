@@ -59,6 +59,23 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **Microsoft Clarity API:** Optional integration for enhanced link monitoring.
 
 ## Recent Changes
+### December 14, 2025 - SSR/Prerendering Infrastructure (Disabled)
+- **Goal**: Make marketing pages crawlable by serving pre-rendered HTML to search engines
+- **Infrastructure Created**:
+  - `client/src/entry-server.tsx` - SSR entry point with all 76 marketing page imports
+  - `scripts/prerender.ts` - Build-time static HTML generator
+  - `vite.config.ssr.ts` - Separate Vite SSR build configuration
+  - `server/prerender-middleware.ts` - Express middleware to serve pre-rendered HTML
+- **Build Commands**: `npx vite build --config vite.config.ssr.ts && npx tsx scripts/prerender.ts`
+- **Status**: Disabled due to SSR compatibility issues
+- **Root Cause**: Most pages (72/76) fail SSR due to client-side hooks:
+  - "Missing getServerSnapshot" errors from hooks using `useSyncExternalStore` (media queries, theme toggles)
+  - "useLayoutEffect does nothing on server" from animation libraries and form components
+- **Future Options**:
+  1. Audit and refactor shared hooks for SSR compatibility (high effort)
+  2. Use Puppeteer-based prerendering instead of React SSR (medium effort)
+  3. Rely on existing SEO optimizations (sitemap, meta tags, structured data)
+
 ### December 6, 2025 - Historical SERP Ranking Tracking
 - **Database Table**: Added `keyword_ranking_history` table for persistent storage of ranking snapshots
 - **API Endpoints**: 
