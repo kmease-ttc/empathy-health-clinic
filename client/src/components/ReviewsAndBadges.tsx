@@ -22,7 +22,7 @@ const PLATFORM_BADGES = [
     name: "Google",
     logo: googleLogo,
     alt: "Verified on Google",
-    url: "https://g.co/kgs/empathyhealth"
+    url: "https://www.google.com/maps/place/Empathy+Health+Clinic/@28.5970,-81.3614,17z/"
   },
   {
     name: "Yelp",

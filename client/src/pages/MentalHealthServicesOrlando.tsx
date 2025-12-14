@@ -229,7 +229,7 @@ export default function MentalHealthServicesOrlando() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Mental Health Clinic in Orlando, FL
+            Mental Health Services Orlando, FL
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
             Comprehensive mental health care for Orlando and Central Florida. Our team of board-certified psychiatrists, licensed therapists, and mental health counselors provides expert treatment for anxiety, depression, ADHD, trauma, and a wide range of mental health conditions.
