@@ -70,8 +70,9 @@ The system uses an in-memory storage solution for simplified deployment, with da
   - `/locations/psychiatrist-orlando` → `/psychiatrist-orlando`
   - `/about` → `/team`
 
-### December 17, 2025 - Universal HTML-Only Crawlability (Active)
+### December 17, 2025 - Universal HTML-Only Crawlability (Completed)
 - **Goal**: Make site fully crawlable in "HTML-only" mode for SEO tools like Screaming Frog
+- **Status**: **COMPLETE** - All 278 routes prerendered with 139+ internal links on homepage
 - **Key Change**: Uses Accept header instead of User-Agent detection - serves prerendered HTML to ALL text/html requests
 - **Route Manifest System**:
   - `scripts/getStaticRoutes.ts` - Extracts static routes from App.tsx
@@ -80,18 +81,20 @@ The system uses an in-memory storage solution for simplified deployment, with da
 - **Infrastructure**:
   - `scripts/prerender-puppeteer.ts` - Puppeteer script using route manifest, outputs /foo/index.html format
   - `server/prerender-middleware.ts` - Express middleware serving HTML for Accept: text/html requests
-  - `dist/prerendered/` - Pre-rendered HTML files
+  - `dist/prerendered/` - 278 pre-rendered HTML files with full React content
 - **How It Works**:
   1. Route manifest pipeline: staticRoutes.json + blogRoutes.json → allRoutes.json
-  2. Puppeteer script visits all routes, captures full HTML with internal links
-  3. Middleware serves prerendered HTML to ANY request with Accept: text/html (not just bots)
+  2. Puppeteer script visits all routes, waits for React to render, captures full HTML
+  3. Middleware serves prerendered HTML to ANY request with Accept: text/html
 - **Verification**:
   - `curl -s http://localhost:5000/ | grep "Prerendered by Puppeteer"` - Shows marker
-  - 100+ internal links visible in View Page Source
-  - 310 URLs in sitemap.xml
-- **Build Commands**:
-  - `npx tsx scripts/buildRouteManifest.ts` - Regenerate route manifest
-  - `npx tsx scripts/prerender-puppeteer.ts` - Regenerate prerendered HTML
+  - 139+ internal links visible in View Page Source (homepage)
+  - 278 prerendered pages in `dist/prerendered/`
+- **Regeneration Commands** (run after React app changes):
+  1. `npx puppeteer browsers install chrome` - Install Chrome (required)
+  2. `npx tsx scripts/buildRouteManifest.ts` - Regenerate route manifest
+  3. `npx tsx scripts/prerender-puppeteer.ts` - Regenerate prerendered HTML
+- **Critical Note**: Always regenerate prerendered HTML after React app changes - stale files cause crawlability issues
 
 ### December 6, 2025 - Historical SERP Ranking Tracking
 - **Database Table**: Added `keyword_ranking_history` table for persistent storage of ranking snapshots
