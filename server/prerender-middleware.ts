@@ -1,14 +1,11 @@
 /**
- * Prerender Middleware for Search Engine Crawlers
+ * Prerender Middleware for HTML Requests
  * 
- * This middleware detects search engine bots (Googlebot, Bingbot, etc.) and serves
- * them pre-rendered static HTML instead of the SPA shell. This ensures crawlers
- * can see all content and discover internal links.
+ * This middleware serves pre-rendered static HTML for all requests that accept text/html.
+ * This ensures crawlers (and all browsers) see fully rendered content without JavaScript.
  * 
- * How it works:
- * 1. Checks User-Agent for known crawler patterns
- * 2. If crawler detected, looks for prerendered HTML file
- * 3. If found, serves static HTML; otherwise falls through to SPA
+ * Key change: Uses Accept header (content negotiation) instead of user-agent detection.
+ * This makes crawling work "out of the box" with default Screaming Frog settings.
  * 
  * Generate prerendered files with: npx tsx scripts/prerender-puppeteer.ts
  */
@@ -17,58 +14,19 @@ import { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
 import path from 'path';
 
-// Known search engine and SEO tool user agents
-const BOT_USER_AGENTS = [
-  // Search engines
-  'googlebot',
-  'bingbot',
-  'yandexbot',
-  'duckduckbot',
-  'slurp',           // Yahoo
-  'baiduspider',
-  'sogou',
-  'exabot',
-  'facebot',         // Facebook
-  'ia_archiver',     // Alexa
-  
-  // SEO tools
-  'screaming frog',
-  'semrushbot',
-  'ahrefsbot',
-  'mj12bot',         // Majestic
-  'dotbot',
-  'rogerbot',        // Moz
-  'sitebulb',
-  
-  // Social media crawlers
-  'twitterbot',
-  'linkedinbot',
-  'pinterest',
-  'slackbot',
-  'whatsapp',
-  'telegrambot',
-  
-  // Validators
-  'w3c_validator',
-  'w3c-checklink',
-  
-  // Generic patterns
-  'bot',
-  'spider',
-  'crawl',
-];
-
-// Paths that should NOT be prerendered (dynamic content)
+// Paths that should NOT be prerendered
 const EXCLUDED_PATHS = [
   '/api/',
   '/admin',
   '/login',
   '/auth',
   '/.well-known',
-  '/sitemap.xml',
-  '/robots.txt',
   '/assets/',
   '/attached_assets/',
+  '/static/',
+  '/images/',
+  '/fonts/',
+  '/favicon',
 ];
 
 // File extensions that are not HTML pages
@@ -77,13 +35,18 @@ const EXCLUDED_EXTENSIONS = [
   '.gif', '.svg', '.webp', '.woff', '.woff2', '.ttf', '.eot', '.map'
 ];
 
+// Specific files to exclude
+const EXCLUDED_FILES = [
+  '/sitemap.xml',
+  '/robots.txt',
+];
+
 /**
- * Check if the request is from a search engine crawler or SEO tool
+ * Check if the request accepts HTML content
  */
-function isCrawler(userAgent: string): boolean {
-  if (!userAgent) return false;
-  const ua = userAgent.toLowerCase();
-  return BOT_USER_AGENTS.some(bot => ua.includes(bot));
+function acceptsHtml(acceptHeader: string): boolean {
+  if (!acceptHeader) return false;
+  return acceptHeader.includes('text/html') || acceptHeader.includes('*/*');
 }
 
 /**
@@ -92,6 +55,11 @@ function isCrawler(userAgent: string): boolean {
 function isExcludedPath(pathname: string): boolean {
   // Check excluded path prefixes
   if (EXCLUDED_PATHS.some(prefix => pathname.startsWith(prefix))) {
+    return true;
+  }
+  
+  // Check specific excluded files
+  if (EXCLUDED_FILES.includes(pathname)) {
     return true;
   }
   
@@ -104,19 +72,33 @@ function isExcludedPath(pathname: string): boolean {
 }
 
 /**
- * Convert a URL path to the corresponding prerendered file name
- * e.g., "/psychiatrist-orlando" -> "psychiatrist-orlando.html"
- *       "/" -> "index.html"
- *       "/locations/psychiatrist-orlando" -> "locations-psychiatrist-orlando.html"
+ * Convert a URL path to the corresponding prerendered file path
+ * Uses /foo/index.html format for clean URLs
+ * e.g., "/" -> "index.html"
+ *       "/foo" -> "foo/index.html"
+ *       "/foo/bar" -> "foo/bar/index.html"
  */
-function pathToFileName(pathname: string): string {
+function pathToFilePath(prerenderedDir: string, pathname: string): string {
   if (pathname === '/' || pathname === '') {
-    return 'index.html';
+    return path.join(prerenderedDir, 'index.html');
   }
   
-  // Remove leading slash and replace remaining slashes with hyphens
+  // Remove leading slash, create directory structure
+  const cleanPath = pathname.replace(/^\//, '').replace(/\/$/, '');
+  return path.join(prerenderedDir, cleanPath, 'index.html');
+}
+
+/**
+ * Legacy path format for backward compatibility
+ * e.g., "/foo" -> "foo.html"
+ */
+function pathToLegacyFilePath(prerenderedDir: string, pathname: string): string {
+  if (pathname === '/' || pathname === '') {
+    return path.join(prerenderedDir, 'index.html');
+  }
+  
   const cleanPath = pathname.replace(/^\//, '').replace(/\//g, '-');
-  return `${cleanPath}.html`;
+  return path.join(prerenderedDir, `${cleanPath}.html`);
 }
 
 /**
@@ -124,15 +106,26 @@ function pathToFileName(pathname: string): string {
  * @param prerenderedDir - Path to the directory containing prerendered HTML files
  */
 export function createPrerenderMiddleware(prerenderedDir: string) {
-  // Check if prerendered directory exists
   const dirExists = fs.existsSync(prerenderedDir);
   
   if (!dirExists) {
     console.log('⚠️  Prerender middleware: No prerendered files found.');
     console.log('   Run: npx tsx scripts/prerender-puppeteer.ts');
   } else {
-    const files = fs.readdirSync(prerenderedDir).filter(f => f.endsWith('.html'));
-    console.log(`✅ Prerender middleware: ${files.length} prerendered pages available`);
+    // Count HTML files in directory tree
+    let fileCount = 0;
+    const countHtml = (dir: string) => {
+      const items = fs.readdirSync(dir, { withFileTypes: true });
+      for (const item of items) {
+        if (item.isDirectory()) {
+          countHtml(path.join(dir, item.name));
+        } else if (item.name.endsWith('.html')) {
+          fileCount++;
+        }
+      }
+    };
+    countHtml(prerenderedDir);
+    console.log(`✅ Prerender middleware: ${fileCount} prerendered pages available`);
   }
   
   return function prerenderMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -142,20 +135,15 @@ export function createPrerenderMiddleware(prerenderedDir: string) {
     }
     
     const pathname = req.path;
-    const userAgent = req.get('user-agent') || '';
-    
-    // Debug: Log all requests to see if middleware is being reached
-    const isCrawlerRequest = isCrawler(userAgent);
-    console.log(`[Prerender] Path: ${pathname}, IsCrawler: ${isCrawlerRequest}, UA: ${userAgent.slice(0, 50)}`);
+    const acceptHeader = req.get('accept') || '';
     
     // Skip excluded paths
     if (isExcludedPath(pathname)) {
-      console.log(`[Prerender] Skipping excluded path: ${pathname}`);
       return next();
     }
     
-    // Check if request is from a crawler
-    if (!isCrawlerRequest) {
+    // Check if request accepts HTML
+    if (!acceptsHtml(acceptHeader)) {
       return next();
     }
     
@@ -164,22 +152,33 @@ export function createPrerenderMiddleware(prerenderedDir: string) {
       return next();
     }
     
-    // Look for prerendered file
-    const fileName = pathToFileName(pathname);
-    const filePath = path.join(prerenderedDir, fileName);
+    // Try new format first (/foo/index.html), then legacy (foo.html)
+    let filePath = pathToFilePath(prerenderedDir, pathname);
     
     if (!fs.existsSync(filePath)) {
-      // No prerendered file for this path, fall through to SPA
-      console.log(`🔍 Crawler request (no prerender): ${pathname} [${userAgent.slice(0, 50)}...]`);
+      // Try legacy format for backward compatibility
+      filePath = pathToLegacyFilePath(prerenderedDir, pathname);
+    }
+    
+    if (!fs.existsSync(filePath)) {
+      // No prerendered file, fall through to SPA
       return next();
     }
     
     // Serve prerendered HTML
-    console.log(`🤖 Serving prerendered: ${pathname} → ${fileName}`);
+    console.log(`📄 Serving prerendered: ${pathname}`);
     
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('X-Prerendered', 'true');
-    res.setHeader('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+    
+    // Cache headers - static pages can be cached longer
+    if (pathname.startsWith('/blog/')) {
+      res.setHeader('Cache-Control', 'public, max-age=3600'); // 1 hour for blog
+    } else {
+      res.setHeader('Cache-Control', 'public, max-age=7200'); // 2 hours for static
+    }
+    
+    res.setHeader('Vary', 'Accept-Encoding, Accept');
     
     const html = fs.readFileSync(filePath, 'utf-8');
     res.send(html);
@@ -191,15 +190,24 @@ export function createPrerenderMiddleware(prerenderedDir: string) {
  */
 export function prerenderStatusHandler(prerenderedDir: string) {
   return function(req: Request, res: Response) {
-    const userAgent = req.get('user-agent') || '';
-    const isCrawlerRequest = isCrawler(userAgent);
+    const acceptHeader = req.get('accept') || '';
     
     let fileCount = 0;
-    let files: string[] = [];
+    const files: string[] = [];
     
     if (fs.existsSync(prerenderedDir)) {
-      files = fs.readdirSync(prerenderedDir).filter(f => f.endsWith('.html'));
-      fileCount = files.length;
+      const collectFiles = (dir: string, prefix: string = '') => {
+        const items = fs.readdirSync(dir, { withFileTypes: true });
+        for (const item of items) {
+          if (item.isDirectory()) {
+            collectFiles(path.join(dir, item.name), `${prefix}${item.name}/`);
+          } else if (item.name.endsWith('.html')) {
+            files.push(`${prefix}${item.name}`);
+            fileCount++;
+          }
+        }
+      };
+      collectFiles(prerenderedDir);
     }
     
     res.json({
@@ -207,10 +215,9 @@ export function prerenderStatusHandler(prerenderedDir: string) {
       prerenderEnabled: fileCount > 0,
       prerenderedPages: fileCount,
       prerenderedDir,
-      requestUserAgent: userAgent,
-      isCrawlerDetected: isCrawlerRequest,
-      detectedBots: BOT_USER_AGENTS.filter(bot => userAgent.toLowerCase().includes(bot)),
-      sampleFiles: files.slice(0, 10),
+      acceptHeader,
+      acceptsHtml: acceptsHtml(acceptHeader),
+      sampleFiles: files.slice(0, 20),
     });
   };
 }

@@ -4,8 +4,8 @@
  * This script uses a headless browser to render each page with full JavaScript execution,
  * then captures the HTML for serving to search engine crawlers.
  * 
- * Unlike React SSR, this approach works with client-side hooks (useLayoutEffect, etc.)
- * because it actually runs the app in a real browser environment.
+ * Now reads routes from routes/allRoutes.json manifest instead of hardcoded list.
+ * Outputs files in /foo/index.html format for cleaner URL handling.
  * 
  * Usage: npx tsx scripts/prerender-puppeteer.ts
  */
@@ -18,157 +18,67 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 
-// All marketing routes to prerender (extracted from entry-server.tsx + sitemap)
-const PRERENDER_ROUTES = [
-  // Core pages
-  "/",
-  "/services",
-  "/insurance",
-  "/therapy",
-  "/team",
-  "/new-patients",
-  "/virtual-therapy",
-  "/request-appointment",
-  "/blog",
-  "/pricing",
-  "/affordable-care",
-  
-  // Psychiatry pages
-  "/psychiatrist",
-  "/psychiatrist-orlando",
-  "/psychiatry-orlando",
-  "/psychiatry-clinic-orlando",
-  "/psychiatrist-near-me",
-  "/psychiatry-near-me",
-  "/psychiatric-services",
-  "/psychiatric-evaluation",
-  "/psychiatric-evaluation-orlando",
-  "/same-day-psychiatrist-orlando",
-  "/urgent-psychiatric-care-orlando",
-  "/child-psychiatrist-orlando",
-  "/medication-management-orlando",
-  "/telepsychiatry-orlando",
-  "/best-psychiatrist-orlando",
-  "/online-psychiatrist-orlando",
-  "/online-psychiatrist-florida",
-  "/mental-health-doctor-orlando",
-  "/psychiatrist-accepting-new-patients-orlando",
-  "/psychiatrist-near-ucf",
-  
-  // Condition-specific psychiatry
-  "/adhd-psychiatrist-orlando",
-  "/anxiety-psychiatrist-orlando",
-  "/bipolar-psychiatrist-orlando",
-  "/depression-psychiatrist-orlando",
-  "/ptsd-psychiatrist-orlando",
-  "/ocd-psychiatrist-orlando",
-  "/schizophrenia-psychiatrist-orlando",
-  "/insomnia-psychiatrist-orlando",
-  "/trauma-psychiatrist-orlando",
-  "/psychiatrist-for-anxiety-near-me",
-  "/psychiatrist-for-depression-near-me",
-  
-  // Insurance-specific pages
-  "/psychiatrist-orlando-accepts-umr",
-  "/psychiatrist-orlando-accepts-bcbs",
-  "/psychiatrist-orlando-accepts-cigna",
-  "/psychiatrist-orlando-accepts-aetna",
-  "/psychiatrist-orlando-accepts-united-healthcare",
-  "/therapist-accepts-umr",
-  "/therapist-accepts-oscar-health",
-  "/sunshine-health-therapy",
-  "/medicare-therapy-orlando",
-  "/medicare-psychiatrist-orlando",
-  
-  // Therapy pages
-  "/therapist-orlando",
-  "/psychotherapist-orlando",
-  "/psychologist-orlando",
-  "/mental-health-services-orlando",
-  "/mental-health-clinic-orlando",
-  "/therapist-maitland",
-  "/therapy-oviedo",
-  "/counseling-orlando",
-  "/female-therapist-orlando",
-  "/black-psychiatrist-orlando",
-  
-  // Treatment pages
-  "/depression-counseling",
-  "/depression-treatment",
-  "/anxiety-therapy",
-  "/anxiety-treatment",
-  "/stress-management",
-  "/cognitive-behavioral-therapy",
-  "/couples-counseling",
-  "/emdr-therapy",
-  "/tms-treatment",
-  "/trauma-specialist-near-me",
-  "/crisis-therapy",
-  "/adhd-testing-orlando",
-  
-  // Near-me pages
-  "/counselor-near-me",
-  "/mental-health-near-me",
-  "/therapy-near-me",
-  
-  // Conditions
-  "/adhd-treatment",
-  "/bipolar-disorder-treatment",
-  "/ocd-treatment",
-  "/ptsd-treatment",
-  "/eating-disorder-treatment",
-  "/lgbtq-therapy",
-  "/intimacy-therapy",
-  "/in-person-therapy",
-  "/therapy-services-orlando",
-  
-  // Location pages
-  "/locations/psychiatrist-orlando",
-  "/locations/psychiatrist-winter-park",
-  "/locations/psychiatrist-lake-mary",
-  "/locations/psychiatrist-altamonte-springs",
-  "/locations/psychiatrist-sanford",
-  "/locations/psychiatrist-kissimmee",
-  "/locations/psychiatrist-apopka",
-  "/locations/psychiatrist-maitland",
-  "/locations/psychiatrist-casselberry",
-  "/winter-park",
-  "/lake-mary",
-  "/altamonte-springs",
-  "/sanford",
-  "/kissimmee",
-  "/apopka",
-  "/maitland",
-  "/casselberry",
-  "/oviedo",
-];
-
 // Configuration
 const BASE_URL = process.env.PRERENDER_URL || 'http://localhost:5000';
 const OUTPUT_DIR = path.resolve(rootDir, 'dist/prerendered');
+const MANIFEST_PATH = path.resolve(rootDir, 'routes/allRoutes.json');
 const CONCURRENCY = 3; // Number of parallel browser pages
 const TIMEOUT = 30000; // 30 seconds per page
+
+interface RouteManifest {
+  totalRoutes: number;
+  staticRoutes: number;
+  blogRoutes: number;
+  generatedAt: string;
+  routes: string[];
+}
 
 interface PrerenderResult {
   route: string;
   success: boolean;
   error?: string;
   htmlSize?: number;
+  filePath?: string;
+}
+
+function loadRouteManifest(): string[] {
+  if (!fs.existsSync(MANIFEST_PATH)) {
+    console.error('❌ Route manifest not found:', MANIFEST_PATH);
+    console.error('   Run: npx tsx scripts/getStaticRoutes.ts && npx tsx scripts/getBlogRoutes.ts && npx tsx scripts/buildRouteManifest.ts');
+    process.exit(1);
+  }
+  
+  const manifest: RouteManifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
+  console.log(`📋 Loaded manifest: ${manifest.totalRoutes} routes (${manifest.staticRoutes} static, ${manifest.blogRoutes} blog)`);
+  return manifest.routes;
+}
+
+/**
+ * Convert route to file path in /foo/index.html format
+ * "/" -> prerendered/index.html
+ * "/foo" -> prerendered/foo/index.html
+ * "/foo/bar" -> prerendered/foo/bar/index.html
+ */
+function routeToFilePath(route: string): string {
+  if (route === '/' || route === '') {
+    return path.join(OUTPUT_DIR, 'index.html');
+  }
+  
+  // Remove leading slash, create directory structure
+  const cleanPath = route.replace(/^\//, '');
+  return path.join(OUTPUT_DIR, cleanPath, 'index.html');
 }
 
 async function waitForPageReady(page: Page): Promise<void> {
   // Wait for React to mount - look for actual page content, not just fallback
-  // The page should have navigation elements and main content
   await page.waitForFunction(() => {
     const root = document.getElementById('root');
     if (!root) return false;
     
-    // Check for actual React content - look for common elements
-    // that indicate the app has fully rendered
+    // Check for actual React content
     const hasNav = root.querySelector('nav') || root.querySelector('header');
     const hasMain = root.querySelector('main') || root.querySelector('[role="main"]');
     const hasLinks = root.querySelectorAll('a[href]').length > 5;
-    const hasButtons = root.querySelectorAll('button').length > 0;
     
     // Content should be substantial (more than just fallback)
     const textContent = root.textContent || '';
@@ -181,49 +91,59 @@ async function waitForPageReady(page: Page): Promise<void> {
   await page.waitForNetworkIdle({ idleTime: 1000, timeout: TIMEOUT });
   
   // Wait for SEOHead useEffect to set canonical and meta tags
-  // This ensures canonical points to the current page, not homepage
   await page.waitForFunction(() => {
     const canonical = document.querySelector('link[rel="canonical"]');
     const path = window.location.pathname;
     
-    // For noindex pages (admin, privacy, etc), canonical may be removed - that's OK
-    // For regular pages, canonical should exist and NOT point to homepage (unless we're on homepage)
-    if (path === '/') {
-      return true; // Homepage canonical is correct
-    }
+    if (path === '/') return true;
     
-    // Either no canonical (noindex page) or canonical matches current path
     if (!canonical) {
-      // Check if this is a noindex page (has noindex in robots meta)
       const robotsMeta = document.querySelector('meta[name="robots"]');
       const isNoindex = robotsMeta && robotsMeta.getAttribute('content')?.includes('noindex');
-      return isNoindex; // OK if noindex page has no canonical
+      return isNoindex;
     }
     
     const canonicalHref = canonical.getAttribute('href') || '';
-    // Canonical should contain current path (not just homepage)
     return canonicalHref.includes(path);
   }, { timeout: 5000 }).catch(() => {
-    // If timeout, just continue - may be a special page
     console.log('    ⚠️ Canonical check timed out, continuing...');
   });
   
-  // Additional wait for any animations/transitions and lazy loading
+  // Additional wait for animations/transitions
   await new Promise(resolve => setTimeout(resolve, 1500));
+}
+
+function cleanHtml(html: string): string {
+  return html
+    // Remove Vite HMR client script
+    .replace(/<script type="module" src="\/@vite\/client"><\/script>/g, '')
+    // Remove React refresh script
+    .replace(/<script type="module">import \{ injectIntoGlobalHook \}[\s\S]*?<\/script>/g, '')
+    // Remove Vite runtime error plugin script
+    .replace(/<script type="module">\s*import \{ createHotContext \}[\s\S]*?<\/script>/g, '')
+    // Remove any remaining /@vite/ or /@react-refresh references
+    .replace(/<script[^>]*src="\/(@vite|@react-refresh)[^"]*"[^>]*><\/script>/g, '')
+    // Remove Cloudflare challenge iframe
+    .replace(/<script>\(function\(\)\{function c\(\)[\s\S]*?<\/script>/g, '')
+    // Remove inline script for tracking params
+    .replace(/<script>\s*\(function\(\)\s*\{\s*const qs[\s\S]*?<\/script>/g, '')
+    // Remove replit dev metadata attributes
+    .replace(/ data-replit-metadata="[^"]*"/g, '')
+    .replace(/ data-component-name="[^"]*"/g, '')
+    // Add marker comment for debugging
+    .replace('</head>', '<!-- Prerendered by Puppeteer -->\n</head>');
 }
 
 async function prerenderPage(browser: Browser, route: string): Promise<PrerenderResult> {
   const page = await browser.newPage();
   
   try {
-    // Set a desktop viewport for consistent rendering
     await page.setViewport({ width: 1280, height: 800 });
     
-    // Block unnecessary resources for faster rendering (but keep essentials)
+    // Block analytics/tracking for faster rendering
     await page.setRequestInterception(true);
     page.on('request', (request) => {
       const url = request.url();
-      // Block only analytics and tracking - keep images/fonts for proper rendering
       if (url.includes('googletagmanager') || 
           url.includes('google-analytics') ||
           url.includes('facebook.net') || 
@@ -247,41 +167,17 @@ async function prerenderPage(browser: Browser, route: string): Promise<Prerender
     
     await waitForPageReady(page);
     
-    // Get the full HTML
+    // Get and clean the HTML
     let html = await page.content();
+    html = cleanHtml(html);
     
-    // Clean up the HTML for SEO:
-    // 1. Remove Vite dev scripts that won't work in production
-    // 2. Keep structured data (JSON-LD)
-    // 3. Remove Cloudflare challenge scripts
-    html = html
-      // Remove Vite HMR client script
-      .replace(/<script type="module" src="\/@vite\/client"><\/script>/g, '')
-      // Remove React refresh script
-      .replace(/<script type="module">import \{ injectIntoGlobalHook \}[\s\S]*?<\/script>/g, '')
-      // Remove Vite runtime error plugin script
-      .replace(/<script type="module">\s*import \{ createHotContext \}[\s\S]*?<\/script>/g, '')
-      // Remove any remaining /@vite/ or /@react-refresh references
-      .replace(/<script[^>]*src="\/(@vite|@react-refresh)[^"]*"[^>]*><\/script>/g, '')
-      // Remove Cloudflare challenge iframe
-      .replace(/<script>\(function\(\)\{function c\(\)[\s\S]*?<\/script>/g, '')
-      // Remove inline script for tracking params (not needed in static HTML)
-      .replace(/<script>\s*\(function\(\)\s*\{\s*const qs[\s\S]*?<\/script>/g, '')
-      // Remove replit dev metadata attributes (not needed in production)
-      .replace(/ data-replit-metadata="[^"]*"/g, '')
-      .replace(/ data-component-name="[^"]*"/g, '')
-      // Add marker comment for debugging
-      .replace('</head>', '<!-- Prerendered by Puppeteer -->\n</head>');
-    
-    // Determine output file path
-    const fileName = route === '/' 
-      ? 'index.html' 
-      : `${route.replace(/^\//, '').replace(/\//g, '-')}.html`;
-    const filePath = path.resolve(OUTPUT_DIR, fileName);
+    // Determine output file path using new format
+    const filePath = routeToFilePath(route);
     
     // Ensure output directory exists
-    if (!fs.existsSync(OUTPUT_DIR)) {
-      fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
     }
     
     // Write the pre-rendered HTML
@@ -290,7 +186,8 @@ async function prerenderPage(browser: Browser, route: string): Promise<Prerender
     return {
       route,
       success: true,
-      htmlSize: html.length
+      htmlSize: html.length,
+      filePath: filePath.replace(OUTPUT_DIR, '')
     };
     
   } catch (error: any) {
@@ -314,7 +211,6 @@ async function prerenderBatch(browser: Browser, routes: string[]): Promise<Prere
     );
     results.push(...batchResults);
     
-    // Progress update
     const progress = Math.min(i + CONCURRENCY, routes.length);
     console.log(`  Progress: ${progress}/${routes.length} pages`);
   }
@@ -326,7 +222,9 @@ async function main() {
   console.log('\n🚀 Puppeteer Prerender Starting...\n');
   console.log(`📍 Base URL: ${BASE_URL}`);
   console.log(`📁 Output: ${OUTPUT_DIR}`);
-  console.log(`📄 Routes: ${PRERENDER_ROUTES.length} pages\n`);
+  
+  const routes = loadRouteManifest();
+  console.log(`📄 Routes to prerender: ${routes.length}\n`);
   
   // Check if server is running
   try {
@@ -355,10 +253,9 @@ async function main() {
   
   try {
     const startTime = Date.now();
-    const results = await prerenderBatch(browser, PRERENDER_ROUTES);
+    const results = await prerenderBatch(browser, routes);
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     
-    // Summary
     const successful = results.filter(r => r.success);
     const failed = results.filter(r => !r.success);
     
@@ -376,13 +273,14 @@ async function main() {
     const manifest = {
       generatedAt: new Date().toISOString(),
       baseUrl: BASE_URL,
-      totalRoutes: PRERENDER_ROUTES.length,
+      totalRoutes: routes.length,
       successCount: successful.length,
       failedCount: failed.length,
       routes: results.map(r => ({
         path: r.route,
         success: r.success,
         size: r.htmlSize,
+        filePath: r.filePath,
         error: r.error
       }))
     };
@@ -390,6 +288,12 @@ async function main() {
     const manifestPath = path.resolve(OUTPUT_DIR, 'manifest.json');
     fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
     console.log(`\n   📋 Manifest: ${manifestPath}\n`);
+    
+    // Fail build if any route failed
+    if (failed.length > 0) {
+      console.error(`\n❌ Build failed: ${failed.length} routes could not be prerendered`);
+      process.exit(1);
+    }
     
   } finally {
     await browser.close();
