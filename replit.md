@@ -70,22 +70,28 @@ The system uses an in-memory storage solution for simplified deployment, with da
   - `/locations/psychiatrist-orlando` → `/psychiatrist-orlando`
   - `/about` → `/team`
 
-### December 14, 2025 - Puppeteer-Based Prerendering (Active)
-- **Goal**: Make marketing pages crawlable by serving pre-rendered HTML to search engines
-- **Solution**: Puppeteer-based prerendering (browser automation) instead of React SSR
+### December 17, 2025 - Universal HTML-Only Crawlability (Active)
+- **Goal**: Make site fully crawlable in "HTML-only" mode for SEO tools like Screaming Frog
+- **Key Change**: Uses Accept header instead of User-Agent detection - serves prerendered HTML to ALL text/html requests
+- **Route Manifest System**:
+  - `scripts/getStaticRoutes.ts` - Extracts static routes from App.tsx
+  - `scripts/getBlogRoutes.ts` - Extracts blog slugs from cache
+  - `scripts/buildRouteManifest.ts` - Combines into `routes/allRoutes.json` (278 routes)
 - **Infrastructure**:
-  - `scripts/prerender-puppeteer.ts` - Puppeteer script that visits pages and captures rendered HTML
-  - `server/prerender-middleware.ts` - Express middleware to serve pre-rendered HTML to crawlers
-  - `dist/prerendered/` - 89 pre-rendered HTML files
+  - `scripts/prerender-puppeteer.ts` - Puppeteer script using route manifest, outputs /foo/index.html format
+  - `server/prerender-middleware.ts` - Express middleware serving HTML for Accept: text/html requests
+  - `dist/prerendered/` - Pre-rendered HTML files
 - **How It Works**:
-  1. Puppeteer script visits each page, waits for render, captures full HTML
-  2. Middleware detects search engine bots via User-Agent (Googlebot, Bingbot, etc.)
-  3. Bots receive pre-rendered HTML; regular users get normal SPA
-- **Bot Detection**: Comprehensive UA pattern matching for search engines, SEO tools, and social crawlers
-- **Build Command**: `npx tsx scripts/prerender-puppeteer.ts`
-- **Key Fix**: Middleware registered synchronously outside async IIFE in `server/index.ts` to ensure it runs before Vite dev middleware
-- **Verification**: `curl -s -A "Googlebot/2.1" http://localhost:5000/ | grep "X-Prerendered"` shows header
-- **Previous SSR Attempt**: React SSR failed due to client-side hooks (useSyncExternalStore, useLayoutEffect)
+  1. Route manifest pipeline: staticRoutes.json + blogRoutes.json → allRoutes.json
+  2. Puppeteer script visits all routes, captures full HTML with internal links
+  3. Middleware serves prerendered HTML to ANY request with Accept: text/html (not just bots)
+- **Verification**:
+  - `curl -s http://localhost:5000/ | grep "Prerendered by Puppeteer"` - Shows marker
+  - 100+ internal links visible in View Page Source
+  - 310 URLs in sitemap.xml
+- **Build Commands**:
+  - `npx tsx scripts/buildRouteManifest.ts` - Regenerate route manifest
+  - `npx tsx scripts/prerender-puppeteer.ts` - Regenerate prerendered HTML
 
 ### December 6, 2025 - Historical SERP Ranking Tracking
 - **Database Table**: Added `keyword_ranking_history` table for persistent storage of ranking snapshots
