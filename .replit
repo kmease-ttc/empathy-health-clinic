@@ -8,12 +8,12 @@ packages = ["glibcLocales", "libwebp", "python311Packages.openpyxl", "unzip", "g
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["npm", "run", "build"]
+build  ["bash", "scripts/build-production.sh"] ["npm, "run", "build"]
 run = ["npm", "run", "start"]
 
 [[ports]]
 localPort = 5000
-externalPort = 80
+externalPort = 80["bash", "scripts/build-production.sh"]
 
 [env]
 PORT = "5000"
