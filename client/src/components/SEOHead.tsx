@@ -43,8 +43,16 @@ function toTitleCase(str: string): string {
  * - Trims to 60 characters max with ellipsis (accounting for HTML encoding)
  */
 function formatTitle(title: string): string {
-  // Extract main title (before any brand suffix)
-  const mainTitle = title.replace(/\s*[\|\-]\s*Empathy.*$/i, '').trim();
+  // Extract main title (before any brand suffix, or if title starts with brand name)
+  let mainTitle = title.replace(/\s*[\|\-]\s*Empathy.*$/i, '').trim();
+  
+  // If title starts with "Empathy Health Clinic |" or similar, extract what comes after
+  if (mainTitle.toLowerCase().startsWith('empathy health clinic')) {
+    const afterBrand = title.replace(/^Empathy Health Clinic\s*[\|\-]?\s*/i, '').trim();
+    if (afterBrand.length > 0) {
+      mainTitle = afterBrand;
+    }
+  }
   
   // Apply title case to the main title only (not brand suffix)
   const normalizedMain = toTitleCase(mainTitle);
