@@ -23,7 +23,7 @@ const BASE_URL = process.env.PRERENDER_URL || 'http://localhost:5000';
 const OUTPUT_DIR = path.resolve(rootDir, 'dist/prerendered');
 const MANIFEST_PATH = path.resolve(rootDir, 'routes/allRoutes.json');
 const CONCURRENCY = 6; // Number of parallel browser pages
-const TIMEOUT = 20000; // 20 seconds per page
+const TIMEOUT = 30000; // 30 seconds per page (increased for complex pages)
 
 interface RouteManifest {
   totalRoutes: number;
@@ -71,24 +71,32 @@ function routeToFilePath(route: string): string {
 
 async function waitForPageReady(page: Page): Promise<void> {
   // Wait for React to mount - look for actual page content, not just fallback
-  await page.waitForFunction(() => {
-    const root = document.getElementById('root');
-    if (!root) return false;
-    
-    // Check for actual React content
-    const hasNav = root.querySelector('nav') || root.querySelector('header');
-    const hasMain = root.querySelector('main') || root.querySelector('[role="main"]');
-    const hasLinks = root.querySelectorAll('a[href]').length > 5;
-    
-    // Content should be substantial (more than just fallback)
-    const textContent = root.textContent || '';
-    const hasSubstantialContent = textContent.length > 500;
-    
-    return (hasNav || hasMain || hasLinks) && hasSubstantialContent;
-  }, { timeout: TIMEOUT });
+  try {
+    await page.waitForFunction(() => {
+      const root = document.getElementById('root');
+      if (!root) return false;
+      
+      // Check for actual React content
+      const hasNav = root.querySelector('nav') || root.querySelector('header');
+      const hasMain = root.querySelector('main') || root.querySelector('[role="main"]');
+      const hasLinks = root.querySelectorAll('a[href]').length > 5;
+      
+      // Content should be substantial (more than just fallback)
+      const textContent = root.textContent || '';
+      const hasSubstantialContent = textContent.length > 500;
+      
+      return (hasNav || hasMain || hasLinks) && hasSubstantialContent;
+    }, { timeout: TIMEOUT });
+  } catch (e) {
+    // Fall back to simpler check if React content check times out
+    console.log('    ⚠️ Full content check timed out, trying minimal wait...');
+    await new Promise(resolve => setTimeout(resolve, 5000));
+  }
   
-  // Wait for network to be mostly idle
-  await page.waitForNetworkIdle({ idleTime: 1000, timeout: TIMEOUT });
+  // Wait for network to be mostly idle (with shorter timeout)
+  await page.waitForNetworkIdle({ idleTime: 1000, timeout: 10000 }).catch(() => {
+    // Network might not be idle, continue anyway
+  });
   
   // Wait for SEOHead useEffect to set canonical and meta tags
   await page.waitForFunction(() => {
@@ -223,8 +231,28 @@ async function main() {
   console.log(`📍 Base URL: ${BASE_URL}`);
   console.log(`📁 Output: ${OUTPUT_DIR}`);
   
-  const routes = loadRouteManifest();
-  console.log(`📄 Routes to prerender: ${routes.length}\n`);
+  // Check for --skip-existing flag (default: true for faster incremental builds)
+  const skipExisting = !process.argv.includes('--force');
+  
+  let routes = loadRouteManifest();
+  const totalRoutes = routes.length;
+  
+  // Filter out already-rendered pages unless --force is used
+  if (skipExisting) {
+    const existingCount = routes.filter(route => fs.existsSync(routeToFilePath(route))).length;
+    routes = routes.filter(route => !fs.existsSync(routeToFilePath(route)));
+    if (existingCount > 0) {
+      console.log(`⏭️  Skipping ${existingCount} already-rendered pages (use --force to re-render all)`);
+    }
+  }
+  
+  console.log(`📄 Routes to prerender: ${routes.length}/${totalRoutes}\n`);
+  
+  // Exit early if all pages are already rendered
+  if (routes.length === 0) {
+    console.log('✅ All pages already prerendered! Use --force to re-render.\n');
+    process.exit(0);
+  }
   
   // Check if server is running
   try {
