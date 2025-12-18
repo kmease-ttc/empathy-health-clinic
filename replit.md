@@ -25,6 +25,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
 - **Structured Data Architecture:** Unified schema generation (`StructuredDataBuilder`) for various healthcare-related schemas (Organization, LocalBusiness, Physician, FAQ, Article, etc.), with duplicate prevention.
 - **YMYL Content Audit Implementation:** Comprehensive YMYL compliance via reusable components for authoritative sources, localized content, and contextual internal linking.
 - **Universal HTML-Only Crawlability:** Ensures the site is fully crawlable by search engines in "HTML-only" mode through a prerendering system that serves static HTML snapshots.
+- **Pre-deployment Quality Checks:** Automated validation scripts ensure all prerendered HTML files include production CSS/JS assets before deployment. Scripts: `npx tsx scripts/validate-prerender.ts` (validation) and `python3 scripts/fix-prerender-assets.py` (fix). The prerender script (`scripts/prerender-puppeteer.ts`) now requires a production build and runs validation automatically.
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, conditions, and city-specific landing pages (e.g., Orlando).

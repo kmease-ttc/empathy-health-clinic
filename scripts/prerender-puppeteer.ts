@@ -161,13 +161,18 @@ function fixSeoTags(html: string, route: string): string {
 /**
  * Get production script/CSS tags from the built index.html
  * Returns { scripts: string, styles: string } to inject into prerendered HTML
+ * 
+ * IMPORTANT: Throws an error if production build is not found or assets are missing.
+ * This ensures prerendered HTML always has production assets.
  */
 function getProductionAssets(): { scripts: string; styles: string } {
   const prodIndexPath = path.resolve(rootDir, 'dist/public/index.html');
   
   if (!fs.existsSync(prodIndexPath)) {
-    console.warn('⚠️ Production build not found, using development script references');
-    return { scripts: '', styles: '' };
+    throw new Error(
+      'Production build not found. Run "npm run build" before prerendering.\n' +
+      'This ensures prerendered HTML includes production CSS and JS assets.'
+    );
   }
   
   const prodHtml = fs.readFileSync(prodIndexPath, 'utf-8');
@@ -179,6 +184,16 @@ function getProductionAssets(): { scripts: string; styles: string } {
   // Extract production CSS link(s) - looking for /assets/*.css
   const styleMatches = prodHtml.match(/<link[^>]*href="\/assets\/[^"]*\.css"[^>]*>/g);
   const styles = styleMatches ? styleMatches.join('\n    ') : '';
+  
+  // Fail fast if assets are missing
+  if (!scripts || !styles) {
+    throw new Error(
+      'Production assets not found in dist/public/index.html.\n' +
+      `Scripts: ${scripts ? 'found' : 'MISSING'}\n` +
+      `Styles: ${styles ? 'found' : 'MISSING'}\n` +
+      'Rebuild with "npm run build" and try again.'
+    );
+  }
   
   return { scripts, styles };
 }
@@ -437,13 +452,15 @@ async function main() {
 
 /**
  * Validate that all prerendered files have production CSS and JS assets
+ * 
+ * This function throws if production build is not found - validation should
+ * never be skipped as it's the last line of defense before deployment.
  */
 function validatePrerenderedFiles(): { success: boolean; missingCSS: string[]; missingJS: string[] } {
   const prodIndexPath = path.resolve(rootDir, 'dist/public/index.html');
   
   if (!fs.existsSync(prodIndexPath)) {
-    console.warn('⚠️ Production build not found, skipping validation');
-    return { success: true, missingCSS: [], missingJS: [] };
+    throw new Error('Production build not found during validation. This should never happen.');
   }
   
   const prodHtml = fs.readFileSync(prodIndexPath, 'utf-8');
@@ -452,8 +469,7 @@ function validatePrerenderedFiles(): { success: boolean; missingCSS: string[]; m
   const jsMatch = prodHtml.match(/src="(\/assets\/index[^"]*\.js)"/);
   
   if (!cssMatch || !jsMatch) {
-    console.warn('⚠️ Could not extract production assets, skipping validation');
-    return { success: true, missingCSS: [], missingJS: [] };
+    throw new Error('Production assets not found during validation. This should never happen.');
   }
   
   const cssHref = cssMatch[1];
