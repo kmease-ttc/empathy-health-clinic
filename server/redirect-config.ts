@@ -487,6 +487,17 @@ export const contentRedirectMap: Record<string, string> = {
   '/blog/open-relationship-guide': '/blog',
   '/blog/prodromal-stage-mental-health': '/blog',
   '/blog/how-to-improve-concentration-and-focus-expert-tips': '/blog',
+  
+  // WordPress attachment ID URLs - December 2025
+  '/?attachment_id=9425': '/',
+  '/?attachment_id=9374': '/',
+  
+  // Root-level blog slugs that need redirects
+  '/dental-anxiety-treatment-for-stress-free-visits-in-maitland-fl': '/blog/dental-anxiety-treatment-for-stress-free-visits-in-maitland-fl',
+  '/cpr-first-aid-certification-that-covers-medical-and-non-medical-scenarios': '/blog/cpr-first-aid-certification-that-covers-medical-and-non-medical-scenarios',
+  '/couples-therapy': '/couples-counseling',
+  '/blog/how-does-phsychotherapy-work': '/blog',
+  '/blog/nervous-breakdown': '/blog/what-is-mental-breakdown',
 };
 
 /**
