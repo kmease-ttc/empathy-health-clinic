@@ -498,6 +498,27 @@ export const contentRedirectMap: Record<string, string> = {
   '/couples-therapy': '/couples-counseling',
   '/blog/how-does-phsychotherapy-work': '/blog',
   '/blog/nervous-breakdown': '/blog/what-is-mental-breakdown',
+  
+  // Google Search Console - Not Found 404 Errors - December 2025
+  '/@vite/client': '/',  // Development artifact
+  '/trauma-therapy': '/anxiety-therapy',
+  '/faq': '/services',
+  '/locations/therapy-services-lake-mary': '/therapist-orlando',
+  '/anxiety-assessment': '/anxiety-therapy',
+  '/adhd-assessment-page': '/adhd-treatment',
+  '/supplements': '/services',
+  '/treatments/psychiatry-maitland': '/psychiatrist-orlando',
+  '/understanding-4-types-of-bpd': '/blog/understanding-the-4-types-of-bpd',
+  '/locations/psychiatry-fairview-shores': '/psychiatrist-orlando',
+  '/treatments/depression-treatment': '/depression-treatment',
+  '/locations/psychiatry-casselberry': '/psychiatrist-orlando',
+  '/locations/psychiatry-altamonte-springs': '/psychiatrist-orlando',
+  '/locations/psychiatry-richmond-heights': '/psychiatrist-orlando',
+  '/locations/psychiatry-pine-hills': '/psychiatrist-orlando',
+  '/locations/psychiatry-lake-mary': '/psychiatrist-orlando',
+  '/treatments/bipolar-disorder-treatment': '/bipolar-disorder-treatment',
+  '/blog/ltr-relationship-meaning-guide': '/blog',
+  '/blog/finding-comfort-self-care-tips-for-those-who-are-grieving': '/blog',
 };
 
 /**
