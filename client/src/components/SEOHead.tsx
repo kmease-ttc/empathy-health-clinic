@@ -149,6 +149,9 @@ const CANONICAL_CONSOLIDATION_PATHS: Record<string, string> = {
  * HIGH-VOLUME SEO PAGES (must rank independently):
  */
 const SELF_CANONICAL_EXACT_PATHS = [
+  // Core site pages (must be self-canonical)
+  '/', '/about', '/services', '/new-patients', '/request-appointment',
+  '/therapy', '/what-we-treat', '/blog',
   // High-volume SEO target pages (unique search intent)
   '/psychiatrist-near-me', '/psychiatrist-orlando', '/psychiatry-near-me',
   '/adhd-psychiatrist-orlando', '/anxiety-psychiatrist-orlando', '/depression-psychiatrist-orlando',
@@ -156,6 +159,7 @@ const SELF_CANONICAL_EXACT_PATHS = [
   '/psychiatric-evaluation-orlando', '/mental-health-clinic-orlando', '/medication-management-orlando',
   '/psychiatrist-for-anxiety-near-me', '/psychiatrist-for-depression-near-me',
   '/same-day-psychiatrist-orlando', // Urgent care intent - must rank independently
+  '/ptsd-psychiatrist-orlando', '/urgent-psychiatric-care-orlando', // Unique intent pages
   // Location pages
   '/winter-park', '/lake-mary', '/altamonte-springs', '/sanford', 
   '/kissimmee', '/apopka', '/maitland', '/casselberry', '/oviedo',

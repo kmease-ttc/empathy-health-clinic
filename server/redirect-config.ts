@@ -92,8 +92,8 @@ export const contentRedirectMap: Record<string, string> = {
   '/book-appointment': '/request-appointment',
   
   // SEMrush orphaned pages (November 2025) - About/Info pages
-  '/about-us': '/',
-  '/about': '/',
+  '/about-us': '/about',
+  // NOTE: /about is a core page - do NOT redirect
   '/affordable-care': '/insurance',
   '/affordable-emotional-support-letter-online': '/services',
   

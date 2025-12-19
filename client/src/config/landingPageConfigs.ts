@@ -2147,7 +2147,7 @@ export const bipolarPsychiatristOrlandoConfig: LandingPageConfig = {
     title: "Bipolar Psychiatrist Orlando | Mood Disorder Experts",
     description: "Top bipolar psychiatrist in Orlando, FL. Expert mood stabilization for Bipolar I, II. Lithium, Lamictal, Seroquel. Same-week appointments. Call (386) 848-8751.",
     keywords: ["bipolar psychiatrist orlando", "bipolar psychiatrist orlando fl", "bipolar disorder treatment orlando", "bipolar doctor orlando", "mood disorder specialist orlando", "bipolar medication management orlando", "manic depression treatment orlando", "bipolar 2 psychiatrist orlando", "best bipolar psychiatrist orlando"],
-    canonicalPath: "/psychiatrist-orlando",
+    canonicalPath: "/bipolar-psychiatrist-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
@@ -2826,7 +2826,7 @@ export const ptsdPsychiatristOrlandoConfig: LandingPageConfig = {
     title: "PTSD Psychiatrist Orlando FL | Trauma Specialist",
     description: "PTSD psychiatrist Orlando - Board-certified trauma specialists. Expert treatment for PTSD, acute stress, complex trauma. Same-week appointments. Call 386-848-8751.",
     keywords: ["ptsd psychiatrist orlando", "ptsd psychiatrist orlando fl", "trauma psychiatrist orlando", "ptsd doctor orlando", "ptsd treatment orlando", "trauma specialist orlando", "complex ptsd treatment orlando", "ptsd medication management orlando", "best ptsd psychiatrist orlando"],
-    canonicalPath: "/psychiatrist-orlando",
+    canonicalPath: "/ptsd-psychiatrist-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
@@ -2983,7 +2983,7 @@ export const urgentPsychiatricCareOrlandoConfig: LandingPageConfig = {
     title: "Urgent Psychiatric Care Orlando FL | Same-Day Psychiatrist",
     description: "Urgent psychiatric care Orlando - Same-day and next-day psychiatric appointments. Crisis stabilization, medication adjustments. Call 386-848-8751 now.",
     keywords: ["urgent psychiatric care orlando", "same day psychiatrist orlando", "emergency psychiatrist orlando", "urgent psychiatrist orlando", "psychiatric urgent care orlando", "crisis psychiatrist orlando", "walk in psychiatrist orlando", "immediate psychiatric care orlando", "urgent mental health care orlando"],
-    canonicalPath: "/psychiatrist-orlando",
+    canonicalPath: "/urgent-psychiatric-care-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
@@ -3140,7 +3140,7 @@ export const psychiatristOrlandoAcceptsUmrConfig: LandingPageConfig = {
     title: "Psychiatrist Orlando Accepts UMR | In-Network Provider",
     description: "UMR psychiatrist Orlando - In-network psychiatric care for UMR insurance. Same-week appointments, medication management. Call 386-848-8751 to verify coverage.",
     keywords: ["psychiatrist orlando accepts umr", "umr psychiatrist orlando", "umr mental health orlando", "psychiatrist that accepts umr orlando", "umr psychiatrist near me", "umr covered psychiatrist orlando", "umr in network psychiatrist orlando"],
-    canonicalPath: "/psychiatrist-orlando",
+    canonicalPath: "/psychiatrist-orlando-accepts-umr",
   },
   jsonLd: {
     "@context": "https://schema.org",

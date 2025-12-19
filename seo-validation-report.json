@@ -1,15 +1,13 @@
 {
-  "timestamp": "2025-12-19T16:11:58.274Z",
+  "timestamp": "2025-12-19T16:23:52.562Z",
   "summary": {
-    "total": 178,
+    "total": 177,
     "passed": 154,
-    "failed": 24
+    "failed": 23
   },
   "issues": {
     "canonical": [
-      "/about: Canonical mismatch: https://empathyhealthclinic.com/ (expected https://empathyhealthclinic.com/about)",
       "/affordable-care: Canonical mismatch: https://empathyhealthclinic.com/insurance (expected https://empathyhealthclinic.com/affordable-care)",
-      "/bipolar-psychiatrist-orlando: Canonical mismatch: https://empathyhealthclinic.com/psychiatrist-orlando (expected https://empathyhealthclinic.com/bipolar-psychiatrist-orlando)",
       "/contact-us: Canonical mismatch: https://empathyhealthclinic.com/ (expected https://empathyhealthclinic.com/contact-us)",
       "/pricing: Canonical mismatch: https://empathyhealthclinic.com/insurance (expected https://empathyhealthclinic.com/pricing)",
       "/psychiatrist-casselberry: Missing canonical tag"
@@ -25,16 +23,15 @@
       "/psychiatrist-winter-garden: Missing H1 tag"
     ],
     "title": [
-      "Duplicate title \"psychiatry clinic in orlando fl | empathy health c...\" on: /about, /",
       "Duplicate title \"insurance accepted winter park fl | empathy health...\" on: /affordable-care, /insurance, /pricing",
       "Duplicate title \"anxiety treatment near you | orland… | empathy hea...\" on: /anxiety-therapy, /anxiety-treatment",
       "Duplicate title \"psychiatry orlando | empathy health clinic...\" on: /blog/couples-counseling-strengthens-relationships, /blog/couples-therapy-improve-relationships-in-winter-park, /blog/how-to-leave-toxic-relationship (+6 more)",
       "Duplicate title \"mental health blog | empathy health clinic...\" on: /blog/finding-comfort-self-care-tips-for-those-who-are-grieving, /blog/how-does-phsychotherapy-work, /blog/how-psychiatry-clinics-improve-revenue (+2 more)",
       "Duplicate title \"psychiatrist winter park fl | board… | empathy hea...\" on: /locations/winter-park, /psychiatrist-winter-park",
-      "Duplicate title \"psychiatrist accepting new patients… | empathy hea...\" on: /new-patients, /psychiatrist-accepting-new-patients-orlando",
-      "Duplicate title \"psychiatrist orlando accepts umr |… | empathy heal...\" on: /psychiatrist-orlando-accepts-umr, /therapist-accepts-umr"
+      "Duplicate title \"psychiatrist accepting new patients… | empathy hea...\" on: /new-patients, /psychiatrist-accepting-new-patients-orlando"
     ],
     "outlinks": [
+      "/about: Low body outlinks (2, need 3+)",
       "/affordable-care: Low body outlinks (0, need 3+)",
       "/black-psychiatrist-orlando: Low body outlinks (0, need 3+)",
       "/blog/couples-counseling-strengthens-relationships: Low body outlinks (0, need 3+)",
@@ -61,14 +58,10 @@
       "/psychiatry-orlando: Unexpected noindex directive"
     ],
     "hreflang": [
-      "/about: hreflang alternate / missing return link",
-      "/about: hreflang alternate / missing return link",
       "/affordable-care: hreflang alternate /insurance missing return link",
       "/affordable-care: hreflang alternate /insurance missing return link",
       "/anxiety-treatment: hreflang alternate /anxiety-therapy missing return link",
       "/anxiety-treatment: hreflang alternate /anxiety-therapy missing return link",
-      "/bipolar-psychiatrist-orlando: hreflang alternate /psychiatrist-orlando missing return link",
-      "/bipolar-psychiatrist-orlando: hreflang alternate /psychiatrist-orlando missing return link",
       "/blog/finding-comfort-self-care-tips-for-those-who-are-grieving: hreflang alternate /blog missing return link",
       "/blog/finding-comfort-self-care-tips-for-those-who-are-grieving: hreflang alternate /blog missing return link",
       "/blog/how-does-phsychotherapy-work: hreflang alternate /blog missing return link",
@@ -80,13 +73,7 @@
       "/locations/winter-park: hreflang alternate /psychiatrist-winter-park missing return link",
       "/locations/winter-park: hreflang alternate /psychiatrist-winter-park missing return link",
       "/pricing: hreflang alternate /insurance missing return link",
-      "/pricing: hreflang alternate /insurance missing return link",
-      "/psychiatrist-orlando-accepts-umr: hreflang alternate /psychiatrist-orlando missing return link",
-      "/psychiatrist-orlando-accepts-umr: hreflang alternate /psychiatrist-orlando missing return link",
-      "/ptsd-psychiatrist-orlando: hreflang alternate /psychiatrist-orlando missing return link",
-      "/ptsd-psychiatrist-orlando: hreflang alternate /psychiatrist-orlando missing return link",
-      "/urgent-psychiatric-care-orlando: hreflang alternate /psychiatrist-orlando missing return link",
-      "/urgent-psychiatric-care-orlando: hreflang alternate /psychiatrist-orlando missing return link"
+      "/pricing: hreflang alternate /insurance missing return link"
     ]
   }
 }
