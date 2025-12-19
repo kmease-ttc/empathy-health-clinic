@@ -1,15 +1,12 @@
 {
-  "timestamp": "2025-12-19T16:23:52.562Z",
+  "timestamp": "2025-12-19T16:33:21.782Z",
   "summary": {
-    "total": 177,
-    "passed": 154,
-    "failed": 23
+    "total": 173,
+    "passed": 159,
+    "failed": 14
   },
   "issues": {
     "canonical": [
-      "/affordable-care: Canonical mismatch: https://empathyhealthclinic.com/insurance (expected https://empathyhealthclinic.com/affordable-care)",
-      "/contact-us: Canonical mismatch: https://empathyhealthclinic.com/ (expected https://empathyhealthclinic.com/contact-us)",
-      "/pricing: Canonical mismatch: https://empathyhealthclinic.com/insurance (expected https://empathyhealthclinic.com/pricing)",
       "/psychiatrist-casselberry: Missing canonical tag"
     ],
     "h1": [
@@ -23,26 +20,18 @@
       "/psychiatrist-winter-garden: Missing H1 tag"
     ],
     "title": [
-      "Duplicate title \"insurance accepted winter park fl | empathy health...\" on: /affordable-care, /insurance, /pricing",
-      "Duplicate title \"anxiety treatment near you | orland… | empathy hea...\" on: /anxiety-therapy, /anxiety-treatment",
-      "Duplicate title \"psychiatry orlando | empathy health clinic...\" on: /blog/couples-counseling-strengthens-relationships, /blog/couples-therapy-improve-relationships-in-winter-park, /blog/how-to-leave-toxic-relationship (+6 more)",
+      "Duplicate title \"psychiatry orlando | empathy health clinic...\" on: /blog/couples-counseling-strengthens-relationships, /blog/couples-therapy-improve-relationships-in-winter-park, /blog/how-to-leave-toxic-relationship (+5 more)",
       "Duplicate title \"mental health blog | empathy health clinic...\" on: /blog/finding-comfort-self-care-tips-for-those-who-are-grieving, /blog/how-does-phsychotherapy-work, /blog/how-psychiatry-clinics-improve-revenue (+2 more)",
       "Duplicate title \"psychiatrist winter park fl | board… | empathy hea...\" on: /locations/winter-park, /psychiatrist-winter-park",
       "Duplicate title \"psychiatrist accepting new patients… | empathy hea...\" on: /new-patients, /psychiatrist-accepting-new-patients-orlando"
     ],
     "outlinks": [
       "/about: Low body outlinks (2, need 3+)",
-      "/affordable-care: Low body outlinks (0, need 3+)",
-      "/black-psychiatrist-orlando: Low body outlinks (0, need 3+)",
-      "/blog/couples-counseling-strengthens-relationships: Low body outlinks (0, need 3+)",
-      "/blog/couples-therapy-improve-relationships-in-winter-park: Low body outlinks (0, need 3+)",
+      "/blog/couples-counseling-strengthens-relationships: Low body outlinks (2, need 3+)",
+      "/blog/couples-therapy-improve-relationships-in-winter-park: Low body outlinks (2, need 3+)",
       "/blog/how-to-improve-concentration-and-focus-expert-tips: Low body outlinks (1, need 3+)",
-      "/blog/how-to-leave-toxic-relationship: Low body outlinks (0, need 3+)",
-      "/contact-us: Low body outlinks (0, need 3+)",
-      "/female-therapist-orlando: Low body outlinks (0, need 3+)",
-      "/insurance: Low body outlinks (0, need 3+)",
+      "/blog/how-to-leave-toxic-relationship: Low body outlinks (2, need 3+)",
       "/new-patients: Low body outlinks (2, need 3+)",
-      "/pricing: Low body outlinks (0, need 3+)",
       "/psychiatrist-casselberry: Low body outlinks (0, need 3+)",
       "/psychiatrist-downtown-orlando: Low body outlinks (0, need 3+)",
       "/psychiatrist-lake-nona: Low body outlinks (0, need 3+)",
@@ -50,18 +39,10 @@
       "/psychiatrist-winter-garden: Low body outlinks (0, need 3+)",
       "/psychotherapist-orlando: Low body outlinks (0, need 3+)",
       "/request-appointment: Low body outlinks (0, need 3+)",
-      "/stress-management: Low body outlinks (1, need 3+)",
-      "/therapy: Low body outlinks (0, need 3+)"
+      "/stress-management: Low body outlinks (1, need 3+)"
     ],
-    "noindex": [
-      "/psychiatry-clinic-orlando: Unexpected noindex directive",
-      "/psychiatry-orlando: Unexpected noindex directive"
-    ],
+    "noindex": [],
     "hreflang": [
-      "/affordable-care: hreflang alternate /insurance missing return link",
-      "/affordable-care: hreflang alternate /insurance missing return link",
-      "/anxiety-treatment: hreflang alternate /anxiety-therapy missing return link",
-      "/anxiety-treatment: hreflang alternate /anxiety-therapy missing return link",
       "/blog/finding-comfort-self-care-tips-for-those-who-are-grieving: hreflang alternate /blog missing return link",
       "/blog/finding-comfort-self-care-tips-for-those-who-are-grieving: hreflang alternate /blog missing return link",
       "/blog/how-does-phsychotherapy-work: hreflang alternate /blog missing return link",
@@ -71,9 +52,7 @@
       "/blog/how-to-improve-concentration-and-focus-expert-tips: hreflang alternate /blog missing return link",
       "/blog/how-to-improve-concentration-and-focus-expert-tips: hreflang alternate /blog missing return link",
       "/locations/winter-park: hreflang alternate /psychiatrist-winter-park missing return link",
-      "/locations/winter-park: hreflang alternate /psychiatrist-winter-park missing return link",
-      "/pricing: hreflang alternate /insurance missing return link",
-      "/pricing: hreflang alternate /insurance missing return link"
+      "/locations/winter-park: hreflang alternate /psychiatrist-winter-park missing return link"
     ]
   }
 }

@@ -24,6 +24,8 @@ const NOINDEX_ALLOWLIST = [
   '/privacy-policy', '/privacy', '/terms', '/medical-disclaimer',
   '/thank-you', '/appointment-confirmed', '/success', '/confirmation',
   '/404', '/not-found', '/examples', '/test', '/demo',
+  // Intentionally consolidated pages (redirect via CANONICAL_CONSOLIDATION_PATHS)
+  '/psychiatry-orlando', '/psychiatry-clinic-orlando',
 ];
 
 // Minimum internal links in body content
@@ -115,9 +117,23 @@ function validatePage(urlPath: string): PageValidation {
   const h1Count = h1Matches.length;
   
   // Count internal links in body (not header/footer)
-  // Look for links in main content area
-  const mainMatch = html.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
-  const mainContent = mainMatch?.[1] || '';
+  // Look for links in main content area, fallback to full HTML minus header/footer
+  let mainMatch = html.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
+  let mainContent = mainMatch?.[1] || '';
+  
+  // Fallback: if no <main> tag, use content between header and footer
+  if (!mainContent) {
+    // Remove header section
+    let content = html.replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '');
+    // Remove footer section
+    content = content.replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '');
+    // Remove nav section
+    content = content.replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '');
+    // Remove head section
+    content = content.replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '');
+    mainContent = content;
+  }
+  
   const bodyLinks = mainContent.match(/<a[^>]+href=["']\/[^"']*["']/gi) || [];
   const bodyLinkCount = bodyLinks.length;
   
@@ -184,18 +200,36 @@ function validatePage(urlPath: string): PageValidation {
 function validateHreflangReciprocity(validations: PageValidation[]): string[] {
   const issues: string[] = [];
   const pageAlternates = new Map<string, string[]>();
+  const pageCanonicals = new Map<string, string>();
   
-  // Build map of page -> alternates
+  // Build maps of page -> alternates and page -> canonical
   for (const v of validations) {
     if (v.hreflangAlternates.length > 0) {
       pageAlternates.set(v.path, v.hreflangAlternates);
     }
+    if (v.canonical) {
+      pageCanonicals.set(v.path, v.canonical);
+    }
   }
   
-  // Check reciprocity
+  // Check reciprocity - only for self-canonical pages
   for (const [pagePath, alternates] of pageAlternates) {
+    // Skip pages that have canonical pointing to a different URL (consolidated pages)
+    const canonical = pageCanonicals.get(pagePath);
+    if (canonical) {
+      const canonicalPath = canonical.replace(DOMAIN, '').replace(/\/$/, '') || '/';
+      if (canonicalPath !== pagePath) {
+        // This page canonicalizes elsewhere, skip hreflang reciprocity check
+        continue;
+      }
+    }
+    
     for (const alt of alternates) {
       const altPath = alt.replace(DOMAIN, '').replace(/\/$/, '') || '/';
+      
+      // Skip if hreflang points to same page (self-referencing is OK)
+      if (altPath === pagePath) continue;
+      
       const altAlternates = pageAlternates.get(altPath);
       
       if (!altAlternates) {

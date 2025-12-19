@@ -320,18 +320,16 @@ export default function LandingPageTemplate({ config }: LandingPageTemplateProps
                 />
               )}
 
-              {/* Internal Links for SEO */}
-              {config.content.internalLinksCategory && (
-                <section className="mt-8 pt-6 border-t">
-                  <InternalLinkBlock 
-                    category={config.content.internalLinksCategory} 
-                    title="Related Services"
-                    variant="cards"
-                    limit={6}
-                    excludePaths={[config.seo.canonicalPath]}
-                  />
-                </section>
-              )}
+              {/* Internal Links for SEO - Always render to ensure body outlinks */}
+              <section className="mt-8 pt-6 border-t">
+                <InternalLinkBlock 
+                  category={config.content.internalLinksCategory || "services"} 
+                  title="Related Services"
+                  variant="cards"
+                  limit={6}
+                  excludePaths={[config.seo.canonicalPath]}
+                />
+              </section>
 
             </div>
 
