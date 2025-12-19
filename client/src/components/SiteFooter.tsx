@@ -61,18 +61,18 @@ export default function SiteFooter() {
   const servicesLinks = [
     { label: "Psychiatric Evaluation", href: "/psychiatric-evaluation" },
     { label: "Medication Management", href: "/services" },
-    { label: "PTSD Treatment", href: "/ptsd-treatment" },
-    { label: "Anger Management", href: "/anger-management" },
+    { label: "PTSD Treatment", href: "/ptsd-psychiatrist-orlando" },
+    { label: "Stress Management", href: "/stress-management" },
     { label: "CBT Therapy", href: "/cognitive-behavioral-therapy" },
-    { label: "ESA Letter", href: "/esa-letter" }
+    { label: "EMDR Therapy", href: "/emdr-therapy" }
   ];
 
   const locationLinks = [
-    { label: "Winter Park", href: "/locations/therapy-services-winter-park" },
-    { label: "Altamonte Springs", href: "/locations/psychiatrist-altamonte-springs" },
-    { label: "Sanford", href: "/locations/therapy-services-sanford" },
+    { label: "Winter Park", href: "/psychiatrist-winter-park" },
+    { label: "Altamonte Springs", href: "/locations/altamonte-springs" },
+    { label: "Kissimmee", href: "/locations/kissimmee" },
     { label: "Orlando", href: "/psychiatrist-orlando" },
-    { label: "Lake Mary", href: "/locations/psychiatrist-lake-mary" },
+    { label: "Apopka", href: "/locations/apopka" },
     { label: "View All Locations", href: "/services" }
   ];
 
@@ -91,7 +91,7 @@ export default function SiteFooter() {
     { label: "Accepts BCBS", href: "/psychiatrist-orlando-accepts-bcbs" },
     { label: "Accepts Cigna", href: "/psychiatrist-orlando-accepts-cigna" },
     { label: "Accepts Aetna", href: "/psychiatrist-orlando-accepts-aetna" },
-    { label: "Accepts UMR", href: "/psychiatrist-orlando-accepts-umr" },
+    { label: "Accepts UMR", href: "/therapist-accepts-umr" },
     { label: "Accepts UHC", href: "/psychiatrist-orlando-accepts-united-healthcare" }
   ];
 

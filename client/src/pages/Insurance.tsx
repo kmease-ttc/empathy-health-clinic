@@ -180,7 +180,7 @@ export default function Insurance() {
               <li className="flex gap-3">
                 <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
                 <span className="text-foreground">
-                  Treatment for common mental health conditions like <Link href="/anxiety-disorders" className="text-primary hover:underline font-medium">anxiety</Link>, <Link href="/depression" className="text-primary hover:underline font-medium">depression</Link>, <Link href="/adhd" className="text-primary hover:underline font-medium">ADHD</Link>, and <Link href="/ptsd" className="text-primary hover:underline font-medium">PTSD</Link>
+                  Treatment for common mental health conditions like <Link href="/anxiety-psychiatrist-orlando" className="text-primary hover:underline font-medium">anxiety</Link>, <Link href="/depression-psychiatrist-orlando" className="text-primary hover:underline font-medium">depression</Link>, <Link href="/adhd-psychiatrist-orlando" className="text-primary hover:underline font-medium">ADHD</Link>, and <Link href="/ptsd-psychiatrist-orlando" className="text-primary hover:underline font-medium">PTSD</Link>
                 </span>
               </li>
               <li className="flex gap-3">

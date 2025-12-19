@@ -27,6 +27,9 @@ const NOINDEX_ALLOWLIST = [
   // Intentionally consolidated pages (redirect via CANONICAL_CONSOLIDATION_PATHS)
   '/psychiatry-orlando', '/psychiatry-clinic-orlando',
   '/locations/winter-park', // Consolidated to /psychiatrist-winter-park
+  '/pricing', // Consolidated to /insurance
+  '/affordable-care', // Consolidated to /insurance
+  '/anxiety-treatment', // Consolidated to /anxiety-therapy
 ];
 
 // Minimum internal links in body content

@@ -162,7 +162,7 @@ export default function About() {
               <Link href="/anxiety-therapy" className="text-primary hover:underline">
                 Anxiety Treatment
               </Link>
-              <Link href="/adhd-treatment" className="text-primary hover:underline">
+              <Link href="/adhd-psychiatrist-orlando" className="text-primary hover:underline">
                 ADHD Treatment
               </Link>
               <Link href="/depression-counseling" className="text-primary hover:underline">
@@ -171,7 +171,7 @@ export default function About() {
               <Link href="/therapy" className="text-primary hover:underline">
                 Therapy Services
               </Link>
-              <Link href="/ptsd-treatment" className="text-primary hover:underline">
+              <Link href="/ptsd-psychiatrist-orlando" className="text-primary hover:underline">
                 PTSD Treatment
               </Link>
               <Link href="/insurance" className="text-primary hover:underline">

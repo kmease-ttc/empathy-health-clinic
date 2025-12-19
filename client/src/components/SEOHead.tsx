@@ -165,7 +165,7 @@ const SELF_CANONICAL_EXACT_PATHS = [
   '/kissimmee', '/apopka', '/maitland', '/casselberry', '/oviedo',
   // Treatment/therapy pages
   '/depression-counseling', '/anxiety-therapy', '/adhd-testing-orlando', 
-  '/ocd-treatment', '/ptsd-treatment', '/emdr-therapy', '/tms-treatment',
+  '/ocd-psychiatrist-orlando', '/ptsd-psychiatrist-orlando', '/emdr-therapy', '/tms-treatment',
   '/trauma-specialist', '/stress-management', '/couples-counseling',
   '/virtual-therapy', '/virtual-visit', '/teletherapy',
   // Near-me pages

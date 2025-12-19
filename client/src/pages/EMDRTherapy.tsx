@@ -246,7 +246,7 @@ export default function EMDRTherapy() {
                     → Trauma Therapy
                   </Link>
                   <Link 
-                    href="/ptsd-treatment-winter-park" 
+                    href="/psychiatrist-winter-park" 
                     className="block text-primary hover:underline underline-offset-2"
                     data-testid="link-ptsd"
                   >

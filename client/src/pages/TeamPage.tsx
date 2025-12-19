@@ -55,7 +55,7 @@ export default function TeamPage() {
               <h2 className="text-3xl font-sans font-bold text-foreground mb-6 text-center">Expert, Collaborative Care</h2>
               
               <p className="text-foreground leading-relaxed mb-6">
-                Our team of board-certified psychiatrists, licensed therapists, and psychiatric nurse practitioners work together to provide comprehensive mental health care. Each provider brings specialized expertise in treating <Link href="/anxiety-disorders" className="text-primary hover:underline font-medium">anxiety</Link>, <Link href="/depression" className="text-primary hover:underline font-medium">depression</Link>, <Link href="/adhd" className="text-primary hover:underline font-medium">ADHD</Link>, <Link href="/ptsd" className="text-primary hover:underline font-medium">PTSD</Link>, and other conditions.
+                Our team of board-certified psychiatrists, licensed therapists, and psychiatric nurse practitioners work together to provide comprehensive mental health care. Each provider brings specialized expertise in treating <Link href="/anxiety-psychiatrist-orlando" className="text-primary hover:underline font-medium">anxiety</Link>, <Link href="/depression-psychiatrist-orlando" className="text-primary hover:underline font-medium">depression</Link>, <Link href="/adhd-psychiatrist-orlando" className="text-primary hover:underline font-medium">ADHD</Link>, <Link href="/ptsd-psychiatrist-orlando" className="text-primary hover:underline font-medium">PTSD</Link>, and other conditions.
               </p>
 
               <p className="text-foreground leading-relaxed mb-6">

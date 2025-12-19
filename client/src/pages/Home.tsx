@@ -473,7 +473,7 @@ export default function Home() {
               </Link>
 
               <Link 
-                href="/ptsd-treatment" 
+                href="/ptsd-psychiatrist-orlando" 
                 className="group p-6 rounded-lg border border-border bg-card hover-elevate transition-all"
                 data-testid="link-ptsd-treatment"
               >
