@@ -9,7 +9,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import HeroLeadForm from "@/components/HeroLeadForm";
 import { trackEvent } from "@/lib/analytics";
-import heroImage from "@assets/hero-sunset-florida.webp";
+const heroImage = "/attached_assets/hero-sunset-florida.webp";
 import TextUsButton from "@/components/TextUsButton";
 
 export default function Insurance() {

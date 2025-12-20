@@ -11,7 +11,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import FAQSchema from "@/components/FAQSchema";
-import forestBg from "@assets/stock_images/misty_forest_morning_c7552d0a.jpg";
+const forestBg = "/attached_assets/stock_images/misty_forest_morning_c7552d0a.jpg";
 
 function optimizeUnsplashUrl(url: string, width: number, height: number, quality: number = 60): string {
   if (!url || !url.includes('unsplash.com')) {

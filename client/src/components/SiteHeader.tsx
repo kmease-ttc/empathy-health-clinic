@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
-import logoImage from "@assets/image_1761920964846-optimized.webp";
 import { trackEvent } from "@/lib/analytics";
+
+const logoImage = "/attached_assets/image_1761920964846-optimized.webp";
 
 function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false);

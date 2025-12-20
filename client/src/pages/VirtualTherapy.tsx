@@ -13,7 +13,7 @@ import TrustFactors from "@/components/TrustFactors";
 import InsuranceSection from "@/components/InsuranceSection";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
-import heroImage from "@assets/stock_images/professional_healthc_955227e9.jpg";
+const heroImage = "/attached_assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 import TherapyFAQ from "@/components/TherapyFAQ";
 

@@ -1,7 +1,7 @@
-import healthgradesLogo from "@assets/healthgrades-logo.png";
-import zocdocLogo from "@assets/logo_lockup_positive_rgb_1761921702261.png";
-import googleLogo from "@assets/google-wordmark.webp";
-import yelpLogo from "@assets/image_1761925935867.png";
+const healthgradesLogo = "/attached_assets/healthgrades-logo.webp";
+const zocdocLogo = "/attached_assets/logo_lockup_positive_rgb_1761921702261.webp";
+const googleLogo = "/attached_assets/google-wordmark.webp";
+const yelpLogo = "/attached_assets/image_1761925935867.webp";
 
 const VERIFICATION_BADGES = [
   {

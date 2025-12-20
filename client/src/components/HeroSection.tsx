@@ -15,9 +15,8 @@ import {
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { InsuranceProvider } from "@shared/schema";
-import heroImage from "@assets/hero-sunset-florida.webp";
 
-export { heroImage };
+export const heroImage = "/attached_assets/hero-sunset-florida.webp";
 
 const serviceOptions = [
   "Psychiatry",

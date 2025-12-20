@@ -6,7 +6,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import TrustFactors from "@/components/TrustFactors";
 import HeroBackground from "@/components/HeroBackground";
-import heroImage from "@assets/stock_images/calm_peaceful_therap_c2e99a65.jpg";
+const heroImage = "/attached_assets/stock_images/calm_peaceful_therap_c2e99a65.jpg";
 import { trackEvent } from "@/lib/analytics";
 import TherapyFAQ from "@/components/TherapyFAQ";
 

@@ -5,7 +5,7 @@ import { Brain, Heart, Frown, Activity, AlertTriangle, RefreshCw, Phone, ArrowRi
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
-import forestBg from "@assets/stock_images/misty_forest_morning_dffbe3b2.jpg";
+const forestBg = "/attached_assets/stock_images/misty_forest_morning_dffbe3b2.jpg";
 import { trackEvent } from "@/lib/analytics";
 
 const conditions = [
