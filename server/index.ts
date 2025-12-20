@@ -200,7 +200,8 @@ app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
   const server = await registerRoutes(app);
 
   // Serve static files from attached_assets directory
-  const attachedAssetsPath = path.resolve(import.meta.dirname, "..", "attached_assets");
+  // Use process.cwd() to ensure correct path in both dev and production (dist/)
+  const attachedAssetsPath = path.resolve(process.cwd(), "attached_assets");
   app.use("/attached_assets", express.static(attachedAssetsPath));
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
