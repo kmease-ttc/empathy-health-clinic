@@ -81,7 +81,9 @@ app.use((req, res, next) => {
       req.path.startsWith('/@fs/') ||
       req.path.startsWith('/@id/') ||
       req.path.startsWith('/__vite') ||
-      req.path === '/@vite/client'
+      req.path.startsWith('/__dummy__') ||
+      req.path === '/@vite/client' ||
+      req.path === '/@react-refresh'
     ) {
       return res.status(404).send('Not Found');
     }
@@ -108,7 +110,7 @@ app.use(canonicalizationMiddleware);
 app.use((req, res, next) => {
   const path = req.path.toLowerCase();
   
-  // Admin, auth, and utility pages
+  // Admin, auth, utility pages, and dev artifacts
   if (
     path.startsWith('/admin') || 
     path.startsWith('/login') || 
@@ -118,6 +120,11 @@ app.use((req, res, next) => {
     path.startsWith('/examples') ||
     path.startsWith('/test') ||
     path.startsWith('/api/') ||
+    path.startsWith('/@') ||  // All @-prefixed paths (Vite dev: @react-refresh, @vite, @replit, etc.)
+    path.startsWith('/__') ||  // All __-prefixed paths (dev artifacts: __dummy__, __vite, etc.)
+    path.endsWith('/feed') ||  // RSS feeds should never be indexed
+    path.endsWith('/feed/') ||
+    path.includes('/testimonials/') ||  // WordPress testimonials
     path.match(/^\/\d{4}\/\d{2}\/\d{2}\//)  // WordPress date archives like /2025/10/06/
   ) {
     res.setHeader('X-Robots-Tag', 'noindex, nofollow');
