@@ -459,7 +459,7 @@ export default function Home() {
               </Link>
 
               <Link 
-                href="/anger-management" 
+                href="/therapy" 
                 className="group p-6 rounded-lg border border-border bg-card hover-elevate transition-all"
                 data-testid="link-anger-management"
               >
@@ -487,7 +487,7 @@ export default function Home() {
               </Link>
 
               <Link 
-                href="/esa-letter" 
+                href="/services" 
                 className="group p-6 rounded-lg border border-border bg-card hover-elevate transition-all"
                 data-testid="link-esa-letter"
               >

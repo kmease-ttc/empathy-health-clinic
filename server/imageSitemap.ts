@@ -69,7 +69,7 @@ const SERVICE_PAGE_IMAGES: ImageEntry[] = [
     ]
   },
   {
-    loc: '/anxiety-treatment',
+    loc: '/anxiety-therapy',
     images: [
       { loc: '/attached_assets/stock_images/anxiety_depression_w_182b3f55.jpg', title: 'Anxiety Treatment Orlando FL - Expert Care', geoLocation: GEO_LOCATION }
     ]
@@ -99,7 +99,7 @@ const SERVICE_PAGE_IMAGES: ImageEntry[] = [
     ]
   },
   {
-    loc: '/medication-management',
+    loc: '/services',
     images: [
       { loc: '/attached_assets/stock_images/depression_anxiety_m_4f8ec540.jpg', title: 'Medication Management Orlando FL - Psychiatric Care', geoLocation: GEO_LOCATION }
     ]
@@ -216,7 +216,7 @@ const LOCATION_IMAGES: ImageEntry[] = [
     ]
   },
   {
-    loc: '/locations/lake-mary',
+    loc: '/services',
     images: [
       { loc: '/attached_assets/stock_images/anxiety_depression_w_e1574448.jpg', title: 'Psychiatrist Lake Mary FL - Mental Health Services', geoLocation: 'Lake Mary, Florida, USA' }
     ]

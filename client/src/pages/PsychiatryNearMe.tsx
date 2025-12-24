@@ -24,7 +24,7 @@ const services = [
     icon: Heart,
     title: "Anxiety Treatment",
     description: "Evidence-based treatment for generalized anxiety, panic disorder, social anxiety, and phobias using medication and therapeutic approaches.",
-    href: "/anxiety-treatment",
+    href: "/anxiety-therapy",
     conditions: ["Generalized anxiety", "Panic attacks", "Social anxiety", "Phobias"]
   },
   {
@@ -52,7 +52,7 @@ const services = [
     icon: Stethoscope,
     title: "Medication Management",
     description: "Ongoing medication monitoring, adjustments, and optimization for existing psychiatric conditions and treatment plans.",
-    href: "/medication-management",
+    href: "/services",
     conditions: ["Med checks", "Dosage adjustments", "Side effect management", "Refills"]
   }
 ];

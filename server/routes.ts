@@ -146,10 +146,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   app.get("/treatments/medication-management", (req, res) => {
-    res.redirect(301, "/medication-management");
+    res.redirect(301, "/services");
   });
   app.get("/treatments/medication-management/", (req, res) => {
-    res.redirect(301, "/medication-management");
+    res.redirect(301, "/services");
   });
   
   app.get("/treatments/virtual-counseling", (req, res) => {
@@ -812,9 +812,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Insurance provider slug fixes - remove duplicate naming
   const insuranceSlugRedirects = {
-    'optum-optum-coverage': 'optum-coverage',
-    'cigna-cigna-coverage': 'cigna-coverage',
-    'adventhealth-adventhealth-coverage': 'adventhealth-coverage',
+    'optum-optum-coverage': 'insurance',
+    'cigna-cigna-coverage': 'psychiatrist-orlando-accepts-cigna',
+    'adventhealth-adventhealth-coverage': 'insurance',
     'umr-umr-coverage': 'umr-coverage',
     'unitedhealthcare-unitedhealthcare-coverage': 'unitedhealthcare-coverage',
     'oscar-health-oscar-health-coverage': 'oscar-health-coverage'
@@ -2832,9 +2832,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         '/emdr-therapy': '2025-09-20',
         '/tms-treatment': '2025-11-01',
         '/adhd-testing-orlando': '2025-11-15',
-        '/anxiety-treatment': '2025-10-05',
+        '/anxiety-therapy': '2025-10-05',
         '/depression-treatment': '2025-10-05',
-        '/medication-management': '2025-11-10',
         '/psychiatric-services': '2025-10-01',
         '/psychiatrist-winter-park': '2025-10-20',
         '/therapy-oviedo': '2025-09-01',
@@ -2889,9 +2888,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { path: '/emdr-therapy', changefreq: 'monthly', priority: 0.8 },
         { path: '/tms-treatment', changefreq: 'monthly', priority: 0.8 },
         { path: '/adhd-testing-orlando', changefreq: 'weekly', priority: 0.85 },
-        { path: '/anxiety-treatment', changefreq: 'weekly', priority: 0.8 },
         { path: '/depression-treatment', changefreq: 'weekly', priority: 0.8 },
-        { path: '/medication-management', changefreq: 'weekly', priority: 0.85 },
         { path: '/psychiatric-services', changefreq: 'weekly', priority: 0.8 },
         { path: '/psychiatrist-winter-park', changefreq: 'weekly', priority: 0.8 },
         { path: '/therapy-oviedo', changefreq: 'monthly', priority: 0.7 },

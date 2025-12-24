@@ -83,7 +83,7 @@ export default function ServicesPage() {
         "Same-week appointments available",
         "Compliant with Fair Housing Act"
       ],
-      link: "/esa-letter"
+      link: "/services"
     }
   ];
 

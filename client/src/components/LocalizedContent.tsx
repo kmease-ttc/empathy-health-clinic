@@ -46,7 +46,7 @@ const CITY_DATA: Record<string, CityInfo> = {
     highways: ["I-4", "SR 46A", "Lake Mary Boulevard"],
     driveTime: "20-25 minutes",
     description: "Affluent community with growing healthcare infrastructure",
-    slug: "/locations/lake-mary"
+    slug: "/services"
   },
   sanford: {
     name: "Sanford",

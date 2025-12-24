@@ -1,20 +1,14 @@
 {
-  "timestamp": "2025-12-24T19:17:15.048Z",
+  "timestamp": "2025-12-24T19:31:52.159Z",
   "summary": {
-    "total": 28,
-    "critical": 28,
+    "total": 27,
+    "critical": 27,
     "warnings": 0,
     "byType": {
-      "redirect_link": 28
+      "redirect_link": 27
     }
   },
   "issues": [
-    {
-      "type": "redirect_link",
-      "severity": "critical",
-      "page": "/locations/lake-mary",
-      "details": "Internal link redirects to: http://localhost:5000/services"
-    },
     {
       "type": "redirect_link",
       "severity": "critical",

@@ -24,25 +24,11 @@ const featuredResources = [
     category: "Anxiety"
   },
   {
-    title: "Open Relationship Guide",
-    slug: "open-relationship-guide",
-    icon: Users,
-    description: "Understanding open relationships, boundaries, and healthy communication strategies.",
-    category: "Relationships"
-  },
-  {
     title: "Petulant BPD Explained",
     slug: "petulant-bpd-symptoms-and-treatment",
     icon: Brain,
     description: "Learn about petulant borderline personality disorder symptoms and treatment options.",
     category: "Mental Health"
-  },
-  {
-    title: "ADHD Social Exhaustion",
-    slug: "understanding-social-exhaustion-adhd-brain",
-    icon: Lightbulb,
-    description: "Understanding ADHD burnout, daily repetition challenges, and coping strategies.",
-    category: "ADHD"
   },
   {
     title: "Therapy vs Counseling",
@@ -59,39 +45,11 @@ const featuredResources = [
     category: "Mental Health"
   },
   {
-    title: "Prodromal Symptoms",
-    slug: "prodromal-stage-mental-health",
-    icon: Shield,
-    description: "Early warning signs of mental health conditions and when to seek help.",
-    category: "Mental Health"
-  },
-  {
-    title: "LTR Relationship Meaning",
-    slug: "ltr-relationship-meaning-guide",
-    icon: Heart,
-    description: "What does LTR mean in relationships and how to build lasting connections.",
-    category: "Relationships"
-  },
-  {
-    title: "Reactive Attachment Disorder",
-    slug: "reactive-attachment-disorder-in-adults",
-    icon: Users,
-    description: "Understanding RAD in adults, symptoms, causes, and treatment approaches.",
-    category: "Mental Health"
-  },
-  {
     title: "Low Stress Careers",
     slug: "top-10-best-low-stress-jobs",
     icon: Lightbulb,
     description: "Discover the least stressful jobs that pay well and support mental health.",
     category: "Career & Wellness"
-  },
-  {
-    title: "Understanding Nervous Breakdown",
-    slug: "nervous-breakdown",
-    icon: Brain,
-    description: "Recognizing the signs of a nervous breakdown and finding professional support.",
-    category: "Mental Health"
   },
   {
     title: "Nocturnal Panic Attacks",
@@ -112,20 +70,6 @@ const featuredResources = [
     slug: "what-is-a-psychotherapist-vs-psychologist",
     icon: BookOpen,
     description: "Understanding the differences between psychotherapists and psychologists.",
-    category: "Mental Health"
-  },
-  {
-    title: "How to Get Over Someone",
-    slug: "how-to-get-over-someone-and-move-on-with-your-life",
-    icon: Heart,
-    description: "Practical strategies for healing after a breakup and moving forward with confidence.",
-    category: "Relationships"
-  },
-  {
-    title: "LGBTQIA2S+ Identity Guide",
-    slug: "lgbtqia2s-identity-explained",
-    icon: Users,
-    description: "Understanding LGBTQIA2S+ identities and supporting mental health in the community.",
     category: "Mental Health"
   },
   {
@@ -150,26 +94,12 @@ const featuredResources = [
     category: "Mental Health"
   },
   {
-    title: "Attention-Seeking Behavior",
-    slug: "signs-of-attention-seeking-behavior",
-    icon: Users,
-    description: "Recognizing attention-seeking behavior patterns and their underlying causes.",
-    category: "Mental Health"
-  },
-  {
     title: "Functional Depression Guide",
     slug: "what-is-functional-depression",
     icon: Brain,
     description: "Understanding high-functioning depression and when to seek professional help.",
     category: "Mental Health"
   },
-  {
-    title: "What Is Time Blindness?",
-    slug: "what-is-time-blindness",
-    icon: Lightbulb,
-    description: "Learn about time blindness in ADHD and strategies to manage it effectively.",
-    category: "ADHD"
-  }
 ];
 
 export default function FeaturedResourcesSection() {

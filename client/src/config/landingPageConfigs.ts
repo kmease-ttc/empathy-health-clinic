@@ -2677,7 +2677,7 @@ export const cognitiveBehavioralTherapyConfig: LandingPageConfig = {
       { href: "/depression-counseling", label: "Depression Treatment" },
       { href: "/therapist-orlando", label: "Therapist Orlando" },
       { href: "/therapy", label: "All Therapy Services" },
-      { href: "/ptsd-trauma", label: "PTSD & Trauma Therapy" },
+      { href: "/anxiety-therapy", label: "PTSD & Trauma Therapy" },
       { href: "/virtual-therapy", label: "Online Therapy" },
       { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
       { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
@@ -3451,7 +3451,7 @@ export const psychiatristForAnxietyNearMeConfig: LandingPageConfig = {
     quickLinks: [
       { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
       { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Psychiatrist Orlando" },
-      { href: "/anxiety-treatment", label: "Anxiety Treatment" },
+      { href: "/anxiety-therapy", label: "Anxiety Treatment" },
       { href: "/anxiety-therapy", label: "Anxiety Therapy" },
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/new-patients", label: "New Patients" },

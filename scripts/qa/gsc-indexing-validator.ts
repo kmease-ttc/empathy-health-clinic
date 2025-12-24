@@ -202,18 +202,44 @@ function analyzePage(urlPath: string): PageAnalysis | null {
   };
 }
 
+async function fetchPageLinks(url: string): Promise<string[]> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return [];
+    const html = await response.text();
+    return extractInternalLinks(html);
+  } catch {
+    return [];
+  }
+}
+
 async function checkRedirectAndBrokenLinks(paths: string[]): Promise<Issue[]> {
   const issues: Issue[] = [];
   const allInternalLinks = new Set<string>();
   const redirectMap = new Map<string, string>();
   const brokenLinks = new Set<string>();
   
-  // Collect all internal links from all pages
-  for (const pagePath of paths) {
-    const analysis = analyzePage(pagePath);
-    if (analysis) {
-      analysis.internalLinks.forEach(link => {
-        // Normalize link
+  // Check if using prerendered pages or live server
+  const usePrerendered = paths.length > 10; // If we have many prerendered pages, use them
+  
+  if (usePrerendered) {
+    // Collect all internal links from prerendered pages
+    for (const pagePath of paths) {
+      const analysis = analyzePage(pagePath);
+      if (analysis) {
+        analysis.internalLinks.forEach(link => {
+          const normalized = link.replace(/\/$/, '') || '/';
+          allInternalLinks.add(normalized);
+        });
+      }
+    }
+  } else {
+    // Fetch links from live server (for dev testing with stale/few prerendered pages)
+    console.log('  Fetching links from live server (prerendered pages may be stale)...');
+    const pagesToFetch = ['/', '/services', '/therapy', '/insurance'];
+    for (const page of pagesToFetch) {
+      const links = await fetchPageLinks(`${BASE_URL}${page}`);
+      links.forEach(link => {
         const normalized = link.replace(/\/$/, '') || '/';
         allInternalLinks.add(normalized);
       });
