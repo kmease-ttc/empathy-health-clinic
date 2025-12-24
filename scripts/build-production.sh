@@ -222,7 +222,20 @@ if [ $QA_EXIT_CODE -ne 0 ]; then
 fi
 echo ""
 
-# Step 12: Final summary
+# Step 12: Screaming Frog Issue Validation
+echo "Step 12: Running Screaming Frog issue validation..."
+npx tsx scripts/qa/screaming-frog-validator.ts
+SF_EXIT_CODE=$?
+
+if [ $SF_EXIT_CODE -ne 0 ]; then
+    echo "ERROR: Screaming Frog validation failed"
+    echo "  Critical SEO issues found (low links, canonical mismatches)"
+    echo "  Check screaming-frog-validation-report.json for details"
+    exit 1
+fi
+echo ""
+
+# Step 13: Final summary
 echo "=========================================="
 echo "Production Build Complete!"
 echo "=========================================="

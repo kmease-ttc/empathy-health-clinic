@@ -1,0 +1,108 @@
+{
+  "timestamp": "2025-12-24T19:04:47.417Z",
+  "summary": {
+    "total": 4,
+    "criticalCount": 0,
+    "warningCount": 1,
+    "opportunityCount": 6,
+    "issueBreakdown": {
+      "Meta Description: Over 155 Characters": 4,
+      "Canonicals: Canonicalised": 1,
+      "H2: Multiple": 2
+    },
+    "criticalPages": []
+  },
+  "results": [
+    {
+      "path": "/adhd-psychiatrist-orlando",
+      "issues": [
+        {
+          "type": "opportunity",
+          "issue": "Meta Description: Over 155 Characters",
+          "details": "161 characters"
+        }
+      ],
+      "stats": {
+        "internalLinks": 77,
+        "externalLinks": 18,
+        "h1Count": 1,
+        "h2Count": 7,
+        "canonical": "https://empathyhealthclinic.com/adhd-psychiatrist-orlando",
+        "metaDescLength": 161,
+        "hasNoindex": false
+      }
+    },
+    {
+      "path": "/",
+      "issues": [
+        {
+          "type": "warning",
+          "issue": "Canonicals: Canonicalised",
+          "details": "Points to https://empathyhealthclinic.com/ instead of https://empathyhealthclinic.com"
+        },
+        {
+          "type": "opportunity",
+          "issue": "H2: Multiple",
+          "details": "16 H2 tags (consider restructuring)"
+        },
+        {
+          "type": "opportunity",
+          "issue": "Meta Description: Over 155 Characters",
+          "details": "161 characters"
+        }
+      ],
+      "stats": {
+        "internalLinks": 135,
+        "externalLinks": 15,
+        "h1Count": 1,
+        "h2Count": 16,
+        "canonical": "https://empathyhealthclinic.com/",
+        "metaDescLength": 161,
+        "hasNoindex": false
+      }
+    },
+    {
+      "path": "/psychiatrist-near-me",
+      "issues": [
+        {
+          "type": "opportunity",
+          "issue": "H2: Multiple",
+          "details": "11 H2 tags (consider restructuring)"
+        },
+        {
+          "type": "opportunity",
+          "issue": "Meta Description: Over 155 Characters",
+          "details": "158 characters"
+        }
+      ],
+      "stats": {
+        "internalLinks": 76,
+        "externalLinks": 19,
+        "h1Count": 1,
+        "h2Count": 11,
+        "canonical": "https://empathyhealthclinic.com/psychiatrist-near-me",
+        "metaDescLength": 158,
+        "hasNoindex": false
+      }
+    },
+    {
+      "path": "/psychiatrist-orlando",
+      "issues": [
+        {
+          "type": "opportunity",
+          "issue": "Meta Description: Over 155 Characters",
+          "details": "159 characters"
+        }
+      ],
+      "stats": {
+        "internalLinks": 101,
+        "externalLinks": 10,
+        "h1Count": 1,
+        "h2Count": 10,
+        "canonical": "https://empathyhealthclinic.com/psychiatrist-orlando",
+        "metaDescLength": 159,
+        "hasNoindex": false
+      }
+    }
+  ]
+}
