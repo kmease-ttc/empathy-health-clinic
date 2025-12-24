@@ -235,7 +235,38 @@ if [ $SF_EXIT_CODE -ne 0 ]; then
 fi
 echo ""
 
-# Step 13: Final summary
+# Step 13: GSC Indexing Issue Validation
+echo "Step 13: Running GSC indexing issue validation..."
+
+# Start server for GSC validation
+NODE_ENV=production node dist/index.js &
+GSC_SERVER_PID=$!
+sleep 5
+
+# Wait for server
+for i in {1..30}; do
+  if curl -s http://localhost:$PORT/ > /dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
+
+npx tsx scripts/qa/gsc-indexing-validator.ts
+GSC_EXIT_CODE=$?
+
+# Stop server
+kill $GSC_SERVER_PID 2>/dev/null || true
+wait $GSC_SERVER_PID 2>/dev/null || true
+
+if [ $GSC_EXIT_CODE -ne 0 ]; then
+    echo "ERROR: GSC indexing validation failed"
+    echo "  Critical indexing issues found (soft 404s, broken links)"
+    echo "  Check gsc-indexing-report.json for details"
+    exit 1
+fi
+echo ""
+
+# Step 14: Final summary
 echo "=========================================="
 echo "Production Build Complete!"
 echo "=========================================="

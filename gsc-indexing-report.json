@@ -1,0 +1,188 @@
+{
+  "timestamp": "2025-12-24T19:09:33.388Z",
+  "summary": {
+    "total": 29,
+    "critical": 0,
+    "warnings": 29,
+    "byType": {
+      "canonical_elsewhere": 1,
+      "redirect_link": 28
+    }
+  },
+  "issues": [
+    {
+      "type": "canonical_elsewhere",
+      "severity": "warning",
+      "page": "/",
+      "details": "Canonical points to: https://empathyhealthclinic.com/"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/locations/lake-mary",
+      "details": "Link redirects to: http://localhost:5000/services"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blue-cross-blue-shield-blue-cross-blue-shield-coverage",
+      "details": "Link redirects to: http://localhost:5000/blue-cross-blue-shield-therapy-orlando"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/aetna-aetna-coverage",
+      "details": "Link redirects to: http://localhost:5000/psychiatrist-orlando-accepts-aetna"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/optum-coverage",
+      "details": "Link redirects to: http://localhost:5000/insurance"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/cigna-coverage",
+      "details": "Link redirects to: http://localhost:5000/psychiatrist-orlando-accepts-cigna"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/adventhealth-coverage",
+      "details": "Link redirects to: http://localhost:5000/insurance"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/medication-management",
+      "details": "Link redirects to: http://localhost:5000/services"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/anxiety-treatment",
+      "details": "Link redirects to: http://localhost:5000/anxiety-therapy"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/anger-management",
+      "details": "Link redirects to: http://localhost:5000/therapy"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/esa-letter",
+      "details": "Link redirects to: http://localhost:5000/services"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/anxiety-disorders",
+      "details": "Link redirects to: http://localhost:5000/anxiety-therapy"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/depression",
+      "details": "Link redirects to: http://localhost:5000/depression-treatment"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/bipolar-disorder",
+      "details": "Link redirects to: http://localhost:5000/bipolar-disorder-treatment"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/ptsd-trauma",
+      "details": "Link redirects to: http://localhost:5000/anxiety-therapy"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/personality-disorders",
+      "details": "Link redirects to: http://localhost:5000/services"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/adhd-attention-deficit-hyperactivity-disorder",
+      "details": "Link redirects to: http://localhost:5000/adhd-treatment"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/eating-disorders",
+      "details": "Link redirects to: http://localhost:5000/services"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/schizophrenia-psychotic-disorders",
+      "details": "Link redirects to: http://localhost:5000/services"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/open-relationship-guide",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/understanding-social-exhaustion-adhd-brain",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/prodromal-stage-mental-health",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/ltr-relationship-meaning-guide",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/reactive-attachment-disorder-in-adults",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/nervous-breakdown",
+      "details": "Link redirects to: http://localhost:5000/blog/what-is-mental-breakdown"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/how-to-get-over-someone-and-move-on-with-your-life",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/lgbtqia2s-identity-explained",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/signs-of-attention-seeking-behavior",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    },
+    {
+      "type": "redirect_link",
+      "severity": "warning",
+      "page": "/blog/what-is-time-blindness",
+      "details": "Link redirects to: http://localhost:5000/blog"
+    }
+  ]
+}

@@ -31,7 +31,8 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
   - **Prerender Validation** (`scripts/validate-prerender.ts`): Validates minimum route count, file sizes, and link counts
   - **QA Redirect Validation** (`scripts/qa/validate-redirects.ts`): Tests all 388+ redirects resolve to 200 status pages; validates problem URLs from Screaming Frog/GSC CSV exports; blocks deployment on 4xx/redirect loops
   - **Screaming Frog Issue Validation** (`scripts/qa/screaming-frog-validator.ts`): Checks for critical SEO issues including pages without internal outlinks, canonical mismatches, H1/H2 issues, and meta description length problems
-  - **Build Pipeline Gates** (`scripts/build-production.sh`): 13-step build process with `exit 1` on any failure; blocks publishing on regressions
+  - **GSC Indexing Issue Validation** (`scripts/qa/gsc-indexing-validator.ts`): Validates against Google Search Console indexing issues including soft 404s, redirect links, noindex tags, canonical mismatches, and duplicate content
+  - **Build Pipeline Gates** (`scripts/build-production.sh`): 14-step build process with `exit 1` on any failure; blocks publishing on regressions
   - All gates are enforced automatically during `npm run build:production`
 
 ### Feature Specifications
