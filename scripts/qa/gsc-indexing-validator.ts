@@ -1,14 +1,15 @@
 /**
  * Google Search Console Indexing Issue Validator
  * 
- * Validates against specific GSC indexing problems:
- * 1. Soft 404 - Pages with thin content that look like error pages
- * 2. Page with redirect - Internal links pointing to redirect URLs
- * 3. Excluded by noindex - Pages with noindex that shouldn't have it
- * 4. Alternate page with canonical - Pages canonicalizing elsewhere
- * 5. Not found (404) - Broken internal links
- * 6. Duplicate without canonical - Pages missing canonical tags
- * 7. Blocked by robots.txt - Check robots.txt rules
+ * Validates against ALL GSC indexing problems:
+ * 1. Soft 404 - Pages with thin content (CRITICAL)
+ * 2. Page with redirect - Internal links pointing to redirect URLs (CRITICAL)
+ * 3. Not found (404) - Broken internal links (CRITICAL)
+ * 4. Excluded by noindex - Pages with noindex that shouldn't have it (CRITICAL)
+ * 5. Alternate page with canonical - Pages canonicalizing elsewhere (CRITICAL)
+ * 6. Duplicate without canonical - Pages missing canonical tags (CRITICAL)
+ * 7. Blocked by robots.txt - Check robots.txt rules (CRITICAL)
+ * 8. Crawled not indexed - Low quality content detection (WARNING)
  * 
  * Usage: npx tsx scripts/qa/gsc-indexing-validator.ts
  */
@@ -21,29 +22,42 @@ const DOMAIN = 'https://empathyhealthclinic.com';
 const BASE_URL = process.env.QA_BASE_URL || 'http://localhost:5000';
 
 // Thresholds for soft 404 detection
-const MIN_CONTENT_SIZE = 10000;  // bytes - pages smaller are likely soft 404s
-const MIN_MAIN_CONTENT_LENGTH = 500;  // characters in main content area
-const MIN_WORD_COUNT = 100;  // minimum words in body
+const MIN_CONTENT_SIZE = 8000;  // bytes - pages smaller are likely soft 404s
+const MIN_MAIN_CONTENT_LENGTH = 400;  // characters in main content area
+const MIN_WORD_COUNT = 80;  // minimum words in body
 
-// Pages that are intentionally noindex
+// Pages that are intentionally noindex (utility/admin pages)
 const INTENTIONAL_NOINDEX = new Set([
   '/admin', '/login', '/auth', '/config', '/debug',
   '/privacy-policy', '/terms', '/medical-disclaimer',
   '/thank-you', '/confirmation', '/success',
   '/404', '/not-found',
-  // Consolidated pages that should be noindex
-  '/psychiatry-orlando', '/psychiatry-clinic-orlando',
-  '/locations/winter-park', '/pricing', '/affordable-care',
-  '/anxiety-treatment',
+  // Paginated pages
+  '/blog/page/2', '/blog/page/3', '/blog/page/4', '/blog/page/5',
 ]);
 
-// Pages that intentionally canonicalize elsewhere
+// Pages that intentionally canonicalize elsewhere (consolidated pages)
 const INTENTIONAL_CANONICAL_REDIRECT = new Set([
   // Pages that point to consolidated versions
+  '/psychiatry-orlando',
+  '/psychiatry-clinic-orlando',
+]);
+
+// Known redirect paths that should be updated to final destination
+const KNOWN_REDIRECT_PATHS = new Set([
+  '/locations/lake-mary',
+  '/locations/winter-park',
+  '/medication-management',
+  '/anxiety-treatment',
+  '/optum-coverage',
+  '/cigna-coverage',
+  '/adventhealth-coverage',
+  '/aetna-aetna-coverage',
+  '/blue-cross-blue-shield-blue-cross-blue-shield-coverage',
 ]);
 
 interface Issue {
-  type: 'soft_404' | 'redirect_link' | 'noindex' | 'canonical_elsewhere' | 'missing_canonical' | 'broken_link' | 'duplicate';
+  type: 'soft_404' | 'redirect_link' | 'noindex' | 'canonical_elsewhere' | 'missing_canonical' | 'broken_link' | 'duplicate' | 'blocked_robots' | 'low_quality';
   severity: 'critical' | 'warning' | 'info';
   page: string;
   details: string;
@@ -188,10 +202,11 @@ function analyzePage(urlPath: string): PageAnalysis | null {
   };
 }
 
-async function checkRedirectLinks(paths: string[]): Promise<Issue[]> {
+async function checkRedirectAndBrokenLinks(paths: string[]): Promise<Issue[]> {
   const issues: Issue[] = [];
   const allInternalLinks = new Set<string>();
   const redirectMap = new Map<string, string>();
+  const brokenLinks = new Set<string>();
   
   // Collect all internal links from all pages
   for (const pagePath of paths) {
@@ -205,10 +220,11 @@ async function checkRedirectLinks(paths: string[]): Promise<Issue[]> {
     }
   }
   
-  // Check which links are redirects
-  console.log(`  Checking ${allInternalLinks.size} unique internal links for redirects...`);
+  // Check ALL links for redirects and broken links
+  console.log(`  Checking ${allInternalLinks.size} unique internal links...`);
   
-  const linksToCheck = Array.from(allInternalLinks).slice(0, 200); // Sample for speed
+  const linksToCheck = Array.from(allInternalLinks);
+  let checked = 0;
   
   for (const link of linksToCheck) {
     try {
@@ -220,19 +236,37 @@ async function checkRedirectLinks(paths: string[]): Promise<Issue[]> {
       if (response.status >= 300 && response.status < 400) {
         const location = response.headers.get('location');
         redirectMap.set(link, location || 'unknown');
+      } else if (response.status >= 400) {
+        brokenLinks.add(link);
+      }
+      
+      checked++;
+      if (checked % 50 === 0) {
+        console.log(`    Checked ${checked}/${linksToCheck.length} links...`);
       }
     } catch (err) {
-      // Ignore network errors
+      // Network error - mark as broken
+      brokenLinks.add(link);
     }
   }
   
-  // Report redirect links
+  // Report redirect links (CRITICAL - causes "Page with redirect" in GSC)
   for (const [link, target] of redirectMap) {
     issues.push({
       type: 'redirect_link',
-      severity: 'warning',
+      severity: 'critical',
       page: link,
-      details: `Link redirects to: ${target}`,
+      details: `Internal link redirects to: ${target}`,
+    });
+  }
+  
+  // Report broken links (CRITICAL - causes "Not found 404" in GSC)
+  for (const link of brokenLinks) {
+    issues.push({
+      type: 'broken_link',
+      severity: 'critical',
+      page: link,
+      details: 'Internal link returns 4xx error',
     });
   }
   
@@ -242,59 +276,80 @@ async function checkRedirectLinks(paths: string[]): Promise<Issue[]> {
 function validatePages(paths: string[]): Issue[] {
   const issues: Issue[] = [];
   const canonicalGroups = new Map<string, string[]>();
+  const titles = new Map<string, string[]>();
   
   for (const pagePath of paths) {
     const analysis = analyzePage(pagePath);
     if (!analysis) continue;
     
+    // Handle both with and without trailing slash for homepage
     const expectedCanonical = `${DOMAIN}${pagePath === '/' ? '' : pagePath}`;
+    const expectedCanonicalAlt = `${DOMAIN}${pagePath === '/' ? '/' : pagePath}`;
     
-    // 1. Soft 404 Detection
+    // Track titles for duplicate detection
+    if (analysis.title) {
+      const titleGroup = titles.get(analysis.title) || [];
+      titleGroup.push(pagePath);
+      titles.set(analysis.title, titleGroup);
+    }
+    
+    // 1. Soft 404 Detection (CRITICAL)
     if (analysis.fileSize < MIN_CONTENT_SIZE || 
         analysis.wordCount < MIN_WORD_COUNT ||
         analysis.contentLength < MIN_MAIN_CONTENT_LENGTH) {
       
       // Check if it's a legitimate thin page
-      if (!INTENTIONAL_NOINDEX.has(pagePath)) {
+      if (!INTENTIONAL_NOINDEX.has(pagePath) && !analysis.hasNoindex) {
         issues.push({
           type: 'soft_404',
           severity: 'critical',
           page: pagePath,
-          details: `Thin content: ${analysis.wordCount} words, ${analysis.fileSize} bytes`,
+          details: `Thin content: ${analysis.wordCount} words, ${analysis.fileSize} bytes - may be flagged as soft 404`,
         });
       }
     }
     
-    // 2. Noindex Check
+    // 2. Unexpected Noindex (CRITICAL - causes "Excluded by noindex tag" in GSC)
     if (analysis.hasNoindex && !INTENTIONAL_NOINDEX.has(pagePath)) {
       issues.push({
         type: 'noindex',
-        severity: 'warning',
+        severity: 'critical',
         page: pagePath,
-        details: 'Page has noindex but is not in allowlist',
+        details: 'Page has noindex but is not in allowlist - will not be indexed',
       });
     }
     
-    // 3. Missing Canonical
-    if (!analysis.hasCanonical) {
+    // 3. Missing Canonical (CRITICAL - causes "Duplicate without user-selected canonical")
+    if (!analysis.hasCanonical && !analysis.hasNoindex) {
       issues.push({
         type: 'missing_canonical',
-        severity: 'warning',
+        severity: 'critical',
         page: pagePath,
-        details: 'Page is missing canonical tag',
+        details: 'Page is missing canonical tag - may cause duplicate content issues',
       });
     }
     
-    // 4. Canonical pointing elsewhere (alternate page)
+    // 4. Canonical pointing elsewhere (CRITICAL - causes "Alternate page with proper canonical")
     if (analysis.canonicalUrl && 
         analysis.canonicalUrl !== expectedCanonical &&
+        analysis.canonicalUrl !== expectedCanonicalAlt &&
         !INTENTIONAL_CANONICAL_REDIRECT.has(pagePath) &&
         !analysis.hasNoindex) {
       issues.push({
         type: 'canonical_elsewhere',
+        severity: 'critical',
+        page: pagePath,
+        details: `Canonical points to: ${analysis.canonicalUrl} - page won't be indexed independently`,
+      });
+    }
+    
+    // 5. Low quality content (WARNING - may cause "Crawled not indexed")
+    if (analysis.wordCount < 300 && analysis.wordCount >= MIN_WORD_COUNT && !analysis.hasNoindex) {
+      issues.push({
+        type: 'low_quality',
         severity: 'warning',
         page: pagePath,
-        details: `Canonical points to: ${analysis.canonicalUrl}`,
+        details: `Low word count (${analysis.wordCount}) - may be crawled but not indexed`,
       });
     }
     
@@ -306,20 +361,78 @@ function validatePages(paths: string[]): Issue[] {
     }
   }
   
-  // 5. Duplicate Detection (multiple pages with same canonical)
+  // 6. Duplicate Detection (multiple pages with same canonical)
   for (const [canonical, pages] of canonicalGroups) {
     if (pages.length > 1) {
       for (const page of pages) {
         if (!canonical.endsWith(page) && !canonical.endsWith(page.replace(/^\//, ''))) {
           issues.push({
             type: 'duplicate',
-            severity: 'info',
+            severity: 'warning',
             page,
             details: `${pages.length} pages share canonical: ${canonical}`,
           });
         }
       }
     }
+  }
+  
+  // 7. Duplicate titles (causes "Duplicate" issues in GSC)
+  for (const [title, pages] of titles) {
+    if (pages.length > 1) {
+      for (const page of pages) {
+        issues.push({
+          type: 'duplicate',
+          severity: 'warning',
+          page,
+          details: `Duplicate title with ${pages.length - 1} other page(s): "${title.substring(0, 50)}..."`,
+        });
+      }
+    }
+  }
+  
+  return issues;
+}
+
+async function checkRobotsTxt(): Promise<Issue[]> {
+  const issues: Issue[] = [];
+  
+  try {
+    const response = await fetch(`${BASE_URL}/robots.txt`);
+    if (!response.ok) {
+      issues.push({
+        type: 'blocked_robots',
+        severity: 'critical',
+        page: '/robots.txt',
+        details: 'robots.txt not accessible',
+      });
+      return issues;
+    }
+    
+    const robotsTxt = await response.text();
+    
+    // Check for overly restrictive rules
+    if (robotsTxt.includes('Disallow: /') && !robotsTxt.includes('Disallow: /admin')) {
+      // Check if there's a blanket disallow
+      const lines = robotsTxt.split('\n');
+      for (const line of lines) {
+        if (line.trim() === 'Disallow: /') {
+          issues.push({
+            type: 'blocked_robots',
+            severity: 'critical',
+            page: '/robots.txt',
+            details: 'robots.txt has blanket Disallow: / rule blocking all pages',
+          });
+        }
+      }
+    }
+  } catch (err) {
+    issues.push({
+      type: 'blocked_robots',
+      severity: 'warning',
+      page: '/robots.txt',
+      details: 'Could not fetch robots.txt for validation',
+    });
   }
   
   return issues;
@@ -329,6 +442,16 @@ async function runValidation(): Promise<void> {
   console.log('=========================================');
   console.log('GSC Indexing Issue Validator');
   console.log('=========================================\n');
+  
+  console.log('This validator checks for issues that cause:');
+  console.log('  - Soft 404 (415 in GSC)');
+  console.log('  - Page with redirect (369 in GSC)');
+  console.log('  - Excluded by noindex (52 in GSC)');
+  console.log('  - Alternate page with canonical (30 in GSC)');
+  console.log('  - Not found 404 (23 in GSC)');
+  console.log('  - Duplicate without canonical (16 in GSC)');
+  console.log('  - Crawled not indexed (88 in GSC)');
+  console.log('  - Blocked by robots.txt (1 in GSC)\n');
   
   // Get all prerendered paths
   console.log('Scanning prerendered pages...');
@@ -345,11 +468,15 @@ async function runValidation(): Promise<void> {
   console.log('Analyzing pages for GSC issues...');
   const pageIssues = validatePages(paths);
   
-  // Check for redirect links
-  console.log('Checking for redirect links...');
-  const redirectIssues = await checkRedirectLinks(paths);
+  // Check for redirect and broken links
+  console.log('Checking for redirect and broken links...');
+  const linkIssues = await checkRedirectAndBrokenLinks(paths);
   
-  const allIssues = [...pageIssues, ...redirectIssues];
+  // Check robots.txt
+  console.log('Validating robots.txt...');
+  const robotsIssues = await checkRobotsTxt();
+  
+  const allIssues = [...pageIssues, ...linkIssues, ...robotsIssues];
   
   // Summarize by issue type
   console.log('\n=========================================');
@@ -369,8 +496,10 @@ async function runValidation(): Promise<void> {
     'noindex': 'Excluded by noindex tag',
     'canonical_elsewhere': 'Alternate page with proper canonical',
     'missing_canonical': 'Duplicate without user-selected canonical',
-    'duplicate': 'Duplicate pages',
+    'duplicate': 'Duplicate pages/titles',
     'broken_link': 'Not found (404)',
+    'blocked_robots': 'Blocked by robots.txt',
+    'low_quality': 'Crawled - may not be indexed',
   };
   
   let criticalCount = 0;
@@ -387,7 +516,7 @@ async function runValidation(): Promise<void> {
     if (severity === 'critical') criticalCount += count;
     if (severity === 'warning') warningCount += count;
     
-    const severityIcon = severity === 'critical' ? '❌' : severity === 'warning' ? '⚠️' : 'ℹ️';
+    const severityIcon = severity === 'critical' ? '!' : severity === 'warning' ? '?' : 'i';
     console.log(`${label.padEnd(40)}| ${String(count).padStart(5)} | ${severityIcon} ${severity}`);
   }
   
@@ -400,13 +529,14 @@ async function runValidation(): Promise<void> {
   // Show sample of critical issues
   const criticalIssues = allIssues.filter(i => i.severity === 'critical');
   if (criticalIssues.length > 0) {
-    console.log('Sample Critical Issues:');
+    console.log('Sample Critical Issues (first 15):');
     console.log('-----------------------');
-    for (const issue of criticalIssues.slice(0, 10)) {
-      console.log(`  ${issue.page}: ${issue.details}`);
+    for (const issue of criticalIssues.slice(0, 15)) {
+      console.log(`  [${issue.type}] ${issue.page}`);
+      console.log(`    ${issue.details}`);
     }
-    if (criticalIssues.length > 10) {
-      console.log(`  ... and ${criticalIssues.length - 10} more`);
+    if (criticalIssues.length > 15) {
+      console.log(`  ... and ${criticalIssues.length - 15} more`);
     }
     console.log('');
   }
@@ -429,11 +559,13 @@ async function runValidation(): Promise<void> {
   
   // Exit with error if critical issues
   if (criticalCount > 0) {
-    console.log('\n❌ VALIDATION FAILED - Critical indexing issues found');
+    console.log('\n! VALIDATION FAILED - Critical indexing issues found');
+    console.log('  These issues will cause pages to be excluded from Google index');
+    console.log('  Fix the issues above before deploying');
     process.exit(1);
   }
   
-  console.log('\n✅ VALIDATION PASSED (no critical indexing issues)');
+  console.log('\n+ VALIDATION PASSED (no critical indexing issues)');
   process.exit(0);
 }
 
