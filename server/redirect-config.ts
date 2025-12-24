@@ -516,6 +516,69 @@ export const contentRedirectMap: Record<string, string> = {
   '/treatments/bipolar-disorder-treatment': '/bipolar-disorder-treatment',
   '/blog/ltr-relationship-meaning-guide': '/blog',
   '/blog/finding-comfort-self-care-tips-for-those-who-are-grieving': '/blog',
+  
+  // Google Search Console - Soft 404 Fixes (December 24, 2025)
+  // Condition pages that need redirects
+  '/anger-management': '/therapy',
+  '/anxiety-disorders': '/anxiety-therapy',
+  '/personality-disorders': '/services',
+  '/eating-disorders': '/services',
+  '/lgbtq-therapy': '/therapy',
+  '/ptsd-trauma': '/anxiety-therapy',
+  '/optum-coverage': '/insurance',
+  
+  // Blog URLs that don't exist - redirect to /blog
+  '/blog/silent-panic-attacks-causes-symptoms-relief': '/blog',
+  '/blog/bpd-men-guide': '/blog',
+  '/blog/how-to-leave-toxic-relationship': '/blog',
+  '/blog/reactive-attachment-disorder-in-adults': '/blog',
+  '/blog/understanding-adhd-masking': '/blog',
+  '/blog/what-is-time-blindness': '/blog',
+  '/blog/jobs-for-people-with-anxiety': '/blog',
+  '/blog/understanding-social-exhaustion-adhd-brain': '/blog',
+  '/blog/how-bipolar-disorder-impacts-interpersonal-dynamics': '/blog',
+  '/blog/who-cheats-more-men-or-women': '/blog',
+  '/blog/lgbtqia2s-identity-explained': '/blog',
+  '/blog/signs-of-attention-seeking-behavior': '/blog',
+  '/blog/how-to-stop-people-pleasing': '/blog',
+  '/blog/overcoming-flight-anxiety-in-orlando-fl-how-treatment-can-help': '/blog',
+  '/blog/one-sided-relationship-signs': '/blog',
+  '/blog/mindfulness-and-relaxation-exercises': '/blog',
+  '/blog/how-understanding-patient-perspectives-improves-care-quality': '/blog',
+  '/blog/8-physical-signs-stress-is-impacting-your-body': '/blog',
+  '/blog/what-are-the-goals-of-psychotherapy': '/blog',
+  '/blog/how-to-get-over-someone-and-move-on-with-your-life': '/blog',
+  '/blog/how-debilitating-anxiety-impacts-overall-health': '/blog',
+  '/blog/online-cpr-certification-with-aed-and-choking-response': '/blog',
+  '/blog/how-to-be-productive': '/blog',
+  '/blog/head-trauma-memory-loss-recovery': '/blog',
+  '/blog/chronic-anxiety-treatment-orlando': '/blog',
+  '/blog/cbt-therapy-improving-mental-health-in-winter-park': '/blog',
+  '/blog/future-of-healthcare': '/blog',
+  '/blog/from-tension-to-relief-everyday-tips-for-a-healthier-body': '/blog',
+  
+  // Insurance page variants
+  '/cigna-orlando': '/psychiatrist-orlando-accepts-cigna',
+  '/find-a-psychiatrist-that-takes-curative-health-insurance-curative-coverage': '/insurance',
+  
+  // Treatment page variants
+  '/treatments/ocd-therapy': '/anxiety-therapy',
+  '/treatments/bipolar-disorder-therapy': '/bipolar-disorder-treatment',
+  '/treatments/lgbt-therapy-services': '/therapy',
+  '/treatments/adhd-treatment': '/adhd-treatment',
+  
+  // Root-level blog slugs with trailing slashes (normalized by middleware)
+  '/dbt-skills-for-healthy-communication-and-conflict-resolution-in-dating': '/couples-therapy',
+  '/from-heartbreak-to-healing-emdr-strategies-for-moving-on-after-a-breakup': '/emdr-therapy',
+  '/how-emdr-helps-with-anxiety-depression': '/emdr-therapy',
+  '/how-long-after-car-accident-can-you-claim-injury': '/services',
+  '/how-long-does-it-take-to-fall-in-love-timelines-what-to-expect': '/blog',
+  '/how-to-prepare-for-your-first-virtual-counseling-session': '/virtual-therapy',
+  '/how-to-stop-panic-attacks-at-night': '/anxiety-therapy',
+  
+  // Feed URLs - redirect to blog
+  '/head-trauma-memory-loss-recovery/feed': '/blog',
+  '/top-5-ai-scribes-psychiatrists-are-actually-using-in-2025/feed': '/blog',
 };
 
 /**
