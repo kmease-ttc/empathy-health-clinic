@@ -165,119 +165,78 @@ done
 
 echo ""
 
-# Step 11: JS-Disabled Smoke Test (ensures crawlers see content)
-echo "Step 11: Running JS-disabled smoke test..."
-# Start temporary server again for smoke test
+# Step 11: Start validation server (kept alive for all validation steps)
+echo "Step 11: Starting validation server..."
 NODE_ENV=production node dist/index.js &
-SMOKE_SERVER_PID=$!
-sleep 5
+VALIDATION_SERVER_PID=$!
+sleep 3
 
-# Wait for server
+# Wait for server (max 30 seconds)
 for i in {1..30}; do
   if curl -s http://localhost:$PORT/ > /dev/null 2>&1; then
+    echo "Validation server ready"
     break
   fi
   sleep 1
 done
 
-# Run smoke test
+# Step 11a: JS-Disabled Smoke Test
+echo ""
+echo "Step 11a: Running JS-disabled smoke test..."
 npx tsx scripts/js-disabled-smoke-test.ts
 SMOKE_EXIT_CODE=$?
 
-# Stop server
-kill $SMOKE_SERVER_PID 2>/dev/null || true
-wait $SMOKE_SERVER_PID 2>/dev/null || true
-
 if [ $SMOKE_EXIT_CODE -ne 0 ]; then
+    kill $VALIDATION_SERVER_PID 2>/dev/null || true
     echo "ERROR: JS-disabled smoke test failed"
-    echo "  Some pages don't render content without JavaScript"
-    echo "  This will cause crawlers to see blank pages"
     exit 1
 fi
+
+# Step 11b: QA Redirect Validation
 echo ""
-
-# Step 12: QA Redirect Validation (prevent soft 404s)
-echo "Step 12: Running QA redirect validation..."
-
-# Start server for QA validation
-NODE_ENV=production node dist/index.js &
-QA_SERVER_PID=$!
-sleep 5
-
-# Wait for server
-for i in {1..30}; do
-  if curl -s http://localhost:$PORT/ > /dev/null 2>&1; then
-    break
-  fi
-  sleep 1
-done
-
-# Run QA validation with any available CSV
+echo "Step 11b: Running QA redirect validation..."
 QA_CSV=""
 if [ -f "attached_assets/Table_1766600276696.csv" ]; then
     QA_CSV="--csv attached_assets/Table_1766600276696.csv"
 fi
-
 npx tsx scripts/qa/validate-redirects.ts $QA_CSV
 QA_EXIT_CODE=$?
 
-# Stop server
-kill $QA_SERVER_PID 2>/dev/null || true
-wait $QA_SERVER_PID 2>/dev/null || true
-
 if [ $QA_EXIT_CODE -ne 0 ]; then
+    kill $VALIDATION_SERVER_PID 2>/dev/null || true
     echo "ERROR: QA redirect validation failed"
-    echo "  Some redirects don't resolve to valid pages"
-    echo "  Check qa-validation-report.json for details"
     exit 1
 fi
-echo ""
 
-# Step 13: Screaming Frog Issue Validation
-echo "Step 13: Running Screaming Frog issue validation..."
+# Step 11c: Screaming Frog Issue Validation
+echo ""
+echo "Step 11c: Running Screaming Frog issue validation..."
 npx tsx scripts/qa/screaming-frog-validator.ts
 SF_EXIT_CODE=$?
 
 if [ $SF_EXIT_CODE -ne 0 ]; then
+    kill $VALIDATION_SERVER_PID 2>/dev/null || true
     echo "ERROR: Screaming Frog validation failed"
-    echo "  Critical SEO issues found (low links, canonical mismatches)"
-    echo "  Check screaming-frog-validation-report.json for details"
     exit 1
 fi
+
+# Step 11d: GSC Indexing Issue Validation
 echo ""
-
-# Step 14: GSC Indexing Issue Validation
-echo "Step 14: Running GSC indexing issue validation..."
-
-# Start server for GSC validation
-NODE_ENV=production node dist/index.js &
-GSC_SERVER_PID=$!
-sleep 5
-
-# Wait for server
-for i in {1..30}; do
-  if curl -s http://localhost:$PORT/ > /dev/null 2>&1; then
-    break
-  fi
-  sleep 1
-done
-
+echo "Step 11d: Running GSC indexing issue validation..."
 npx tsx scripts/qa/gsc-indexing-validator.ts
 GSC_EXIT_CODE=$?
 
-# Stop server
-kill $GSC_SERVER_PID 2>/dev/null || true
-wait $GSC_SERVER_PID 2>/dev/null || true
+# Stop validation server
+kill $VALIDATION_SERVER_PID 2>/dev/null || true
+wait $VALIDATION_SERVER_PID 2>/dev/null || true
 
 if [ $GSC_EXIT_CODE -ne 0 ]; then
     echo "ERROR: GSC indexing validation failed"
-    echo "  Critical indexing issues found (soft 404s, broken links)"
-    echo "  Check gsc-indexing-report.json for details"
     exit 1
 fi
 echo ""
 
-# Step 15: Final summary
+# Step 12: Final summary
 echo "=========================================="
 echo "Production Build Complete!"
 echo "=========================================="

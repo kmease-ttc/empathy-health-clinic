@@ -23,7 +23,7 @@ const rootDir = path.resolve(__dirname, '..');
 const BASE_URL = process.env.PRERENDER_URL || 'http://localhost:5000';
 const OUTPUT_DIR = path.resolve(rootDir, 'dist/prerendered');
 const MANIFEST_PATH = path.resolve(rootDir, 'routes/allRoutes.json');
-const CONCURRENCY = 3; // Reduced concurrency to avoid memory issues
+const CONCURRENCY = 10; // Higher concurrency for faster builds (builds run on production server)
 const TIMEOUT = 30000; // 30 seconds per page (increased for complex pages)
 
 interface RouteManifest {
