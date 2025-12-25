@@ -92,6 +92,11 @@ echo "Step 8: Verifying prerender completeness (manifest check)..."
 npx tsx scripts/verify-prerender.ts
 echo ""
 
+# Step 8.5: Fix asset references in prerendered HTML
+echo "Step 8.5: Fixing asset references in prerendered HTML..."
+python3 scripts/fix-prerender-assets.py
+echo ""
+
 # Step 9: Verify asset integrity (prevents blank pages after deploy)
 echo "Step 9: Verifying asset integrity..."
 npx tsx scripts/verify-asset-integrity.ts
