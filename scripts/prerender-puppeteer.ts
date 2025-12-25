@@ -98,6 +98,7 @@ async function waitForPageReady(page: Page): Promise<void> {
  * Logic:
  * - Uses shared/seoConfig.ts for canonical consolidation and noindex rules
  * - Replaces placeholder canonical with correct URL (self, consolidated target, or removes for noindex)
+ * - Adds canonical tag if missing (critical for SEO)
  * - Sets correct robots meta content based on page type
  */
 function fixSeoTags(html: string, route: string): string {
@@ -106,22 +107,33 @@ function fixSeoTags(html: string, route: string): string {
   
   let result = html;
   
-  // Fix robots meta tag
-  result = result.replace(
-    /<meta name="robots" content="[^"]*">/g,
-    `<meta name="robots" content="${robotsContent}">`
-  );
+  // Fix robots meta tag - add if missing
+  if (result.includes('<meta name="robots"')) {
+    result = result.replace(
+      /<meta name="robots" content="[^"]*">/g,
+      `<meta name="robots" content="${robotsContent}">`
+    );
+  } else if (result.includes('</head>')) {
+    // Add robots meta if missing
+    result = result.replace('</head>', `  <meta name="robots" content="${robotsContent}">\n  </head>`);
+  }
   
   // Fix canonical tag based on page type
   if (canonicalUrl === null) {
     // Noindex pages should NOT have canonical - remove it
     result = result.replace(/<link rel="canonical" href="[^"]*">\s*/g, '');
   } else {
-    // Replace placeholder canonical with correct URL
-    result = result.replace(
-      /<link rel="canonical" href="[^"]*">/g,
-      `<link rel="canonical" href="${canonicalUrl}">`
-    );
+    // Check if canonical tag exists
+    if (result.includes('<link rel="canonical"')) {
+      // Replace existing canonical with correct URL
+      result = result.replace(
+        /<link rel="canonical" href="[^"]*">/g,
+        `<link rel="canonical" href="${canonicalUrl}">`
+      );
+    } else if (result.includes('</head>')) {
+      // Add canonical tag if missing (critical fix)
+      result = result.replace('</head>', `  <link rel="canonical" href="${canonicalUrl}">\n  </head>`);
+    }
   }
   
   return result;
