@@ -5,8 +5,14 @@
 #
 # CRITICAL: This script MUST complete successfully or the build fails.
 # No partial publishes - every route must have a valid snapshot.
+#
+# NOTE: This script does NOT start a validation server or run smoke tests.
+# Those should be run separately to avoid port conflicts with Replit Autoscale.
 
 set -e  # Exit on any error
+
+# Cleanup trap - ensures all background processes are killed on exit
+trap 'pkill -P $$ 2>/dev/null || true; kill $(jobs -p) 2>/dev/null || true' EXIT
 
 echo "=========================================="
 echo "Production Build with Prerendering"
@@ -17,7 +23,7 @@ echo ""
 MIN_ROUTES=250        # Minimum expected routes (safety check)
 MIN_FILE_SIZE=5000    # Minimum bytes for valid snapshot (not just React shell)
 MIN_HOMEPAGE_LINKS=50 # Minimum links on homepage
-PORT=5001  # Use 5001 for prerendering to avoid conflicts with dev server
+PORT=5002  # Use 5002 for prerendering to avoid conflicts (5000=app, 5001=reserved)
 
 # Step 1: Skip npm install - Replit handles this during provisioning
 echo "Step 1: Dependencies already installed by Replit provisioning"
@@ -179,78 +185,11 @@ done
 
 echo ""
 
-# Step 11: Start validation server (kept alive for all validation steps)
-echo "Step 11: Starting validation server..."
-NODE_ENV=production node dist/index.js &
-VALIDATION_SERVER_PID=$!
-sleep 3
+# NOTE: Server-based validation (smoke tests, redirect validation) removed from build
+# These should be run separately via: npm run validate (after server is running)
+# This allows Replit Autoscale Publishing to work without port conflicts
 
-# Wait for server (max 30 seconds)
-for i in {1..30}; do
-  if curl -s http://localhost:$PORT/ > /dev/null 2>&1; then
-    echo "Validation server ready"
-    break
-  fi
-  sleep 1
-done
-
-# Step 11a: JS-Disabled Smoke Test
-echo ""
-echo "Step 11a: Running JS-disabled smoke test..."
-npx tsx scripts/js-disabled-smoke-test.ts
-SMOKE_EXIT_CODE=$?
-
-if [ $SMOKE_EXIT_CODE -ne 0 ]; then
-    kill $VALIDATION_SERVER_PID 2>/dev/null || true
-    echo "ERROR: JS-disabled smoke test failed"
-    exit 1
-fi
-
-# Step 11b: QA Redirect Validation
-echo ""
-echo "Step 11b: Running QA redirect validation..."
-QA_CSV=""
-if [ -f "attached_assets/Table_1766600276696.csv" ]; then
-    QA_CSV="--csv attached_assets/Table_1766600276696.csv"
-fi
-npx tsx scripts/qa/validate-redirects.ts $QA_CSV
-QA_EXIT_CODE=$?
-
-if [ $QA_EXIT_CODE -ne 0 ]; then
-    kill $VALIDATION_SERVER_PID 2>/dev/null || true
-    echo "ERROR: QA redirect validation failed"
-    exit 1
-fi
-
-# Step 11c: Screaming Frog Issue Validation
-echo ""
-echo "Step 11c: Running Screaming Frog issue validation..."
-npx tsx scripts/qa/screaming-frog-validator.ts
-SF_EXIT_CODE=$?
-
-if [ $SF_EXIT_CODE -ne 0 ]; then
-    kill $VALIDATION_SERVER_PID 2>/dev/null || true
-    echo "ERROR: Screaming Frog validation failed"
-    exit 1
-fi
-
-# Step 11d: GSC Indexing Issue Validation
-echo ""
-echo "Step 11d: Running GSC indexing issue validation..."
-npx tsx scripts/qa/gsc-indexing-validator.ts
-GSC_EXIT_CODE=$?
-
-# Stop validation server
-kill $VALIDATION_SERVER_PID 2>/dev/null || true
-wait $VALIDATION_SERVER_PID 2>/dev/null || true
-
-if [ $GSC_EXIT_CODE -ne 0 ]; then
-    echo "ERROR: GSC indexing validation failed"
-    exit 1
-fi
-echo ""
-
-# Step 12: Final summary
+# Step 11: Final summary
 echo "=========================================="
 echo "Production Build Complete!"
 echo "=========================================="
