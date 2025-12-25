@@ -23,8 +23,8 @@ const rootDir = path.resolve(__dirname, '..');
 const BASE_URL = process.env.PRERENDER_URL || 'http://localhost:5000';
 const OUTPUT_DIR = path.resolve(rootDir, 'dist/prerendered');
 const MANIFEST_PATH = path.resolve(rootDir, 'routes/allRoutes.json');
-const CONCURRENCY = 10; // Higher concurrency for faster builds (builds run on production server)
-const TIMEOUT = 30000; // 30 seconds per page (increased for complex pages)
+const CONCURRENCY = 15; // Higher concurrency for faster builds
+const TIMEOUT = 15000; // 15 seconds per page (reduced for speed)
 
 interface RouteManifest {
   totalRoutes: number;
@@ -71,68 +71,24 @@ function routeToFilePath(route: string): string {
 }
 
 async function waitForPageReady(page: Page): Promise<void> {
-  // Wait for React to mount - look for actual page content, not just fallback
+  // Fast wait for React to mount - optimized for build speed
   try {
-    // Use longer timeout (30s) for React apps that may take time to hydrate
     await page.waitForFunction(() => {
       const root = document.getElementById('root');
       if (!root) return false;
-      
-      // Check for actual React content - be more lenient
-      const hasNav = root.querySelector('nav') || root.querySelector('header');
-      const hasMain = root.querySelector('main') || root.querySelector('[role="main"]');
-      const hasFooter = root.querySelector('footer');
-      const hasLinks = root.querySelectorAll('a[href]').length > 3;
-      
-      // Content should be substantial (more than just fallback)
-      const textContent = root.textContent || '';
-      const hasSubstantialContent = textContent.length > 200;
-      
-      return (hasNav || hasMain || hasFooter || hasLinks) && hasSubstantialContent;
-    }, { timeout: 30000 }); // 30 second timeout
-  } catch (e) {
-    // Fall back to simpler check if React content check times out
-    console.log('    ⚠️ Full content check timed out, trying extended wait...');
-    // Wait longer before giving up - give React time to render
-    await new Promise(resolve => setTimeout(resolve, 10000));
-    
-    // One more check - see if there's ANY content in root
-    try {
-      await page.waitForFunction(() => {
-        const root = document.getElementById('root');
-        return root && (root.textContent || '').length > 100;
-      }, { timeout: 5000 });
-    } catch {
-      console.log('    ⚠️ Minimal content check also failed');
-    }
+      // Check for basic content structure
+      const hasContent = root.querySelectorAll('a[href]').length > 2 && (root.textContent || '').length > 100;
+      return hasContent;
+    }, { timeout: 8000 }); // 8 second timeout - reduced from 30s
+  } catch {
+    // Content check failed but continue - fixSeoTags will correct meta
   }
   
-  // Wait for network to be mostly idle (with shorter timeout)
-  await page.waitForNetworkIdle({ idleTime: 1000, timeout: 10000 }).catch(() => {
-    // Network might not be idle, continue anyway
-  });
+  // Brief network idle check - reduced from 10s to 3s
+  await page.waitForNetworkIdle({ idleTime: 500, timeout: 3000 }).catch(() => {});
   
-  // Wait for SEOHead useEffect to set canonical and meta tags
-  await page.waitForFunction(() => {
-    const canonical = document.querySelector('link[rel="canonical"]');
-    const path = window.location.pathname;
-    
-    if (path === '/') return true;
-    
-    if (!canonical) {
-      const robotsMeta = document.querySelector('meta[name="robots"]');
-      const isNoindex = robotsMeta && robotsMeta.getAttribute('content')?.includes('noindex');
-      return isNoindex;
-    }
-    
-    const canonicalHref = canonical.getAttribute('href') || '';
-    return canonicalHref.includes(path);
-  }, { timeout: 5000 }).catch(() => {
-    console.log('    ⚠️ Canonical check timed out, continuing...');
-  });
-  
-  // Additional wait for animations/transitions
-  await new Promise(resolve => setTimeout(resolve, 500));
+  // Minimal wait for React effects - reduced from 500ms to 200ms
+  await new Promise(resolve => setTimeout(resolve, 200));
 }
 
 /**
