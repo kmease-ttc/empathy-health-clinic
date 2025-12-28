@@ -41,14 +41,6 @@ export default function BlogListingPage() {
     }
   }, [searchString]);
   
-  const { data: featuredData } = useQuery<BlogPostsResponse>({
-    queryKey: ["/api/blog-posts", { featured: true }],
-    queryFn: async () => {
-      const response = await fetch("/api/blog-posts?featured=true");
-      return response.json();
-    }
-  });
-
   const { data: latestData } = useQuery<BlogPostsResponse>({
     queryKey: ["/api/blog-posts", { page: 1, pageSize: 11 }],
     queryFn: async () => {
@@ -72,9 +64,7 @@ export default function BlogListingPage() {
     }
   });
 
-  const featuredPosts = (featuredData?.posts || []).slice(0, 4);
-  const featuredPostIds = new Set(featuredPosts.map(post => post.id));
-  const latestPosts = (latestData?.posts || []).filter(post => !featuredPostIds.has(post.id)).slice(0, 9);
+  const latestPosts = (latestData?.posts || []).slice(0, 9);
   const paginatedPosts = paginatedData?.posts || [];
   const totalPages = paginatedData?.totalPages || 1;
 
@@ -140,64 +130,6 @@ export default function BlogListingPage() {
           </div>
         </div>
 
-        {featuredPosts.length > 0 && (
-          <section className="py-12 md:py-16 bg-background border-b">
-            <div className="max-w-7xl mx-auto px-6 lg:px-8">
-              <h2 className="text-2xl font-sans font-bold mb-6 text-foreground">Featured Articles</h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                {featuredPosts.map((post, index) => (
-                  <Link key={post.id} href={`/blog/${post.slug}`}>
-                    <Card className="hover-elevate cursor-pointer h-full min-h-[480px] flex flex-col overflow-hidden" data-testid={`featured-post-${index}`}>
-                      {post.featuredImage && (
-                        <img 
-                          src={post.featuredImage}
-                          alt={`${post.title} - Mental Health Blog - Empathy Health Clinic`}
-                          className="h-56 w-full object-cover"
-                          width={600}
-                          height={224}
-                          loading={index === 0 ? "eager" : "lazy"}
-                          fetchpriority={index === 0 ? "high" : "auto"}
-                          decoding="async"
-                          style={{ aspectRatio: "600/224" }}
-                          data-testid={`img-featured-post-${index}`}
-                        />
-                      )}
-                      <div className="p-6 flex-1 flex flex-col">
-                        <Badge variant="secondary" className="mb-4 w-fit" data-testid={`badge-featured-category-${index}`}>
-                          {post.category}
-                        </Badge>
-                        <CardTitle className="text-2xl font-sans font-bold mb-3 leading-tight" data-testid={`text-featured-title-${index}`}>
-                          {post.title}
-                        </CardTitle>
-                        <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3 flex-1" data-testid={`text-featured-excerpt-${index}`}>
-                          {post.excerpt}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            <span>{post.author}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            <span>{new Date(post.publishedDate).toLocaleDateString('en-US', { 
-                              month: 'short', 
-                              day: 'numeric', 
-                              year: 'numeric' 
-                            })}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <BookOpen className="h-4 w-4" />
-                            <span>{Math.ceil(post.content.split(' ').length / 200)} min read</span>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {latestPosts.length > 0 && (
           <section className="py-12 md:py-16 bg-background border-b">
