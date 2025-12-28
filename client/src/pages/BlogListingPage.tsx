@@ -65,7 +65,13 @@ export default function BlogListingPage() {
   });
 
   const latestPosts = (latestData?.posts || []).slice(0, 3);
-  const paginatedPosts = paginatedData?.posts || [];
+  const latestPostIds = new Set(latestPosts.map(p => p.id));
+  
+  // Filter out latest posts from paginated data on page 1 to avoid duplicates
+  const allPaginatedPosts = paginatedData?.posts || [];
+  const paginatedPosts = currentPage === 1 && !selectedCategory
+    ? allPaginatedPosts.filter(post => !latestPostIds.has(post.id))
+    : allPaginatedPosts;
   const totalPages = paginatedData?.totalPages || 1;
 
   const handleCategoryChange = (category: string) => {
