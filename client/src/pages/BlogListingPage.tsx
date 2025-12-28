@@ -64,7 +64,7 @@ export default function BlogListingPage() {
     }
   });
 
-  const latestPosts = (latestData?.posts || []).slice(0, 9);
+  const latestPosts = (latestData?.posts || []).slice(0, 3);
   const paginatedPosts = paginatedData?.posts || [];
   const totalPages = paginatedData?.totalPages || 1;
 
