@@ -248,6 +248,15 @@ app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
+  // Initialize database tables BEFORE server starts accepting traffic
+  // This prevents race conditions where requests hit before tables exist
+  try {
+    await initializeDatabase();
+  } catch (err) {
+    console.error('Database initialization failed:', err);
+    // Continue anyway - tables may already exist
+  }
+
   server.listen({
     port,
     host: "0.0.0.0",
@@ -255,17 +264,14 @@ app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
   }, () => {
     log(`serving on port ${port}`);
     
-    // Initialize database tables and caches AFTER server is listening
-    // This prevents blocking health checks during deployment startup
+    // Initialize blog slug cache AFTER server is listening
+    // This is non-critical and can happen asynchronously
     setImmediate(async () => {
       try {
-        // Create missing database tables first
-        await initializeDatabase();
-        // Then initialize blog slug cache
         await initBlogSlugCache();
-        log('Database and blog slug cache initialized');
+        log('Blog slug cache initialized');
       } catch (err) {
-        console.error('Failed to initialize:', err);
+        console.error('Failed to initialize blog slug cache:', err);
       }
     });
   });

@@ -30,14 +30,21 @@ echo "Step 1: Dependencies already installed by Replit provisioning"
 echo ""
 
 # Step 1.5: Validate database tables exist (prevents lead form regression)
-# Note: This is a warning only during build - production database may differ
+# Required tables MUST exist - build fails if missing
+# Optional tables (analytics) only warn - app can still function without them
 echo "Step 1.5: Validating critical database tables..."
 if npx tsx scripts/validate-database-tables.ts 2>&1; then
     echo "  Database validation passed"
 else
-    echo "  WARNING: Database validation failed or unavailable during build"
-    echo "  This may be expected if production uses a different database."
-    echo "  Ensure DATABASE_URL is configured and tables exist in production."
+    DB_EXIT_CODE=$?
+    if [ "$DB_EXIT_CODE" -eq 1 ]; then
+        echo "ERROR: Required database tables missing - build blocked"
+        echo "  Run 'npm run db:push' or create tables manually before deploying."
+        exit 1
+    else
+        echo "  WARNING: Database connection unavailable during build"
+        echo "  Tables will be created at runtime startup if missing."
+    fi
 fi
 echo ""
 
