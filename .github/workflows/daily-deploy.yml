@@ -1,0 +1,43 @@
+name: Daily Deploy
+
+on:
+  schedule:
+    - cron: "15 9 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  daily-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run your daily pipeline or build script
+        run: |
+          npm run build
+
+      - name: Commit and push if there are changes
+        run: |
+          git config user.name "Empathy Health Bot"
+          git config user.email "deployer@empathyhealthclinic.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: daily deploy"
+          git push
