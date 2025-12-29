@@ -138,10 +138,10 @@ echo ""
 
 # Step 8.5: Fix asset references in prerendered HTML
 echo "Step 8.5: Fixing asset references in prerendered HTML..."
-if npx tsx scripts/fix-prerender-assets.ts; then
+if node scripts/fix-prerender-assets.mjs; then
     echo "  Asset references fixed successfully"
 else
-    echo "ERROR: fix-prerender-assets.ts failed"
+    echo "ERROR: fix-prerender-assets.mjs failed"
     echo "  Prerendered HTML files may be missing production CSS/JS"
     exit 1
 fi
@@ -149,7 +149,7 @@ echo ""
 
 # Step 9: Verify asset integrity (prevents blank pages after deploy)
 echo "Step 9: Verifying asset integrity..."
-npx tsx scripts/verify-asset-integrity.ts
+node scripts/verify-asset-integrity.mjs
 if [ $? -ne 0 ]; then
     echo "ERROR: Asset integrity check failed"
     echo "  HTML references assets that don't exist or are inconsistent"
