@@ -488,7 +488,7 @@ async function main() {
   const validationResult = validatePrerenderedFiles();
   if (!validationResult.success) {
     console.error(`\n❌ Validation failed: ${validationResult.missingCSS.length} files missing CSS, ${validationResult.missingJS.length} files missing JS`);
-    console.error('   Run: python3 scripts/fix-prerender-assets.py');
+    console.error('   Run: npx tsx scripts/fix-prerender-assets.ts');
     process.exit(1);
   }
   console.log('✅ All prerendered files validated successfully!\n');

@@ -162,7 +162,7 @@ function printSummary(summary: ValidationSummary): void {
   } else {
     console.log('❌ VALIDATION FAILED');
     console.log('   Fix missing assets before publishing!\n');
-    console.log('   Run: python3 scripts/fix-prerender-assets.py');
+    console.log('   Run: npx tsx scripts/fix-prerender-assets.ts');
     process.exit(1);
   }
 }

@@ -238,7 +238,7 @@ function printResults(result: VerificationResult): void {
     }
     console.log('');
     console.log('   This indicates HTML files reference different asset hashes.');
-    console.log('   Regenerate prerendered files: python3 scripts/fix-prerender-assets.py');
+    console.log('   Regenerate prerendered files: npx tsx scripts/fix-prerender-assets.ts');
     console.log('');
   }
   
@@ -253,7 +253,7 @@ function printResults(result: VerificationResult): void {
     console.log('❌ ASSET INTEGRITY FAILED');
     console.log('   Fix issues above before deploying.');
     console.log('');
-    console.log('   Quick fix: python3 scripts/fix-prerender-assets.py');
+    console.log('   Quick fix: npx tsx scripts/fix-prerender-assets.ts');
     console.log('   Then run: npx tsx scripts/verify-asset-integrity.ts\n');
     process.exit(1);
   }
