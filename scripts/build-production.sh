@@ -138,10 +138,10 @@ echo ""
 
 # Step 8.5: Fix asset references in prerendered HTML
 echo "Step 8.5: Fixing asset references in prerendered HTML..."
-if python3 scripts/fix-prerender-assets.py; then
+if npx tsx scripts/fix-prerender-assets.ts; then
     echo "  Asset references fixed successfully"
 else
-    echo "ERROR: fix-prerender-assets.py failed"
+    echo "ERROR: fix-prerender-assets.ts failed"
     echo "  Prerendered HTML files may be missing production CSS/JS"
     exit 1
 fi
