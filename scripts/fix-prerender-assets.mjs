@@ -85,21 +85,22 @@ function main() {
       html = html.replace(/<link[^>]*rel="modulepreload"[^>]*href="\/src\/[^"]*"[^>]*>/g, '');
       html = html.replace(/<script[^>]*src="\/@replit\/[^"]*"[^>]*><\/script>/g, '');
       html = html.replace(/<script[^>]*src="\/@vite\/[^"]*"[^>]*><\/script>/g, '');
+      
+      // Remove ALL old production asset references (with any hash)
+      // This ensures we replace old hashes with new ones from the current build
+      html = html.replace(/<link[^>]*rel="stylesheet"[^>]*href="\/assets\/index[^"]*\.css"[^>]*>/g, '');
+      html = html.replace(/<script[^>]*src="\/assets\/index[^"]*\.js"[^>]*><\/script>/g, '');
 
-      // Add CSS if missing
-      if (!html.includes(prodCss)) {
-        if (html.includes('</head>')) {
-          html = html.replace('</head>', `    ${prodCss}\n  </head>`);
-          fixedCss++;
-        }
+      // Always add current production CSS
+      if (html.includes('</head>')) {
+        html = html.replace('</head>', `    ${prodCss}\n  </head>`);
+        fixedCss++;
       }
 
-      // Add JS if missing
-      if (!html.includes(prodJs)) {
-        if (html.includes('</body>')) {
-          html = html.replace('</body>', `    ${prodJs}\n  </body>`);
-          fixedJs++;
-        }
+      // Always add current production JS
+      if (html.includes('</body>')) {
+        html = html.replace('</body>', `    ${prodJs}\n  </body>`);
+        fixedJs++;
       }
 
       // Write if changed
