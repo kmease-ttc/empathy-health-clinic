@@ -1,49 +1,82 @@
-# dependencies
+# ============================================
+# REPO BLOAT PREVENTION - GitHub/CI Ready
+# ============================================
+
+# Dependencies (reinstall via npm ci)
 node_modules/
 
-# build outputs
+# Build outputs (regenerated during build)
 dist/
 build/
 .next/
 out/
 
-# caches
+# Caches (regenerated automatically)
 .cache/
 .turbo/
 .vite/
 coverage/
+.npm/
+.yarn/
 
-# repl / local
+# Replit local files
 .replit
 replit.nix
+.local/
 
-# python env (if present)
+# Python env (if present)
 .pythonlibs/
 __pycache__/
+*.pyc
+venv/
 
-# env / secrets
+# Environment / secrets
 .env
 .env.*
 *.pem
 *.key
 
-# logs
+# Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# large non-runtime files
+# ============================================
+# LARGE FILE BLOAT PREVENTION
+# ============================================
+
+# Archive files (never commit)
 *.zip
 *.sql
 *.tar
 *.tar.gz
 *.7z
 *.rar
+*.gz
+*.bz2
 
-# reports and exports (not needed for runtime)
+# Specific bloat-prone directories
+attached_assets/**/*.zip
+attached_assets/**/*.sql
 attached_assets/screaming_frog_reports/
 attached_assets/generated_videos/
 
-# temporary/draft folders
+# Reports and exports (regenerated on demand)
+**/exports/
+**/reports/
+**/*-report.html
+**/*-export.csv
+
+# Temporary/draft folders
 empathy-clean/
+temp/
+tmp/
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
