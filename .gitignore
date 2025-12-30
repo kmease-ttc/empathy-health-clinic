@@ -32,3 +32,18 @@ __pycache__/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# large non-runtime files
+*.zip
+*.sql
+*.tar
+*.tar.gz
+*.7z
+*.rar
+
+# reports and exports (not needed for runtime)
+attached_assets/screaming_frog_reports/
+attached_assets/generated_videos/
+
+# temporary/draft folders
+empathy-clean/
