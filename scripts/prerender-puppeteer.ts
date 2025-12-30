@@ -483,73 +483,14 @@ async function main() {
     process.exit(1);
   }
   
-  // Run validation to ensure all files have production assets
-  console.log('🔍 Running post-prerender validation...\n');
-  const validationResult = validatePrerenderedFiles();
-  if (!validationResult.success) {
-    console.error(`\n❌ Validation failed: ${validationResult.missingCSS.length} files missing CSS, ${validationResult.missingJS.length} files missing JS`);
-    console.error('   Run: npx tsx scripts/fix-prerender-assets.ts');
-    process.exit(1);
-  }
-  console.log('✅ All prerendered files validated successfully!\n');
+  // NOTE: Asset validation removed from here - it runs too early!
+  // The fix-prerender-assets.ts script runs AFTER this, injecting production CSS/JS.
+  // Asset validation is done in Step 9 via verify-asset-integrity.mjs.
+  console.log('✅ Prerendering complete. Asset references will be fixed in next step.\n');
 }
 
-/**
- * Validate that all prerendered files have production CSS and JS assets
- * 
- * This function throws if production build is not found - validation should
- * never be skipped as it's the last line of defense before deployment.
- */
-function validatePrerenderedFiles(): { success: boolean; missingCSS: string[]; missingJS: string[] } {
-  const prodIndexPath = path.resolve(rootDir, 'dist/public/index.html');
-  
-  if (!fs.existsSync(prodIndexPath)) {
-    throw new Error('Production build not found during validation. This should never happen.');
-  }
-  
-  const prodHtml = fs.readFileSync(prodIndexPath, 'utf-8');
-  
-  const cssMatch = prodHtml.match(/href="(\/assets\/index[^"]*\.css)"/);
-  const jsMatch = prodHtml.match(/src="(\/assets\/index[^"]*\.js)"/);
-  
-  if (!cssMatch || !jsMatch) {
-    throw new Error('Production assets not found during validation. This should never happen.');
-  }
-  
-  const cssHref = cssMatch[1];
-  const jsHref = jsMatch[1];
-  
-  const missingCSS: string[] = [];
-  const missingJS: string[] = [];
-  
-  function walkDir(dir: string) {
-    const files = fs.readdirSync(dir);
-    for (const file of files) {
-      const filePath = path.join(dir, file);
-      const stat = fs.statSync(filePath);
-      
-      if (stat.isDirectory()) {
-        walkDir(filePath);
-      } else if (file.endsWith('.html')) {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        if (!content.includes(cssHref)) {
-          missingCSS.push(filePath);
-        }
-        if (!content.includes(jsHref)) {
-          missingJS.push(filePath);
-        }
-      }
-    }
-  }
-  
-  walkDir(OUTPUT_DIR);
-  
-  return {
-    success: missingCSS.length === 0 && missingJS.length === 0,
-    missingCSS,
-    missingJS
-  };
-}
+// NOTE: validatePrerenderedFiles() removed - validation now happens in 
+// Step 9 via verify-asset-integrity.mjs, AFTER fix-prerender-assets runs.
 
 main().catch(error => {
   console.error('Fatal error:', error);
