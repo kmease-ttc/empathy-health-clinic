@@ -339,6 +339,53 @@ export default function PsychiatristOrlando() {
           </div>
         </section>
 
+        {/* Google Maps Embed - Local SEO Signal */}
+        <section className="bg-gray-100 py-8">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Directions to Our Orlando Psychiatry Office</h2>
+                <div className="space-y-4 text-gray-700">
+                  <div>
+                    <h3 className="font-semibold text-lg">From Downtown Orlando:</h3>
+                    <p>Take I-4 East to Exit 87 (Fairbanks Ave). Head east on Fairbanks Ave, then turn right onto Louisiana Ave. Our office is on the right at 1155 Louisiana Ave, Suite 202.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">From UCF / East Orlando:</h3>
+                    <p>Take SR-408 West toward Orlando. Exit onto I-4 West, then take Exit 87 (Fairbanks Ave). Turn right onto Fairbanks Ave, then left onto Louisiana Ave.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Parking:</h3>
+                    <p>Free parking available in the building lot. Handicap accessible entrance at main building door.</p>
+                  </div>
+                  <a 
+                    href="https://maps.google.com/?daddr=1155+Louisiana+Ave+Suite+202+Winter+Park+FL+32789" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[#E48F66] hover:underline font-semibold"
+                    data-testid="link-get-directions"
+                  >
+                    <MapPin className="h-5 w-5" />
+                    Get Directions on Google Maps
+                  </a>
+                </div>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-lg h-[300px] md:h-[350px]">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.8!2d-81.3392!3d28.5997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e76434f7e4f5f7%3A0x0!2s1155+Louisiana+Ave%2C+Winter+Park%2C+FL+32789!5e0!3m2!1sen!2sus!4v1704067200000"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Empathy Health Clinic Orlando Psychiatry Location"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* SEO Internal Links - Above the Fold */}
         <section className="py-6 bg-background border-b" data-testid="seo-internal-links-above-fold">
           <div className="container mx-auto px-4 max-w-6xl">
