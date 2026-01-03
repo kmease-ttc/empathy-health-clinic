@@ -2127,7 +2127,6 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
       { href: "/psychiatry-orlando", label: "Psychiatry Services" },
       { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Treatment" },
       { href: "/medication-management-orlando", label: "Medication Management" },
-      { href: "/child-psychiatrist-orlando", label: "Child Psychiatrist" },
       { href: "/new-patients", label: "New Patients" },
       { href: "/best-psychiatrist-orlando", label: "Best Psychiatrist Orlando" },
       { href: "/mental-health-doctor-orlando", label: "Mental Health Doctor" },

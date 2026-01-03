@@ -131,7 +131,6 @@ function formatDescription(description: string, title: string): string {
  * - /anxiety-psychiatrist-orlando (480 vol) - condition-specific intent
  * - /telepsychiatry-orlando (320 vol) - virtual care intent
  * - /bipolar-psychiatrist-orlando - condition-specific intent
- * - /child-psychiatrist-orlando - demographic-specific intent
  * - /psychiatric-evaluation-orlando - service-specific intent
  */
 const CANONICAL_CONSOLIDATION_PATHS: Record<string, string> = {
@@ -155,7 +154,7 @@ const SELF_CANONICAL_EXACT_PATHS = [
   // High-volume SEO target pages (unique search intent)
   '/psychiatrist-near-me', '/psychiatrist-orlando', '/psychiatry-near-me',
   '/adhd-psychiatrist-orlando', '/anxiety-psychiatrist-orlando', '/depression-psychiatrist-orlando',
-  '/telepsychiatry-orlando', '/bipolar-psychiatrist-orlando', '/child-psychiatrist-orlando',
+  '/telepsychiatry-orlando', '/bipolar-psychiatrist-orlando',
   '/psychiatric-evaluation-orlando', '/mental-health-clinic-orlando', '/medication-management-orlando',
   '/psychiatrist-for-anxiety-near-me', '/psychiatrist-for-depression-near-me',
   '/same-day-psychiatrist-orlando', // Urgent care intent - must rank independently

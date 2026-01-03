@@ -457,7 +457,7 @@ export default function PsychiatristOrlando() {
               {[
                 "Anxiety disorders",
                 "Depression & mood disorders",
-                "ADHD (adult & child)",
+                "ADHD (adults 18+)",
                 "Bipolar disorder",
                 "PTSD & trauma",
                 "OCD",
@@ -488,7 +488,7 @@ export default function PsychiatristOrlando() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-lg mb-2">ADHD Treatment Orlando</h3>
-                        <p className="text-gray-600 text-sm">Comprehensive ADHD evaluation and medication management for adults and children.</p>
+                        <p className="text-gray-600 text-sm">Comprehensive ADHD evaluation and medication management for adults 18 and older.</p>
                       </div>
                     </div>
                   </CardContent>
@@ -683,7 +683,7 @@ export default function PsychiatristOrlando() {
                     <AccordionItem value="item-8">
                       <AccordionTrigger className="text-left">What conditions do Orlando psychiatrists treat?</AccordionTrigger>
                       <AccordionContent className="text-gray-600">
-                        Orlando psychiatrists at Empathy Health Clinic treat a wide range of mental health conditions including depression, anxiety disorders (generalized anxiety, social anxiety, panic disorder), ADHD in adults and children, bipolar disorder, PTSD and trauma-related conditions, OCD, insomnia, and other mood disorders. We provide comprehensive psychiatric evaluations and personalized medication management tailored to each patient's unique needs.
+                        Orlando psychiatrists at Empathy Health Clinic treat a wide range of mental health conditions including depression, anxiety disorders (generalized anxiety, social anxiety, panic disorder), ADHD in adults, bipolar disorder, PTSD and trauma-related conditions, OCD, insomnia, and other mood disorders. We provide comprehensive psychiatric evaluations and personalized medication management tailored to each patient's unique needs.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-9">

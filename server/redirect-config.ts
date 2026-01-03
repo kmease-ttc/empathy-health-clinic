@@ -63,6 +63,9 @@ export const contentRedirectMap: Record<string, string> = {
   '/online-psychiatrist': '/telepsychiatry-orlando',
   '/online-psychiatry': '/telepsychiatry-orlando',
   
+  // Removed service pages (adults only, no child services)
+  '/child-psychiatrist-orlando': '/psychiatrist-orlando',
+  
   // Old treatment/therapy URLs
   '/trauma-therapy': '/therapy',
   '/supplements': '/services',
