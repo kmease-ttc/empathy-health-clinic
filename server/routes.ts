@@ -73,6 +73,7 @@ import {
   insertWebVitalSchema,
   blogPosts as blogPostsTable,
 } from "@shared/schema";
+import { arcloAuthMiddleware, handleApplyChanges, handleArcloHealth, handleListPaths } from "./arclo-integration";
 import { setupAuth } from "./auth";
 import { setupSEOWebhook } from "./seo-webhook";
 import { registerImageSitemap } from "./imageSitemap";
@@ -3351,6 +3352,18 @@ LLM-Full: ${baseUrl}/llms-full.txt
       });
     }
   });
+
+  // ============================================
+  // ARCLO INTEGRATION ENDPOINTS
+  // ============================================
+  // Health check (no auth required)
+  app.get("/api/arclo/health", handleArcloHealth);
+  
+  // List allowed paths (no auth required - helps Arclo understand restrictions)
+  app.get("/api/arclo/paths", handleListPaths);
+  
+  // Apply file changes (requires API key authentication)
+  app.post("/api/arclo/apply-changes", arcloAuthMiddleware, handleApplyChanges);
 
   const httpServer = createServer(app);
   return httpServer;
