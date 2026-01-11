@@ -90,11 +90,11 @@ export function buildOrganizationSchema() {
     "url": PREFERRED_DOMAIN,
     "logo": {
       "@type": "ImageObject",
-      "url": `${PREFERRED_DOMAIN}/attached_assets/empathy-health-clinic-logo.png`,
+      "url": `${PREFERRED_DOMAIN}/logo/empathy-health-clinic.png`,
       "width": 512,
       "height": 512
     },
-    "image": `${PREFERRED_DOMAIN}/attached_assets/empathy-health-clinic-logo.png`,
+    "image": `${PREFERRED_DOMAIN}/logo/empathy-health-clinic.png`,
     "telephone": CLINIC_INFO.telephone,
     "email": CLINIC_INFO.email,
     "address": {
