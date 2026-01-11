@@ -224,6 +224,11 @@ app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
   logAssetConfig();
   app.use(createAssetProxyMiddleware(attachedAssetsPath));
   app.use("/attached_assets", express.static(attachedAssetsPath));
+  
+  // Serve logo file directly for SEO (no redirect, indexable)
+  const clientPublicPath = path.resolve(process.cwd(), "client/public");
+  app.use("/empathy-health-clinic-logo.png", express.static(path.join(clientPublicPath, "empathy-health-clinic-logo.png")));
+  app.use("/empathy-logo.png", express.static(path.join(clientPublicPath, "empathy-logo.png")));
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
