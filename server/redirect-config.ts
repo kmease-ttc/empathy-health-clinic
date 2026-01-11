@@ -12,10 +12,10 @@ export function setBlogSlugChecker(checker: (slug: string) => boolean): void {
 
 export const contentRedirectMap: Record<string, string> = {
   // Treatment redirects
-  '/treatments/psychiatric-services': '/services',
+  '/treatments/psychiatric-services': '/psychiatric-services',
   '/treatments/medication-management': '/medication-management',
   '/treatments/virtual-counseling': '/virtual-therapy',
-  '/treatments/couples-therapy': '/therapy',
+  '/treatments/couples-therapy': '/couples-counseling',
   '/treatments/grief-counseling-services': '/therapy',
   '/treatments/in-person-therapy-orlando': '/in-person-therapy',
   '/treatments/anxiety': '/anxiety-therapy',
@@ -44,8 +44,8 @@ export const contentRedirectMap: Record<string, string> = {
   '/locations/therapy-services-casselberry': '/therapist-orlando',
   
   // Therapy approach redirects
-  '/therapy/relationship-and-family': '/couples-therapy',
-  '/therapy/intimacy-therapy-sexual-wellness': '/intimacy-therapy',
+  '/therapy/relationship-and-family': '/couples-counseling',
+  '/therapy/intimacy-therapy-sexual-wellness': '/couples-counseling',
   '/therapy/in-person-therapy-orlando': '/in-person-therapy',
   '/therapy-approaches': '/therapy',
   
@@ -266,8 +266,8 @@ export const contentRedirectMap: Record<string, string> = {
   
   // Treatment/therapy pages
   '/therapy-treatment': '/therapy',
-  '/treatments/orlando-marriage-counseling-services': '/couples-therapy',
-  '/treatments/intimacy-therapy-sexual-wellness': '/intimacy-therapy',
+  '/treatments/orlando-marriage-counseling-services': '/couples-counseling',
+  // NOTE: /treatments/intimacy-therapy-sexual-wellness moved to canonical mappings section → /couples-counseling
   
   // Location pages
   // Duplicate removed - already defined earlier as redirect to /therapist-orlando
@@ -291,7 +291,7 @@ export const contentRedirectMap: Record<string, string> = {
   // LGBT/Therapy Services
   '/lgbt-therapy-services': '/therapy',
   '/treatments/lgbt-therapy-services': '/therapy',
-  '/orlando-couples-therapy': '/couples-therapy',
+  '/orlando-couples-therapy': '/couples-counseling',
   
   // Location pages - redirect to main therapy services
   '/locations': '/services',
@@ -307,7 +307,7 @@ export const contentRedirectMap: Record<string, string> = {
   '/therapy/emdr': '/emdr-therapy',
   '/therapy/dialectical-behavioral-therapy': '/therapy',
   '/therapy/therapy-approaches': '/therapy',
-  '/therapy/toxic-relationship-therapy': '/couples-therapy',
+  '/therapy/toxic-relationship-therapy': '/couples-counseling',
   '/cbt-therapy': '/therapy',
   
   // Condition pages
@@ -315,8 +315,8 @@ export const contentRedirectMap: Record<string, string> = {
   '/post-traumatic-stress-disorder-ptsd': '/anxiety-therapy',
   '/conditions/post-traumatic-stress-disorder-ptsd': '/anxiety-therapy',
   '/ocd': '/anxiety-therapy',
-  '/relationship-issues': '/couples-therapy',
-  '/conditions/relationship-issues': '/couples-therapy',
+  '/relationship-issues': '/couples-counseling',
+  '/conditions/relationship-issues': '/couples-counseling',
   '/conditions': '/services',
   
   // Treatment pages
@@ -327,8 +327,8 @@ export const contentRedirectMap: Record<string, string> = {
   '/group-therapy': '/therapy',
   '/therapy-services': '/therapy',
   '/crisis-support': '/services',
-  '/intimacy-therapy-sexual-wellness': '/couples-therapy',
-  '/orlando-marriage-counseling-services': '/couples-therapy',
+  '/intimacy-therapy-sexual-wellness': '/couples-counseling',
+  '/orlando-marriage-counseling-services': '/couples-counseling',
   
   // Insurance provider pages - REMOVED - duplicates handled in Google Ads section above (lines 106-199)
   // Optum and First Health still redirect to /insurance as they don't have dedicated pages
@@ -378,11 +378,11 @@ export const contentRedirectMap: Record<string, string> = {
   '/borderline-personality-disorder-key-facts-care': '/services',
   '/bpd-men-guide': '/blog/bpd-men-guide',
   '/bpd-vs-npd': '/blog/bpd-vs-npd',
-  '/breaking-the-cycle-a-guide-to-overcoming-toxic-relationship-patterns': '/couples-therapy',
+  '/breaking-the-cycle-a-guide-to-overcoming-toxic-relationship-patterns': '/couples-counseling',
   '/can-you-pass-out-from-a-panic-attack': '/blog/can-you-pass-out-from-a-panic-attack',
   '/choosing-anxiety-treatment-centers-factors': '/blog/choosing-anxiety-treatment-centers-factors',
   '/coping-with-grief-during-holidays': '/blog/coping-with-grief-during-holidays',
-  '/couples-counseling-with-a-twist-a-guide-to-integrating-dbt-techniques-for-better-intimacy': '/couples-therapy',
+  '/couples-counseling-with-a-twist-a-guide-to-integrating-dbt-techniques-for-better-intimacy': '/couples-counseling',
   '/couples-therapy-in-orlando-rekindle-your-relationship': '/blog/couples-therapy-in-orlando-rekindle-your-relationship',
   '/dating-someone-with-bpd': '/blog/dating-someone-with-bpd',
   '/deciphering-the-differences-therapy-vs-counseling': '/blog/deciphering-the-differences-therapy-vs-counseling',
@@ -401,7 +401,7 @@ export const contentRedirectMap: Record<string, string> = {
   '/high-functioning-depression': '/depression-treatment',
   '/how-bipolar-disorder-impacts-interpersonal-dynamics': '/blog/how-bipolar-disorder-impacts-interpersonal-dynamics',
   '/how-introverts-with-adhd-can-excel-in-the-workplace': '/blog/how-introverts-with-adhd-can-excel-in-the-workplace',
-  '/how-to-get-wife-more-intimate': '/couples-therapy',
+  '/how-to-get-wife-more-intimate': '/couples-counseling',
   '/how-to-improve-concentration-and-focus-expert-tips': '/blog/how-to-improve-concentration-and-focus-expert-tips',
   '/how-to-leave-toxic-relationship': '/blog/how-to-leave-toxic-relationship',
   '/how-to-stay-grounded-through-major-life-changes': '/blog/how-to-stay-grounded-through-major-life-changes',
@@ -419,7 +419,7 @@ export const contentRedirectMap: Record<string, string> = {
   '/locations/therapy-services-downtown-orlando': '/therapist-orlando',
   '/locations/therapy-services-sanford': '/therapist-orlando',
   '/locations/therapy-services-winter-park': '/therapist-orlando',
-  '/one-sided-relationship-signs': '/couples-therapy',
+  '/one-sided-relationship-signs': '/couples-counseling',
   '/open-relationship-guide': '/blog/open-relationship-guide',
   '/optum-coverage': '/insurance',
   '/outsource-billing-practice': '/blog/outsource-billing-practice',
@@ -447,12 +447,8 @@ export const contentRedirectMap: Record<string, string> = {
   '/therapy/in-person-therapy-2': '/in-person-therapy',
   '/top-10-best-low-stress-jobs': '/blog/top-10-best-low-stress-jobs',
   '/top-5-ai-scribes-psychiatrists-are-actually-using-in-2025': '/blog/top-5-ai-scribes-psychiatrists-are-actually-using-in-2025',
-  '/treatments/adhd': '/adhd-treatment',
-  '/treatments/anger-management': '/therapy',
-  '/treatments/bipolar-disorder': '/bipolar-disorder-treatment',
+  '/treatments/anger-management': '/stress-management',
   '/treatments/depression-therapy': '/depression-treatment',
-  '/treatments/ocd-treatment': '/anxiety-therapy',
-  '/treatments/ptsd-treatment': '/anxiety-therapy',
   '/treatments/therapy-treatment': '/therapy',
   '/trust-after-trauma-a-guide-to-creating-secure-attachments': '/therapy',
   '/unburdened-the-key-to-mental-clarity': '/blog/unburdened-the-key-to-mental-clarity',
@@ -538,14 +534,13 @@ export const contentRedirectMap: Record<string, string> = {
   '/cigna-orlando': '/psychiatrist-orlando-accepts-cigna',
   '/find-a-psychiatrist-that-takes-curative-health-insurance-curative-coverage': '/insurance',
   
-  // Treatment page variants
-  '/treatments/ocd-therapy': '/anxiety-therapy',
+  // Treatment page variants - canonical mappings (deduplicated)
+  '/treatments/ocd-therapy': '/ocd-treatment',
+  '/treatments/ocd-treatment': '/ocd-treatment',
   '/treatments/bipolar-disorder-therapy': '/bipolar-disorder-treatment',
-  '/treatments/lgbt-therapy-services': '/therapy',
-  '/treatments/adhd-treatment': '/adhd-treatment',
   
   // Root-level blog slugs with trailing slashes (normalized by middleware)
-  '/dbt-skills-for-healthy-communication-and-conflict-resolution-in-dating': '/couples-therapy',
+  '/dbt-skills-for-healthy-communication-and-conflict-resolution-in-dating': '/couples-counseling',
   '/from-heartbreak-to-healing-emdr-strategies-for-moving-on-after-a-breakup': '/emdr-therapy',
   '/how-emdr-helps-with-anxiety-depression': '/emdr-therapy',
   '/how-long-after-car-accident-can-you-claim-injury': '/services',
@@ -556,6 +551,32 @@ export const contentRedirectMap: Record<string, string> = {
   // Feed URLs - redirect to blog
   '/head-trauma-memory-loss-recovery/feed': '/blog',
   '/top-5-ai-scribes-psychiatrists-are-actually-using-in-2025/feed': '/blog',
+  
+  // Google Search Console - 404 Fixes (January 2026)
+  // Condition pages that need redirects (no dedicated pages exist)
+  '/schizophrenia-psychotic-disorders': '/services',
+  '/substance-use-disorders-addiction': '/services',
+  '/postpartum-depression-perinatal-mood-disorders': '/services',
+  '/ocd-obsessive-compulsive-disorder': '/ocd-treatment',
+  '/mood-disorder-questionnaire': '/services',
+  // NOTE: /ocd-treatment, /ocd-therapy, /bipolar-disorder-treatment are standalone pages - DO NOT redirect
+  
+  // Treatment pages - redirect to canonical standalone pages
+  '/treatments/ptsd-treatment': '/ptsd-treatment',
+  '/treatments/intimacy-therapy-sexual-wellness': '/couples-counseling',
+  
+  // NOTE: Do NOT add redirects for location pages - they should be self-canonical
+  // and handled by LocationDetail.tsx or dedicated static pages
+  
+  // Old blog URLs found in GSC 404 list
+  '/understanding-bipolar-disorder-types-symptoms-and-diagnosis': '/bipolar-psychiatrist-orlando',
+  '/the-growing-importance-of-public-health-in-modern-healthcare': '/blog/the-growing-importance-of-public-health-in-modern-healthcare',
+  '/the-role-of-therapy-in-managing-bipolar-disorder': '/bipolar-psychiatrist-orlando',
+  '/trust-after-trauma-a-guide-to-creating-secure-attachments': '/anxiety-therapy',
+  '/unburdened-the-key-to-mental-clarity': '/therapy',
+  
+  // Oscar Health and UHC variants with trailing slashes (normalized)
+  '/find-a-psychiatrist-that-takes-oscar-health-oscar-coverage': '/therapist-accepts-oscar-health',
 };
 
 /**

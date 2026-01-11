@@ -156,7 +156,12 @@ else
     # Step 7: Run prerender script
     echo ""
     echo "Step 7: Prerendering routes..."
-    PRERENDER_URL=http://localhost:$PORT npx tsx scripts/prerender-puppeteer.ts
+    # Use --force for full prerender to ensure all pages get fresh canonicals
+    if [ "$PRERENDER_MODE" = "full" ]; then
+        PRERENDER_URL=http://localhost:$PORT npx tsx scripts/prerender-puppeteer.ts --force
+    else
+        PRERENDER_URL=http://localhost:$PORT npx tsx scripts/prerender-puppeteer.ts
+    fi
 
     # Stop the temporary server
     echo ""
