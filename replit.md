@@ -34,7 +34,8 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
   - **Screaming Frog Issue Validation** (`scripts/qa/screaming-frog-validator.ts`): Checks for critical SEO issues including pages without internal outlinks, canonical mismatches, H1/H2 issues, and meta description length problems
   - **GSC Indexing Issue Validation** (`scripts/qa/gsc-indexing-validator.ts`): Validates against Google Search Console indexing issues including soft 404s, redirect links, noindex tags, canonical mismatches, and duplicate content
   - **Build Pipeline Gates** (`scripts/build-production.sh`): 15-step build process with `exit 1` on any failure; blocks publishing on regressions
-  - All gates are enforced automatically during `npm run build:production`
+  - All gates are enforced automatically during `npm run build`
+- **Prerender Optimization**: Build prerenders all 310+ pages for full SEO coverage. Optimized with 8x concurrency, retry logic (2 retries per page), and 20s timeouts. If builds timeout, use `PRERENDER_MODE=priority npm run build` to deploy with ~50 critical pages (other pages work via React CSR). Priority mode is a fallback only.
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, conditions, and city-specific landing pages (e.g., Orlando).

@@ -23,10 +23,11 @@ const rootDir = path.resolve(__dirname, '..');
 const BASE_URL = process.env.PRERENDER_URL || 'http://localhost:5000';
 const OUTPUT_DIR = path.resolve(rootDir, 'dist/prerendered');
 const MANIFEST_PATH = path.resolve(rootDir, 'routes/allRoutes.json');
-const CONCURRENCY = parseInt(process.env.PRERENDER_CONCURRENCY || '5', 10); // Increased from 2 to 5 for faster builds
-const TIMEOUT = 20000; // 20 seconds per page (reduced from 30s)
+const CONCURRENCY = parseInt(process.env.PRERENDER_CONCURRENCY || '8', 10); // 8 concurrent pages for balance of speed and stability
+const TIMEOUT = 20000; // 20 seconds per page (safe timeout for complex pages)
+const USE_PRIORITY_MODE = process.argv.includes('--priority');
 
-console.log(`🔧 Prerender config: CONCURRENCY=${CONCURRENCY}, TIMEOUT=${TIMEOUT}ms`);
+console.log(`🔧 Prerender config: CONCURRENCY=${CONCURRENCY}, TIMEOUT=${TIMEOUT}ms, PRIORITY_MODE=${USE_PRIORITY_MODE}`);
 
 interface RouteManifest {
   totalRoutes: number;
@@ -44,6 +45,63 @@ interface PrerenderResult {
   filePath?: string;
 }
 
+// Priority routes for fast deployment - high-value SEO pages (~50 critical pages)
+// These are the MOST IMPORTANT pages for Google ranking and traffic
+// Non-priority pages still work via React client-side rendering
+const PRIORITY_ROUTES: string[] = [
+  // Homepage & core navigation
+  '/',
+  '/about',
+  '/contact',
+  '/team',
+  '/services',
+  '/blog',
+  '/faq',
+  '/book-appointment',
+  '/telehealth',
+  '/insurance',
+  '/conditions',
+  
+  // High-intent Orlando psychiatry keywords (main traffic drivers)
+  '/psychiatrist-orlando',
+  '/psychiatry-orlando',
+  '/psychiatrist-near-me',
+  '/best-psychiatrist-orlando',
+  '/orlando-psychiatrist',
+  
+  // Condition-specific landing pages (high search volume)
+  '/anxiety-psychiatrist-orlando',
+  '/depression-psychiatrist-orlando',
+  '/adhd-psychiatrist-orlando',
+  '/bipolar-psychiatrist-orlando',
+  '/ptsd-psychiatrist-orlando',
+  '/ocd-psychiatrist-orlando',
+  '/trauma-psychiatrist-orlando',
+  '/schizophrenia-psychiatrist-orlando',
+  
+  // Treatment/service pages
+  '/medication-management',
+  '/psychiatric-evaluation',
+  '/therapy-services',
+  '/emdr-therapy',
+  '/tms-treatment',
+  '/anxiety-treatment',
+  '/anxiety-therapy',
+  '/adhd-testing-orlando',
+  '/adult-adhd-treatment-orlando',
+  
+  // Location-based pages
+  '/winter-park-psychiatrist',
+  '/lake-mary-psychiatrist',
+  '/altamonte-springs-psychiatrist',
+  '/maitland-psychiatrist',
+  
+  // Legal/trust pages
+  '/privacy-policy',
+  '/terms-of-service',
+  '/affordable-care',
+];
+
 function loadRouteManifest(): string[] {
   if (!fs.existsSync(MANIFEST_PATH)) {
     console.error('❌ Route manifest not found:', MANIFEST_PATH);
@@ -53,6 +111,15 @@ function loadRouteManifest(): string[] {
   
   const manifest: RouteManifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
   console.log(`📋 Loaded manifest: ${manifest.totalRoutes} routes (${manifest.staticRoutes} static, ${manifest.blogRoutes} blog)`);
+  
+  // In priority mode, only return priority routes that exist in the manifest
+  if (USE_PRIORITY_MODE) {
+    const manifestRoutes = new Set(manifest.routes);
+    const priorityRoutes = PRIORITY_ROUTES.filter(route => manifestRoutes.has(route));
+    console.log(`⚡ Priority mode: ${priorityRoutes.length} priority routes (skipping ${manifest.totalRoutes - priorityRoutes.length} lower-priority routes)`);
+    return priorityRoutes;
+  }
+  
   return manifest.routes;
 }
 
@@ -309,7 +376,24 @@ async function prerenderPage(browser: Browser, route: string): Promise<Prerender
   }
 }
 
-const BROWSER_RESTART_INTERVAL = 15; // Restart browser every 15 pages for stability in Replit
+const BROWSER_RESTART_INTERVAL = 30; // Restart browser every 30 pages for stability (increased for speed)
+const MAX_RETRIES = 2; // Retry failed pages up to 2 times
+
+async function prerenderPageWithRetry(browser: Browser, route: string): Promise<PrerenderResult> {
+  let lastError: string = '';
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    const result = await prerenderPage(browser, route);
+    if (result.success) {
+      return result;
+    }
+    lastError = result.error || 'Unknown error';
+    if (attempt < MAX_RETRIES) {
+      console.log(`  🔄 Retry ${attempt + 1}/${MAX_RETRIES} for ${route}`);
+      await new Promise(resolve => setTimeout(resolve, 500)); // Brief pause before retry
+    }
+  }
+  return { route, success: false, error: `Failed after ${MAX_RETRIES} retries: ${lastError}` };
+}
 
 async function prerenderBatch(browser: Browser, routes: string[]): Promise<PrerenderResult[]> {
   const results: PrerenderResult[] = [];
@@ -317,12 +401,13 @@ async function prerenderBatch(browser: Browser, routes: string[]): Promise<Prere
   for (let i = 0; i < routes.length; i += CONCURRENCY) {
     const batch = routes.slice(i, i + CONCURRENCY);
     const batchResults = await Promise.all(
-      batch.map(route => prerenderPage(browser, route))
+      batch.map(route => prerenderPageWithRetry(browser, route))
     );
     results.push(...batchResults);
     
     const progress = Math.min(i + CONCURRENCY, routes.length);
-    console.log(`  Progress: ${progress}/${routes.length} pages`);
+    const successCount = batchResults.filter(r => r.success).length;
+    console.log(`  Progress: ${progress}/${routes.length} pages (${successCount}/${batch.length} succeeded)`);
   }
   
   return results;
@@ -373,9 +458,9 @@ async function prerenderWithBrowserRestart(routes: string[]): Promise<PrerenderR
       }
     }
     
-    // Small delay between chunks
+    // Brief delay between chunks to let memory settle
     if (chunkIndex < chunks.length - 1) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
   }
   

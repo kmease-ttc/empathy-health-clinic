@@ -4,19 +4,21 @@
 # Used by Replit deployment: build = ["bash", "scripts/build-production.sh"]
 #
 # Environment Variables:
-#   PRERENDER_MODE=full|off|incremental (default: full for production)
-#     - full: Full prerendering with all validations (production default)
+#   PRERENDER_MODE=full|priority|off|incremental (default: full)
+#     - full: Full prerendering with all 300+ pages (default, recommended for SEO)
+#     - priority: Prerender ~50 high-value SEO pages only (fallback if builds timeout)
 #     - off: Skip prerendering entirely (CI/dev builds)
 #     - incremental: Only prerender missing/changed routes
-#   PRERENDER_CONCURRENCY=N (default: 2)
+#   PRERENDER_CONCURRENCY=N (default: 8)
 #     - Number of concurrent browser pages for prerendering
 #   SKIP_DB_CHECK=true (default: false)
 #     - Skip database validation step
 #
 # Usage:
-#   npm run build:full               # Full production build
-#   PRERENDER_MODE=off npm run build # CI/dev quick build
-#   npm run build:fast               # Compile only (no prerender)
+#   npm run build                       # Full production build (default, all 300+ pages)
+#   PRERENDER_MODE=priority npm run build # Fast fallback (~50 priority pages only)
+#   PRERENDER_MODE=off npm run build      # CI/dev quick build (no prerender)
+#   npm run build:fast                    # Compile only (no prerender)
 
 set -e  # Exit on any error
 
@@ -24,19 +26,20 @@ set -e  # Exit on any error
 trap 'pkill -P $$ 2>/dev/null || true; kill $(jobs -p) 2>/dev/null || true' EXIT
 
 # Configuration
-MIN_ROUTES=250        # Minimum expected routes (safety check)
+MIN_ROUTES=250        # Default minimum routes (overridden per mode in Step 10)
 MIN_FILE_SIZE=5000    # Minimum bytes for valid snapshot (not just React shell)
 MIN_HOMEPAGE_LINKS=50 # Minimum links on homepage
 PORT=5002             # Use 5002 for prerendering to avoid conflicts
 
-# Prerender mode (default: full for production)
+# Prerender mode (default: full for SEO safety)
+# Use priority mode only when you need a quick deploy and can accept partial coverage
 PRERENDER_MODE="${PRERENDER_MODE:-full}"
 
 echo "=========================================="
 echo "Production Build"
 echo "=========================================="
 echo "PRERENDER_MODE: $PRERENDER_MODE"
-echo "PRERENDER_CONCURRENCY: ${PRERENDER_CONCURRENCY:-2}"
+echo "PRERENDER_CONCURRENCY: ${PRERENDER_CONCURRENCY:-8}"
 echo ""
 
 # Step 1: Dependencies handled by Replit
@@ -156,10 +159,17 @@ else
     # Step 7: Run prerender script
     echo ""
     echo "Step 7: Prerendering routes..."
-    # Use --force for full prerender to ensure all pages get fresh canonicals
+    # --priority: Fast deployment (~50 high-value SEO pages, ADDITIVE - keeps existing files)
+    # --force: Re-render all pages fresh (used with full mode to ensure fresh canonicals)
     if [ "$PRERENDER_MODE" = "full" ]; then
+        echo "  Mode: FULL (all 300+ pages - this will take longer)"
         PRERENDER_URL=http://localhost:$PORT npx tsx scripts/prerender-puppeteer.ts --force
+    elif [ "$PRERENDER_MODE" = "priority" ]; then
+        echo "  Mode: PRIORITY (~50 high-value SEO pages - fast deployment)"
+        echo "  Note: This is ADDITIVE - existing prerendered files are preserved"
+        PRERENDER_URL=http://localhost:$PORT npx tsx scripts/prerender-puppeteer.ts --priority
     else
+        echo "  Mode: INCREMENTAL (only missing pages)"
         PRERENDER_URL=http://localhost:$PORT npx tsx scripts/prerender-puppeteer.ts
     fi
 
@@ -205,10 +215,22 @@ echo "Step 10: Running quality checks..."
 PRERENDER_COUNT=$(find dist/prerendered -name "index.html" 2>/dev/null | wc -l | tr -d ' ')
 echo "  Prerendered files: $PRERENDER_COUNT"
 
+# Set minimum routes based on mode
+if [ "$PRERENDER_MODE" = "full" ]; then
+    MIN_ROUTES=250
+elif [ "$PRERENDER_MODE" = "priority" ]; then
+    MIN_ROUTES=25  # Priority mode prerenders ~50 high-value pages (lower threshold for safety)
+    echo "  Note: Priority mode - React will handle non-prerendered pages client-side"
+else
+    MIN_ROUTES=1   # Incremental mode just needs some pages
+fi
+
 if [ "$PRERENDER_COUNT" -lt "$MIN_ROUTES" ]; then
-    echo "ERROR: Only $PRERENDER_COUNT routes prerendered, expected at least $MIN_ROUTES"
+    echo "ERROR: Only $PRERENDER_COUNT routes prerendered, expected at least $MIN_ROUTES for $PRERENDER_MODE mode"
     exit 1
 fi
+
+echo "  Mode: $PRERENDER_MODE - Minimum routes: $MIN_ROUTES"
 
 HOMEPAGE_SIZE=$(stat -f%z dist/prerendered/index.html 2>/dev/null || stat -c%s dist/prerendered/index.html 2>/dev/null || echo "0")
 echo "  Homepage size: $HOMEPAGE_SIZE bytes"
