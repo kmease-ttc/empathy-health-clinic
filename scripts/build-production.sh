@@ -31,12 +31,11 @@ MIN_FILE_SIZE=5000    # Minimum bytes for valid snapshot (not just React shell)
 MIN_HOMEPAGE_LINKS=50 # Minimum links on homepage
 PORT=5002             # Use 5002 for prerendering to avoid conflicts
 
-# Prerender mode (default: off for fast deployment)
-# Existing prerendered files in dist/prerendered are served without regenerating
-# - off: Skip prerendering, use existing files (fastest, recommended for Replit)
-# - priority: ~50 critical SEO pages (use if prerendered files are missing)
+# Prerender mode (default: priority for fast, SEO-safe deployment)
+# - priority: ~50 critical SEO pages, fast builds (recommended for Replit)
 # - full: All 310+ pages (use locally for complete regeneration)
-PRERENDER_MODE="${PRERENDER_MODE:-off}"
+# - off: Skip prerendering entirely (development/testing only)
+PRERENDER_MODE="${PRERENDER_MODE:-priority}"
 
 echo "=========================================="
 echo "Production Build"
@@ -186,7 +185,11 @@ echo ""
 
 # Step 8: Verify prerender completeness
 echo "Step 8: Verifying prerender completeness..."
-npx tsx scripts/verify-prerender.ts
+if [ "$PRERENDER_MODE" = "priority" ]; then
+    PRERENDER_MODE=priority npx tsx scripts/verify-prerender.ts --priority
+else
+    npx tsx scripts/verify-prerender.ts
+fi
 echo ""
 
 # Step 8.5: Fix asset references in prerendered HTML
