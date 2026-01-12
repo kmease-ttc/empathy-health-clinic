@@ -35,7 +35,7 @@ The frontend is a responsive React SPA built with TypeScript, Tailwind CSS, and 
   - **GSC Indexing Issue Validation** (`scripts/qa/gsc-indexing-validator.ts`): Validates against Google Search Console indexing issues including soft 404s, redirect links, noindex tags, canonical mismatches, and duplicate content
   - **Build Pipeline Gates** (`scripts/build-production.sh`): 15-step build process with `exit 1` on any failure; blocks publishing on regressions
   - All gates are enforced automatically during `npm run build`
-- **Prerender Optimization**: Default deployment uses priority mode (~50 critical SEO pages) for reliable deployments within Replit's timeout limits. Other pages work via React CSR. For full 310+ page prerendering (slower, use locally): `PRERENDER_MODE=full npm run build`. Optimized with 8x concurrency, retry logic (2 retries per page), and 20s timeouts.
+- **Prerender Optimization**: Default deployment skips prerendering for fast builds (uses existing prerendered files in dist/prerendered). For regenerating prerendered content: `PRERENDER_MODE=priority npm run build` (~50 critical pages) or `PRERENDER_MODE=full npm run build` (all 310+ pages, run locally). Prerender script optimized with 8x concurrency, retry logic (2 retries per page), and 20s timeouts.
 
 ### Feature Specifications
 - **Core Pages:** Comprehensive landing pages for services, insurance providers, psychiatric treatments, therapy services, conditions, and city-specific landing pages (e.g., Orlando).

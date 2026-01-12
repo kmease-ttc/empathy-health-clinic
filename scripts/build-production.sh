@@ -31,11 +31,12 @@ MIN_FILE_SIZE=5000    # Minimum bytes for valid snapshot (not just React shell)
 MIN_HOMEPAGE_LINKS=50 # Minimum links on homepage
 PORT=5002             # Use 5002 for prerendering to avoid conflicts
 
-# Prerender mode (default: priority for deployment reliability)
-# - priority: ~50 critical SEO pages, fast deployment (recommended for Replit)
-# - full: All 310+ pages, slower but complete SEO coverage (use locally if needed)
-# - off: Skip prerendering entirely (CI/dev only)
-PRERENDER_MODE="${PRERENDER_MODE:-priority}"
+# Prerender mode (default: off for fast deployment)
+# Existing prerendered files in dist/prerendered are served without regenerating
+# - off: Skip prerendering, use existing files (fastest, recommended for Replit)
+# - priority: ~50 critical SEO pages (use if prerendered files are missing)
+# - full: All 310+ pages (use locally for complete regeneration)
+PRERENDER_MODE="${PRERENDER_MODE:-off}"
 
 echo "=========================================="
 echo "Production Build"
