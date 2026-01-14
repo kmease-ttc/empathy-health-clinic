@@ -1970,16 +1970,16 @@ export const psychiatristOrlandoConfig: LandingPageConfig = {
 // ADHD Psychiatrist Orlando - Optimized for "adhd psychiatrist orlando" (590 volume)
 export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
   seo: {
-    title: "ADHD Psychiatrist Orlando | Adult & Child ADHD Specialists",
-    description: "ADHD psychiatrist Orlando specialists for adults & children. Board-certified ADHD doctors prescribing Adderall, Vyvanse, Concerta, non-stimulants. Same-week ADHD evaluations. 4.8★ rated. BCBS, Cigna, Medicare. (386) 848-8751.",
-    keywords: ["adhd psychiatrist orlando", "adhd psychiatrist orlando fl", "adhd doctor orlando", "adhd specialist orlando", "adult adhd psychiatrist orlando", "child adhd psychiatrist orlando", "add doctor orlando", "adhd medication management orlando", "adhd diagnosis orlando", "best adhd psychiatrist orlando", "adhd psychiatrist near me", "adhd medication orlando"],
+    title: "ADHD Psychiatrist Orlando | Adult ADHD Specialists",
+    description: "ADHD psychiatrist Orlando specialists for adults 18+. Board-certified ADHD doctors prescribing Adderall, Vyvanse, Concerta, non-stimulants. Same-week ADHD evaluations. 4.8★ rated. BCBS, Cigna, Medicare. (386) 848-8751.",
+    keywords: ["adhd psychiatrist orlando", "adhd psychiatrist orlando fl", "adhd doctor orlando", "adhd specialist orlando", "adult adhd psychiatrist orlando", "add doctor orlando", "adhd medication management orlando", "adhd diagnosis orlando", "best adhd psychiatrist orlando", "adhd psychiatrist near me", "adhd medication orlando"],
     canonicalPath: "/adhd-psychiatrist-orlando",
   },
   jsonLd: {
     "@context": "https://schema.org",
     "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
     "name": "ADHD Psychiatrist Orlando FL - Empathy Health Clinic",
-    "description": "Specialized ADHD diagnosis and treatment in Orlando, FL for adults, teens, and children by board-certified psychiatrists.",
+    "description": "Specialized ADHD diagnosis and treatment in Orlando, FL for adults by board-certified psychiatrists.",
     "url": "https://empathyhealthclinic.com/adhd-psychiatrist-orlando",
     "telephone": "+1-386-848-8751",
     "email": "providers@empathyhealthclinic.com",
@@ -2008,7 +2008,7 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
   },
   hero: {
     title: "ADHD Psychiatrist Orlando",
-    subtitle: "Specialized ADHD diagnosis and treatment by board-certified psychiatrists. Comprehensive evaluations, medication management, and personalized treatment plans for adults, teens, and children with ADHD. Same-week appointments available with in-person and telehealth options.",
+    subtitle: "Specialized ADHD diagnosis and treatment by board-certified psychiatrists. Comprehensive evaluations, medication management, and personalized treatment plans for adults with ADHD. Same-week appointments available with in-person and telehealth options.",
     ctaPrimary: "Schedule ADHD Evaluation",
     ctaSecondary: "Call 386-848-8751",
     heroImage: heroImage,
@@ -2016,7 +2016,7 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
   proofBar: {
     googleRating: 4.8,
     showVerifiedBadge: true,
-    highlights: ["ADHD Specialists", "Adult & Child Treatment", "Same-Week Appointments"],
+    highlights: ["ADHD Specialists", "Adult ADHD Treatment", "Same-Week Appointments"],
   },
   location: {
     title: "ADHD Psychiatry Location",
@@ -2030,10 +2030,10 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
     mapUrl: "https://maps.google.com/?q=2281+Lee+Rd+Suite+102+Winter+Park+FL+32810",
   },
   content: {
-    mainHeading: "ADHD Psychiatrist Orlando: Specialized ADHD Treatment",
+    mainHeading: "ADHD Psychiatrist Orlando: Specialized Adult ADHD Treatment",
     introduction: [
-      "Finding an experienced ADHD psychiatrist in Orlando is crucial for effective ADHD treatment. At Empathy Health Clinic, our board-certified psychiatrists specialize in diagnosing and treating ADHD in adults, adolescents, and children with evidence-based approaches tailored to each patient's unique needs.",
-      "Our ADHD specialists in Orlando provide comprehensive evaluations, medication management with both stimulant and non-stimulant options, and ongoing support to help you or your child thrive with ADHD. We understand the challenges of living with ADHD and are committed to helping you achieve better focus, organization, and overall quality of life. Need to get tested first? Schedule your <a href='/adhd-testing-orlando' class='text-primary hover:underline font-medium'>ADHD testing in Orlando</a> to receive a comprehensive evaluation before starting treatment.",
+      "Finding an experienced ADHD psychiatrist in Orlando is crucial for effective ADHD treatment. At Empathy Health Clinic, our board-certified psychiatrists specialize in diagnosing and treating ADHD in adults 18+ with evidence-based approaches tailored to each patient's unique needs.",
+      "Our ADHD specialists in Orlando provide comprehensive evaluations, medication management with both stimulant and non-stimulant options, and ongoing support to help you thrive with ADHD. We understand the challenges of living with ADHD and are committed to helping you achieve better focus, organization, and overall quality of life. Need to get tested first? Schedule your <a href='/adhd-testing-orlando' class='text-primary hover:underline font-medium'>ADHD testing in Orlando</a> to receive a comprehensive evaluation before starting treatment.",
     ],
     conditionsHeading: "ADHD Types We Treat",
     conditions: [
@@ -2041,7 +2041,7 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
       { name: "ADHD - Hyperactive-Impulsive Type" },
       { name: "ADHD - Combined Type" },
       { name: "Adult ADHD" },
-      { name: "Child & Adolescent ADHD" },
+      { name: "Late-Diagnosed ADHD" },
       { name: "ADD (Attention Deficit Disorder)" },
     ],
     authoritativeSources: [
@@ -2069,8 +2069,8 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
       },
       {
         icon: Heart,
-        title: "Child & Teen ADHD Care",
-        description: "Age-appropriate ADHD treatment for children and adolescents. We work closely with parents, schools, and other providers to create comprehensive treatment plans that support academic success and social development."
+        title: "Executive Function Support",
+        description: "Targeted support for adults with ADHD-related executive function challenges including time management, organization, and prioritization. Our psychiatrists help you develop strategies alongside medication for improved daily functioning."
       },
       {
         icon: CheckCircle,
@@ -2125,7 +2125,7 @@ export const adhdPsychiatristOrlandoConfig: LandingPageConfig = {
     quickLinks: [
       { href: "/adhd-testing-orlando", label: "ADHD Testing in Orlando" },
       { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
-      { href: "/psychiatry-orlando", label: "Psychiatry Services" },
+      { href: "/psychiatric-services", label: "Psychiatry Services" },
       { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Treatment" },
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/new-patients", label: "New Patients" },
@@ -2299,7 +2299,7 @@ export const bipolarPsychiatristOrlandoConfig: LandingPageConfig = {
     formType: "contact",
     quickLinks: [
       { href: "/psychiatrist-orlando", label: "Psychiatrist Orlando" },
-      { href: "/psychiatry-orlando", label: "Psychiatry Services" },
+      { href: "/psychiatric-services", label: "Psychiatry Services" },
       { href: "/anxiety-psychiatrist-orlando", label: "Anxiety Treatment" },
       { href: "/medication-management-orlando", label: "Medication Management" },
       { href: "/telepsychiatry-orlando", label: "Telepsychiatry" },
