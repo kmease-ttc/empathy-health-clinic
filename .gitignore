@@ -83,3 +83,6 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+repl_state.bin
+.agent_state_*.bin
