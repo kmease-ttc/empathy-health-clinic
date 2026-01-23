@@ -206,8 +206,13 @@ app.use((req, res, next) => {
 
 // Prerender middleware serves static HTML to search engine crawlers
 // MUST be registered synchronously BEFORE the async IIFE to ensure it runs before Vite dev middleware
+// ONLY enable in production - in development, serve live React for hot reloading
 const prerenderedDir = path.resolve(import.meta.dirname, "..", "dist/prerendered");
-app.use(createPrerenderMiddleware(prerenderedDir));
+if (process.env.NODE_ENV === 'production') {
+  app.use(createPrerenderMiddleware(prerenderedDir));
+} else {
+  console.log('⏭️  Prerender middleware: Skipped in development mode');
+}
 
 // Debug endpoint to check prerender status
 app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
