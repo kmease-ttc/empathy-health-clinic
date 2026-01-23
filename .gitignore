@@ -75,6 +75,17 @@ scripts/asset-manifest.json
 empathy-clean/
 temp/
 tmp/
+assets/
+blogs/
+
+# Data files
+*.csv
+email_hits.txt
+*.db
+nohup.out
+uv.lock
+pyproject.toml
+package.json.new
 
 # IDE and OS files
 .DS_Store
