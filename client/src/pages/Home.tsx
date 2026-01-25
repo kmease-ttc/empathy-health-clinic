@@ -311,31 +311,7 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Insurance Quick Links - logos only */}
-            <div className="flex justify-center items-center gap-6 mb-8">
-              <Link href="/psychiatrist-orlando-accepts-bcbs" className="group" data-testid="link-bcbs">
-                <div className="p-3 bg-white dark:bg-card rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                  <img src="/site-assets/logos/bluecross.webp" alt="Blue Cross Blue Shield" className="h-10 w-auto object-contain" />
-                </div>
-              </Link>
-              <Link href="/psychiatrist-orlando-accepts-cigna" className="group" data-testid="link-cigna">
-                <div className="p-3 bg-white dark:bg-card rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                  <img src="/site-assets/logos/cigna.webp" alt="Cigna" className="h-10 w-auto object-contain" />
-                </div>
-              </Link>
-              <Link href="/psychiatrist-orlando-accepts-aetna" className="group" data-testid="link-aetna">
-                <div className="p-3 bg-white dark:bg-card rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                  <img src="/site-assets/logos/aetna.webp" alt="Aetna" className="h-10 w-auto object-contain" />
-                </div>
-              </Link>
-              <Link href="/psychiatrist-orlando-accepts-united" className="group" data-testid="link-united">
-                <div className="p-3 bg-white dark:bg-card rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                  <img src="/site-assets/logos/unitedhealthcare.webp" alt="United Healthcare" className="h-10 w-auto object-contain" />
-                </div>
-              </Link>
-            </div>
-
-            <div className="text-center">
+            <div className="text-center mt-6">
               <Link href="/psychiatrist-orlando">
                 <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8" data-testid="button-view-all-orlando">
                   View All Orlando Services
