@@ -315,25 +315,25 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
               <Link href="/psychiatrist-orlando-accepts-bcbs" className="group" data-testid="link-bcbs">
                 <div className="flex items-center justify-center gap-2 p-4 bg-white dark:bg-card rounded-xl border border-orange-100 dark:border-orange-900/30 shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all">
-                  <img src="/site-assets/logos/bcbs.png" alt="BCBS" className="w-6 h-6 object-contain" />
+                  <img src="/site-assets/logos/bluecross.webp" alt="BCBS" className="w-6 h-6 object-contain" />
                   <span className="text-sm font-medium text-foreground group-hover:text-primary">BCBS Psychiatrist</span>
                 </div>
               </Link>
               <Link href="/psychiatrist-orlando-accepts-cigna" className="group" data-testid="link-cigna">
                 <div className="flex items-center justify-center gap-2 p-4 bg-white dark:bg-card rounded-xl border border-orange-100 dark:border-orange-900/30 shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all">
-                  <img src="/site-assets/logos/cigna.png" alt="Cigna" className="w-6 h-6 object-contain" />
+                  <img src="/site-assets/logos/cigna.webp" alt="Cigna" className="w-6 h-6 object-contain" />
                   <span className="text-sm font-medium text-foreground group-hover:text-primary">Cigna Psychiatrist</span>
                 </div>
               </Link>
               <Link href="/psychiatrist-orlando-accepts-aetna" className="group" data-testid="link-aetna">
                 <div className="flex items-center justify-center gap-2 p-4 bg-white dark:bg-card rounded-xl border border-orange-100 dark:border-orange-900/30 shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all">
-                  <img src="/site-assets/logos/aetna.png" alt="Aetna" className="w-6 h-6 object-contain" />
+                  <img src="/site-assets/logos/aetna.webp" alt="Aetna" className="w-6 h-6 object-contain" />
                   <span className="text-sm font-medium text-foreground group-hover:text-primary">Aetna Psychiatrist</span>
                 </div>
               </Link>
               <Link href="/psychiatrist-orlando-accepts-united" className="group" data-testid="link-united">
                 <div className="flex items-center justify-center gap-2 p-4 bg-white dark:bg-card rounded-xl border border-orange-100 dark:border-orange-900/30 shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all">
-                  <img src="/site-assets/logos/united.png" alt="United" className="w-6 h-6 object-contain" />
+                  <img src="/site-assets/logos/unitedhealthcare.webp" alt="United" className="w-6 h-6 object-contain" />
                   <span className="text-sm font-medium text-foreground group-hover:text-primary">United Psychiatrist</span>
                 </div>
               </Link>
