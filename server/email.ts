@@ -219,32 +219,38 @@ Next Steps: Please respond to this appointment request within 24 hours for best 
 Empathy Health Clinic | 2281 Lee Rd Suite 102, Winter Park FL | (386) 848-8751
   `.trim();
 
-  const msg = {
-    to: TO_EMAILS,
-    from: {
-      email: FROM_EMAIL,
-      name: 'Empathy Health Clinic'
-    },
-    replyTo: 'providers@empathyhealthclinic.com',
-    subject: `New Appointment Request: ${fullName}`,
-    text: textContent,
-    html: htmlContent,
-  };
+  // Send to each recipient separately to ensure independent delivery
+  const results: { email: string; success: boolean; error?: string }[] = [];
+  
+  for (const recipientEmail of TO_EMAILS) {
+    const msg = {
+      to: recipientEmail,
+      from: {
+        email: FROM_EMAIL,
+        name: 'Empathy Health Clinic'
+      },
+      replyTo: 'providers@empathyhealthclinic.com',
+      subject: `New Appointment Request: ${fullName}`,
+      text: textContent,
+      html: htmlContent,
+    };
 
-  try {
-    await sgMail.send(msg);
-    console.log(`Lead notification email sent successfully to ${TO_EMAILS.join(', ')}`);
-  } catch (error: any) {
-    console.error('Error sending lead notification email:', error);
-    
-    const errorMessage = error.message || 'Unknown email sending error';
-    const errorDetails = error.response?.body ? JSON.stringify(error.response.body) : JSON.stringify(error);
-    
-    if (error.response) {
-      console.error('SendGrid error response:', error.response.body);
-    }
-    
-    for (const recipientEmail of TO_EMAILS) {
+    try {
+      await sgMail.send(msg);
+      console.log(`✅ Lead notification email sent successfully to ${recipientEmail}`);
+      results.push({ email: recipientEmail, success: true });
+    } catch (error: any) {
+      console.error(`❌ Error sending email to ${recipientEmail}:`, error.message);
+      
+      const errorMessage = error.message || 'Unknown email sending error';
+      const errorDetails = error.response?.body ? JSON.stringify(error.response.body) : JSON.stringify(error);
+      
+      if (error.response) {
+        console.error('SendGrid error response:', error.response.body);
+      }
+      
+      results.push({ email: recipientEmail, success: false, error: errorMessage });
+      
       try {
         await storage.logEmailFailure({
           leadId: data.leadId || null,
@@ -262,8 +268,16 @@ Empathy Health Clinic | 2281 Lee Rd Suite 102, Winter Park FL | (386) 848-8751
         console.error('Failed to log email failure to database:', dbError);
       }
     }
-    
-    throw error;
+  }
+  
+  // Log summary
+  const successCount = results.filter(r => r.success).length;
+  const failCount = results.filter(r => !r.success).length;
+  console.log(`📧 Email summary: ${successCount} sent, ${failCount} failed`);
+  
+  // If all failed, throw error
+  if (successCount === 0) {
+    throw new Error(`All email deliveries failed: ${results.map(r => `${r.email}: ${r.error}`).join(', ')}`);
   }
 }
 
