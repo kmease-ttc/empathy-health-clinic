@@ -11,10 +11,15 @@
  *   node scripts/validate-routes.js --prod    # Validate against production URL
  */
 
-const https = require('https');
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+import https from "node:https";
+import http from "node:http";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Configuration
 const DEV_URL = 'http://localhost:5000';
