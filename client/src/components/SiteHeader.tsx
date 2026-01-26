@@ -35,7 +35,6 @@ class HeaderErrorBoundary extends Component<{ children: ReactNode }, HeaderError
                 <img src={logoImage} alt="Empathy Health Clinic psychiatrist Orlando FL logo" className="h-16 w-auto" />
               </a>
               <nav className="flex items-center gap-4">
-                <a href="/psychiatrist-orlando" className="text-gray-800 hover:text-orange-500">Psychiatrist Orlando</a>
                 <a href="/services" className="text-gray-800 hover:text-orange-500">Services</a>
                 <a href="/team" className="text-gray-800 hover:text-orange-500">Team</a>
                 <a href="/insurance" className="text-gray-800 hover:text-orange-500">Insurance</a>
@@ -86,7 +85,6 @@ function SiteHeaderContent() {
   const phone = content?.footerPhone || "386-848-8751";
 
   const navItems = [
-    { label: "Psychiatrist Orlando", href: "/psychiatrist-orlando" },
     { label: "Services", href: "/services" },
     { label: "Team", href: "/team" },
     { label: "Insurance", href: "/insurance" }
