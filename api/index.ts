@@ -123,7 +123,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
       
       const totalPages = Math.ceil(totalCount / pageSize);
-      return res.status(200).json({ posts, totalPages, total: totalCount, page, pageSize });
+      const transformedPosts = posts.map((post: any) => ({
+        ...post,
+        publishedDate: post.published_date,
+        featuredImage: post.featured_image,
+        isFeatured: post.is_featured,
+        metaTitle: post.meta_title,
+        metaDescription: post.meta_description,
+        canonicalSlug: post.canonical_slug,
+        ogImage: post.og_image
+      }));
+      return res.status(200).json({ posts: transformedPosts, totalPages, total: totalCount, page, pageSize });
+    }
+
+    if (path.startsWith('/api/blog-posts/slug/')) {
+      const slug = path.replace('/api/blog-posts/slug/', '');
+      const result = await sql`SELECT * FROM blog_posts WHERE slug = ${slug} LIMIT 1`;
+      if (result.length === 0) {
+        return res.status(404).json({ error: "Blog post not found" });
+      }
+      const dbPost = result[0];
+      const post = {
+        ...dbPost,
+        publishedDate: dbPost.published_date,
+        featuredImage: dbPost.featured_image,
+        isFeatured: dbPost.is_featured,
+        metaTitle: dbPost.meta_title,
+        metaDescription: dbPost.meta_description,
+        canonicalSlug: dbPost.canonical_slug,
+        ogImage: dbPost.og_image
+      };
+      return res.status(200).json({ post });
     }
 
     if (path.startsWith('/api/blog-posts/')) {
@@ -132,7 +162,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (result.length === 0) {
         return res.status(404).json({ error: "Blog post not found" });
       }
-      return res.status(200).json(result[0]);
+      const dbPost = result[0];
+      const post = {
+        ...dbPost,
+        publishedDate: dbPost.published_date,
+        featuredImage: dbPost.featured_image,
+        isFeatured: dbPost.is_featured,
+        metaTitle: dbPost.meta_title,
+        metaDescription: dbPost.meta_description,
+        canonicalSlug: dbPost.canonical_slug,
+        ogImage: dbPost.og_image
+      };
+      return res.status(200).json({ post });
     }
 
     if (path === '/api/conditions') {
