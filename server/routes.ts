@@ -2865,7 +2865,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         '/emdr-therapy': '2025-09-20',
         '/tms-treatment': '2025-11-01',
         '/adhd-testing-orlando': '2025-11-15',
-        '/anxiety-therapy': '2025-10-05',
         '/depression-treatment': '2025-10-05',
         '/psychiatric-services': '2025-10-01',
         '/psychiatrist-winter-park': '2025-10-20',
