@@ -59,6 +59,16 @@ npx esbuild server/index.ts --platform=node --packages=external --bundle --forma
 echo "  Build complete"
 echo ""
 
+# Step 2b: Copy static assets to dist/public
+echo "Step 2b: Copying static assets..."
+if [ -d "attached_assets" ]; then
+    cp -r attached_assets dist/public/attached_assets
+    echo "  Copied attached_assets to dist/public/"
+else
+    echo "  No attached_assets folder found, skipping"
+fi
+echo ""
+
 # If prerender mode is off, we're done with the blocking phase
 if [ "$PRERENDER_MODE" = "off" ]; then
     echo "=========================================="
