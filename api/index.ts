@@ -75,12 +75,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const sql = getDb();
 
     if (path === '/api/treatments') {
-      const result = await sql`SELECT * FROM treatments ORDER BY name`;
+      const result = await sql`SELECT * FROM treatments ORDER BY "order"`;
       return res.status(200).json(result);
     }
 
     if (path === '/api/therapies') {
-      const result = await sql`SELECT * FROM therapies ORDER BY name`;
+      const result = await sql`SELECT * FROM therapies ORDER BY "order"`;
       return res.status(200).json(result);
     }
 
@@ -113,17 +113,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     if (path === '/api/conditions') {
-      const result = await sql`SELECT * FROM conditions ORDER BY name`;
+      const result = await sql`SELECT * FROM conditions ORDER BY "order"`;
       return res.status(200).json(result);
     }
 
     if (path === '/api/insurance-providers') {
-      const result = await sql`SELECT * FROM insurance_providers ORDER BY name`;
+      const result = await sql`SELECT * FROM insurance_providers ORDER BY "order"`;
       return res.status(200).json(result);
     }
 
     if (path === '/api/locations') {
-      const result = await sql`SELECT * FROM locations ORDER BY name`;
+      const result = await sql`SELECT * FROM locations ORDER BY title`;
       return res.status(200).json(result);
     }
 
