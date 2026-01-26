@@ -138,6 +138,7 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
+        <ReviewsAndBadges />
 
         {/* Core Services Section - Reduced to 6 key items */}
         <section className="py-16 bg-gradient-to-b from-orange-50/50 to-orange-100/30 dark:from-orange-950/20 dark:to-orange-900/10">
@@ -254,7 +255,6 @@ export default function Home() {
         <AboutSection />
         <ApproachSection />
         <ComparisonSection />
-        <ReviewsAndBadges />
 
         <Suspense fallback={<div className="min-h-[1600px] py-16 bg-background" />}>
           <TestimonialsSection />
