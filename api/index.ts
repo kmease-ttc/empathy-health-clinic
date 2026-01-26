@@ -169,6 +169,33 @@ app.get("/api/therapies", async (req, res) => {
   }
 });
 
+app.get("/api/treatments", async (req, res) => {
+  try {
+    const treatments = await storage.getAllTreatments();
+    res.json(treatments);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch treatments" });
+  }
+});
+
+app.get("/api/testimonials", async (req, res) => {
+  try {
+    const testimonials = await storage.getAllTestimonials();
+    res.json(testimonials);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch testimonials" });
+  }
+});
+
+app.get("/api/site-content", async (req, res) => {
+  try {
+    const content = await storage.getSiteContent();
+    res.json(content);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch site content" });
+  }
+});
+
 app.get("/api/locations", async (req, res) => {
   try {
     const locations = await storage.getAllLocations();
