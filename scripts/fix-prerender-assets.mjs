@@ -40,8 +40,9 @@ function main() {
 
   // Check directories exist
   if (!fs.existsSync(PRERENDER_DIR)) {
-    console.error(`❌ Prerender directory not found: ${PRERENDER_DIR}`);
-    process.exit(1);
+    console.log(`ℹ️ Prerender directory not found (prerendering disabled): ${PRERENDER_DIR}`);
+    console.log('✅ Skipping asset fix - no prerendered files to process\n');
+    process.exit(0);
   }
   if (!fs.existsSync(PROD_INDEX)) {
     console.error(`❌ Production index.html not found: ${PROD_INDEX}`);

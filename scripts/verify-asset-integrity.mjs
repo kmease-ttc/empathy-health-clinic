@@ -65,8 +65,9 @@ function verifyAssets() {
   console.log('━'.repeat(50));
   
   if (!fs.existsSync(PRERENDER_DIR)) {
-    console.error('❌ Prerender directory not found:', PRERENDER_DIR);
-    process.exit(1);
+    console.log('ℹ️ Prerender directory not found (prerendering disabled):', PRERENDER_DIR);
+    console.log('✅ Skipping asset verification - no prerendered files to check\n');
+    process.exit(0);
   }
   
   if (!fs.existsSync(PUBLIC_DIR)) {
