@@ -4,17 +4,15 @@ import { Button } from "@/components/ui/button";
 import SiteHeader from "@/components/SiteHeader";
 import HeroSection, { heroImage } from "@/components/HeroSection";
 import ReviewsAndBadges from "@/components/ReviewsAndBadges";
-import TrustFactors from "@/components/TrustFactors";
 import InsuranceSection from "@/components/InsuranceSection";
 import AboutSection from "@/components/AboutSection";
 import FAQSection from "@/components/FAQSection";
-import ApproachSection from "@/components/ApproachSection";
-import ComparisonSection from "@/components/ComparisonSection";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import OrganizationSchema from "@/components/OrganizationSchema";
 import { 
-  Stethoscope, Heart, Frown, Pill, Brain, Activity
+  Stethoscope, Heart, Frown, Pill, Brain, Activity,
+  ClipboardList, Phone, Calendar
 } from "lucide-react";
 
 const TeamSection = lazy(() => import("@/components/TeamSection"));
@@ -67,61 +65,31 @@ export default function Home() {
             {
               "@type": "City",
               "name": "Winter Park",
-              "containedInPlace": {
-                "@type": "State",
-                "name": "Florida"
-              }
+              "containedInPlace": { "@type": "State", "name": "Florida" }
             },
             {
               "@type": "City",
               "name": "Orlando",
-              "containedInPlace": {
-                "@type": "State",
-                "name": "Florida"
-              }
+              "containedInPlace": { "@type": "State", "name": "Florida" }
             },
             {
               "@type": "City",
               "name": "Lake Mary",
-              "containedInPlace": {
-                "@type": "State",
-                "name": "Florida"
-              }
+              "containedInPlace": { "@type": "State", "name": "Florida" }
             },
             {
               "@type": "City",
               "name": "Altamonte Springs",
-              "containedInPlace": {
-                "@type": "State",
-                "name": "Florida"
-              }
+              "containedInPlace": { "@type": "State", "name": "Florida" }
             }
           ],
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Mental Health Services",
             "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Psychiatric Evaluation"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Medication Management"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Therapy Services"
-                }
-              }
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Psychiatric Evaluation" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Medication Management" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Therapy Services" } }
             ]
           },
           "sameAs": [
@@ -137,24 +105,68 @@ export default function Home() {
       <OrganizationSchema />
       <SiteHeader />
       <main className="flex-1">
+        {/* A) HERO */}
         <HeroSection />
-        <ReviewsAndBadges />
 
-        {/* Core Services Section - Reduced to 6 key items */}
-        <section className="py-16 bg-gradient-to-b from-orange-50/50 to-orange-100/30 dark:from-orange-950/20 dark:to-orange-900/10">
+        {/* B) TRUST STRIP - Reviews + Insurance */}
+        <ReviewsAndBadges />
+        <InsuranceSection />
+
+        {/* C) HOW IT WORKS - 3 Simple Steps */}
+        <section className="py-12 md:py-16 bg-background">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
+                How It Works
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Getting started is easy. We'll guide you every step of the way.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center" data-testid="step-1">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                  <ClipboardList className="w-8 h-8 text-primary" />
+                </div>
+                <div className="text-sm font-medium text-primary mb-2">Step 1</div>
+                <h3 className="text-xl font-semibold text-foreground mb-2">Request an Appointment</h3>
+                <p className="text-muted-foreground">Fill out our simple online form or call us directly. We respond within 24 hours.</p>
+              </div>
+              <div className="text-center" data-testid="step-2">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Phone className="w-8 h-8 text-primary" />
+                </div>
+                <div className="text-sm font-medium text-primary mb-2">Step 2</div>
+                <h3 className="text-xl font-semibold text-foreground mb-2">We'll Reach Out</h3>
+                <p className="text-muted-foreground">Our team will call or text to confirm your appointment and answer any questions.</p>
+              </div>
+              <div className="text-center" data-testid="step-3">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Calendar className="w-8 h-8 text-primary" />
+                </div>
+                <div className="text-sm font-medium text-primary mb-2">Step 3</div>
+                <h3 className="text-xl font-semibold text-foreground mb-2">Your First Visit</h3>
+                <p className="text-muted-foreground">Meet with your psychiatrist in-person or via telehealth. Same-week appointments available.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* D) CORE SERVICES - 6 Key Items */}
+        <section className="py-12 md:py-16 bg-gradient-to-b from-orange-50/50 to-orange-100/30 dark:from-orange-950/20 dark:to-orange-900/10">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
                 Our Services
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Board-certified psychiatrists serving Orlando, Winter Park, and Central Florida. Same-week appointments available.
+                Comprehensive psychiatric care for adults and adolescents
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Link href="/services" className="group" data-testid="link-medication-management">
-                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-medication-management">
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                     <Pill className="w-6 h-6 text-primary" />
                   </div>
@@ -166,7 +178,7 @@ export default function Home() {
               </Link>
 
               <Link href="/anxiety-therapy" className="group" data-testid="link-anxiety-treatment">
-                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-anxiety-treatment">
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                     <Heart className="w-6 h-6 text-primary" />
                   </div>
@@ -178,7 +190,7 @@ export default function Home() {
               </Link>
 
               <Link href="/depression-counseling" className="group" data-testid="link-depression-treatment">
-                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-depression-treatment">
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                     <Frown className="w-6 h-6 text-primary" />
                   </div>
@@ -190,7 +202,7 @@ export default function Home() {
               </Link>
 
               <Link href="/ptsd-psychiatrist-orlando" className="group" data-testid="link-ptsd-treatment">
-                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-ptsd-treatment">
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                     <Brain className="w-6 h-6 text-primary" />
                   </div>
@@ -202,7 +214,7 @@ export default function Home() {
               </Link>
 
               <Link href="/adhd-psychiatrist-orlando" className="group" data-testid="link-adhd-treatment">
-                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-adhd-treatment">
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                     <Activity className="w-6 h-6 text-primary" />
                   </div>
@@ -214,7 +226,7 @@ export default function Home() {
               </Link>
 
               <Link href="/bipolar-disorder-treatment-orlando" className="group" data-testid="link-bipolar-treatment">
-                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-bipolar-treatment">
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                     <Stethoscope className="w-6 h-6 text-primary" />
                   </div>
@@ -236,33 +248,53 @@ export default function Home() {
           </div>
         </section>
 
-        <InsuranceSection />
-        
-        <section className="py-16 bg-card">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
-                Why Choose Empathy Health Clinic
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Trusted mental health care with a commitment to excellence and compassion
-              </p>
-            </div>
-            <TrustFactors />
-          </div>
-        </section>
-
-        <AboutSection />
-        <ApproachSection />
-        <ComparisonSection />
-
-        <Suspense fallback={<div className="min-h-[1600px] py-16 bg-background" />}>
-          <TestimonialsSection />
-          <TeamSection />
+        {/* E) CONDITIONS TREATED */}
+        <Suspense fallback={<div className="min-h-[300px] py-16 bg-card" />}>
           <ConditionsSection />
-          <FAQSection />
+        </Suspense>
+
+        {/* F) PROVIDER/CLINIC CREDIBILITY */}
+        <AboutSection />
+        <Suspense fallback={<div className="min-h-[400px] py-16 bg-background" />}>
+          <TeamSection />
+        </Suspense>
+
+        {/* G) TESTIMONIALS */}
+        <Suspense fallback={<div className="min-h-[400px] py-16 bg-card" />}>
+          <TestimonialsSection />
+        </Suspense>
+
+        {/* H) FAQ */}
+        <FAQSection />
+
+        {/* I) LOCATION + HOURS */}
+        <Suspense fallback={<div className="min-h-[400px] py-16 bg-background" />}>
           <LocationSection />
         </Suspense>
+
+        {/* J) FINAL CTA */}
+        <section className="py-12 md:py-16 bg-primary">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-sans font-bold text-white mb-4">
+              Ready to Take the First Step?
+            </h2>
+            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+              Same-week appointments available. Most insurance accepted. Start your journey to better mental health today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/request-appointment">
+                <Button size="lg" variant="secondary" className="px-8 text-lg" data-testid="button-final-cta-appointment">
+                  Request Appointment
+                </Button>
+              </Link>
+              <a href="tel:+13868488751">
+                <Button size="lg" variant="outline" className="px-8 text-lg border-white text-white hover:bg-white/10" data-testid="button-final-cta-call">
+                  Call (386) 848-8751
+                </Button>
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>
