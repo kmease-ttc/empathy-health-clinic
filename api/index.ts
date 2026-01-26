@@ -1,10 +1,41 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
-import { eq } from "drizzle-orm";
+import sgMail from '@sendgrid/mail';
 
 const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle(sql);
+
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+}
+
+async function sendLeadEmail(lead: any) {
+  if (!process.env.SENDGRID_API_KEY) {
+    console.log('SendGrid not configured, skipping email');
+    return;
+  }
+
+  const msg = {
+    to: ['providers@empathyhealthclinic.com', 'kevin.mease@gmail.com'],
+    from: 'noreply@empathyhealthclinic.com',
+    subject: `New Lead: ${lead.name}`,
+    html: `
+      <h2>New Appointment Request</h2>
+      <p><strong>Name:</strong> ${lead.name}</p>
+      <p><strong>Email:</strong> ${lead.email}</p>
+      <p><strong>Phone:</strong> ${lead.phone || 'Not provided'}</p>
+      <p><strong>Message:</strong> ${lead.message || 'None'}</p>
+      <p><strong>Source:</strong> ${lead.source || 'Website'}</p>
+      <p><strong>Page:</strong> ${lead.page_url || 'Unknown'}</p>
+    `
+  };
+
+  try {
+    await sgMail.send(msg);
+    console.log('Lead notification email sent');
+  } catch (error) {
+    console.error('Failed to send email:', error);
+  }
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { url, method } = req;
@@ -93,7 +124,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         VALUES (${body.name}, ${body.email}, ${body.phone || null}, ${body.message || null}, ${body.source || null}, ${body.pageUrl || null}, ${body.utmSource || null}, ${body.utmMedium || null}, ${body.utmCampaign || null}, ${body.utmTerm || null}, ${body.utmContent || null})
         RETURNING *
       `;
-      return res.status(201).json(result[0]);
+      const lead = result[0];
+      
+      // Send email notification
+      await sendLeadEmail(lead);
+      
+      return res.status(201).json(lead);
     }
 
     if (path === '/api/analytics/page-view' && method === 'POST') {
