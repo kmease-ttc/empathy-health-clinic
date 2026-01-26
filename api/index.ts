@@ -1,233 +1,124 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import express, { type Request, Response, NextFunction } from "express";
-import compression from "compression";
-import rateLimit from "express-rate-limit";
-import { storage, initBlogSlugCache, isBlogPostSlug } from "../server/storage";
-import { sendLeadNotification } from "../server/email";
-import { db } from "../server/db";
-import { sql } from "drizzle-orm";
-import {
-  insertLeadSchema,
-  insertPageViewSchema,
-  insertAnalyticsEventSchema,
-  insertWebVitalSchema,
-  insertBlogPostSchema,
-  insertNewsletterSubscriberSchema,
-  blogPosts as blogPostsTable,
-} from "../shared/schema";
-import { initializeDatabase } from "../server/db";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+import { eq } from "drizzle-orm";
 
-const app = express();
-
-app.use(compression());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.use((req, res, next) => {
-  res.setHeader("X-Frame-Options", "DENY");
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-  next();
-});
-
-const formLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10,
-  message: { error: "Too many form submissions. Please try again later." },
-});
-
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'ok', timestamp: Date.now() });
-});
-
-app.get("/api/team-members", async (req, res) => {
-  try {
-    const members = await storage.getAllTeamMembers();
-    res.json(members);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch team members" });
-  }
-});
-
-app.get("/api/team-members/:id", async (req, res) => {
-  try {
-    const member = await storage.getTeamMember(req.params.id);
-    if (!member) {
-      return res.status(404).json({ error: "Team member not found" });
-    }
-    res.json(member);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch team member" });
-  }
-});
-
-app.get("/api/blog-posts", async (req, res) => {
-  try {
-    const posts = await storage.getAllBlogPosts();
-    res.json(posts);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch blog posts" });
-  }
-});
-
-app.get("/api/blog-posts/:slug", async (req, res) => {
-  try {
-    const post = await storage.getBlogPostBySlug(req.params.slug);
-    if (!post) {
-      return res.status(404).json({ error: "Blog post not found" });
-    }
-    res.json(post);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch blog post" });
-  }
-});
-
-app.post("/api/leads", formLimiter, async (req, res) => {
-  try {
-    const validatedData = insertLeadSchema.parse(req.body);
-    const lead = await storage.createLead(validatedData);
-    
-    try {
-      await sendLeadNotification(lead);
-    } catch (emailError) {
-      console.error("Failed to send lead notification:", emailError);
-    }
-    
-    res.status(201).json(lead);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message || "Invalid lead data" });
-  }
-});
-
-app.post("/api/analytics/page-view", async (req, res) => {
-  try {
-    const data = insertPageViewSchema.parse(req.body);
-    await storage.createPageView(data);
-    res.status(201).json({ success: true });
-  } catch (error) {
-    res.status(400).json({ error: "Invalid page view data" });
-  }
-});
-
-app.post("/api/analytics/event", async (req, res) => {
-  try {
-    const data = insertAnalyticsEventSchema.parse(req.body);
-    await storage.createAnalyticsEvent(data);
-    res.status(201).json({ success: true });
-  } catch (error) {
-    res.status(400).json({ error: "Invalid event data" });
-  }
-});
-
-app.post("/api/analytics/web-vital", async (req, res) => {
-  try {
-    const data = insertWebVitalSchema.parse(req.body);
-    await storage.createWebVital(data);
-    res.status(201).json({ success: true });
-  } catch (error) {
-    res.status(400).json({ error: "Invalid web vital data" });
-  }
-});
-
-app.post("/api/newsletter", formLimiter, async (req, res) => {
-  try {
-    const data = insertNewsletterSubscriberSchema.parse(req.body);
-    const subscriber = await storage.createNewsletterSubscriber(data);
-    res.status(201).json(subscriber);
-  } catch (error: any) {
-    if (error.message?.includes("duplicate")) {
-      return res.status(409).json({ error: "Email already subscribed" });
-    }
-    res.status(400).json({ error: "Invalid subscriber data" });
-  }
-});
-
-app.get("/api/insurance-providers", async (req, res) => {
-  try {
-    const providers = await storage.getAllInsuranceProviders();
-    res.json(providers);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch insurance providers" });
-  }
-});
-
-app.get("/api/conditions", async (req, res) => {
-  try {
-    const conditions = await storage.getAllConditions();
-    res.json(conditions);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch conditions" });
-  }
-});
-
-app.get("/api/therapies", async (req, res) => {
-  try {
-    const therapies = await storage.getAllTherapies();
-    res.json(therapies);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch therapies" });
-  }
-});
-
-app.get("/api/treatments", async (req, res) => {
-  try {
-    const treatments = await storage.getAllTreatments();
-    res.json(treatments);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch treatments" });
-  }
-});
-
-app.get("/api/testimonials", async (req, res) => {
-  try {
-    const testimonials = await storage.getAllTestimonials();
-    res.json(testimonials);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch testimonials" });
-  }
-});
-
-app.get("/api/site-content", async (req, res) => {
-  try {
-    const content = await storage.getSiteContent();
-    res.json(content);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch site content" });
-  }
-});
-
-app.get("/api/locations", async (req, res) => {
-  try {
-    const locations = await storage.getAllLocations();
-    res.json(locations);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch locations" });
-  }
-});
-
-let initialized = false;
-
-async function ensureInitialized() {
-  if (!initialized) {
-    try {
-      await initializeDatabase();
-      await initBlogSlugCache();
-      initialized = true;
-    } catch (err) {
-      console.error('Initialization error:', err);
-    }
-  }
-}
+const sql = neon(process.env.DATABASE_URL!);
+const db = drizzle(sql);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  await ensureInitialized();
-  return new Promise((resolve, reject) => {
-    app(req as any, res as any, (result: any) => {
-      if (result instanceof Error) {
-        reject(result);
-      } else {
-        resolve(result);
+  const { url, method } = req;
+  const path = url?.split('?')[0] || '';
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  try {
+    if (path === '/api/health') {
+      return res.status(200).json({ status: 'ok', timestamp: Date.now() });
+    }
+
+    if (path === '/api/treatments') {
+      const result = await sql`SELECT * FROM treatments ORDER BY name`;
+      return res.status(200).json(result);
+    }
+
+    if (path === '/api/therapies') {
+      const result = await sql`SELECT * FROM therapies ORDER BY name`;
+      return res.status(200).json(result);
+    }
+
+    if (path === '/api/team-members') {
+      const result = await sql`SELECT * FROM team_members ORDER BY name`;
+      return res.status(200).json(result);
+    }
+
+    if (path.startsWith('/api/team-members/')) {
+      const id = path.replace('/api/team-members/', '');
+      const result = await sql`SELECT * FROM team_members WHERE id = ${id} OR slug = ${id} LIMIT 1`;
+      if (result.length === 0) {
+        return res.status(404).json({ error: "Team member not found" });
       }
-    });
-  });
+      return res.status(200).json(result[0]);
+    }
+
+    if (path === '/api/blog-posts') {
+      const result = await sql`SELECT * FROM blog_posts WHERE status = 'published' ORDER BY published_at DESC`;
+      return res.status(200).json(result);
+    }
+
+    if (path.startsWith('/api/blog-posts/')) {
+      const slug = path.replace('/api/blog-posts/', '');
+      const result = await sql`SELECT * FROM blog_posts WHERE slug = ${slug} LIMIT 1`;
+      if (result.length === 0) {
+        return res.status(404).json({ error: "Blog post not found" });
+      }
+      return res.status(200).json(result[0]);
+    }
+
+    if (path === '/api/conditions') {
+      const result = await sql`SELECT * FROM conditions ORDER BY name`;
+      return res.status(200).json(result);
+    }
+
+    if (path === '/api/insurance-providers') {
+      const result = await sql`SELECT * FROM insurance_providers ORDER BY name`;
+      return res.status(200).json(result);
+    }
+
+    if (path === '/api/locations') {
+      const result = await sql`SELECT * FROM locations ORDER BY name`;
+      return res.status(200).json(result);
+    }
+
+    if (path === '/api/testimonials') {
+      const result = await sql`SELECT * FROM testimonials`;
+      return res.status(200).json(result);
+    }
+
+    if (path === '/api/site-content') {
+      const result = await sql`SELECT * FROM site_content LIMIT 1`;
+      return res.status(200).json(result[0] || {});
+    }
+
+    if (path === '/api/leads' && method === 'POST') {
+      const body = req.body;
+      const result = await sql`
+        INSERT INTO leads (name, email, phone, message, source, page_url, utm_source, utm_medium, utm_campaign, utm_term, utm_content)
+        VALUES (${body.name}, ${body.email}, ${body.phone || null}, ${body.message || null}, ${body.source || null}, ${body.pageUrl || null}, ${body.utmSource || null}, ${body.utmMedium || null}, ${body.utmCampaign || null}, ${body.utmTerm || null}, ${body.utmContent || null})
+        RETURNING *
+      `;
+      return res.status(201).json(result[0]);
+    }
+
+    if (path === '/api/analytics/page-view' && method === 'POST') {
+      return res.status(201).json({ success: true });
+    }
+
+    if (path === '/api/analytics/event' && method === 'POST') {
+      return res.status(201).json({ success: true });
+    }
+
+    if (path === '/api/analytics/web-vital' && method === 'POST') {
+      return res.status(201).json({ success: true });
+    }
+
+    if (path === '/api/analytics/vitals' && method === 'POST') {
+      return res.status(201).json({ success: true });
+    }
+
+    if (path === '/api/user') {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
+
+    return res.status(404).json({ error: "Not found" });
+  } catch (error: any) {
+    console.error('API Error:', error);
+    return res.status(500).json({ error: error.message || "Internal server error" });
+  }
 }
