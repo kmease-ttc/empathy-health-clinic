@@ -1,34 +1,8 @@
 {
   "version": 2,
-  "installCommand": "npm install",
-  "buildCommand": "npm run build:ci",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "functions": {
-    "dist/index.js": {
-      "runtime": "@vercel/node@3"
-    }
-  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.js" }
-  ],
-  "headers": [
-    {
-      "source": "/site-assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/blog-assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
-      ]
-    }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
