@@ -1,8 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { Loader2, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import type { TeamMember } from "@shared/schema";
+import { teamMembers } from "@/data/team-members";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
@@ -10,17 +9,6 @@ const forestBg = "/site-assets/stock_images/misty_forest_morning_dffbe3b2.jpg";
 import { trackEvent } from "@/lib/analytics";
 
 export default function TeamPage() {
-  const { data: teamMembers, isLoading } = useQuery<TeamMember[]>({
-    queryKey: ["/api/team-members"],
-  });
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col bg-background">

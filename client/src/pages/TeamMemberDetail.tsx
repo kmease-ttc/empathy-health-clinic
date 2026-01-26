@@ -1,35 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
 import { useRoute } from "wouter";
-import { Loader2, CheckCircle2, Phone, Calendar } from "lucide-react";
+import { CheckCircle2, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import PhysicianSchema from "@/components/PhysicianSchema";
-import type { TeamMember } from "@shared/schema";
+import { getTeamMemberBySlug } from "@/data/team-members";
 
 export default function TeamMemberDetail() {
   const [, params] = useRoute("/team/:slug");
   const slug = params?.slug || "";
-
-  const { data: member, isLoading } = useQuery<TeamMember>({
-    queryKey: ["/api/team-members/slug", slug],
-    queryFn: async () => {
-      const response = await fetch(`/api/team-members/slug/${slug}`);
-      if (!response.ok) throw new Error("Team member not found");
-      return response.json();
-    },
-    enabled: !!slug,
-  });
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
-      </div>
-    );
-  }
+  const member = getTeamMemberBySlug(slug);
 
   if (!member) {
     return (
