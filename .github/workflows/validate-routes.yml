@@ -1,0 +1,40 @@
+name: Validate Routes
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+
+jobs:
+  validate-routes:
+    runs-on: ubuntu-latest
+    name: Validate All Site Routes
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+      
+      - name: Start preview server
+        run: |
+          npm run preview &
+          sleep 10
+        env:
+          PORT: 5000
+      
+      - name: Validate routes
+        run: node scripts/validate-routes.js
