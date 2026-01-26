@@ -15,8 +15,8 @@ if (process.env.SENDGRID_API_KEY) {
 
 async function sendLeadEmail(lead: any) {
   if (!process.env.SENDGRID_API_KEY) {
-    console.log('SendGrid not configured, skipping email');
-    return;
+    console.error('SENDGRID_API_KEY not configured - email notifications disabled');
+    throw new Error('SendGrid not configured - please add SENDGRID_API_KEY environment variable in Vercel');
   }
 
   const fullName = `${lead.first_name} ${lead.last_name}`.trim();
@@ -69,10 +69,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(200).json({ 
         ok: true, 
         ts: Date.now(),
-        env: {
-          hasDb: !!process.env.DATABASE_URL,
-          hasSendGrid: !!process.env.SENDGRID_API_KEY
-        }
+        hasDb: !!process.env.DATABASE_URL,
+        hasSendGrid: !!process.env.SENDGRID_API_KEY
       });
     }
 
