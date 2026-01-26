@@ -10,7 +10,7 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
-const heroImage = "/attached_assets/stock_images/calm_peaceful_therap_b118766b.jpg";
+const heroImage = "/site-assets/stock_images/calm_peaceful_therap_b118766b.jpg";
 import { trackEvent } from "@/lib/analytics";
 import TherapyFAQ from "@/components/TherapyFAQ";
 
@@ -364,6 +364,13 @@ export default function AnxietyTherapy() {
                   Related Services
                 </h3>
                 <div className="space-y-3">
+                  <Link 
+                    href="/anxiety-psychiatrist-orlando" 
+                    className="block text-primary hover:underline underline-offset-2 font-medium"
+                    data-testid="link-anxiety-psychiatrist"
+                  >
+                    → Anxiety Psychiatrist Orlando
+                  </Link>
                   <Link 
                     href="/depression-counseling" 
                     className="block text-primary hover:underline underline-offset-2"

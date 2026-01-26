@@ -95,7 +95,6 @@ const DepressionPsychiatristOrlando = lazy(() => import("@/pages/DepressionPsych
 const PTSDPsychiatristOrlando = lazy(() => import("@/pages/PTSDPsychiatristOrlando"));
 const UrgentPsychiatricCareOrlando = lazy(() => import("@/pages/UrgentPsychiatricCareOrlando"));
 const PsychiatristOrlandoAcceptsUMR = lazy(() => import("@/pages/PsychiatristOrlandoAcceptsUMR"));
-const ChildPsychiatristOrlando = lazy(() => import("@/pages/ChildPsychiatristOrlando"));
 const MedicationManagementOrlando = lazy(() => import("@/pages/MedicationManagementOrlando"));
 const TelepsychiatryOrlando = lazy(() => import("@/pages/TelepsychiatryOrlando"));
 const SameDayPsychiatristOrlando = lazy(() => import("@/pages/SameDayPsychiatristOrlando"));
@@ -117,13 +116,15 @@ const PsychiatristOrlandoAcceptsCigna = lazy(() => import("@/pages/PsychiatristO
 const PsychiatristOrlandoAcceptsAetna = lazy(() => import("@/pages/PsychiatristOrlandoAcceptsAetna"));
 const PsychiatristOrlandoAcceptsUnitedHealthcare = lazy(() => import("@/pages/PsychiatristOrlandoAcceptsUnitedHealthcare"));
 const PsychiatryOrlando = lazy(() => import("@/pages/PsychiatryOrlando"));
-const OcdPsychiatristOrlando = lazy(() => import("@/pages/OcdPsychiatristOrlando"));
+const OcdPsychiatristOrlando = lazy(() => import("@/pages/OCDPsychiatristOrlando"));
 const SchizophreniaPsychiatristOrlando = lazy(() => import("@/pages/SchizophreniaPsychiatristOrlando"));
 const InsomniaPsychiatristOrlando = lazy(() => import("@/pages/InsomniaPsychiatristOrlando"));
 const Telehealth = lazy(() => import("@/pages/Telehealth"));
 const AdultADHDTreatmentOrlando = lazy(() => import("@/pages/AdultADHDTreatmentOrlando"));
 const SuboxoneTreatmentOrlando = lazy(() => import("@/pages/SuboxoneTreatmentOrlando"));
 const MedicaidPsychiatristOrlando = lazy(() => import("@/pages/MedicaidPsychiatristOrlando"));
+const PsychiatristsOrlando = lazy(() => import("@/pages/PsychiatristsOrlando"));
+const PsychologyOrlando = lazy(() => import("@/pages/PsychologyOrlando"));
 
 // Location Pages
 const PsychiatristAltamonteSprings = lazy(() => import("@/pages/locations/AltamonteSprings"));
@@ -565,11 +566,6 @@ function Router() {
             <PsychiatristOrlandoAcceptsUMR />
           </Suspense>
         </Route>
-        <Route path="/child-psychiatrist-orlando">
-          <Suspense fallback={<LoadingFallback />}>
-            <ChildPsychiatristOrlando />
-          </Suspense>
-        </Route>
         <Route path="/medication-management-orlando">
           <Suspense fallback={<LoadingFallback />}>
             <MedicationManagementOrlando />
@@ -748,6 +744,16 @@ function Router() {
         <Route path="/medicaid-psychiatrist-orlando">
           <Suspense fallback={<LoadingFallback />}>
             <MedicaidPsychiatristOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/psychiatrists-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychiatristsOrlando />
+          </Suspense>
+        </Route>
+        <Route path="/psychology-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <PsychologyOrlando />
           </Suspense>
         </Route>
         <Route path="/about">

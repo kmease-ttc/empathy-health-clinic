@@ -10,44 +10,101 @@ import ReviewsAndBadges from "@/components/ReviewsAndBadges";
 import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
-const heroImage = "/attached_assets/stock_images/professional_healthc_955227e9.jpg";
+const heroImage = "/site-assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
 export default function AnxietyPsychiatristOrlando() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
-    "@id": "https://empathyhealthclinic.com/anxiety-psychiatrist-orlando#organization",
-    "name": "Empathy Health Clinic - Anxiety Psychiatrist Orlando FL",
-    "parentOrganization": {
-      "@id": "https://empathyhealthclinic.com/#organization"
-    },
-    "description": "Board-certified anxiety psychiatrists in Orlando, FL specializing in anxiety disorder treatment, panic disorder, social anxiety, GAD, and phobias. Medication management and comprehensive care.",
-    "url": "https://empathyhealthclinic.com/anxiety-psychiatrist-orlando",
-    "telephone": "+1-386-848-8751",
-    "email": "providers@empathyhealthclinic.com",
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "2281 Lee Rd Suite 102",
-      "addressLocality": "Orlando",
-      "addressRegion": "FL",
-      "postalCode": "32810",
-      "addressCountry": "US"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 28.59544,
-      "longitude": -81.36537
-    },
-    "areaServed": [
-      { "@type": "City", "name": "Orlando" },
-      { "@type": "City", "name": "Winter Park" },
-      { "@type": "City", "name": "Altamonte Springs" },
-      { "@type": "City", "name": "Lake Mary" },
-      { "@type": "City", "name": "Maitland" }
-    ],
-    "medicalSpecialty": "Psychiatry - Anxiety Specialist"
+    "@graph": [
+      {
+        "@type": ["Psychiatrist", "MedicalBusiness", "LocalBusiness"],
+        "@id": "https://empathyhealthclinic.com/anxiety-psychiatrist-orlando#organization",
+        "name": "Empathy Health Clinic - Anxiety Psychiatrist Orlando FL",
+        "parentOrganization": {
+          "@id": "https://empathyhealthclinic.com/#organization"
+        },
+        "description": "Board-certified anxiety psychiatrists in Orlando, FL specializing in anxiety disorder treatment, panic disorder, social anxiety, GAD, and phobias. Medication management and comprehensive care.",
+        "url": "https://empathyhealthclinic.com/anxiety-psychiatrist-orlando",
+        "telephone": "+1-386-848-8751",
+        "email": "providers@empathyhealthclinic.com",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "2281 Lee Rd Suite 102",
+          "addressLocality": "Orlando",
+          "addressRegion": "FL",
+          "postalCode": "32810",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 28.59544,
+          "longitude": -81.36537
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Orlando" },
+          { "@type": "City", "name": "Winter Park" },
+          { "@type": "City", "name": "Altamonte Springs" },
+          { "@type": "City", "name": "Lake Mary" },
+          { "@type": "City", "name": "Maitland" }
+        ],
+        "medicalSpecialty": "Psychiatry - Anxiety Specialist"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does an anxiety psychiatrist do?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An anxiety psychiatrist is a medical doctor who specializes in diagnosing and treating anxiety disorders through medication management. They can prescribe anti-anxiety medications like SSRIs, SNRIs, and other medications to help reduce anxiety symptoms."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What medications do anxiety psychiatrists prescribe?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Anxiety psychiatrists commonly prescribe SSRIs (like Zoloft, Lexapro), SNRIs (like Effexor, Cymbalta), buspirone, and in some cases benzodiazepines for short-term relief. The best medication depends on your specific symptoms and medical history."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How quickly can I see an anxiety psychiatrist in Orlando?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "At Empathy Health Clinic, we offer same-week appointments for new anxiety patients. Most people can schedule their first appointment within 3-5 business days. Call (386) 848-8751 to check availability."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What's the difference between anxiety therapy and psychiatric treatment?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Therapy focuses on talk-based treatments like CBT to change thought patterns and behaviors. Psychiatric treatment focuses on medication management to address the biological aspects of anxiety. Many patients benefit from combining both approaches."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does insurance cover anxiety psychiatrist visits?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, most insurance plans cover psychiatric visits for anxiety treatment. At Empathy Health Clinic, we accept BCBS, Aetna, Cigna, United Healthcare, Medicare, and many other plans. Your typical copay is $20-50 per session."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can an anxiety psychiatrist treat panic attacks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, anxiety psychiatrists are experts in treating panic disorder and panic attacks. They can prescribe medications that reduce the frequency and intensity of panic attacks and help prevent them from occurring."
+            }
+          }
+        ]
+      }
+    ]
   };
 
   const handlePhoneClick = () => {
@@ -501,7 +558,10 @@ export default function AnxietyPsychiatristOrlando() {
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                   <h3 className="font-semibold text-foreground mb-3">Related Services</h3>
                   <div className="space-y-2">
-                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline font-medium">
+                    <Link href="/anxiety-therapy" className="block text-sm text-primary hover:underline font-medium">
+                      Anxiety Therapy & Counseling
+                    </Link>
+                    <Link href="/psychiatrist-orlando" className="block text-sm text-primary hover:underline">
                       Psychiatrist Orlando
                     </Link>
                     <Link href="/psychiatrist-near-me" className="block text-sm text-primary hover:underline">

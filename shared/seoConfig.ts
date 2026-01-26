@@ -44,13 +44,16 @@ export const NOINDEX_PATHS = [
  * These are high-volume SEO pages with unique search intent
  */
 export const SELF_CANONICAL_EXACT_PATHS = [
+  // Core site pages (must be self-canonical)
+  '/', '/about', '/services', '/new-patients', '/request-appointment',
+  '/therapy', '/what-we-treat', '/blog', '/contact-us', '/insurance',
   // High-volume SEO target pages (unique search intent)
   '/psychiatrist-near-me', '/psychiatrist-orlando', '/psychiatry-near-me',
   '/adhd-psychiatrist-orlando', '/anxiety-psychiatrist-orlando', '/depression-psychiatrist-orlando',
   '/telepsychiatry-orlando', '/bipolar-psychiatrist-orlando', '/child-psychiatrist-orlando',
   '/psychiatric-evaluation-orlando', '/mental-health-clinic-orlando', '/medication-management-orlando',
   '/psychiatrist-for-anxiety-near-me', '/psychiatrist-for-depression-near-me',
-  '/same-day-psychiatrist-orlando',
+  '/same-day-psychiatrist-orlando', '/psychiatrists-orlando', '/psychology-orlando',
   // Location pages
   '/winter-park', '/lake-mary', '/altamonte-springs', '/sanford', 
   '/kissimmee', '/apopka', '/maitland', '/casselberry', '/oviedo',
@@ -72,8 +75,12 @@ export const SELF_CANONICAL_PREFIXES = [
   '/insurance', '/accepts-', '/psychiatrist-winter-park', '/psychiatrist-lake-mary',
   '/psychiatrist-altamonte', '/psychiatrist-sanford', '/psychiatrist-kissimmee',
   '/psychiatrist-apopka', '/psychiatrist-maitland', '/psychiatrist-casselberry',
+  '/psychiatrist-lake-nona', '/psychiatrist-winter-garden', '/psychiatrist-downtown',
+  '/psychiatrist-longwood', '/psychiatrist-oviedo',
   '/therapist-winter-park', '/therapist-lake-mary', '/therapist-altamonte',
+  '/therapist-accepts-', '/therapist-orlando',
   '/blog/', // All blog posts should be self-canonical
+  '/locations/', // All location pages should be self-canonical
 ];
 
 /**

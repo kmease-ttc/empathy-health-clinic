@@ -12,7 +12,7 @@ import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
 import { LocalizedContentMultiple } from "@/components/LocalizedContent";
 import InternalLinkBlock from "@/components/InternalLinkBlock";
-const heroImage = "/attached_assets/stock_images/professional_healthc_955227e9.jpg";
+const heroImage = "/site-assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 import ReviewSchema, { PAGE_TESTIMONIALS } from "@/components/ReviewSchema";
 
@@ -222,8 +222,8 @@ export default function PsychiatristNearMe() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Psychiatrist Near Me | Orlando FL Same-Week Appointments"
-        description="Find a psychiatrist near me in Orlando, FL. Board-certified psychiatrists accepting new patients today. Same-week appointments for ADHD, anxiety, depression. BCBS, Cigna, Aetna, Medicare accepted. Call now (386) 848-8751."
+        title="Psychiatrist Near Me | Find Local Psychiatry in Orlando FL"
+        description="Psychiatrist near me - find board-certified psychiatrists in Orlando FL. Accepting new patients with same-week availability. ADHD, anxiety, depression treatment. Insurance: BCBS, Cigna, Aetna, Medicare. Call (386) 848-8751."
         keywords={["psychiatrist near me", "psychiatry near me", "find psychiatrist near me", "psychiatrist near me orlando", "psychiatrist accepting new patients near me", "best psychiatrist near me", "psychiatrist orlando", "psychiatrist winter park", "medication management near me", "psychiatrist accepting medicare", "psychiatrist accepting cigna", "psychiatrist accepting aetna", "psychiatrist near me that takes my insurance", "mental health near me"]}
         canonicalPath="/psychiatrist-near-me"
         jsonLd={jsonLd}
@@ -232,7 +232,7 @@ export default function PsychiatristNearMe() {
       <main className="flex-1">
         <HeroBackground imageSrc={heroImage}>
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-bold mb-4 text-white" data-testid="text-hero-title">
-            Psychiatrist Near Me in Orlando
+            Psychiatrist Near Me
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-6 max-w-3xl" data-testid="text-hero-description">
             Looking for a psychiatrist near you? Our board-certified psychiatrists in Orlando, Winter Park, and Central Florida are accepting new patients. Same-week appointments for medication management.

@@ -2,9 +2,10 @@
  * Verify Prerender Completeness
  * 
  * This script checks that every route in routes/allRoutes.json has a corresponding
- * prerendered snapshot file. Fails with exit code 1 if any are missing.
+ * prerendered snapshot file. In priority mode, only checks priority routes.
  * 
  * Usage: npx tsx scripts/verify-prerender.ts
+ *        npx tsx scripts/verify-prerender.ts --priority  (only check priority routes)
  */
 
 import fs from 'fs';
@@ -16,6 +17,25 @@ const rootDir = path.resolve(__dirname, '..');
 
 const MANIFEST_PATH = path.join(rootDir, 'routes/allRoutes.json');
 const PRERENDER_DIR = path.join(rootDir, 'dist/prerendered');
+const PRIORITY_MODE = process.argv.includes('--priority') || process.env.PRERENDER_MODE === 'priority';
+
+// Priority routes - same list as in prerender-puppeteer.ts
+const PRIORITY_ROUTES: string[] = [
+  '/', '/about', '/contact', '/team', '/services', '/blog', '/faq', '/book-appointment',
+  '/telehealth', '/insurance', '/conditions',
+  '/psychiatrist-orlando', '/psychiatry-orlando', '/psychiatrist-near-me',
+  '/best-psychiatrist-orlando', '/orlando-psychiatrist',
+  '/anxiety-psychiatrist-orlando', '/depression-psychiatrist-orlando',
+  '/adhd-psychiatrist-orlando', '/bipolar-psychiatrist-orlando',
+  '/ptsd-psychiatrist-orlando', '/ocd-psychiatrist-orlando',
+  '/trauma-psychiatrist-orlando', '/schizophrenia-psychiatrist-orlando',
+  '/medication-management', '/psychiatric-evaluation', '/therapy-services',
+  '/emdr-therapy', '/tms-treatment', '/anxiety-treatment', '/anxiety-therapy',
+  '/adhd-testing-orlando', '/adult-adhd-treatment-orlando',
+  '/winter-park-psychiatrist', '/lake-mary-psychiatrist',
+  '/altamonte-springs-psychiatrist', '/maitland-psychiatrist',
+  '/privacy-policy', '/terms-of-service', '/affordable-care',
+];
 
 interface RouteManifest {
   totalRoutes: number;
@@ -42,6 +62,9 @@ function routeToFilePath(route: string): string {
 function main() {
   console.log('===========================================');
   console.log('Prerender Manifest Verification');
+  if (PRIORITY_MODE) {
+    console.log('MODE: PRIORITY (checking only high-value SEO pages)');
+  }
   console.log('===========================================\n');
 
   // Check manifest exists
@@ -63,13 +86,22 @@ function main() {
   console.log(`Manifest: ${manifest.totalRoutes} routes (${manifest.staticRoutes} static, ${manifest.blogRoutes} blog)`);
   console.log(`Generated: ${manifest.generatedAt}\n`);
 
+  // In priority mode, only check priority routes that exist in the manifest
+  const routesToCheck = PRIORITY_MODE 
+    ? PRIORITY_ROUTES.filter(r => manifest.routes.includes(r))
+    : manifest.routes;
+  
+  if (PRIORITY_MODE) {
+    console.log(`Checking ${routesToCheck.length} priority routes (${manifest.totalRoutes - routesToCheck.length} non-priority routes not checked)\n`);
+  }
+
   const missing: string[] = [];
   const present: string[] = [];
   const lowQuality: { route: string; links: number }[] = [];
 
   const MIN_LINKS = 5; // Minimum links for quality check (except /contact)
 
-  for (const route of manifest.routes) {
+  for (const route of routesToCheck) {
     const filePath = routeToFilePath(route);
     
     if (!fs.existsSync(filePath)) {

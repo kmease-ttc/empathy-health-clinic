@@ -15,6 +15,11 @@ import FeaturedResourcesSection from "@/components/FeaturedResourcesSection";
 import SiteFooter from "@/components/SiteFooter";
 import SEOHead from "@/components/SEOHead";
 import OrganizationSchema from "@/components/OrganizationSchema";
+import { 
+  MapPin, Stethoscope, Brain, Heart, Frown, Pill, Video, Search,
+  AlertCircle, Activity, Monitor, Building2, Award, MapPinned, 
+  UserPlus, User, CheckCircle, ClipboardList
+} from "lucide-react";
 
 const TeamSection = lazy(() => import("@/components/TeamSection"));
 const ConditionsSection = lazy(() => import("@/components/ConditionsSection"));
@@ -139,275 +144,176 @@ export default function Home() {
         <HeroSection />
 
         {/* Orlando Psychiatry Specialists Section */}
-        <section className="py-16 bg-muted">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
+        <section className="py-16 bg-gradient-to-b from-orange-50/50 to-orange-100/30 dark:from-orange-950/20 dark:to-orange-900/10">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-serif italic font-medium text-foreground mb-4">
                 Orlando Psychiatry Specialists
               </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-base text-muted-foreground max-w-2xl mx-auto">
                 Board-certified psychiatrists serving Orlando, Winter Park, Altamonte Springs, Lake Mary, and Maitland. Same-week appointments available.
               </p>
             </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+            {/* Row 1 - 3 column grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <Link href="/psychiatrist-near-me" className="group" data-testid="link-orlando-near-me">
-                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-near-me">
-                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
-                    Psychiatrist Near Me
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Find psychiatric care close to you
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-orlando-near-me">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Psychiatrist Near Me</h3>
+                    <p className="text-sm text-muted-foreground">Find psychiatrist close to you</p>
+                  </div>
                 </div>
               </Link>
 
               <Link href="/psychiatrist-orlando" className="group" data-testid="link-orlando-psychiatrist">
-                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-psychiatrist">
-                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
-                    Psychiatrist Orlando
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Expert medication management & evaluations
-                  </p>
-                </div>
-              </Link>
-
-              <Link href="/adhd-psychiatrist-orlando" className="group" data-testid="link-orlando-adhd">
-                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-adhd">
-                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
-                    ADHD Psychiatrist
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Expert ADHD diagnosis & medication
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-orlando-psychiatrist">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Stethoscope className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Psychiatrist Orlando</h3>
+                    <p className="text-sm text-muted-foreground">Expert medication management & evaluations</p>
+                  </div>
                 </div>
               </Link>
 
               <Link href="/anxiety-therapy" className="group" data-testid="link-orlando-anxiety">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-anxiety">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Anxiety Treatment
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Anxiety & panic disorder care
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-orlando-anxiety">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Heart className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Anxiety Treatment</h3>
+                    <p className="text-sm text-muted-foreground">Anxiety & panic disorder care</p>
+                  </div>
                 </div>
               </Link>
+            </div>
 
+            {/* Row 2 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <Link href="/depression-counseling" className="group" data-testid="link-orlando-depression">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-depression">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Depression Treatment
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Evidence-based depression care
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-orlando-depression">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Frown className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Depression Treatment</h3>
+                    <p className="text-sm text-muted-foreground">Evidence-based depression care</p>
+                  </div>
                 </div>
               </Link>
 
               <Link href="/services" className="group" data-testid="link-orlando-medication">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-medication">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Medication Management
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Ongoing psychiatric medication care
-                  </p>
-                </div>
-              </Link>
-
-              <Link href="/telepsychiatry-orlando" className="group" data-testid="link-orlando-telepsychiatry">
-                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-telepsychiatry">
-                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
-                    Telepsychiatry Orlando
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Online video psychiatric care
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-orlando-medication">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Pill className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Medication Management</h3>
+                    <p className="text-sm text-muted-foreground">Ongoing psychiatric medication care</p>
+                  </div>
                 </div>
               </Link>
 
               <Link href="/psychiatry-near-me" className="group" data-testid="link-orlando-psychiatry-near-me">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-orlando-psychiatry-near-me">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Psychiatry Near Me
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Find psychiatry services nearby
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-orlando-psychiatry-near-me">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Search className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Psychiatry Near Me</h3>
+                    <p className="text-sm text-muted-foreground">Find psychiatry services nearby</p>
+                  </div>
                 </div>
               </Link>
             </div>
 
-            {/* Additional Priority SEO Links */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            {/* Row 3 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <Link href="/psychiatrist-for-anxiety-near-me" className="group" data-testid="link-anxiety-psychiatrist">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-anxiety-psychiatrist">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Anxiety Psychiatrist
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Specialized anxiety treatment
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-anxiety-psychiatrist">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <AlertCircle className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Anxiety Psychiatrist</h3>
+                    <p className="text-sm text-muted-foreground">#1 rated anxiety specialists</p>
+                  </div>
                 </div>
               </Link>
 
               <Link href="/psychiatrist-for-depression-near-me" className="group" data-testid="link-depression-psychiatrist">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-depression-psychiatrist">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Depression Psychiatrist
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Expert depression care
-                  </p>
-                </div>
-              </Link>
-
-              <Link href="/online-psychiatrist-orlando" className="group" data-testid="link-online-psychiatrist">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-online-psychiatrist">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Online Psychiatrist
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Telehealth appointments
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-depression-psychiatrist">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Frown className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Depression Psychiatrist</h3>
+                    <p className="text-sm text-muted-foreground">Expert depression care</p>
+                  </div>
                 </div>
               </Link>
 
               <Link href="/mental-health-clinic-orlando" className="group" data-testid="link-mental-health-clinic">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-mental-health-clinic">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Mental Health Clinic
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Full-service Orlando clinic
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-mental-health-clinic">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Building2 className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Mental Health Clinic</h3>
+                    <p className="text-sm text-muted-foreground">Full-service Orlando clinic</p>
+                  </div>
                 </div>
               </Link>
             </div>
 
-            {/* Additional Priority SEO Links - Row 3 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-              <Link href="/anxiety-psychiatrist-orlando" className="group" data-testid="link-anxiety-psychiatrist-orlando">
-                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-anxiety-psychiatrist-orlando">
-                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
-                    Anxiety Psychiatrist Orlando
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    #1 rated anxiety specialists
-                  </p>
-                </div>
-              </Link>
-
-              <Link href="/depression-psychiatrist-orlando" className="group" data-testid="link-depression-psychiatrist-orlando">
-                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-depression-psychiatrist-orlando">
-                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
-                    Depression Psychiatrist Orlando
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Expert depression treatment
-                  </p>
-                </div>
-              </Link>
-
-              <Link href="/psychiatric-services" className="group" data-testid="link-psychiatric-services">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-psychiatric-services">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Medication Management
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Psychiatric medication care
-                  </p>
-                </div>
-              </Link>
-
-              <Link href="/psychiatric-evaluation-orlando" className="group" data-testid="link-psychiatric-evaluation">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-psychiatric-evaluation">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Psychiatric Evaluation
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Comprehensive assessments
-                  </p>
-                </div>
-              </Link>
-            </div>
-
-            {/* Additional Priority SEO Links - Row 4 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            {/* Row 4 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <Link href="/best-psychiatrist-orlando" className="group" data-testid="link-best-psychiatrist">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-best-psychiatrist">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Best Psychiatrist Orlando
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    4.8★ rated providers
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-best-psychiatrist">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Award className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Best Psychiatrist</h3>
+                    <p className="text-sm text-muted-foreground">Top-rated Orlando psychiatrists</p>
+                  </div>
                 </div>
               </Link>
 
               <Link href="/psychiatrist-winter-park" className="group" data-testid="link-psychiatrist-winter-park">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-psychiatrist-winter-park">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Psychiatrist Winter Park
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Local Winter Park care
-                  </p>
-                </div>
-              </Link>
-
-              <Link href="/new-patients" className="group" data-testid="link-new-patients">
-                <div className="p-6 bg-primary/5 border-2 border-primary rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-new-patients">
-                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary/80">
-                    Accepting New Patients
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Same-week appointments
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-psychiatrist-winter-park">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <MapPinned className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Psychiatrist Winter Park</h3>
+                    <p className="text-sm text-muted-foreground">Experienced Winter Park care</p>
+                  </div>
                 </div>
               </Link>
 
               <Link href="/mental-health-doctor-orlando" className="group" data-testid="link-mental-health-doctor">
-                <div className="p-6 bg-card border rounded-lg text-center hover-elevate transition-all h-full" data-testid="card-mental-health-doctor">
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary">
-                    Mental Health Doctor
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Expert mental health care
-                  </p>
+                <div className="flex items-center gap-4 p-6 bg-white dark:bg-card rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 h-full" data-testid="card-mental-health-doctor">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <User className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary">Mental Health Doctor</h3>
+                    <p className="text-sm text-muted-foreground">Comprehensive assessments</p>
+                  </div>
                 </div>
               </Link>
             </div>
 
-            {/* Insurance Quick Links - Boosting declining pages */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
-              <Link href="/psychiatrist-orlando-accepts-bcbs" className="group text-center">
-                <div className="p-3 bg-card border rounded-lg hover-elevate transition-all">
-                  <span className="text-sm font-medium text-foreground group-hover:text-primary">BCBS Psychiatrist</span>
-                </div>
-              </Link>
-              <Link href="/psychiatrist-orlando-accepts-cigna" className="group text-center">
-                <div className="p-3 bg-card border rounded-lg hover-elevate transition-all">
-                  <span className="text-sm font-medium text-foreground group-hover:text-primary">Cigna Psychiatrist</span>
-                </div>
-              </Link>
-              <Link href="/psychiatrist-orlando-accepts-aetna" className="group text-center">
-                <div className="p-3 bg-card border rounded-lg hover-elevate transition-all">
-                  <span className="text-sm font-medium text-foreground group-hover:text-primary">Aetna Psychiatrist</span>
-                </div>
-              </Link>
-              <Link href="/anxiety-psychiatrist-orlando" className="group text-center">
-                <div className="p-3 bg-card border rounded-lg hover-elevate transition-all">
-                  <span className="text-sm font-medium text-foreground group-hover:text-primary">Anxiety Psychiatrist</span>
-                </div>
-              </Link>
-            </div>
-
-            <div className="text-center mt-8">
+            <div className="text-center mt-6">
               <Link href="/psychiatrist-orlando">
-                <Button size="lg" data-testid="button-view-all-orlando">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8" data-testid="button-view-all-orlando">
                   View All Orlando Services
                 </Button>
               </Link>

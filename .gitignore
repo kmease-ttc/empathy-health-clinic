@@ -1,15 +1,123 @@
-node_modules
-dist
-.DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
-# Replit exports / uploads (too large for GitHub)
-attached_assets/
-*.zip
-*.sql
+# ============================================
+# REPO BLOAT PREVENTION - GitHub/CI Ready
+# ============================================
 
-# Ignore large uploaded assets
-attached_assets/
+# Dependencies (reinstall via npm ci)
+node_modules/
+
+# Build outputs (regenerated during build)
+dist/
+build/
+.next/
+out/
+
+# Caches (regenerated automatically)
+.cache/
+.turbo/
+.vite/
+coverage/
+.npm/
+.yarn/
+
+# Replit local files
+.replit
+replit.nix
+.local/
+
+# Python env (if present)
+.pythonlibs/
+__pycache__/
+*.pyc
+venv/
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# LARGE FILE BLOAT PREVENTION
+# ============================================
+
+# Archive files (never commit)
 *.zip
 *.sql
+*.tar
+*.tar.gz
+*.7z
+*.rar
+*.gz
+*.bz2
+
+# Ephemeral asset folders (DO NOT use for production)
+attached_assets/
+
+# Specific bloat-prone directories
+screaming_frog_reports/
+generated_videos/
+
+# Reports and exports (regenerated on demand)
+**/exports/
+**/reports/
+**/*-report.html
+**/*-export.csv
+
+# Generated manifests (regenerated via scripts)
+scripts/asset-manifest.json
+
+# Temporary/draft folders
+empathy-clean/
+temp/
+tmp/
+assets/
+blogs/
+
+# Data files
+*.csv
+email_hits.txt
+*.db
+nohup.out
+uv.lock
+pyproject.toml
+package.json.new
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+repl_state.bin
+.agent_state_*.bin
+# Replit / build / deps
+node_modules/
+dist/
+.tmp/
+tmp/
+.cache/
+.cache-loader/
+.parcel-cache/
+.vite/
+.next/
+out/
+coverage/
+
+# Huge / ephemeral
+attached_assets/
+assets/
+*.log
+*.zip
+*.tar
+*.gz
+*.mp4
+*.mov
+.DS_Store

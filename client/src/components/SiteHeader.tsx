@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { SiteContent } from "@shared/schema";
 import { trackEvent } from "@/lib/analytics";
 
-const logoImage = "/attached_assets/image_1761920964846-optimized.webp";
+const logoImage = "/site-assets/logos/empathy-logo.webp";
 
 interface HeaderErrorBoundaryState {
   hasError: boolean;
@@ -32,7 +32,7 @@ class HeaderErrorBoundary extends Component<{ children: ReactNode }, HeaderError
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
               <a href="/" className="flex items-center">
-                <img src={logoImage} alt="Empathy Health Clinic" className="h-16 w-auto" />
+                <img src={logoImage} alt="Empathy Health Clinic psychiatrist Orlando FL logo" className="h-16 w-auto" />
               </a>
               <nav className="flex items-center gap-4">
                 <a href="/psychiatrist-orlando" className="text-gray-800 hover:text-orange-500">Psychiatrist Orlando</a>
@@ -104,7 +104,7 @@ function SiteHeaderContent() {
             >
               <img 
                 src={logoImage} 
-                alt="Empathy Health Clinic" 
+                alt="Empathy Health Clinic psychiatrist Orlando FL logo" 
                 className="h-16 lg:h-20 w-auto"
                 width={240}
                 height={80}

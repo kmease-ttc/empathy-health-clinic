@@ -5,6 +5,7 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { canonicalizationMiddleware } from "./canonicalization-middleware";
 import { createPrerenderMiddleware, prerenderStatusHandler } from "./prerender-middleware";
+import { createAssetProxyMiddleware, logAssetConfig } from "./asset-proxy-middleware";
 import { initBlogSlugCache } from "./storage";
 import { initializeDatabase } from "./db";
 import path from "path";
@@ -205,8 +206,13 @@ app.use((req, res, next) => {
 
 // Prerender middleware serves static HTML to search engine crawlers
 // MUST be registered synchronously BEFORE the async IIFE to ensure it runs before Vite dev middleware
+// ONLY enable in production - in development, serve live React for hot reloading
 const prerenderedDir = path.resolve(import.meta.dirname, "..", "dist/prerendered");
-app.use(createPrerenderMiddleware(prerenderedDir));
+if (process.env.NODE_ENV === 'production') {
+  app.use(createPrerenderMiddleware(prerenderedDir));
+} else {
+  console.log('⏭️  Prerender middleware: Skipped in development mode');
+}
 
 // Debug endpoint to check prerender status
 app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
@@ -217,7 +223,23 @@ app.get('/api/prerender-status', prerenderStatusHandler(prerenderedDir));
   // Serve static files from attached_assets directory
   // Use process.cwd() to ensure correct path in both dev and production (dist/)
   const attachedAssetsPath = path.resolve(process.cwd(), "attached_assets");
+  
+  // Asset proxy middleware: redirects to CDN if EXTERNAL_ASSET_URL is set
+  // Otherwise falls through to express.static (current behavior)
+  logAssetConfig();
+  app.use(createAssetProxyMiddleware(attachedAssetsPath));
   app.use("/attached_assets", express.static(attachedAssetsPath));
+  
+  // Serve stable site assets from public/site-assets (committed to git)
+  const siteAssetsPath = path.resolve(process.cwd(), "public/site-assets");
+  const blogAssetsPath = path.resolve(process.cwd(), "public/blog-assets");
+  app.use("/site-assets", express.static(siteAssetsPath));
+  app.use("/blog-assets", express.static(blogAssetsPath));
+  
+  // Serve logo file directly for SEO (no redirect, indexable)
+  const clientPublicPath = path.resolve(process.cwd(), "client/public");
+  app.use("/empathy-health-clinic-logo.png", express.static(path.join(clientPublicPath, "empathy-health-clinic-logo.png")));
+  app.use("/empathy-logo.png", express.static(path.join(clientPublicPath, "empathy-logo.png")));
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;

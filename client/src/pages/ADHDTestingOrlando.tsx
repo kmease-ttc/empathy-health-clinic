@@ -11,7 +11,7 @@ import VerifiedOnBadge from "@/components/VerifiedOnBadge";
 import HeroBackground from "@/components/HeroBackground";
 import ShortContactForm from "@/components/ShortContactForm";
 import { AuthoritativeSourcesBlock } from "@/components/AuthoritativeSource";
-const heroImage = "/attached_assets/stock_images/professional_healthc_955227e9.jpg";
+const heroImage = "/site-assets/stock_images/professional_healthc_955227e9.jpg";
 import { trackEvent } from "@/lib/analytics";
 
 export default function ADHDTestingOrlando() {
@@ -23,7 +23,7 @@ export default function ADHDTestingOrlando() {
         "@id": "https://empathyhealthclinic.com/adhd-testing-orlando/#test",
         "name": "ADHD Testing & Evaluation",
         "alternateName": ["ADHD Assessment", "ADHD Evaluation", "Attention Deficit Hyperactivity Disorder Testing"],
-        "description": "Comprehensive ADHD testing for adults and teens including clinical interviews, standardized rating scales (ASRS, Conners), and differential diagnosis to accurately identify ADHD and co-occurring conditions.",
+        "description": "Comprehensive ADHD testing for adults 18+ including clinical interviews, standardized rating scales (ASRS, Conners), and differential diagnosis to accurately identify ADHD and co-occurring conditions.",
         "usesDevice": [
           { "@type": "MedicalDevice", "name": "ASRS (Adult ADHD Self-Report Scale)" },
           { "@type": "MedicalDevice", "name": "Conners Adult ADHD Rating Scales" },
@@ -46,7 +46,7 @@ export default function ADHDTestingOrlando() {
         "@type": ["MedicalClinic", "LocalBusiness", "MedicalOrganization"],
         "@id": "https://empathyhealthclinic.com/adhd-testing-orlando/#organization",
         "name": "Empathy Health Clinic - ADHD Testing Winter Park & Orlando",
-        "description": "Professional ADHD testing and evaluation in Winter Park and Orlando, FL. Board-certified psychiatrists providing comprehensive assessments for adults and teens. Same-week appointments. Most insurance accepted.",
+        "description": "Professional ADHD testing and evaluation in Winter Park and Orlando, FL. Board-certified psychiatrists providing comprehensive assessments for adults 18+. Same-week appointments. Most insurance accepted.",
         "url": "https://empathyhealthclinic.com/adhd-testing-orlando",
         "telephone": "+1-386-848-8751",
         "email": "providers@empathyhealthclinic.com",
@@ -135,7 +135,7 @@ export default function ADHDTestingOrlando() {
             "name": "Can ADHD testing be done via telehealth?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes! We offer telehealth ADHD testing appointments throughout Florida. The clinical interview and rating scales can be completed effectively via secure video call, making testing convenient for busy adults and teens in Orlando and surrounding areas."
+              "text": "Yes! We offer telehealth ADHD testing appointments throughout Florida. The clinical interview and rating scales can be completed effectively via secure video call, making testing convenient for busy adults in Orlando and surrounding areas."
             }
           },
           {
@@ -148,10 +148,10 @@ export default function ADHDTestingOrlando() {
           },
           {
             "@type": "Question",
-            "name": "Do you test children for ADHD?",
+            "name": "Do you test adults who were never diagnosed as children?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We specialize in ADHD testing for teens (ages 13-17) and adults (18+). For younger children, we can provide referrals to child psychiatrists or psychologists who specialize in pediatric ADHD evaluation."
+              "text": "Absolutely! Many adults with ADHD weren't diagnosed as children. We specialize in adult ADHD evaluation (18+), recognizing that symptoms often manifest differently in adults. Late diagnosis is common and our psychiatrists have extensive experience identifying ADHD in adults."
             }
           }
         ]
@@ -167,7 +167,7 @@ export default function ADHDTestingOrlando() {
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="ADHD Psychiatrist Orlando | Testing & Treatment 2025"
-        description="ADHD psychiatrist Orlando providing comprehensive testing & treatment. Board-certified specialists for adults and teens. Same-week appointments. BCBS, Aetna, Cigna accepted. Call 386-848-8751."
+        description="ADHD psychiatrist Orlando providing comprehensive testing & treatment for adults 18+. Board-certified specialists. Same-week appointments. BCBS, Aetna, Cigna accepted. Call 386-848-8751."
         keywords={["adhd psychiatrist orlando", "adhd testing orlando", "adhd testing", "adhd testing near me", "adhd evaluation", "adhd testing winter park", "adult adhd testing", "adhd assessment orlando", "adhd diagnosis orlando", "add testing orlando", "adhd doctor orlando"]}
         canonicalPath="/adhd-testing-orlando"
         jsonLd={jsonLd}
@@ -179,7 +179,7 @@ export default function ADHDTestingOrlando() {
             ADHD Testing & Evaluation Orlando
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-3xl" data-testid="text-hero-description">
-            Professional ADHD testing for adults and teens in Orlando. Comprehensive evaluations by board-certified psychiatrists. Get clarity, accurate diagnosis, and personalized treatment recommendations. Same-week appointments available.
+            Professional ADHD testing for adults 18+ in Orlando. Comprehensive evaluations by board-certified psychiatrists. Get clarity, accurate diagnosis, and personalized treatment recommendations. Same-week appointments available.
           </p>
           <div className="flex flex-wrap gap-4" data-testid="hero-cta-cluster">
             <Button 
@@ -304,7 +304,7 @@ export default function ADHDTestingOrlando() {
                 </h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-foreground leading-relaxed mb-4">
-                    Wondering if you have ADHD? At Empathy Health Clinic, our board-certified psychiatrists provide comprehensive ADHD testing and evaluation for adults and teenagers in Orlando. Our diagnostic process combines clinical interviews, standardized assessments, and symptom rating scales to provide accurate ADHD diagnoses and personalized treatment recommendations.
+                    Wondering if you have ADHD? At Empathy Health Clinic, our board-certified psychiatrists provide comprehensive ADHD testing and evaluation for adults 18+ in Orlando. Our diagnostic process combines clinical interviews, standardized assessments, and symptom rating scales to provide accurate ADHD diagnoses and personalized treatment recommendations.
                   </p>
                   <p className="text-foreground leading-relaxed mb-4">
                     Many adults with ADHD go undiagnosed for years, struggling with focus, organization, time management, and impulsivity without understanding why. Our ADHD testing process provides clarity and opens the door to effective treatment options including medication, therapy, and lifestyle strategies.
@@ -478,7 +478,7 @@ export default function ADHDTestingOrlando() {
                   <div className="bg-primary/5 border rounded-lg p-6" data-testid="card-audience-adults">
                     <h3 className="text-xl font-semibold text-foreground mb-3">Adult ADHD Testing (Ages 18+)</h3>
                     <p className="text-muted-foreground mb-4">
-                      Many adults with ADHD weren't diagnosed as children. We specialize in adult ADHD evaluation, recognizing that symptoms often manifest differently in adults than in children.
+                      Many adults with ADHD weren't diagnosed in childhood. We specialize in adult ADHD evaluation (18+), recognizing that symptoms often manifest differently in adults and that late diagnosis is increasingly common.
                     </p>
                     <ul className="space-y-2 text-sm text-foreground">
                       <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> College students struggling with focus</li>
@@ -488,16 +488,16 @@ export default function ADHDTestingOrlando() {
                     </ul>
                   </div>
 
-                  <div className="bg-primary/5 border rounded-lg p-6" data-testid="card-audience-teens">
-                    <h3 className="text-xl font-semibold text-foreground mb-3">Teen ADHD Testing (Ages 13-17)</h3>
+                  <div className="bg-primary/5 border rounded-lg p-6" data-testid="card-audience-late-diagnosis">
+                    <h3 className="text-xl font-semibold text-foreground mb-3">Late-Diagnosed Adult ADHD</h3>
                     <p className="text-muted-foreground mb-4">
-                      Adolescent ADHD testing helps identify attention difficulties that impact academic performance, social relationships, and emotional regulation during critical teenage years.
+                      Many adults discover they have ADHD later in life. Our specialists understand the unique challenges of late diagnosis and provide comprehensive evaluations.
                     </p>
                     <ul className="space-y-2 text-sm text-foreground">
-                      <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> Academic underachievement</li>
-                      <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> Homework completion struggles</li>
-                      <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> Impulsive behavior concerns</li>
-                      <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> High school transition difficulties</li>
+                      <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> Career transition difficulties</li>
+                      <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> Relationship challenges</li>
+                      <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> Lifelong patterns of disorganization</li>
+                      <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> Executive function struggles</li>
                     </ul>
                   </div>
                 </div>
@@ -544,6 +544,30 @@ export default function ADHDTestingOrlando() {
                 </div>
               </section>
 
+              <section className="bg-primary/5 border border-primary/20 rounded-lg p-6">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
+                  After Your ADHD Diagnosis – Treatment Options
+                </h2>
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-foreground leading-relaxed mb-4">
+                    Once you receive your ADHD diagnosis, the next step is starting an effective treatment plan. Our board-certified psychiatrists specialize in ADHD medication management, including stimulant and non-stimulant options tailored to your specific needs.
+                  </p>
+                  <p className="text-foreground leading-relaxed mb-4">
+                    Treatment typically begins with a follow-up appointment where we discuss medication options, set treatment goals, and create a personalized care plan. Many patients see significant improvement in focus, organization, and daily functioning within weeks of starting treatment.
+                  </p>
+                  <div className="mt-6">
+                    <Link 
+                      href="/adhd-psychiatrist-orlando" 
+                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                      data-testid="link-adhd-treatment"
+                    >
+                      <Brain className="h-5 w-5" />
+                      Start Treatment with Our ADHD Specialists
+                    </Link>
+                  </div>
+                </div>
+              </section>
+
               <section>
                 <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   Frequently Asked Questions
@@ -570,7 +594,7 @@ export default function ADHDTestingOrlando() {
                   <div data-testid="faq-item-04">
                     <h3 className="font-semibold text-foreground mb-2">Can ADHD testing be done via telehealth?</h3>
                     <p className="text-muted-foreground">
-                      Yes! We offer telehealth ADHD testing appointments. The clinical interview and rating scales can be completed effectively via secure video call, making testing convenient for busy adults and teens.
+                      Yes! We offer telehealth ADHD testing appointments. The clinical interview and rating scales can be completed effectively via secure video call, making testing convenient for busy adults.
                     </p>
                   </div>
                   <div data-testid="faq-item-05">
@@ -586,9 +610,9 @@ export default function ADHDTestingOrlando() {
                     </p>
                   </div>
                   <div data-testid="faq-item-07">
-                    <h3 className="font-semibold text-foreground mb-2">Do you test children for ADHD?</h3>
+                    <h3 className="font-semibold text-foreground mb-2">Do you test adults who were never diagnosed?</h3>
                     <p className="text-muted-foreground">
-                      We specialize in ADHD testing for teens (ages 13-17) and adults (18+). For younger children, we can provide referrals to child psychiatrists or psychologists who specialize in pediatric ADHD evaluation.
+                      Absolutely! We specialize in adult ADHD evaluation (18+). Many adults with ADHD were never diagnosed in childhood, and late diagnosis is increasingly common. Our psychiatrists have extensive experience identifying ADHD in adults.
                     </p>
                   </div>
                 </div>

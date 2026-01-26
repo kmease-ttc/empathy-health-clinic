@@ -86,7 +86,27 @@ export default function PsychiatristOrlando() {
         "name": "Dr. Marna Morrow",
         "jobTitle": "Board-Certified Psychiatrist",
         "medicalSpecialty": "Psychiatry",
-        "worksFor": { "@type": "MedicalClinic", "name": "Empathy Health Clinic" }
+        "worksFor": { "@type": "MedicalClinic", "name": "Empathy Health Clinic" },
+        "alumniOf": {
+          "@type": "EducationalOrganization",
+          "name": "University of Medicine and Health Sciences"
+        },
+        "knowsAbout": [
+          "Depression",
+          "Anxiety Disorders",
+          "ADHD",
+          "Bipolar Disorder",
+          "PTSD",
+          "OCD",
+          "Panic Disorder",
+          "Medication Management",
+          "Psychiatric Evaluations"
+        ],
+        "hasCredential": [
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "MD - Doctor of Medicine" },
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "Board Certified in Psychiatry" },
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "Florida Medical License" }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -114,6 +134,46 @@ export default function PsychiatristOrlando() {
               "@type": "Answer",
               "text": "Yes, we offer secure HIPAA-compliant video appointments for patients throughout Florida. Same quality psychiatric care with added convenience from home."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between a psychiatrist and a psychologist in Orlando?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A psychiatrist in Orlando is a medical doctor (MD) who can prescribe medication and provide comprehensive psychiatric care. A psychologist holds a doctoral degree in psychology and provides therapy and psychological testing but cannot prescribe medication in Florida. At Empathy Health Clinic, our psychiatrists work collaboratively with therapists to provide complete mental health care."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does a psychiatrist cost in Orlando without insurance?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Without insurance, an initial psychiatric evaluation in Orlando typically costs $250-$400, and follow-up medication management appointments range from $150-$250. At Empathy Health Clinic, we accept most major insurance plans, making psychiatric care more affordable with typical copays of $20-50 per session."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What conditions do Orlando psychiatrists treat?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Orlando psychiatrists at Empathy Health Clinic treat a wide range of mental health conditions including depression, anxiety disorders, ADHD, bipolar disorder, PTSD, OCD, panic disorder, insomnia, and other mood disorders. We provide comprehensive psychiatric evaluations and personalized medication management."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I get same-day psychiatrist appointments in Orlando?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "While same-day appointments may be available in urgent situations, most new patients at Empathy Health Clinic can be seen within 3-5 business days. We prioritize getting you care quickly and offer same-week appointments for new patients. Call (386) 848-8751 to check current availability."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do Orlando psychiatrists prescribe medication for anxiety?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Orlando psychiatrists at Empathy Health Clinic regularly prescribe medication for anxiety disorders including generalized anxiety disorder, panic disorder, and social anxiety. Our board-certified psychiatrists conduct thorough evaluations to determine the most appropriate treatment, which may include SSRIs, SNRIs, or other anxiety medications combined with therapy recommendations."
+            }
           }
         ]
       }
@@ -127,9 +187,9 @@ export default function PsychiatristOrlando() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Psychiatrist Orlando | Psychiatry Orlando FL 2025"
-        description="Top-rated psychiatrist Orlando and psychiatry Orlando services. Board-certified Orlando psychiatrists accepting new patients. Same-week appointments for ADHD, anxiety, depression. 4.8★ rated. BCBS, Cigna, Medicare. (386) 848-8751."
-        keywords={["psychiatrist orlando", "psychiatry orlando", "orlando psychiatrist", "psychiatrist orlando fl", "psychiatry orlando fl", "best psychiatrist orlando", "top rated psychiatrist orlando", "psychiatrist near me orlando", "anxiety psychiatrist orlando", "adhd psychiatrist orlando", "depression psychiatrist orlando", "medication management orlando", "mental health orlando", "psychiatrist accepting new patients orlando", "bipolar psychiatrist orlando"]}
+        title="Psychiatrist Orlando FL | #1 Psychiatry Orlando | Same-Week"
+        description="Best psychiatrist Orlando FL accepting new patients. Board-certified psychiatry Orlando specialists for anxiety, depression, ADHD, bipolar. Same-week appointments. 4.8★ rating. BCBS, Aetna, Cigna, Medicare. Call (386) 848-8751."
+        keywords={["psychiatrist orlando", "psychiatry orlando", "psychiatrist orlando fl", "psychiatry orlando fl", "orlando psychiatrist", "best psychiatrist orlando", "psychiatrist accepting new patients orlando", "top rated psychiatrist orlando", "anxiety psychiatrist orlando", "adhd psychiatrist orlando", "depression psychiatrist orlando", "bipolar psychiatrist orlando", "medication management orlando", "mental health orlando", "psychiatrist near me orlando"]}
         canonicalPath="/psychiatrist-orlando"
         jsonLd={jsonLd}
       />
@@ -147,12 +207,12 @@ export default function PsychiatristOrlando() {
                   <span className="font-medium">4.8 Rating from 120+ Patients</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" data-testid="text-hero-title">
-                  Psychiatrist Orlando, FL
+                  Psychiatrist Orlando FL
                 </h1>
                 
-                {/* SEO Intro Paragraph - Keyword in first sentence */}
+                {/* SEO Intro Paragraph - Keywords in first sentences */}
                 <p className="text-xl text-gray-200 max-w-xl" data-testid="text-hero-description">
-                  <strong>If you're searching for a psychiatrist in Orlando,</strong> our board-certified psychiatrists provide <strong>same-week appointments</strong> with in-person and telehealth options covered by most major insurance. We offer expert medication management for anxiety, depression, ADHD, and bipolar disorder—right here in Central Florida.
+                  <strong>Looking for a psychiatrist in Orlando?</strong> Empathy Health Clinic provides top-rated <strong>psychiatry Orlando</strong> services with <strong>same-week appointments</strong>. Our board-certified <strong>Orlando psychiatrists</strong> specialize in anxiety, depression, ADHD, and bipolar disorder treatment—offering both in-person and telehealth visits covered by most major insurance plans.
                 </p>
 
                 {/* Why Choose Us - Quick Trust Signals */}
@@ -219,6 +279,22 @@ export default function PsychiatristOrlando() {
           </div>
         </section>
 
+        {/* Medically Reviewed Badge */}
+        <section className="bg-white py-4 border-b">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-[#2E5E4E]" />
+                <span className="text-gray-700">
+                  <strong>Medically Reviewed by Dr. Marna Morrow, MD</strong>, Board-Certified Psychiatrist
+                </span>
+              </div>
+              <span className="text-gray-400">|</span>
+              <span className="text-gray-500">Last updated: January 2025</span>
+            </div>
+          </div>
+        </section>
+
         {/* Location Block - MANDATORY for local search */}
         <section className="bg-[#2E5E4E] text-white py-8">
           <div className="container mx-auto px-4">
@@ -259,6 +335,53 @@ export default function PsychiatristOrlando() {
               <p className="text-center text-white/80">
                 <strong>Serving:</strong> Orlando, Winter Park, Maitland, Altamonte Springs, Casselberry, Lake Mary, Longwood, Sanford, and surrounding areas
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Google Maps Embed - Local SEO Signal */}
+        <section className="bg-gray-100 py-8">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Directions to Our Orlando Psychiatry Office</h2>
+                <div className="space-y-4 text-gray-700">
+                  <div>
+                    <h3 className="font-semibold text-lg">From Downtown Orlando:</h3>
+                    <p>Take I-4 East to Exit 87 (Fairbanks Ave). Head east on Fairbanks Ave, then turn right onto Louisiana Ave. Our office is on the right at 1155 Louisiana Ave, Suite 202.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">From UCF / East Orlando:</h3>
+                    <p>Take SR-408 West toward Orlando. Exit onto I-4 West, then take Exit 87 (Fairbanks Ave). Turn right onto Fairbanks Ave, then left onto Louisiana Ave.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Parking:</h3>
+                    <p>Free parking available in the building lot. Handicap accessible entrance at main building door.</p>
+                  </div>
+                  <a 
+                    href="https://maps.google.com/?daddr=1155+Louisiana+Ave+Suite+202+Winter+Park+FL+32789" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[#E48F66] hover:underline font-semibold"
+                    data-testid="link-get-directions"
+                  >
+                    <MapPin className="h-5 w-5" />
+                    Get Directions on Google Maps
+                  </a>
+                </div>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-lg h-[300px] md:h-[350px]">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.8!2d-81.3392!3d28.5997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e76434f7e4f5f7%3A0x0!2s1155+Louisiana+Ave%2C+Winter+Park%2C+FL+32789!5e0!3m2!1sen!2sus!4v1704067200000"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Empathy Health Clinic Orlando Psychiatry Location"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -334,7 +457,7 @@ export default function PsychiatristOrlando() {
               {[
                 "Anxiety disorders",
                 "Depression & mood disorders",
-                "ADHD (adult & child)",
+                "ADHD (adults 18+)",
                 "Bipolar disorder",
                 "PTSD & trauma",
                 "OCD",
@@ -365,7 +488,7 @@ export default function PsychiatristOrlando() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-lg mb-2">ADHD Treatment Orlando</h3>
-                        <p className="text-gray-600 text-sm">Comprehensive ADHD evaluation and medication management for adults and children.</p>
+                        <p className="text-gray-600 text-sm">Comprehensive ADHD evaluation and medication management for adults 18 and older.</p>
                       </div>
                     </div>
                   </CardContent>
@@ -503,7 +626,7 @@ export default function PsychiatristOrlando() {
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">Orlando Areas We Serve</h2>
                   <div className="flex flex-wrap gap-2">
-                    {["Orlando", "Winter Park", "Maitland", "Altamonte Springs", "Casselberry", "Longwood", "Lake Mary", "Sanford", "Oviedo", "College Park", "Downtown Orlando", "Baldwin Park", "Dr. Phillips", "Windermere"].map((area) => (
+                    {["Orlando", "Winter Park", "Maitland", "Altamonte Springs", "Casselberry", "Longwood", "Lake Mary", "Sanford", "Oviedo", "College Park", "Downtown Orlando", "Baldwin Park", "Dr. Phillips", "Windermere", "UCF Area", "Hunters Creek", "Lake Nona", "MetroWest", "Conway", "Horizon West"].map((area) => (
                       <span key={area} className="px-3 py-1 bg-[#2E5E4E]/10 text-[#2E5E4E] rounded-full text-sm">
                         {area}
                       </span>
@@ -543,6 +666,36 @@ export default function PsychiatristOrlando() {
                       <AccordionTrigger className="text-left">What should I expect at my first psychiatrist appointment?</AccordionTrigger>
                       <AccordionContent className="text-gray-600">
                         Your first appointment is a comprehensive psychiatric evaluation lasting about 60 minutes. Your psychiatrist will review your history, discuss your symptoms, and work with you to develop a personalized treatment plan including any medication recommendations.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-6">
+                      <AccordionTrigger className="text-left">What is the difference between a psychiatrist and a psychologist in Orlando?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        A psychiatrist in Orlando is a medical doctor (MD) who can prescribe medication and provide comprehensive psychiatric care. A psychologist holds a doctoral degree in psychology and provides therapy and psychological testing but cannot prescribe medication in Florida. At Empathy Health Clinic, our psychiatrists work collaboratively with therapists to provide complete mental health care that addresses both medication management and therapeutic needs.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-7">
+                      <AccordionTrigger className="text-left">How much does a psychiatrist cost in Orlando without insurance?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        Without insurance, an initial psychiatric evaluation in Orlando typically costs $250-$400, and follow-up medication management appointments range from $150-$250. At Empathy Health Clinic, we accept most major insurance plans including BCBS, Aetna, Cigna, UnitedHealthcare, and Medicare, making psychiatric care more affordable with typical copays of $20-50 per session. We verify your benefits before your appointment so you know exactly what to expect.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-8">
+                      <AccordionTrigger className="text-left">What conditions do Orlando psychiatrists treat?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        Orlando psychiatrists at Empathy Health Clinic treat a wide range of mental health conditions including depression, anxiety disorders (generalized anxiety, social anxiety, panic disorder), ADHD in adults, bipolar disorder, PTSD and trauma-related conditions, OCD, insomnia, and other mood disorders. We provide comprehensive psychiatric evaluations and personalized medication management tailored to each patient's unique needs.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-9">
+                      <AccordionTrigger className="text-left">Can I get same-day psychiatrist appointments in Orlando?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        While same-day appointments may be available in urgent situations, most new patients at Empathy Health Clinic can be seen within 3-5 business days. We prioritize getting you care quickly and offer same-week appointments for new patients. For urgent mental health needs, please call (386) 848-8751 to check current availability or discuss your situation with our care team.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-10">
+                      <AccordionTrigger className="text-left">Do Orlando psychiatrists prescribe medication for anxiety?</AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        Yes, Orlando psychiatrists at Empathy Health Clinic regularly prescribe medication for anxiety disorders including generalized anxiety disorder, panic disorder, social anxiety, and phobias. Our board-certified psychiatrists conduct thorough evaluations to determine the most appropriate treatment approach, which may include SSRIs (like Lexapro or Zoloft), SNRIs (like Effexor), buspirone, or other anxiety medications. We often recommend combining medication with therapy for the best outcomes.
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>

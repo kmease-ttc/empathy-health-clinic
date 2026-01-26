@@ -50,7 +50,6 @@ import DepressionPsychiatristOrlando from "@/pages/DepressionPsychiatristOrlando
 import PTSDPsychiatristOrlando from "@/pages/PTSDPsychiatristOrlando";
 import UrgentPsychiatricCareOrlando from "@/pages/UrgentPsychiatricCareOrlando";
 import PsychiatristOrlandoAcceptsUMR from "@/pages/PsychiatristOrlandoAcceptsUMR";
-import ChildPsychiatristOrlando from "@/pages/ChildPsychiatristOrlando";
 import MedicationManagementOrlando from "@/pages/MedicationManagementOrlando";
 import TelepsychiatryOrlando from "@/pages/TelepsychiatryOrlando";
 import SameDayPsychiatristOrlando from "@/pages/SameDayPsychiatristOrlando";
@@ -129,7 +128,6 @@ const routeComponents: Record<string, () => JSX.Element> = {
   "/ptsd-psychiatrist-orlando": () => <PTSDPsychiatristOrlando />,
   "/urgent-psychiatric-care-orlando": () => <UrgentPsychiatricCareOrlando />,
   "/psychiatrist-orlando-accepts-umr": () => <PsychiatristOrlandoAcceptsUMR />,
-  "/child-psychiatrist-orlando": () => <ChildPsychiatristOrlando />,
   "/medication-management-orlando": () => <MedicationManagementOrlando />,
   "/telepsychiatry-orlando": () => <TelepsychiatryOrlando />,
   "/same-day-psychiatrist-orlando": () => <SameDayPsychiatristOrlando />,

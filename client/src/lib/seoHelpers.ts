@@ -108,7 +108,6 @@ export const ORLANDO_H1_MAP: Record<string, string> = {
   '/adhd-psychiatrist-orlando': 'ADHD Psychiatrist Orlando',
   '/anxiety-psychiatrist-orlando': 'Anxiety Psychiatrist Orlando',
   '/bipolar-psychiatrist-orlando': 'Bipolar Psychiatrist Orlando',
-  '/child-psychiatrist-orlando': 'Child Psychiatrist Orlando',
   '/medication-management-orlando': 'Medication Management Orlando',
   '/telepsychiatry-orlando': 'Telepsychiatry Orlando',
   '/same-day-psychiatrist-orlando': 'Same-Day Psychiatrist Orlando',
@@ -381,13 +380,6 @@ export const ORLANDO_H2_MAP: Record<string, { main: string; conditions: string; 
     services: 'Mood Stabilization and Medication Management',
     whyUs: 'Why Choose Our Orlando Bipolar Specialists',
     process: 'Bipolar Disorder Evaluation Process',
-  },
-  '/child-psychiatrist-orlando': {
-    main: 'Child and Adolescent Psychiatry in Orlando',
-    conditions: 'Pediatric Mental Health Conditions We Treat',
-    services: 'Child Psychiatric Evaluation and Treatment',
-    whyUs: 'Why Families Choose Our Orlando Child Psychiatrists',
-    process: 'Your Child\'s First Psychiatric Appointment',
   },
   '/medication-management-orlando': {
     main: 'Psychiatric Medication Management in Orlando',
