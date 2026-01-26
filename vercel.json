@@ -1,13 +1,11 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
-  "redirects": [
-    { "source": "/cigna-cigna-coverage", "destination": "/psychiatrist-orlando-accepts-cigna", "permanent": true },
-    { "source": "/aetna-aetna-coverage", "destination": "/psychiatrist-orlando-accepts-aetna", "permanent": true },
-    { "source": "/medicare-medicare-coverage", "destination": "/medicare-psychiatrist-orlando", "permanent": true },
-    { "source": "/blue-cross-blue-shield-blue-cross-blue-shield-coverage", "destination": "/blue-cross-blue-shield-therapy-orlando", "permanent": true }
-  ],
   "routes": [
+    { "src": "/cigna-cigna-coverage", "status": 308, "headers": { "Location": "/psychiatrist-orlando-accepts-cigna" } },
+    { "src": "/aetna-aetna-coverage", "status": 308, "headers": { "Location": "/psychiatrist-orlando-accepts-aetna" } },
+    { "src": "/medicare-medicare-coverage", "status": 308, "headers": { "Location": "/medicare-psychiatrist-orlando" } },
+    { "src": "/blue-cross-blue-shield-blue-cross-blue-shield-coverage", "status": 308, "headers": { "Location": "/blue-cross-blue-shield-therapy-orlando" } },
     { "handle": "filesystem" },
     { "src": "/api/(.*)", "dest": "/api/index" },
     { "src": "/(.*)", "dest": "/index.html" }
