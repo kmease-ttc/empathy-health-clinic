@@ -157,10 +157,10 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
-                Our Services
+                Psychiatry & Mental Health Services in Orlando
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Comprehensive psychiatric care for adults and adolescents
+                Board-certified psychiatrists and licensed therapists providing comprehensive care for anxiety, depression, ADHD, and more
               </p>
             </div>
 
@@ -252,6 +252,142 @@ export default function Home() {
         <Suspense fallback={<div className="min-h-[300px] py-16 bg-card" />}>
           <ConditionsSection />
         </Suspense>
+
+        {/* E2) SPECIALIZED TREATMENT AREAS - SEO Keyword Clusters */}
+        <section className="py-12 md:py-16 bg-background">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-foreground mb-4">
+                Specialized Mental Health Treatment in Orlando
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Expert care for the conditions that affect you most. Our board-certified psychiatrists and licensed therapists offer evidence-based treatment tailored to your needs.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Anxiety Treatment Orlando */}
+              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Heart className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Anxiety Treatment Orlando
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Comprehensive care for generalized anxiety, panic disorder, social anxiety, and phobias. Our psychiatrists provide medication management while coordinating with therapists for CBT and other evidence-based approaches.
+                </p>
+                <ul className="space-y-2 mb-4 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    Panic disorder & GAD treatment
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    Social anxiety therapy
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    Same-week appointments
+                  </li>
+                </ul>
+                <Link href="/anxiety-treatment">
+                  <Button variant="outline" className="w-full">
+                    Learn About Anxiety Treatment
+                  </Button>
+                </Link>
+              </div>
+
+              {/* ADHD Psychiatrist Orlando */}
+              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Activity className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  ADHD Psychiatrist Orlando
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Expert ADHD evaluation and treatment for adults and adolescents. Our psychiatrists specialize in accurate diagnosis, medication management, and comprehensive ADHD care that helps you regain focus.
+                </p>
+                <ul className="space-y-2 mb-4 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    Adult ADHD evaluation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    Medication management
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    In-person & telehealth options
+                  </li>
+                </ul>
+                <Link href="/adhd-psychiatrist-orlando">
+                  <Button variant="outline" className="w-full">
+                    Learn About ADHD Treatment
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Telepsychiatry Florida */}
+              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Brain className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Telepsychiatry Florida
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Access board-certified psychiatrists from anywhere in Florida through secure video appointments. Same quality care as in-person visits, with the convenience of staying home.
+                </p>
+                <ul className="space-y-2 mb-4 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    HIPAA-compliant video visits
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    Statewide Florida coverage
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">•</span>
+                    Evening appointments available
+                  </li>
+                </ul>
+                <Link href="/online-psychiatrist-florida">
+                  <Button variant="outline" className="w-full">
+                    Learn About Telepsychiatry
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Additional High-Value Keywords Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+              <Link href="/depression-treatment" className="group">
+                <div className="p-4 bg-muted/50 rounded-xl hover:bg-muted transition-colors text-center">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition-colors">Depression Treatment Orlando</p>
+                </div>
+              </Link>
+              <Link href="/ptsd-psychiatrist-orlando" className="group">
+                <div className="p-4 bg-muted/50 rounded-xl hover:bg-muted transition-colors text-center">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition-colors">PTSD Treatment Orlando</p>
+                </div>
+              </Link>
+              <Link href="/bipolar-psychiatrist-orlando" className="group">
+                <div className="p-4 bg-muted/50 rounded-xl hover:bg-muted transition-colors text-center">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition-colors">Bipolar Disorder Treatment</p>
+                </div>
+              </Link>
+              <Link href="/ocd-psychiatrist-orlando" className="group">
+                <div className="p-4 bg-muted/50 rounded-xl hover:bg-muted transition-colors text-center">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition-colors">OCD Treatment Orlando</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
 
         {/* F) PROVIDER/CLINIC CREDIBILITY */}
         <AboutSection />
