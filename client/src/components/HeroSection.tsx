@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { apiRequest } from "@/lib/queryClient";
+
 import { useToast } from "@/hooks/use-toast";
 import type { InsuranceProvider } from "@shared/schema";
 
@@ -35,6 +35,7 @@ export default function HeroSection() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
+  const [hpWebsite, setHpWebsite] = useState(""); // Honeypot field
   const { toast } = useToast();
   const [, setLocation] = useLocation();
 
@@ -48,16 +49,25 @@ export default function HeroSection() {
       const firstName = nameParts[0] || "";
       const lastName = nameParts.slice(1).join(" ") || "";
 
-      return apiRequest("POST", "/api/leads", {
-        firstName,
-        lastName,
-        email: email.trim(),
-        phone: phone.trim(),
-        service: service || "General Inquiry",
-        formType: "hero",
-        source: window.location.pathname,
-        smsOptIn: "false",
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email: email.trim(),
+          phone: phone.trim(),
+          service: service || "General Inquiry",
+          formType: "hero",
+          source: window.location.pathname,
+          smsOptIn: "false",
+          hp_website: hpWebsite,
+        }),
       });
+      if (!response.ok) {
+        throw new Error("Failed to submit lead");
+      }
+      return response.json();
     },
     onSuccess: () => {
       setLocation('/thank-you');
@@ -169,6 +179,19 @@ export default function HeroSection() {
                 </h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-3" data-testid="form-hero-lead-mobile">
+                  {/* Honeypot field - hidden from users, catches bots */}
+                  <div className="hp-field" aria-hidden="true">
+                    <label htmlFor="hp_website_hero_mobile">Website</label>
+                    <input
+                      type="text"
+                      id="hp_website_hero_mobile"
+                      name="hp_website"
+                      value={hpWebsite}
+                      onChange={(e) => setHpWebsite(e.target.value)}
+                      autoComplete="off"
+                      tabIndex={-1}
+                    />
+                  </div>
                   <div>
                     <label htmlFor="hero-name-mobile" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                     <Input
@@ -258,6 +281,19 @@ export default function HeroSection() {
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-4" data-testid="form-hero-lead">
+                {/* Honeypot field - hidden from users, catches bots */}
+                <div className="hp-field" aria-hidden="true">
+                  <label htmlFor="hp_website_hero">Website</label>
+                  <input
+                    type="text"
+                    id="hp_website_hero"
+                    name="hp_website"
+                    value={hpWebsite}
+                    onChange={(e) => setHpWebsite(e.target.value)}
+                    autoComplete="off"
+                    tabIndex={-1}
+                  />
+                </div>
                 <div>
                   <label htmlFor="hero-name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                   <Input
