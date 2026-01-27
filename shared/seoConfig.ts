@@ -64,7 +64,7 @@ export const SELF_CANONICAL_EXACT_PATHS = [
   '/ocd-treatment', '/ptsd-treatment', '/emdr-therapy', '/tms-treatment',
   '/trauma-specialist', '/stress-management', '/couples-counseling',
   '/virtual-therapy', '/teletherapy', '/adhd-treatment', '/bipolar-disorder-treatment',
-  '/depression-treatment', '/cognitive-behavioral-therapy', '/in-person-therapy',
+  '/depression-treatment', '/cognitive-behavioral-therapy', '/dbt-therapy-orlando', '/in-person-therapy',
   '/intimacy-therapy', '/lgbtq-therapy', '/therapy-services-orlando',
   // Near-me pages
   '/counselor-near-me', '/therapist-near-me', '/mental-health-near-me',

@@ -6258,3 +6258,203 @@ export const psychologyOrlandoConfig: LandingPageConfig = {
     conversionCategory: "psychology_orlando",
   },
 };
+
+// DBT Therapy Orlando - Dialectical Behavior Therapy
+export const dbtTherapyOrlandoConfig: LandingPageConfig = {
+  seo: {
+    title: "DBT Therapy Orlando FL | Dialectical Behavior Therapy",
+    description: "Expert DBT therapy in Orlando, FL. Dialectical Behavior Therapy for borderline personality disorder, emotion regulation, self-harm, and crisis management. Same-week appointments. Call 386-848-8751.",
+    keywords: ["dbt therapy orlando", "dialectical behavior therapy orlando", "dbt therapy near me", "dbt therapist orlando", "dbt for borderline personality disorder", "dbt skills training orlando", "dbt therapy florida", "dialectical behavioral therapy orlando fl"],
+    canonicalPath: "/dbt-therapy-orlando",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": ["MedicalBusiness", "LocalBusiness", "Psychologist"],
+    "name": "DBT Therapy Orlando FL - Empathy Health Clinic",
+    "description": "Evidence-based dialectical behavior therapy (DBT) in Orlando for emotion regulation, borderline personality disorder, self-harm, and crisis management.",
+    "url": "https://empathyhealthclinic.com/dbt-therapy-orlando",
+    "telephone": "+1-386-848-8751",
+    "email": "providers@empathyhealthclinic.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1155 Louisiana Ave Suite 202",
+      "addressLocality": "Winter Park",
+      "addressRegion": "FL",
+      "postalCode": "32789",
+      "addressCountry": "US"
+    },
+    "medicalSpecialty": "Psychology"
+  },
+  hero: {
+    title: "Dialectical Behavior Therapy (DBT) in Orlando, FL",
+    subtitle: "Evidence-based DBT therapy for emotion regulation, borderline personality disorder, self-harm, and crisis management. Licensed therapists trained in DBT skills. Same-week appointments with flexible in-person and telehealth options. Most insurance accepted.",
+    ctaPrimary: "Schedule DBT Consultation",
+    ctaSecondary: "Call 386-848-8751",
+    heroImage: heroImage,
+  },
+  proofBar: {
+    googleRating: 4.8,
+    showVerifiedBadge: true,
+    highlights: ["DBT-Trained Therapists", "Same-Week Appointments Available"],
+  },
+  location: {
+    title: "Orlando DBT Therapy Location",
+    address: "1155 Louisiana Ave Suite 202",
+    city: "Winter Park",
+    state: "FL",
+    zip: "32789",
+    phone: "3868488751",
+    phoneDisplay: "386-848-8751",
+    hours: "Mon-Sat: 9:00 AM - 6:00 PM\nTelehealth & in-person DBT available",
+    mapUrl: "https://maps.google.com/?q=1155+Louisiana+Ave+Suite+202+Winter+Park+FL+32789",
+  },
+  content: {
+    mainHeading: "What is Dialectical Behavior Therapy (DBT)?",
+    introduction: [
+      "Dialectical Behavior Therapy (DBT) is a specialized form of cognitive-behavioral therapy originally developed by Dr. Marsha Linehan for treating borderline personality disorder. Today, DBT is recognized as one of the most effective treatments for emotion regulation difficulties, self-harm, suicidal ideation, and other conditions involving intense emotional experiences.",
+      "At Empathy Health Clinic in Orlando, our DBT-trained therapists help you develop skills to manage overwhelming emotions, improve relationships, tolerate distress without destructive behaviors, and create a life worth living. DBT combines the change-focused strategies of CBT with acceptance-based mindfulness practices, creating a balanced approach to healing.",
+      "Whether you're struggling with intense mood swings, impulsive behaviors, chronic feelings of emptiness, or relationship difficulties, DBT therapy provides concrete skills you can use immediately. We offer both individual DBT therapy and skills groups in our Orlando office, as well as telehealth options throughout Florida."
+    ],
+    conditionsHeading: "Conditions Treated with DBT Therapy",
+    conditions: [
+      { name: "Borderline Personality Disorder", description: "Primary evidence-based treatment" },
+      { name: "Emotion Dysregulation" },
+      { name: "Self-Harm & Suicidal Ideation" },
+      { name: "Chronic Depression", description: "Treatment-resistant depression" },
+      { name: "Eating Disorders", description: "Binge eating, bulimia" },
+      { name: "Substance Use Disorders" },
+      { name: "PTSD & Complex Trauma" },
+      { name: "Bipolar Disorder" },
+      { name: "Anxiety with Avoidance" },
+      { name: "Intense Relationship Difficulties" },
+    ],
+    servicesHeading: "The Four DBT Skill Modules",
+    services: [
+      {
+        icon: Brain,
+        title: "Mindfulness",
+        description: "Learn to be fully present in the moment, observe your thoughts and emotions without judgment, and develop awareness of your inner experience. Mindfulness is the foundation of all DBT skills."
+      },
+      {
+        icon: Shield,
+        title: "Distress Tolerance",
+        description: "Develop skills to survive crisis situations without making them worse. Learn techniques like TIPP, radical acceptance, and self-soothing to tolerate painful emotions without resorting to harmful behaviors."
+      },
+      {
+        icon: Heart,
+        title: "Emotion Regulation",
+        description: "Understand and name your emotions, reduce emotional vulnerability, and learn to change unwanted emotions. Build a life with more positive emotional experiences and resilience."
+      },
+      {
+        icon: Users,
+        title: "Interpersonal Effectiveness",
+        description: "Improve relationships by learning to ask for what you need, say no effectively, and maintain self-respect. Navigate interpersonal conflict while keeping relationships and achieving your goals."
+      },
+      {
+        icon: MessageCircle,
+        title: "Individual DBT Therapy",
+        description: "One-on-one sessions with a DBT-trained therapist to apply skills to your specific challenges, work through difficult situations, and create a life worth living with personalized treatment planning."
+      },
+      {
+        icon: Video,
+        title: "Telehealth DBT Sessions",
+        description: "Access DBT therapy from anywhere in Florida through our secure telehealth platform. Research shows DBT skills can be effectively taught and practiced via video sessions with the same outcomes as in-person treatment."
+      },
+    ],
+    whyChooseHeading: "Why Choose Our Orlando DBT Therapists?",
+    whyChoosePoints: [
+      {
+        icon: Award,
+        title: "DBT-Trained Therapists",
+        description: "Our therapists have completed specialized training in Dialectical Behavior Therapy from recognized DBT training programs. They have extensive experience treating borderline personality disorder, emotion dysregulation, and self-harm behaviors."
+      },
+      {
+        icon: Calendar,
+        title: "Same-Week Appointments Available",
+        description: "We understand that when you're struggling with intense emotions or in crisis, you need help now. We typically offer same-week appointments for new DBT therapy clients in Orlando."
+      },
+      {
+        icon: CheckCircle,
+        title: "Comprehensive DBT Treatment",
+        description: "We offer the full DBT treatment package including individual therapy, skills training, and between-session coaching. Our comprehensive approach gives you the best chance for lasting change."
+      },
+      {
+        icon: DollarSign,
+        title: "Insurance Accepted",
+        description: "We accept most major insurance plans including Blue Cross Blue Shield, UMR, Aetna, Cigna, United Healthcare, Medicare, and many others. Our team will verify your DBT therapy benefits before your first session."
+      },
+      {
+        icon: Video,
+        title: "Telehealth DBT Available",
+        description: "Access high-quality DBT therapy from the comfort of your home. Our secure telehealth platform allows you to learn DBT skills and work with your therapist from anywhere in Florida."
+      },
+      {
+        icon: Heart,
+        title: "Compassionate, Non-Judgmental Care",
+        description: "DBT is built on the principle of radical acceptance. Our therapists create a validating environment where you feel understood and supported while working toward meaningful change."
+      },
+    ],
+  },
+  faqs: [
+    {
+      question: "What is DBT and how is it different from regular therapy?",
+      answer: "Dialectical Behavior Therapy (DBT) is a specialized form of cognitive-behavioral therapy that combines change strategies with acceptance and mindfulness practices. Unlike traditional talk therapy, DBT teaches specific skills organized into four modules: mindfulness, distress tolerance, emotion regulation, and interpersonal effectiveness. DBT was originally developed for borderline personality disorder but is now used for many conditions involving emotion dysregulation. The 'dialectical' in DBT refers to balancing acceptance (you're doing the best you can) with change (you need to do better and try harder). This balance helps people feel validated while still working toward meaningful improvement."
+    },
+    {
+      question: "Who can benefit from DBT therapy?",
+      answer: "DBT is most effective for people struggling with intense emotions, impulsive or self-destructive behaviors, chronic suicidal thoughts, borderline personality disorder, eating disorders, substance use, and relationship difficulties. It's also helpful for treatment-resistant depression, complex PTSD, and bipolar disorder. If you experience frequent emotional crises, feel like your emotions are 'out of control,' or struggle with behaviors you know are harmful but can't seem to stop, DBT may be right for you. DBT is especially effective when other therapies haven't worked because it specifically targets emotion dysregulation and provides concrete skills for managing intense feelings."
+    },
+    {
+      question: "How long does DBT treatment take?",
+      answer: "Comprehensive DBT treatment typically lasts 6-12 months, though this varies based on individual needs and progress. The standard DBT program includes weekly individual therapy sessions, weekly skills group (2-2.5 hours), and between-session phone coaching for crisis situations. During this time, you'll work through all four DBT skill modules multiple times to truly master them. Some clients continue with maintenance therapy after completing the initial program, while others have the skills they need to manage independently. Unlike some therapies that continue indefinitely, DBT has a structured progression with clear goals and eventual graduation from treatment."
+    },
+    {
+      question: "Is DBT therapy covered by insurance?",
+      answer: "Yes, most health insurance plans cover DBT therapy as part of their mental health benefits. We accept most major insurance including Blue Cross Blue Shield, UMR, Aetna, Cigna, United Healthcare, Medicare, Humana, and many others. Individual DBT therapy is typically billed as outpatient psychotherapy, while DBT skills groups may be billed as group therapy. Our team will verify your specific DBT therapy benefits and explain your coverage before your first appointment. Contact us at 386-848-8751 to verify your insurance."
+    },
+    {
+      question: "What happens in DBT skills group?",
+      answer: "DBT skills group is a structured class where you learn the four modules of DBT skills: mindfulness, distress tolerance, emotion regulation, and interpersonal effectiveness. Groups typically meet weekly for 2-2.5 hours and are led by a trained DBT therapist. Unlike process groups or support groups, DBT skills groups are psychoeducational - you're learning and practicing specific skills, not sharing personal stories or processing emotions. You'll receive handouts, practice skills in session, and get homework to apply skills between sessions. Groups help you learn from others' experiences and practice interpersonal skills in a supportive environment. Most DBT programs cycle through all four modules over 6 months."
+    },
+    {
+      question: "Can DBT be done via telehealth?",
+      answer: "Yes, DBT is highly effective when delivered via telehealth. Research shows that online DBT therapy produces similar outcomes to in-person DBT for conditions like borderline personality disorder, emotion dysregulation, and eating disorders. Telehealth DBT offers the same evidence-based skills training and therapeutic relationship as office visits, with added convenience. You can attend both individual therapy and skills groups via our secure video platform. Many clients prefer telehealth for its flexibility, and it can reduce barriers like transportation or social anxiety. Most insurance covers telehealth DBT at the same rate as in-person sessions."
+    },
+    {
+      question: "What are DBT distress tolerance skills?",
+      answer: "Distress tolerance skills help you survive crisis moments without making things worse through impulsive or destructive behaviors. Key skills include TIPP (Temperature, Intense exercise, Paced breathing, Progressive relaxation) for quickly reducing extreme emotional arousal; ACCEPTS for distracting from crisis situations; self-soothing using your five senses; improving the moment through techniques like imagery and meaning; and radical acceptance of reality as it is. These skills are for situations when you can't change what's happening and need to tolerate distress until the crisis passes. They're different from coping skills for everyday stress - distress tolerance is for true crises where strong emotions might lead to harmful behaviors."
+    },
+    {
+      question: "Is DBT only for borderline personality disorder?",
+      answer: "No, while DBT was originally developed for borderline personality disorder (BPD) and remains the gold-standard treatment for BPD, it's now used effectively for many other conditions. DBT has strong research support for treating eating disorders (especially binge eating and bulimia), substance use disorders, treatment-resistant depression, complex PTSD, and self-harm/suicidal behavior regardless of diagnosis. The common thread is emotion dysregulation - if you struggle with intense emotions, impulsive behaviors, or chronic feelings of emptiness, DBT skills can help even if you don't have BPD. Our Orlando DBT therapists can assess whether DBT is the right treatment approach for your specific challenges."
+    },
+    {
+      question: "How is DBT different from CBT?",
+      answer: "DBT is a specific type of cognitive-behavioral therapy with some key differences. While CBT focuses primarily on changing thoughts and behaviors, DBT balances change strategies with acceptance and validation. DBT includes mindfulness practices drawn from Zen Buddhism that aren't typically part of standard CBT. DBT teaches specific skills organized into four modules (mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness), whereas CBT varies more by therapist and condition. DBT also includes phone coaching between sessions for crisis support, which is unique to DBT. Most importantly, DBT was specifically designed for people with chronic suicidal thoughts and self-harm behaviors, making it safer and more effective for this population than standard CBT."
+    },
+    {
+      question: "What is radical acceptance in DBT?",
+      answer: "Radical acceptance is a core DBT distress tolerance skill involving complete acceptance of reality as it is, without judgment or attempts to change what cannot be changed. It doesn't mean approval or giving up - it means acknowledging 'this is what is' without fighting against reality. Fighting reality (non-acceptance) adds suffering to pain. For example, if you experience a painful loss, the pain is inevitable, but suffering comes from thoughts like 'this shouldn't have happened' or 'I can't stand this.' Radical acceptance reduces that additional suffering. It's one of the most challenging but transformative DBT skills. Our therapists help you understand and practice radical acceptance in the context of your specific life challenges."
+    },
+  ],
+  sidebar: {
+    formHeading: "Start DBT Therapy Today",
+    formSubheading: "Evidence-based dialectical behavior therapy to help you build a life worth living.",
+    formType: "contact",
+    quickLinks: [
+      { href: "/cognitive-behavioral-therapy", label: "CBT Therapy" },
+      { href: "/anxiety-therapy", label: "Anxiety Therapy" },
+      { href: "/depression-counseling", label: "Depression Treatment" },
+      { href: "/therapist-orlando", label: "Therapist Orlando" },
+      { href: "/therapy", label: "All Therapy Services" },
+      { href: "/virtual-therapy", label: "Online Therapy" },
+      { href: "/psychiatrist-orlando-accepts-bcbs", label: "BCBS Insurance" },
+      { href: "/psychiatrist-orlando-accepts-cigna", label: "Cigna Insurance" },
+      { href: "/psychiatrist-orlando-accepts-aetna", label: "Aetna Insurance" },
+    ],
+  },
+  analytics: {
+    pageName: "DBT Therapy Orlando Page",
+    conversionCategory: "dbt_therapy_orlando",
+  },
+};

@@ -73,6 +73,7 @@ const DepressionTreatment = lazy(() => import("@/pages/DepressionTreatment"));
 const AnxietyTherapy = lazy(() => import("@/pages/AnxietyTherapy"));
 const AnxietyTreatment = lazy(() => import("@/pages/AnxietyTreatment"));
 const CognitiveBehavioralTherapy = lazy(() => import("@/pages/CognitiveBehavioralTherapy"));
+const DBTTherapyOrlando = lazy(() => import("@/pages/DBTTherapyOrlando"));
 const CouplesCounseling = lazy(() => import("@/pages/CouplesCounseling"));
 const CounselorNearMe = lazy(() => import("@/pages/CounselorNearMe"));
 const MentalHealthNearMe = lazy(() => import("@/pages/MentalHealthNearMe"));
@@ -474,6 +475,11 @@ function Router() {
         <Route path="/cognitive-behavioral-therapy">
           <Suspense fallback={<LoadingFallback />}>
             <CognitiveBehavioralTherapy />
+          </Suspense>
+        </Route>
+        <Route path="/dbt-therapy-orlando">
+          <Suspense fallback={<LoadingFallback />}>
+            <DBTTherapyOrlando />
           </Suspense>
         </Route>
         <Route path="/couples-counseling">
